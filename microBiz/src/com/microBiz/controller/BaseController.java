@@ -9,6 +9,8 @@ import java.util.TimeZone;
 import org.slim3.controller.Controller;
 import org.apache.commons.lang.RandomStringUtils;
 
+import com.microBiz.MicroBizConst;
+
 
 
 public abstract class BaseController extends Controller{
@@ -55,8 +57,8 @@ public abstract class BaseController extends Controller{
         suppliers.add("");
         suppliers.add("polyfoam");
         suppliers.add("basf");
-        cxTypes.add("residential");
-        cxTypes.add("commerial");
+        cxTypes.add(MicroBizConst.CUSTOMER_TYPE_RESIDENTIAL);
+        cxTypes.add(MicroBizConst.CUSTOMER_TYPE_COMMERCIAL);
         txRates.add("0.13");
         txRates.add("0");
         txRates.add("0.065");
