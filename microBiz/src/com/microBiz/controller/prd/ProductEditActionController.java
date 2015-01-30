@@ -15,11 +15,11 @@ import com.microBiz.service.ProductService;
 
 
 
-public class ProductActionController extends BaseController{
+public class ProductEditActionController extends BaseController{
 
     private ProductService s;
     private ProductMeta metaP;
-    public ProductActionController(){
+    public ProductEditActionController(){
         super();
         s = new ProductService();
         metaP = new ProductMeta();
@@ -44,7 +44,7 @@ public class ProductActionController extends BaseController{
         s.save(p);
         List<Product> prds = s.getAll();
         requestScope("prds", prds);
-        return forward("product-wrapper.jsp");
+        return forward("product-list.jsp");
 
        
     }
