@@ -16,7 +16,7 @@ import com.microBiz.model.Customer;
 public class ContactService {
     private ContactMeta p = new ContactMeta();
  
-    
+    //test for git check in
     public List<Contact> getAll() {
         return Datastore.query(p).asList();
     }
