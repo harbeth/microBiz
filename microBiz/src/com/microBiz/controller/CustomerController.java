@@ -7,10 +7,6 @@ import org.slim3.controller.Navigation;
 import com.microBiz.model.Customer;
 import com.microBiz.service.CustomerService;
 
-
-
-
-
 public class CustomerController extends BaseController{
 
     private CustomerService customerService;
