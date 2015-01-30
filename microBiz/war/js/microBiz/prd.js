@@ -28,7 +28,6 @@ var productFn = {
 
 var productEditFn = {
 		init: function() {
-	
 			this.onCloseClick();
 			// submit button event
 			this.onSumitRegister();
@@ -38,7 +37,7 @@ var productEditFn = {
 			var options = { 
 		        target: "#"+microBizConst.bodyContentId
 		        , beforeSubmit: function() {
-		        	return microBizFn.validateForm();
+		        	return productEditFn.validateForm();
 		        }
 		        , success: function(responseText, statusText, xhr, $form){
 		        	
@@ -58,6 +57,28 @@ var productEditFn = {
 			$("a[link=productEditClose]").click(function(){
 				window.location.href = "/prd/product";
 			});
-	}
+		}
+		, validateForm: function() {
+			var isOK = microBizFn.validateForm();
+			if ( isOK ) {
+				// check
+				isOK = productEditFn.checkProductInput();
+			}
+			return isOK;
+		}
+		, checkProductInput: function() {
+			// not -1
+			var isOK = true;
+			$("input[rowIndex!=-1][prdInput=true]").each(function() {
+				if ( isOK ) {
+					// should trim later
+					isOK = $(this).val() != "";
+				}
+			});
+			if ( !isOK ) {
+				alert("cannot be empty");
+			}
+			return isOK;
+		}
 }
 
