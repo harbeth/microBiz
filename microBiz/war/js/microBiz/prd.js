@@ -37,6 +37,8 @@ var productEditFn = {
 			var options = { 
 		        target: "#"+microBizConst.bodyContentId
 		        , beforeSubmit: function() {
+
+		        	productEditFn.removeEmptyTr();
 		        	return productEditFn.validateForm();
 		        }
 		        , success: function(responseText, statusText, xhr, $form){
@@ -45,7 +47,6 @@ var productEditFn = {
 		    }; 
 		    // bind to the form's submit event 
 		    $("form[name=productEditForm]").submit(function() { 
-		    	alert("going to ajax save");
 		    	$(this).ajaxSubmit(options); 
 		        // !!! Important !!! 
 		        // always return false to prevent standard browser submit and page navigation 
@@ -80,5 +81,62 @@ var productEditFn = {
 			}
 			return isOK;
 		}
+    	, removeEmptyTr: function() {
+    		// before submit the form, delete empty tr
+
+    		$("table[name=prdRatioTbl] tbody tr[rowIndex=-1]").remove();
+    	}
 }
+
+var inventoryFn = {
+		init: function() {
+			// register event for edit prd link
+			this.onInventoryAddClick();
+			this.onInventoryDetailsClick();
+			this.onSumitRegister();
+		}
+		, onInventoryAddClick: function() {
+			// prd number link to sh invoice details on AJAX call in the body panel
+			$("a[link=inventoryAdd]").click(function(){
+				var productKey = $(this).attr("productKey");
+				// also need invoice key to get details
+				$("#"+microBizConst.bodyContentId).load("/prd/inventoryAdd?productKey=" + productKey, function() {
+					inventoryFn.init(); 
+				});
+			});
+		}
+		, onInventoryDetailsClick: function() {
+			// new invoice button in the invoice list page
+			$("a[link=inventoryDetails]").click(function(){
+				// after get invoice key, get details page
+				$("#"+microBizConst.bodyContentId).load("/prd/inventoryDetails?productKey=" + productKey, function() {
+					inventoryFn.init(); 
+				});
+			});
+		}
+		, onSumitRegister: function() {
+			// refresh body
+			var options = { 
+		        target: "#"+microBizConst.bodyContentId
+		        , beforeSubmit: function() {
+
+		        	return inventoryFn.validateForm();
+		        }
+		        , success: function(responseText, statusText, xhr, $form){
+		        	
+		        }
+		    }; 
+		    // bind to the form's submit event 
+		    $("form[name=inventoryAddForm]").submit(function() { 
+		    	$(this).ajaxSubmit(options); 
+		        // !!! Important !!! 
+		        // always return false to prevent standard browser submit and page navigation 
+		        return false; 
+		    }); 
+		}
+		, validateForm: function() {
+			return microBizFn.validateForm();
+
+		}
+	}
 

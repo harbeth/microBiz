@@ -186,9 +186,7 @@
 				<td><input class="form-control input-sm" rowIndex="${status.index}" prdInput="true" name="ratioDescs" value="${f:h(pr.desc)}" /></td>
 				<td><input class="form-control input-sm" rowIndex="${status.index}" prdInput="true" name="ratios" value="${f:h(pr.ratio)}" /></td>
 				<td class="text-center">
-					<button rowIndex="${status.index}" btnAction="remove" class="btn-remove btn btn-sm btn-danger">
-						<li class="fa fa-times fa-fw"></li>
-					</button>
+					<a link="removeRow" rowIndex="${status.index}" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Remove Row</a>
 				</td>
 			</tr>
 			</c:forEach>

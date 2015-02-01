@@ -9,7 +9,7 @@ import org.slim3.datastore.ModelRef;
 import com.google.appengine.api.datastore.Key;
 
 
-@Model(kind = "InventoryHistory")
+@Model(kind = "InventoryChange")
 public class InventoryChange implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -28,10 +28,15 @@ public class InventoryChange implements Serializable {
     
     private Date changeDate;
     
-    private String changeType;
+
     
+    //this is for user input notes
     @Attribute(unindexed = true)
     private String notes;
+    
+   // this is for system input 
+    @Attribute(unindexed = true)
+    private String reasons;
     
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
     
@@ -81,13 +86,6 @@ public class InventoryChange implements Serializable {
         this.changeDate = changeDate;
     }
 
-    public String getChangeType() {
-        return changeType;
-    }
-
-    public void setChangeType(String changeType) {
-        this.changeType = changeType;
-    }
 
     public String getNotes() {
         return notes;
@@ -95,6 +93,14 @@ public class InventoryChange implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(String reasons) {
+        this.reasons = reasons;
     }
 
 

@@ -15,13 +15,11 @@ import com.microBiz.service.ProductService;
 public class InventoryController extends BaseController{
 
 
-    private InventoryChangeService ics;
     private ProductService ps;
 
     public InventoryController(){
         super();
 
-        ics = new InventoryChangeService();
         ps = new ProductService();
 
 
@@ -29,14 +27,8 @@ public class InventoryController extends BaseController{
     @Override
     public Navigation run() throws Exception {
 
-    
-        InventoryChange ic = new InventoryChange();
-        BeanUtil.copy(ic, request);
         List<Product> rawPrds = ps.getReportingPrds();
         requestScope("prds", rawPrds);
-        requestScope("inventoryChangeTypes", inventoryChangeTypes);
-
-
         return forward("inventory-wrapper.jsp");
 
        

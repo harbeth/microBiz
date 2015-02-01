@@ -6,6 +6,7 @@ import org.slim3.util.BeanUtil;
 
 import com.microBiz.controller.BaseController;
 import com.microBiz.meta.ProductMeta;
+import com.microBiz.model.PrdRatio;
 import com.microBiz.model.Product;
 import com.microBiz.service.ProductService;
 
@@ -26,16 +27,22 @@ public class ProductEditController extends BaseController{
 
     
         Product p = null;
-        if(asKey("productKey") != null){// from edit link
-            p = s.get(asKey("productKey"));         
+        List<PrdRatio> prdRs = null;
+        if(asKey("productKey")  != null){// from edit link
+            p = s.get(asKey("productKey"));   
+            prdRs = p.getPrdRatioListRef().getModelList();
+            System.out.println("prdRs is" + prdRs.size());
         }else{
             p = new Product();
+
         }
         BeanUtil.copy(p, request);
         requestScope("prdTypes", prdTypes);
         requestScope("suppliers", suppliers);
         requestScope("units", units); 
-
+        if(prdRs!=null){
+            requestScope("prdRatios", prdRs);
+        }
         return forward("product-edit.jsp");
 
        

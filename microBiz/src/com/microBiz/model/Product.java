@@ -36,6 +36,7 @@ public class Product implements Serializable {
     @Attribute(unindexed = true)
     private Double sellingRate;
     
+
     @Attribute(unindexed = true)
     private Double currentQty;
     
@@ -47,7 +48,7 @@ public class Product implements Serializable {
 
     // many to one
     @Attribute(persistent = false)
-    private InverseModelListRef<PrdRatio, Product> prdRatioListRef = new InverseModelListRef<PrdRatio, Product>(PrdRatio.class, "prodcutRef", this);
+    private InverseModelListRef<PrdRatio, Product> prdRatioListRef = new InverseModelListRef<PrdRatio, Product>(PrdRatio.class, "productRef", this);
   
     public InverseModelListRef<PrdRatio, Product> getPrdRatioListRef() {
         return prdRatioListRef;

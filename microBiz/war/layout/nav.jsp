@@ -33,7 +33,7 @@
 						class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li><a href="/prd/product">Product</a></li>
-						<li><a href="/prd/addInventory">Add Inventory</a></li>
+						<li><a href="/prd/inventory">Inventory</a></li>
 					</ul> <!-- /.nav-second-level --></li>
 		
 				<li><a href="#"><i class="fa fa-wrench fa-fw"></i>Management<span
