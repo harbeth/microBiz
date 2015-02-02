@@ -181,6 +181,13 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr rowIndex="-1" style="display: none;">
+				<td><input class="form-control input-sm" rowIndex="-1" prdInput="true" name="ratioDescs" value="" /></td>
+				<td><input class="form-control input-sm" rowIndex="-1" prdInput="true" name="ratios" value="" /></td>
+				<td class="text-center">
+					<a link="removeRow" rowIndex="-1" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Remove Row</a>
+				</td>
+			</tr>
 			<c:forEach items="${prdRatios}" var="pr" varStatus="status">
 				<tr rowIndex="${status.index}">
 				<td><input class="form-control input-sm" rowIndex="${status.index}" prdInput="true" name="ratioDescs" value="${f:h(pr.desc)}" /></td>
@@ -190,13 +197,6 @@
 				</td>
 			</tr>
 			</c:forEach>
-			<tr rowIndex="-1" style="display: none;">
-				<td><input class="form-control input-sm" rowIndex="-1" prdInput="true" name="ratioDescs" value="" /></td>
-				<td><input class="form-control input-sm" rowIndex="-1" prdInput="true" name="ratios" value="" /></td>
-				<td class="text-center">
-					<a link="removeRow" rowIndex="-1" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Remove Row</a>
-				</td>
-			</tr>
 		</tbody>
 		</table>
 		</div>

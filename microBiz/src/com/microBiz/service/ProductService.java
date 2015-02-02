@@ -70,7 +70,7 @@ public class ProductService {
         }
 
         Datastore.put(tx, prdRs);
-        
+        tx.commit();
     }
 
     public void save(Product p, InventoryChange ic) {
