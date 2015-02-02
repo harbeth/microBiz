@@ -96,10 +96,9 @@ var inventoryFn = {
 			this.onSumitRegister();
 		}
 		, onInventoryAddClick: function() {
-			// prd number link to sh invoice details on AJAX call in the body panel
 			$("a[link=inventoryAdd]").click(function(){
 				var productKey = $(this).attr("productKey");
-				// also need invoice key to get details
+
 				$("#"+microBizConst.bodyContentId).load("/prd/inventoryAdd?productKey=" + productKey, function() {
 					inventoryFn.init(); 
 				});
@@ -108,7 +107,7 @@ var inventoryFn = {
 		, onInventoryDetailsClick: function() {
 			// new invoice button in the invoice list page
 			$("a[link=inventoryDetails]").click(function(){
-				// after get invoice key, get details page
+				var productKey = $(this).attr("productKey");
 				$("#"+microBizConst.bodyContentId).load("/prd/inventoryDetails?productKey=" + productKey, function() {
 					inventoryFn.init(); 
 				});

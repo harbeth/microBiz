@@ -8,6 +8,7 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.microBiz.meta.InventoryChangeMeta;
 import com.microBiz.meta.PrdRatioMeta;
 import com.microBiz.meta.ProductMeta;
 import com.microBiz.model.InventoryChange;
@@ -81,6 +82,12 @@ public class ProductService {
         Datastore.put(tx, ic);
         tx.commit();
         
+    }
+    
+    public List<InventoryChange> getAllInventoryDetailsByProduct(Key ancestorKey) {
+        InventoryChangeMeta icMeta = new InventoryChangeMeta();
+        return Datastore.query(icMeta,ancestorKey)
+                .sort(icMeta.changeDate.desc).asList();
     }
 
 }
