@@ -12,15 +12,16 @@
 		</div>
 	</div>
 </div>
- 
+
 <ul class="nav nav-tabs">
 	<li class="active">
-		<a link="quoteDetailVersion" data-toggle="tab" aria-expanded="false">Versions</a>
+		<a link="quoteDetailVersion" data-toggle="tab" aria-expanded="false">Version</a>
 	</li>
     <li class="">
-    	<a link="quoteDetailInfo"  data-toggle="tab" aria-expanded="false">Edit</a>
+    	<a link="quoteDetailInfo" data-toggle="tab" aria-expanded="false">Edit</a>
     </li>
 </ul>
+
 <!-- Page content : by default job div shown -->
 <div id="quoteDetailVersionDIV" type="tab" quoteKey="${f:h(quote.key)}" class="row">
 	<jsp:include page="./quote-versions.jsp" flush="true"></jsp:include>

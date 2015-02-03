@@ -11,7 +11,7 @@ import com.microBiz.MicroBizUtil;
 
 
 @Model
-public class OrderItem implements Serializable {
+public class Item implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
@@ -32,6 +32,8 @@ public class OrderItem implements Serializable {
     private Double total;
     
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
+    
+    private ModelRef<Orders> ordersRef = new ModelRef<Orders>(Orders.class);
     
     public Key getKey() {
         return key;
@@ -77,6 +79,11 @@ public class OrderItem implements Serializable {
         this.total = total;
     }
 
+    public ModelRef<Orders> getOrdersRef() {
+        return ordersRef;
+    }
+
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -96,7 +103,7 @@ public class OrderItem implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        OrderItem other = (OrderItem) obj;
+        Item other = (Item) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;

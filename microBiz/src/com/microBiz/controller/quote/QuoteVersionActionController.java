@@ -13,12 +13,13 @@ import com.microBiz.MicroBizCalculator;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
 import com.microBiz.meta.QuoteVersionMeta;
-import com.microBiz.model.OrderItem;
+import com.microBiz.model.Invoice;
+import com.microBiz.model.Item;
+import com.microBiz.model.Orders;
 import com.microBiz.model.Product;
 import com.microBiz.model.Quote;
-import com.microBiz.model.QuoteItem;
 import com.microBiz.model.QuoteVersion;
-import com.microBiz.service.MicroBizService;
+import com.microBiz.service.InvoiceService;
 import com.microBiz.service.ProductService;
 import com.microBiz.service.QuoteService;
 import com.microBiz.service.QuoteVersionService;
@@ -27,25 +28,29 @@ public class QuoteVersionActionController extends BaseController{
 
     private QuoteService quoteService;
     private QuoteVersionService quoteVersionService;
-    private QuoteVersionMeta metaQuoteVersion;
+    private InvoiceService invoiceService;
+
     private ProductService productService;
-    private MicroBizService microBizService;
+
     
     public QuoteVersionActionController(){
         super();
         quoteService = new QuoteService();
         quoteVersionService = new QuoteVersionService();
         productService = new ProductService();
-        microBizService = new MicroBizService();
-        metaQuoteVersion = new QuoteVersionMeta();
+        invoiceService = new InvoiceService();
+
     }
     
     @Override
     public Navigation run() throws Exception {
-        //must have quote version key,  
-        QuoteVersion qv = quoteVersionService.get(asKey(metaQuoteVersion.key));
+        //must have quote version key, 
+
+        System.out.println("quote version key is" + asKey("quoteVersionKey"));
+        QuoteVersion qv = quoteVersionService.get(asKey("quoteVersionKey"));
         // get discount, taxRate, total from UI
-        BeanUtil.copy(request, qv);
+        Orders orders = new Orders();
+        BeanUtil.copy(request, orders);
         //  need reuse with createAction
         // assemble quote item
         String[] items = paramValues("items");
@@ -54,82 +59,45 @@ public class QuoteVersionActionController extends BaseController{
         String[] quantities = paramValues("qtys");
         // product should not be empty, remove -1 at the end
         int arrLength = items.length - 1;
-        List<QuoteItem> qiList = new ArrayList<QuoteItem>();
+        List<Item> qiList = new ArrayList<Item>();
         for ( int i = 0 ; i < arrLength; i ++ ) {
             // get product REF
             Product product = productService.get(Datastore.stringToKey(items[i]));
-            QuoteItem qi = new QuoteItem();
+            Item qi = new Item();
             qi.getProductRef().setModel(product);
             qi.setDesc(descs[i]);
             qi.setRate(Double.valueOf(rates[i]));
             qi.setQty(Double.valueOf(quantities[i]));
             qiList.add(qi);
         }
-        //set order item list for save
-        qv.setItemList(qiList);
-        
+
         Quote quote = qv.getQuoteRef().getModel();
         // for save and saveAs
         //String actionName = asString("actionName");
         String saveOption = asString("saveOption");
         System.out.println("saveOption: " + saveOption);
-        Key quoteVersionKey = qv.getKey();
-        if ( saveOption.equals("final") ) {
+        Key quoteVersionKey = null;
+        if ( saveOption.equals("convertToInvoice") ) {
             // for final, change status and create new invoice
-            quote.setStatus("final");
+            quote.setStatus("won");
+            quoteService.save(quote);
+            Invoice invoice = new Invoice();
+            invoice.setAddress(quote.getAddress());
+            invoice.setSignDate(new Date());
+            invoice.getCustomerRef().setModel(quote.getCustomerRef().getModel());
+            invoice.setInvoiceNumber(MicroBizUtil.generateInvoiceNumber());
+            if(quote.getContactRef()!=null){
+                invoice.getContactRef().setModel(quote.getContactRef().getModel());
+            }
+            invoiceService.convertQuoteToInvoice(invoice,orders,qiList);
             
         }else if ( saveOption.equals("saveAs") ) {
-            // set name increase one, also need to update quote
-            int quoteVersionCount = quote.getCount();
-            quoteVersionCount ++ ;
-            qv.setName(MicroBizUtil.getQuoteVersionName(quoteVersionCount));
-            qv.setCreateDate(new Date());
-            qv.setKey(null);
-            // increase one
-            quote.setCount(quoteVersionCount);
-            quote.setQuoteVersion(qv);
-            // change selected quoteVersionKey to new created
-            quoteVersionKey = microBizService.createQuoteVersion(quote);
-            System.out.println("save as qvKey: " + quoteVersionKey);
+            quoteService.saveAsNewVersion(qv,orders, qiList);
+
         }else{
-            // for save , keep key same, delete all orderItem, then insert again
-            // should compare for create, update and delete
-            microBizService.updateQuoteVersion(qv);
+            quoteService.saveAsCurrentVersion(qv,orders,qiList);
+
         }
-        // to edit mode, get data for edit page, use forward not working, src param empty
-        qv = quoteVersionService.get(quoteVersionKey);
-        quote = qv.getQuoteRef().getModel();
-        requestScope("quote", quote);
-        List<QuoteVersion> quoteVersionList = quote.getQuoteVersionsRef().getModelList();
-        System.out.println("get qv list: " + quoteVersionList.size());
-        // quote version key could be empty
-        // from edit, set selected
-        
-        requestScope("selectedKey", quoteVersionKey);
-        // the first one is selected
-        requestScope("quoteVersions", quoteVersionList);
-        List<? extends OrderItem> orderItemList = qv.getQuoteItemsRef().getModelList();
-        // set qv sub total
-        qv.setSubTotal(MicroBizCalculator.getSubTotal(orderItemList));
-        //System.out.println("action cal qv sub total: " + qv.getSubTotal()); 
-        BeanUtil.copy(qv, request);
-        // !!!! for save as, some times showing order items only new created items, 
-        // no old, after reload then OK
-        requestScope("orderItems", orderItemList);
-        System.out.println("get orderItems list: after creating version: " + orderItemList.size());
-        
-        List<Product> prodcutList = productService.getSellingPrds();
-        requestScope("products", prodcutList);
-        
-        requestScope("txRates", txRates);
-        
-        
-        return forward("quote-details.jsp");
-        
-        // cross-group transaction need to be explicitly specified, 
-        // see TransactionOptions.Builder.withXGfound both Element
-        
-        //return redirect("/quote/quoteDetails?quoteKey=" + Datastore.keyToString(quote.getKey()) 
-                                     //+ "&quoteVersionKey=" + Datastore.keyToString(quoteVersionKey));
+        return redirect("/quote/quoteDetails?quoteKey=" + Datastore.keyToString(quote.getKey()));
     }
 }

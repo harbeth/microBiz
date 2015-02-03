@@ -28,18 +28,14 @@ public class Invoice implements Serializable {
     
     // sales,(only available to admin, if user is a sales, the this is user)
     private String address;
+
     
-    @Attribute(unindexed = false)
-    private Double price;
-    
-    @Attribute(unindexed = false)
-    private Double taxRate;
+
     
     @Attribute(unindexed = false)
     private Double deposit;
     
-    @Attribute(unindexed = false)
-    private Double discount;
+
     
     @Attribute(unindexed = false)
     private String depositPymtMethod;
@@ -68,6 +64,7 @@ public class Invoice implements Serializable {
     
     private ModelRef<MiUser> salesRef = new ModelRef<MiUser>(MiUser.class);
     private ModelRef<MiUser> creatorRef = new ModelRef<MiUser>(MiUser.class);
+    private ModelRef<Orders> ordersRef = new ModelRef<Orders>(Orders.class);
     
     // for display
     @Attribute(persistent = false)
@@ -92,6 +89,12 @@ public class Invoice implements Serializable {
     
     public ModelRef<MiUser> getSalesRef() {
         return salesRef;
+    }
+
+
+
+    public ModelRef<Orders> getOrdersRef() {
+        return ordersRef;
     }
 
 
@@ -154,18 +157,7 @@ public class Invoice implements Serializable {
         this.signDate = MicroBizUtil.parseStrToDate(signDateStr);
     }
 
-    public Double getPrice() {
-        return price;
-    }
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-    public Double getTaxRate() {
-        return taxRate;
-    }
-    public void setTaxRate(Double taxRate) {
-        this.taxRate = taxRate;
-    }
+
     public Double getDeposit() {
         return deposit;
     }
@@ -248,14 +240,7 @@ public class Invoice implements Serializable {
         this.signDateStr = signDateStr;
     }
 
-    
-    public Double getDiscount() {
-        return discount;
-    }
 
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
 
     @Override
     public int hashCode() {

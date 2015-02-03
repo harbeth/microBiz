@@ -11,13 +11,13 @@ import org.slim3.util.BeanUtil;
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
+import com.microBiz.model.Item;
+import com.microBiz.model.Orders;
 import com.microBiz.model.Product;
 import com.microBiz.model.Quote;
-import com.microBiz.model.QuoteItem;
 import com.microBiz.model.QuoteVersion;
 import com.microBiz.service.ContactService;
 import com.microBiz.service.CustomerService;
-import com.microBiz.service.MicroBizService;
 import com.microBiz.service.ProductService;
 import com.microBiz.service.QuoteService;
 
@@ -28,7 +28,7 @@ public class QuoteCreateActionController extends BaseController{
     private CustomerService customerService;
     private ContactService contactService;
     private ProductService productService;
-    private MicroBizService microBizService;
+
     
     public QuoteCreateActionController(){
         super();
@@ -36,7 +36,7 @@ public class QuoteCreateActionController extends BaseController{
         customerService = new CustomerService();
         contactService = new ContactService();
         productService = new ProductService();
-        microBizService = new MicroBizService();
+
     }
     
     @Override
@@ -63,6 +63,17 @@ public class QuoteCreateActionController extends BaseController{
                            .get(Datastore.stringToKey(quote.getContactKey())));
         }
         
+        QuoteVersion qv = new QuoteVersion();
+        qv.setName(MicroBizUtil. getQuoteVersionName(quote.getCount()));
+        qv.setCreateAt(new Date());
+      
+        Orders orders = new Orders();
+     
+        orders.setTaxRate(quote.getTaxRate());
+        orders.setDiscount(quote.getDiscount());
+        // calculate at the front end
+        orders.setTotal(quote.getTotal());
+        
         // assemble quote item
         // remove -1 for product
         String[] items = paramValues("items");
@@ -71,34 +82,23 @@ public class QuoteCreateActionController extends BaseController{
         String[] quantities = paramValues("qtys");
         // product should not be empty
         int arrLength = items.length - 1;
-        List<QuoteItem> qiList = new ArrayList<QuoteItem>();
+        List<Item> qiList = new ArrayList<Item>();
         for ( int i = 0 ; i < arrLength; i ++ ) {
-            // get product ref
+            if(rates[i]!=null && !rates[i].equals("")){
             Product product = productService.get(Datastore.stringToKey(items[i]));
-            QuoteItem qi = new QuoteItem();
+            Item qi = new Item();
             qi.getProductRef().setModel(product);
             qi.setDesc(descs[i]);
             qi.setRate(Double.valueOf(rates[i]));
             qi.setQty(Double.valueOf(quantities[i]));
+  
             qiList.add(qi);
+            }
         }
-        
-        // assemble quote version
-        QuoteVersion qv = new QuoteVersion();
-        qv.setName(MicroBizUtil. getQuoteVersionName(quote.getCount()));
-        qv.setCreateDate(new Date());
-        qv.setTaxRate(quote.getTaxRate());
-        qv.setDiscount(quote.getDiscount());
-        // calculate at the front end
-        qv.setTotal(quote.getTotal());
-        //set order item list for save
-        qv.setItemList(qiList);
-        
-        quote.setQuoteVersion(qv);
-        // save in one TXN
-        Key quoteKey = microBizService.createQuote(quote);
-        quote = quoteService.get(quoteKey);
-        // to edit mode
-        return redirect("/quote/quoteDetails?quoteKey=" + Datastore.keyToString(quote.getKey()));
+
+
+        Key quoteKey = quoteService.createQuote(quote, qv, orders, qiList);
+      
+        return redirect("/quote/quoteDetails?quoteKey=" + Datastore.keyToString(quoteKey));
     }
 }

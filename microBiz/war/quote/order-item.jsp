@@ -234,8 +234,8 @@ how to deal with Key enter event
 	});
 </script>
 
-<div class="row">
-	<table name="orderItemTbl" class="table">
+
+	<table name="orderItemTbl" >
 		<thead>
 			<tr>
 				<td style="width: 15%" class="text-center">
@@ -310,15 +310,15 @@ how to deal with Key enter event
 					Tax Rate:
 					<select name="taxRate" calType="taxRate">
 						<c:forEach items="${txRates}" var="tr">
-							<option value="${f:h(tr)}" <c:if test="${f:h(tr) eq taxRate}">selected="selected"</c:if> >${f:h(tr)}</option>
+							<option value="${f:h(tr)}" <c:if test="${f:h(tr) eq orders.taxRate}">selected="selected"</c:if> >${f:h(tr)}</option>
 						</c:forEach>
 					</select>
 				</td>
 				<td class="text-center">Sub Total:<span calType="subTotal">$${f:h(subTotal)}</span></td>
-				<td colspan="2">Discount:<input calType="discount" name="discount" value="${f:h(discount)}"/></td>
+				<td colspan="2">Discount:<input calType="discount" name="discount" value="${f:h(orders.discount)}"/></td>
 				<td colspan="2" class="text-center">Total:<input type="hidden" name="total" value="${f:h(total)}"/><span calType="total">$${f:h(total)}</span></td>
 			</tr>
 		</tfoot>
 	</table>
-</div>
+
 

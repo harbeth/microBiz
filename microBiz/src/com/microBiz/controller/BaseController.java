@@ -24,6 +24,7 @@ public abstract class BaseController extends Controller{
     protected List modules;
     protected List inventoryChangeTypes;
     protected List paymentTypes;
+    protected List quoteStatus;
     
     public BaseController(){
 
@@ -37,7 +38,8 @@ public abstract class BaseController extends Controller{
         modules  = new ArrayList();
         inventoryChangeTypes = new ArrayList();
         paymentTypes = new ArrayList();
-
+        quoteStatus = new ArrayList();
+  
 
         roles.add("admin"); // have full rights, 
         roles.add("installer"); // can only report job assinged to him
@@ -72,6 +74,9 @@ public abstract class BaseController extends Controller{
         paymentTypes.add("check");
         paymentTypes.add("cash");
         paymentTypes.add("credit card");
+        quoteStatus.add("open");
+        quoteStatus.add("won");
+        quoteStatus.add("failed");
         
         
 

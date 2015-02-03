@@ -6,7 +6,7 @@ import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
 
 import com.microBiz.MicroBizCalculator;
-import com.microBiz.model.OrderItem;
+import com.microBiz.model.Item;
 import com.microBiz.model.Product;
 import com.microBiz.model.QuoteVersion;
 import com.microBiz.service.ProductService;
@@ -29,11 +29,11 @@ public class QuoteVersionController extends QuoteCreateController {
         
         QuoteVersion qv = quoteVersionService.get(asKey("quoteVersionKey"));
         
-        List<? extends OrderItem> orderItemList = qv.getQuoteItemsRef().getModelList();
+        List<Item> items = qv.getOrdersRef().getModel().getItemsRef().getModelList();
         // set qv sub total
-        qv.setSubTotal(MicroBizCalculator.getSubTotal(orderItemList));
+        qv.getOrdersRef().getModel().setSubTotal(MicroBizCalculator.getSubTotal(items));
         BeanUtil.copy(qv, request);
-        requestScope("orderItems", orderItemList);
+        requestScope("orderItems", items);
         
         List<Product> prodcutList = productService.getSellingPrds();
         requestScope("products", prodcutList);

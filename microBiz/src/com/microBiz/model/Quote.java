@@ -5,8 +5,10 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
+import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 
 @Model
@@ -47,8 +49,9 @@ public class Quote implements Serializable {
     @Attribute(persistent = false)
     private Double total;
     
+    //sort by createAt descending
     @Attribute(persistent = false)
-    private InverseModelListRef<QuoteVersion, Quote> quoteVersionsRef = new InverseModelListRef<QuoteVersion, Quote>(QuoteVersion.class, "quoteRef", this);
+    private InverseModelListRef<QuoteVersion, Quote> quoteVersionsRef = new InverseModelListRef<QuoteVersion, Quote>(QuoteVersion.class, "quoteRef", this,new Sort("createAt", SortDirection.DESCENDING));
  
     public InverseModelListRef<QuoteVersion, Quote> getQuoteVersionsRef() {
         return quoteVersionsRef;

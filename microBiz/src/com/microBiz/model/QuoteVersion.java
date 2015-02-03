@@ -9,6 +9,7 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.MicroBizUtil;
 
 
 @Model
@@ -21,34 +22,12 @@ public class QuoteVersion implements Serializable {
       
     private String name;
     
-    private Date createDate;
+    private Date createAt;
     
     @Attribute(persistent = false)
-    private List<QuoteItem> itemList;
+    private String createAtStr;
     
-    @Attribute(unindexed = true)
-    private Double taxRate;
-    
-    @Attribute(unindexed = true)
-    private Double total;
-    
-    @Attribute(unindexed = true)
-    private Double discount;
-    
-    @Attribute(persistent = false)
-    // need to calculate: from order items
-    private Double subTotal;
-    
-    @Attribute(persistent = false)
-    // only for display
-    private boolean selected;
-    
-    @Attribute(persistent = false)
-    private InverseModelListRef<QuoteItem, QuoteVersion> quoteItemsRef = new InverseModelListRef<QuoteItem, QuoteVersion>(QuoteItem.class, "quoteVersionRef", this);
- 
-    public InverseModelListRef<QuoteItem, QuoteVersion> getQuoteItemsRef() {
-        return quoteItemsRef;
-    }    
+    private ModelRef<Orders> ordersRef = new ModelRef<Orders>(Orders.class);
     
     private ModelRef<Quote> quoteRef = new ModelRef<Quote>(Quote.class);
 
@@ -56,23 +35,37 @@ public class QuoteVersion implements Serializable {
         return quoteRef;
     }
 
-    public List<QuoteItem> getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(List<QuoteItem> itemList) {
-        this.itemList = itemList;
-    }
+ 
     
-    public Double getDiscount() {
-        return discount;
+    public Date getCreateAt() {
+        return createAt;
     }
 
-    public void setDiscount(Double discount) {
-        this.discount = discount;
+
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
-    
+
+
+    public String getCreateAtStr() {
+        return MicroBizUtil.parseDateToStr(createAt);
+    }
+
+
+
+    public void setCreateAtStr(String createAtStr) {
+        this.createAtStr = createAtStr;
+    }
+
+
+
+    public ModelRef<Orders> getOrdersRef() {
+        return ordersRef;
+    }
+
+
     public Key getKey() {
         return key;
     }
@@ -89,45 +82,7 @@ public class QuoteVersion implements Serializable {
         this.name = name;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Double getTaxRate() {
-        return taxRate;
-    }
-
-    public void setTaxRate(Double taxRate) {
-        this.taxRate = taxRate;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-    
-    public Double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(Double subTotal) {
-        this.subTotal = subTotal;
-    }
-    
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
 
     @Override
     public int hashCode() {
@@ -158,5 +113,7 @@ public class QuoteVersion implements Serializable {
         }
         return true;
     }
+
+
 
 }

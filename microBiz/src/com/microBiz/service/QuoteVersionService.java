@@ -9,7 +9,6 @@ import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.meta.QuoteVersionMeta;
 import com.microBiz.model.Customer;
 import com.microBiz.model.Quote;
-import com.microBiz.model.QuoteItem;
 import com.microBiz.model.QuoteVersion;
 
 
@@ -38,12 +37,7 @@ public class QuoteVersionService {
         return key;
     }
     
-    public void saveQuoteItem(QuoteItem f) {
-        Transaction tx = Datastore.beginTransaction();
-        Datastore.put(tx, f);
-        tx.commit();
-    }
-    
+
     public void saveQuoteVersion(QuoteVersion f) {
         Transaction tx = Datastore.beginTransaction();
         Datastore.put(tx, f);
