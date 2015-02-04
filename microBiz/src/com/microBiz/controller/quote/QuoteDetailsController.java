@@ -5,10 +5,10 @@ import java.util.List;
 import org.slim3.controller.Navigation;
 
 import com.microBiz.controller.BaseController;
-import com.microBiz.model.Orders;
+import com.microBiz.model.Order;
 import com.microBiz.model.Product;
 import com.microBiz.model.Quote;
-import com.microBiz.model.QuoteVersion;
+import com.microBiz.model.QuoteOrder;
 import com.microBiz.service.ProductService;
 import com.microBiz.service.QuoteService;
 
@@ -32,15 +32,15 @@ public class QuoteDetailsController extends BaseController {
         //based on quote key, get data for edit page
         // get quote version list, the first is selected one, get quote item list
         // ?? some times
-        List<QuoteVersion> quoteVersionList = quote.getQuoteVersionsRef().getModelList();
-        System.out.println("get qv list: " + quoteVersionList.size());
+        List<QuoteOrder> quoteOrderList = quote.getQuoteOrderRef().getModelList();
+        System.out.println("get qv list: " + quote.getQuoteOrderRef());
         // quote version key could be empty
 
-        requestScope("quoteVersions", quoteVersionList);
+        requestScope("quoteVersions", quoteOrderList);
         
         //default is to display the latest version in the details page
-        QuoteVersion qv = quoteVersionList.get(0);  
-        Orders orders = qv.getOrdersRef().getModel();
+        QuoteOrder qv = quoteOrderList.get(0);  
+        Order orders = qv.getOrderRef().getModel();
         System.out.println("get orders,  " + orders.getTotal());
         requestScope("quoteVersion", qv);
         requestScope("orders", orders);

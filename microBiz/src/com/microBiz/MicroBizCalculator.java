@@ -4,7 +4,7 @@ package com.microBiz;
 
 import java.util.List;
 
-import com.microBiz.model.Item;
+import com.microBiz.model.OrderItem;
 
 
 public class MicroBizCalculator {
@@ -19,10 +19,10 @@ public class MicroBizCalculator {
         return ret;
     }
     
-    public static Double getSubTotal(List<Item> orderItemList) {
+    public static Double getSubTotal(List<OrderItem> orderItemList) {
         double ret = 0d;
         if ( orderItemList != null && orderItemList.size() > 0 ) {
-            for ( Item oi : orderItemList ) {
+            for ( OrderItem oi : orderItemList ) {
                 // set order item total
                 double total = getOrderItemTotal(oi.getRate(), oi.getQty());
                 oi.setTotal(total);

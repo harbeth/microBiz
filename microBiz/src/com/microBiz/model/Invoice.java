@@ -64,7 +64,7 @@ public class Invoice implements Serializable {
     
     private ModelRef<MiUser> salesRef = new ModelRef<MiUser>(MiUser.class);
     private ModelRef<MiUser> creatorRef = new ModelRef<MiUser>(MiUser.class);
-    private ModelRef<Orders> ordersRef = new ModelRef<Orders>(Orders.class);
+    private ModelRef<InvoiceOrder> invoiceOrderRef = new ModelRef<InvoiceOrder>(InvoiceOrder.class);
     
     // for display
     @Attribute(persistent = false)
@@ -93,8 +93,8 @@ public class Invoice implements Serializable {
 
 
 
-    public ModelRef<Orders> getOrdersRef() {
-        return ordersRef;
+    public ModelRef<InvoiceOrder> getInvoiceOrderRef() {
+        return invoiceOrderRef;
     }
 
 

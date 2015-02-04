@@ -6,32 +6,33 @@ import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
 
 import com.microBiz.MicroBizCalculator;
-import com.microBiz.model.Item;
+import com.microBiz.model.OrderItem;
 import com.microBiz.model.Product;
-import com.microBiz.model.QuoteVersion;
+import com.microBiz.model.QuoteOrder;
 import com.microBiz.service.ProductService;
-import com.microBiz.service.QuoteVersionService;
+import com.microBiz.service.QuoteService;
+
 
 // load quote details page
 public class QuoteVersionController extends QuoteCreateController {
 
-    private QuoteVersionService quoteVersionService;
+    private QuoteService quoteService;
     private ProductService productService;
     
     public QuoteVersionController(){
         super();
-        quoteVersionService = new QuoteVersionService();
+        quoteService = new QuoteService();
         productService = new ProductService();
     }
     
     @Override
     public Navigation run() throws Exception {
         
-        QuoteVersion qv = quoteVersionService.get(asKey("quoteVersionKey"));
+        QuoteOrder qv = quoteService.getQuoteOrder(asKey("quoteOrderKey"));
         
-        List<Item> items = qv.getOrdersRef().getModel().getItemsRef().getModelList();
+        List<OrderItem> items = qv.getOrderRef().getModel().getItemsRef().getModelList();
         // set qv sub total
-        qv.getOrdersRef().getModel().setSubTotal(MicroBizCalculator.getSubTotal(items));
+        qv.getOrderRef().getModel().setSubTotal(MicroBizCalculator.getSubTotal(items));
         BeanUtil.copy(qv, request);
         requestScope("orderItems", items);
         

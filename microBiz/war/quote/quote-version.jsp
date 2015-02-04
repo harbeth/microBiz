@@ -10,7 +10,7 @@
 			<form name="quoteDetailVersionForm" typerole="form" method="post"
 				action="/quote/quoteVersionAction">
 
-				<input type="hidden" name="quoteVersionKey"	value="${f:h(quoteVersion.key)}">
+				<input type="hidden" name="quoteOrderKey"	value="${f:h(quoteVersion.key)}">
 				<div id="quoteVersionDIV" class="row">
 					<jsp:include page="./order-item.jsp" flush="true"></jsp:include>
 				</div>

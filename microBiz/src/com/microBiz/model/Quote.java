@@ -36,7 +36,7 @@ public class Quote implements Serializable {
     
     @Attribute(persistent = false)
     // only for create, just one
-    private QuoteVersion quoteVersion;
+    private QuoteOrder quoteVersion;
     
     @Attribute(unindexed = true)
     private String note;
@@ -51,10 +51,10 @@ public class Quote implements Serializable {
     
     //sort by createAt descending
     @Attribute(persistent = false)
-    private InverseModelListRef<QuoteVersion, Quote> quoteVersionsRef = new InverseModelListRef<QuoteVersion, Quote>(QuoteVersion.class, "quoteRef", this,new Sort("createAt", SortDirection.DESCENDING));
+    private InverseModelListRef<QuoteOrder, Quote> quoteOrderRef = new InverseModelListRef<QuoteOrder, Quote>(QuoteOrder.class, "quoteRef", this,new Sort("createAt", SortDirection.DESCENDING));
  
-    public InverseModelListRef<QuoteVersion, Quote> getQuoteVersionsRef() {
-        return quoteVersionsRef;
+    public InverseModelListRef<QuoteOrder, Quote> getQuoteOrderRef() {
+        return quoteOrderRef;
     }
     
     private ModelRef<Customer> customerRef = new ModelRef<Customer>(Customer.class);
@@ -120,11 +120,11 @@ public class Quote implements Serializable {
         this.address = address;
     }
     
-    public QuoteVersion getQuoteVersion() {
+    public QuoteOrder getQuoteVersion() {
         return quoteVersion;
     }
 
-    public void setQuoteVersion(QuoteVersion quoteVersion) {
+    public void setQuoteVersion(QuoteOrder quoteVersion) {
         this.quoteVersion = quoteVersion;
     }
     

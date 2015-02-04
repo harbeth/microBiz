@@ -11,8 +11,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.meta.InvoiceMeta;
 import com.microBiz.model.Invoice;
-import com.microBiz.model.Item;
-import com.microBiz.model.Orders;
+import com.microBiz.model.InvoiceOrder;
+import com.microBiz.model.OrderItem;
+import com.microBiz.model.Order;
 import com.microBiz.model.Quote;
 
 
@@ -46,32 +47,37 @@ public class InvoiceService {
     }
     
     //orders and itemList already have a parent (quote), so have to create new orders and Items for the new invoice
-    public void convertQuoteToInvoice(Invoice invoice, Orders orders,
-            List<Item> qiList) {
+    public void convertQuoteToInvoice(Invoice invoice, Order order,
+            List<OrderItem> qiList) {
         Transaction tx = Datastore.beginTransaction();
         System.out.println("going to save invoice");
        Key invoiceKey = Datastore.put(tx, invoice);
        System.out.println("have saved invoice");
-       Orders newOrders = new Orders();
-       BeanUtil.copy(orders, newOrders);
-       Key ordersKey = Datastore.allocateId(invoiceKey, Orders.class);
+       Order newOrder = new Order();
+       InvoiceOrder invoiceOrder = new InvoiceOrder();
+       BeanUtil.copy(order, newOrder);
+       Key invoiceOrderKey = Datastore.allocateId(invoiceKey, InvoiceOrder.class);
+       Key orderKey = Datastore.allocateId(invoiceOrderKey, Order.class);
 
-       newOrders.setKey(ordersKey);
-       newOrders.getInvoiceRef().setModel(invoice);
-        invoice.getOrdersRef().setModel(newOrders);
+       newOrder.setKey(orderKey);
+      invoiceOrder.setKey(invoiceOrderKey);
+      invoiceOrder.getInvoiceRef().setModel(invoice);
+      invoiceOrder.getOrderRef().setModel(newOrder);
+        invoice.getInvoiceOrderRef().setModel(invoiceOrder);
        
         Datastore.put(tx, invoice);
-        Datastore.put(tx, newOrders);
-        Iterator<Item> itemsI= qiList.iterator();
-        List<Item> newList = new ArrayList<Item>();
+        Datastore.put(tx, invoiceOrder);
+        Datastore.put(tx, newOrder);
+        Iterator<OrderItem> itemsI= qiList.iterator();
+        List<OrderItem> newList = new ArrayList<OrderItem>();
         while(itemsI.hasNext()) {
-            Item oneItem = (Item)itemsI.next();
-            Key itemKey = Datastore.allocateId(ordersKey, Item.class);
-            Item newItem = new Item();
+            OrderItem oneItem = (OrderItem)itemsI.next();
+            Key itemKey = Datastore.allocateId(orderKey, OrderItem.class);
+            OrderItem newItem = new OrderItem();
             BeanUtil.copy(oneItem, newItem);
             newItem.getProductRef().setModel(oneItem.getProductRef().getModel());
             newItem.setKey(itemKey);
-            newItem.getOrdersRef().setModel(newOrders);
+            newItem.getOrdersRef().setModel(newOrder);
             newList.add(newItem);
 
         }

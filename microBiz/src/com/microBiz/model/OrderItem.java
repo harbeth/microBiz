@@ -1,7 +1,5 @@
 package com.microBiz.model;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
@@ -13,59 +11,30 @@ import com.microBiz.MicroBizUtil;
 
 
 @Model
-public class QuoteVersion implements Serializable {
+public class OrderItem implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
     @Attribute(primaryKey = true)
     private Key key;
       
-    private String name;
+    @Attribute(unindexed = true)
+    private Double qty;
     
-    private Date createAt;
+    @Attribute(unindexed = true)
+    private Double rate;
+    
+    @Attribute(unindexed = true)
+    private String desc;
     
     @Attribute(persistent = false)
-    private String createAtStr;
+    // only for display
+    private Double total;
     
-    private ModelRef<Orders> ordersRef = new ModelRef<Orders>(Orders.class);
+    private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
     
-    private ModelRef<Quote> quoteRef = new ModelRef<Quote>(Quote.class);
-
-    public ModelRef<Quote> getQuoteRef() {
-        return quoteRef;
-    }
-
- 
+    private ModelRef<Order> ordersRef = new ModelRef<Order>(Order.class);
     
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-
-
-    public String getCreateAtStr() {
-        return MicroBizUtil.parseDateToStr(createAt);
-    }
-
-
-
-    public void setCreateAtStr(String createAtStr) {
-        this.createAtStr = createAtStr;
-    }
-
-
-
-    public ModelRef<Orders> getOrdersRef() {
-        return ordersRef;
-    }
-
-
     public Key getKey() {
         return key;
     }
@@ -74,14 +43,45 @@ public class QuoteVersion implements Serializable {
         this.key = key;
     }
 
-    public String getName() {
-        return name;
+    public Double getQty() {
+        return qty;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQty(Double qty) {
+        this.qty = qty;
     }
 
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
+    public ModelRef<Product> getProductRef() {
+        return productRef;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public ModelRef<Order> getOrdersRef() {
+        return ordersRef;
+    }
 
 
     @Override
@@ -103,7 +103,7 @@ public class QuoteVersion implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        QuoteVersion other = (QuoteVersion) obj;
+        OrderItem other = (OrderItem) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -115,5 +115,5 @@ public class QuoteVersion implements Serializable {
     }
 
 
-
+ 
 }

@@ -11,11 +11,11 @@ import org.slim3.util.BeanUtil;
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
-import com.microBiz.model.Item;
-import com.microBiz.model.Orders;
+import com.microBiz.model.OrderItem;
+import com.microBiz.model.Order;
 import com.microBiz.model.Product;
 import com.microBiz.model.Quote;
-import com.microBiz.model.QuoteVersion;
+import com.microBiz.model.QuoteOrder;
 import com.microBiz.service.ContactService;
 import com.microBiz.service.CustomerService;
 import com.microBiz.service.ProductService;
@@ -63,11 +63,11 @@ public class QuoteCreateActionController extends BaseController{
                            .get(Datastore.stringToKey(quote.getContactKey())));
         }
         
-        QuoteVersion qv = new QuoteVersion();
+        QuoteOrder qv = new QuoteOrder();
         qv.setName(MicroBizUtil. getQuoteVersionName(quote.getCount()));
         qv.setCreateAt(new Date());
       
-        Orders orders = new Orders();
+        Order orders = new Order();
      
         orders.setTaxRate(quote.getTaxRate());
         orders.setDiscount(quote.getDiscount());
@@ -82,11 +82,11 @@ public class QuoteCreateActionController extends BaseController{
         String[] quantities = paramValues("qtys");
         // product should not be empty
         int arrLength = items.length - 1;
-        List<Item> qiList = new ArrayList<Item>();
+        List<OrderItem> qiList = new ArrayList<OrderItem>();
         for ( int i = 0 ; i < arrLength; i ++ ) {
             if(rates[i]!=null && !rates[i].equals("")){
             Product product = productService.get(Datastore.stringToKey(items[i]));
-            Item qi = new Item();
+            OrderItem qi = new OrderItem();
             qi.getProductRef().setModel(product);
             qi.setDesc(descs[i]);
             qi.setRate(Double.valueOf(rates[i]));

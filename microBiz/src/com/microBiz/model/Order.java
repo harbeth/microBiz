@@ -1,5 +1,7 @@
 package com.microBiz.model;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
@@ -7,33 +9,49 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
-import com.microBiz.MicroBizUtil;
 
 
 @Model
-public class Item implements Serializable {
+public class Order implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
     @Attribute(primaryKey = true)
     private Key key;
-      
-    @Attribute(unindexed = true)
-    private Double qty;
+        
+    
+
     
     @Attribute(unindexed = true)
-    private Double rate;
+    private Double taxRate;
     
     @Attribute(unindexed = true)
-    private String desc;
-    
-    @Attribute(persistent = false)
-    // only for display
     private Double total;
     
-    private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
+    @Attribute(unindexed = true)
+    private Double discount;
     
-    private ModelRef<Orders> ordersRef = new ModelRef<Orders>(Orders.class);
+    @Attribute(persistent = false)
+    // need to calculate: from order items
+    private Double subTotal;
+    
+    @Attribute(persistent = false)
+    private InverseModelListRef<OrderItem, Order> itemsRef = new InverseModelListRef<OrderItem, Order>(OrderItem.class, "ordersRef", this);
+ 
+
+    public InverseModelListRef<OrderItem, Order> getItemsRef() {
+        return itemsRef;
+    }    
+    
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
     
     public Key getKey() {
         return key;
@@ -43,32 +61,14 @@ public class Item implements Serializable {
         this.key = key;
     }
 
-    public Double getQty() {
-        return qty;
+ 
+
+    public Double getTaxRate() {
+        return taxRate;
     }
 
-    public void setQty(Double qty) {
-        this.qty = qty;
-    }
-
-    public Double getRate() {
-        return rate;
-    }
-
-    public void setRate(Double rate) {
-        this.rate = rate;
-    }
-
-    public ModelRef<Product> getProductRef() {
-        return productRef;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setTaxRate(Double taxRate) {
+        this.taxRate = taxRate;
     }
 
     public Double getTotal() {
@@ -78,11 +78,16 @@ public class Item implements Serializable {
     public void setTotal(Double total) {
         this.total = total;
     }
-
-    public ModelRef<Orders> getOrdersRef() {
-        return ordersRef;
+    
+    public Double getSubTotal() {
+        return subTotal;
     }
 
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
+    }
+    
+ 
 
     @Override
     public int hashCode() {
@@ -103,7 +108,7 @@ public class Item implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Item other = (Item) obj;
+        Order other = (Order) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;
@@ -115,5 +120,5 @@ public class Item implements Serializable {
     }
 
 
- 
+
 }

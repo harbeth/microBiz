@@ -88,7 +88,7 @@ var quoteUpdateFn = {
 	        	// keep on the version tab
 	        	$("#quoteDetailInfoDIV").hide();
 	        	$("#quoteDetailVersionDIV").show();
-	        	$("a[link=quoteeDetailVersion]").parent().attr("class", "active");
+	        	$("a[link=quoteDetailVersion]").parent().attr("class", "active");
 	        	$("a[link=quoteDetailInfo]").parent().removeAttr("class");
 	        }
 	    }; 
@@ -182,9 +182,9 @@ var quoteDetailFn = {
 	, registerQuoteVersionGroupChange: function() {
 		$("input[name=quoteVersionGroup]:radio").on("change",function(){
 			// update lower DIV
-			var quoteVersionKey = $(this).val();
+			var quoteOrderKey = $(this).val();
 			$("#quoteVersionChangeDIV").html("Saving...");
-			$("#quoteVersionChangeDIV").load("/quote/quoteVersion?quoteVersionKey=" + quoteVersionKey, function(){
+			$("#quoteVersionChangeDIV").load("/quote/quoteVersion?quoteOrderKey=" + quoteOrderKey, function(){
 				// register form again
 				quoteDetailFn.onSumitVersionRegister();
 				quoteDetailFn.registerQuoteVersionGroupChange();

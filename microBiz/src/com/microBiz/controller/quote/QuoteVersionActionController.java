@@ -12,22 +12,20 @@ import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizCalculator;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
-import com.microBiz.meta.QuoteVersionMeta;
 import com.microBiz.model.Invoice;
-import com.microBiz.model.Item;
-import com.microBiz.model.Orders;
+import com.microBiz.model.OrderItem;
+import com.microBiz.model.Order;
 import com.microBiz.model.Product;
 import com.microBiz.model.Quote;
-import com.microBiz.model.QuoteVersion;
+import com.microBiz.model.QuoteOrder;
 import com.microBiz.service.InvoiceService;
 import com.microBiz.service.ProductService;
 import com.microBiz.service.QuoteService;
-import com.microBiz.service.QuoteVersionService;
+
 
 public class QuoteVersionActionController extends BaseController{
 
     private QuoteService quoteService;
-    private QuoteVersionService quoteVersionService;
     private InvoiceService invoiceService;
 
     private ProductService productService;
@@ -36,7 +34,6 @@ public class QuoteVersionActionController extends BaseController{
     public QuoteVersionActionController(){
         super();
         quoteService = new QuoteService();
-        quoteVersionService = new QuoteVersionService();
         productService = new ProductService();
         invoiceService = new InvoiceService();
 
@@ -44,13 +41,13 @@ public class QuoteVersionActionController extends BaseController{
     
     @Override
     public Navigation run() throws Exception {
-        //must have quote version key, 
+        //must have quote order key, 
 
-        System.out.println("quote version key is" + asKey("quoteVersionKey"));
-        QuoteVersion qv = quoteVersionService.get(asKey("quoteVersionKey"));
+        
+        QuoteOrder qv = quoteService.getQuoteOrder(asKey("quoteOrderKey"));
         // get discount, taxRate, total from UI
-        Orders orders = new Orders();
-        BeanUtil.copy(request, orders);
+        Order order = new Order();
+        BeanUtil.copy(request, order);
         //  need reuse with createAction
         // assemble quote item
         String[] items = paramValues("items");
@@ -59,11 +56,11 @@ public class QuoteVersionActionController extends BaseController{
         String[] quantities = paramValues("qtys");
         // product should not be empty, remove -1 at the end
         int arrLength = items.length - 1;
-        List<Item> qiList = new ArrayList<Item>();
+        List<OrderItem> qiList = new ArrayList<OrderItem>();
         for ( int i = 0 ; i < arrLength; i ++ ) {
             // get product REF
             Product product = productService.get(Datastore.stringToKey(items[i]));
-            Item qi = new Item();
+            OrderItem qi = new OrderItem();
             qi.getProductRef().setModel(product);
             qi.setDesc(descs[i]);
             qi.setRate(Double.valueOf(rates[i]));
@@ -76,7 +73,7 @@ public class QuoteVersionActionController extends BaseController{
         //String actionName = asString("actionName");
         String saveOption = asString("saveOption");
         System.out.println("saveOption: " + saveOption);
-        Key quoteVersionKey = null;
+        Key quoteOrderKey = null;
         if ( saveOption.equals("convertToInvoice") ) {
             // for final, change status and create new invoice
             quote.setStatus("won");
@@ -89,13 +86,13 @@ public class QuoteVersionActionController extends BaseController{
             if(quote.getContactRef()!=null){
                 invoice.getContactRef().setModel(quote.getContactRef().getModel());
             }
-            invoiceService.convertQuoteToInvoice(invoice,orders,qiList);
+            invoiceService.convertQuoteToInvoice(invoice,order,qiList);
             
         }else if ( saveOption.equals("saveAs") ) {
-            quoteService.saveAsNewVersion(qv,orders, qiList);
+            quoteService.saveAsNewVersion(qv,order, qiList);
 
         }else{
-            quoteService.saveAsCurrentVersion(qv,orders,qiList);
+            quoteService.saveAsCurrentVersion(qv,order,qiList);
 
         }
         return redirect("/quote/quoteDetails?quoteKey=" + Datastore.keyToString(quote.getKey()));
