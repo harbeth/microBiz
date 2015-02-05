@@ -27,7 +27,7 @@ public class Job implements Serializable {
     private String arrivalTime;
     private String note;
     
-    // ongoing, completed, canceled
+    // ongoing, complete, canceled
     private String status;
     // only for display
     @Attribute(persistent = false)

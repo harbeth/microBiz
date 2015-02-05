@@ -32,15 +32,10 @@ public class JobService {
         Datastore.put(tx, job);
         tx.commit();
     }
+
+    public List<Job> getAllUncompleteJobs() {
+        return Datastore.query(job).filter(job.status.notEqual("complete")).asList();
     
-    // ???
-    /*
-    public void save(Key parentKey, Customer f) {
-        Transaction tx = Datastore.beginTransaction();
-        Key childKey = Datastore.allocateId(parentKey, Contact.class);
-        f.setKey(childKey);
-        Datastore.put(tx, f);
-        tx.commit();
     }
-    */
+
 }

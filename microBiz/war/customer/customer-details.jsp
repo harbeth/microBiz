@@ -10,8 +10,8 @@
 				<c:if test = "${f:h(customer.commercial)}" >
 					<a link="customerContactEdit" customerKey="${f:h(customer.key)}" contactKey="-1"  class="btn btn-info btn-sm" role="button">New Contact</a>
 				</c:if>
-				<a href="/newInvoice" class="btn btn-info btn-sm" role="button">New Invoice</a>  
-				<a href="/newQuote" class="btn btn-info btn-sm" role="button">New Quotation</a>
+				<a href="/invoice/invoiceCreate?customerkey=${f:h(customer.key)}" class="btn btn-info btn-sm" role="button">New Invoice</a>  
+				<a href="/quote/quoteCreate?customerKey=${f:h(customer.key)}" class="btn btn-info btn-sm" role="button">New Quotation</a>
 				<a link="customerEditClose"  class="btn btn-info btn-sm" role="button">Close</a>
 			</div>
 		</div>

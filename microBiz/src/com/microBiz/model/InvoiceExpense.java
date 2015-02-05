@@ -9,8 +9,8 @@ import org.slim3.datastore.ModelRef;
 import com.google.appengine.api.datastore.Key;
 
 
-@Model(kind = "job_labor_report")
-public class JobLaborReport implements Serializable {
+@Model(kind = "job_expense")
+public class InvoiceExpense implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
@@ -18,20 +18,36 @@ public class JobLaborReport implements Serializable {
     private Key key;
       
     private Date reportDate;
-    private Double travelHours;
-    private Double workingHours;
-    
+    private Double expense;
+
     @Attribute(persistent = false)
     private String reportDateStr;
 
     private String note;
     // many to one
-    private ModelRef<Job> jobRef = new ModelRef<Job>(Job.class);
-  
-    public ModelRef<Job> getJobRef() {
-        return jobRef;
-    }
+    private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
+
+
     
+    
+    public Double getExpense() {
+        return expense;
+    }
+
+
+
+
+    public void setExpense(Double expense) {
+        this.expense = expense;
+    }
+
+
+
+
+    public ModelRef<Invoice> getInvoiceRef() {
+        return invoiceRef;
+    }
+
 
 
     public Date getReportDate() {
@@ -44,36 +60,6 @@ public class JobLaborReport implements Serializable {
     public void setReportDate(Date reportDate) {
         this.reportDate = reportDate;
     }
-
-
-
-
-    public Double getTravelHours() {
-        return travelHours;
-    }
-
-
-
-
-    public void setTravelHours(Double travelHours) {
-        this.travelHours = travelHours;
-    }
-
-
-
-
-    public Double getWorkingHours() {
-        return workingHours;
-    }
-
-
-
-
-    public void setWorkingHours(Double workingHours) {
-        this.workingHours = workingHours;
-    }
-
-
 
 
     public String getReportDateStr() {
@@ -117,7 +103,7 @@ public class JobLaborReport implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        JobLaborReport other = (JobLaborReport) obj;
+        InvoiceExpense other = (InvoiceExpense) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;

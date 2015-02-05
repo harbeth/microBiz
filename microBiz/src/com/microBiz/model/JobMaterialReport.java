@@ -9,8 +9,8 @@ import org.slim3.datastore.ModelRef;
 import com.google.appengine.api.datastore.Key;
 
 
-@Model(kind = "job_labor_report")
-public class JobLaborReport implements Serializable {
+@Model(kind = "job_material_report")
+public class JobMaterialReport implements Serializable {
     
     private static final long serialVersionUID = 1L;
 
@@ -18,8 +18,11 @@ public class JobLaborReport implements Serializable {
     private Key key;
       
     private Date reportDate;
-    private Double travelHours;
-    private Double workingHours;
+    
+    // ratio for calculate maerial cost
+    private Double prdRatio;
+    
+    private Double qty;
     
     @Attribute(persistent = false)
     private String reportDateStr;
@@ -27,11 +30,42 @@ public class JobLaborReport implements Serializable {
     private String note;
     // many to one
     private ModelRef<Job> jobRef = new ModelRef<Job>(Job.class);
+    
+    private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
   
     public ModelRef<Job> getJobRef() {
         return jobRef;
     }
     
+
+
+    public Double getPrdRatio() {
+        return prdRatio;
+    }
+
+
+
+    public void setPrdRatio(Double prdRatio) {
+        this.prdRatio = prdRatio;
+    }
+
+
+
+    public Double getQty() {
+        return qty;
+    }
+
+
+
+    public void setQty(Double qty) {
+        this.qty = qty;
+    }
+
+
+
+    public ModelRef<Product> getProductRef() {
+        return productRef;
+    }
 
 
     public Date getReportDate() {
@@ -44,35 +78,6 @@ public class JobLaborReport implements Serializable {
     public void setReportDate(Date reportDate) {
         this.reportDate = reportDate;
     }
-
-
-
-
-    public Double getTravelHours() {
-        return travelHours;
-    }
-
-
-
-
-    public void setTravelHours(Double travelHours) {
-        this.travelHours = travelHours;
-    }
-
-
-
-
-    public Double getWorkingHours() {
-        return workingHours;
-    }
-
-
-
-
-    public void setWorkingHours(Double workingHours) {
-        this.workingHours = workingHours;
-    }
-
 
 
 
@@ -117,7 +122,7 @@ public class JobLaborReport implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        JobLaborReport other = (JobLaborReport) obj;
+        JobMaterialReport other = (JobMaterialReport) obj;
         if (key == null) {
             if (other.key != null) {
                 return false;

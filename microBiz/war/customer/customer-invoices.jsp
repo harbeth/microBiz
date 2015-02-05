@@ -9,8 +9,8 @@
 					<tr>
 						<th>Invoice #</th>
 						<th>Address</th>
-						<th>Sales</th>
-						<th>User</th>
+
+
 						<th>Edit</th>
 					</tr>
 				</thead>
@@ -19,8 +19,8 @@
 						<tr>
 							<td>${f:h(i.invoiceNumber)}</td>
 							<td>${f:h(i.address)}</td>
-							<td>${f:h(i.sales)}</td>
-							<td>${f:h(i.user)}</td>
+
+
 							<td><a href="/editInvoice?invoiceKey=${f:h(i.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>

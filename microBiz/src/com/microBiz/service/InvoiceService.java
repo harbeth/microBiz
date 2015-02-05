@@ -91,4 +91,50 @@ public class InvoiceService {
     public List<Invoice> getByInvoiceNumber(String invoiceNumber) {
         return Datastore.query(i).filter(i.invoiceNumber.equal(invoiceNumber)).asList();
     }
+
+    //return invoice key
+    public Key saveNewInvoice(Invoice invoice, Order order,
+            List<OrderItem> qiList) {
+        Transaction tx = Datastore.beginTransaction();
+
+       Key invoiceKey = Datastore.put(tx, invoice);
+       System.out.println("have saved invoice");
+      
+       InvoiceOrder invoiceOrder = new InvoiceOrder();
+
+       Key invoiceOrderKey = Datastore.allocateId(invoiceKey, InvoiceOrder.class);
+       Key orderKey = Datastore.allocateId(invoiceOrderKey, Order.class);
+
+       order.setKey(orderKey);
+      invoiceOrder.setKey(invoiceOrderKey);
+      invoiceOrder.getInvoiceRef().setModel(invoice);
+      invoiceOrder.getOrderRef().setModel(order);
+        invoice.getInvoiceOrderRef().setModel(invoiceOrder);
+       
+        Datastore.put(tx, invoice);
+        Datastore.put(tx, invoiceOrder);
+        Datastore.put(tx, order);
+        setItemParent(orderKey, order, qiList);
+    
+        Datastore.put(tx, qiList);
+
+        
+        tx.commit();
+        return invoice.getKey();
+        
+    }
+    
+    private void setItemParent(Key ordersKey,Order orders, List<OrderItem> items ){
+        
+        Iterator<OrderItem> itemsI= items.iterator();
+
+        while(itemsI.hasNext()) {
+            OrderItem oneItem = (OrderItem)itemsI.next();
+            Key itemKey = Datastore.allocateId(ordersKey, OrderItem.class);
+            oneItem.setKey(itemKey);
+            oneItem.getOrdersRef().setModel(orders);
+
+        }
+ 
+    }
 }
