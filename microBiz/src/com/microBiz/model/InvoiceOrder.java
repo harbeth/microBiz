@@ -7,8 +7,10 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
+import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizUtil;
 
 
@@ -19,25 +21,18 @@ public class InvoiceOrder implements Serializable {
 
     @Attribute(primaryKey = true)
     private Key key;
-      
-
     
     private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
-    
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
 
     public ModelRef<Invoice> getInvoiceRef() {
         return invoiceRef;
     }
 
-
-
-
     public ModelRef<Order> getOrderRef() {
         return orderRef;
     }
-
-
+    
     public Key getKey() {
         return key;
     }
@@ -45,9 +40,6 @@ public class InvoiceOrder implements Serializable {
     public void setKey(Key key) {
         this.key = key;
     }
-
- 
-
 
     @Override
     public int hashCode() {

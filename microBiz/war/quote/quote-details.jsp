@@ -23,7 +23,7 @@
 </ul>
 <!-- Page content : by default job div shown -->
 <div id="quoteDetailVersionDIV" type="tab" quoteKey="${f:h(quote.key)}" class="row">
-	<jsp:include page="./quote-versions.jsp" flush="true"></jsp:include>
+	<jsp:include page="./quote-order-list.jsp" flush="true"></jsp:include>
 </div>
 
 <div id="quoteDetailInfoDIV" type="tab" quoteKey="${f:h(quote.key)}" class="row" hasContent="n">

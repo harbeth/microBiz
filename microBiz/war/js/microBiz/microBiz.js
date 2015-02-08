@@ -16,7 +16,7 @@ var microBizFn = {
 				$("#customerContactDIV").html("");
 			}else{
 				// AJAX call to retrieve contact
-				$( "#customerContactDIV").load( "/customerContactChange?customerKey=" + customerKey, function() {
+				$( "#customerContactDIV").load( "/common/customerContactChange?customerKey=" + customerKey, function() {
 					microBizFn.onCustomerContactSelectChange();
 				});
 			}
@@ -37,7 +37,7 @@ var microBizFn = {
 				$("#customerContactInfoDIV").html("");
 			}else{
 				// AJAX call to retrieve contact
-				$("#customerContactInfoDIV").load( "customerContactInfo?contactKey=" + contactKey);
+				$("#customerContactInfoDIV").load( "/common/customerContactInfo?contactKey=" + contactKey);
 			}
 		});
 	}

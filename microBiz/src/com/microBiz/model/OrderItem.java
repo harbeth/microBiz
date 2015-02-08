@@ -2,12 +2,10 @@ package com.microBiz.model;
 import java.io.Serializable;
 
 import org.slim3.datastore.Attribute;
-import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
-import com.microBiz.MicroBizUtil;
 
 
 @Model
@@ -33,7 +31,7 @@ public class OrderItem implements Serializable {
     
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
     
-    private ModelRef<Order> ordersRef = new ModelRef<Order>(Order.class);
+    private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
     
     public Key getKey() {
         return key;
@@ -79,8 +77,8 @@ public class OrderItem implements Serializable {
         this.total = total;
     }
 
-    public ModelRef<Order> getOrdersRef() {
-        return ordersRef;
+    public ModelRef<Order> getOrderRef() {
+        return orderRef;
     }
 
 

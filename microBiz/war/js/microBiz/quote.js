@@ -126,21 +126,22 @@ var quoteDetailFn = {
 	init: function() {
 		quoteEditFn.onCloseClick();
 		// more than one submit button doesn't work, use normal button and post
-		this.onSumitVersionRegister();
+		//this.onSumitOrderRegister();
 		// JQUERY post doesn't work
 		//this.registerSaveButton();
-		this.registerQuoteVersionGroupChange();
+		this.registerQuoteOrderChange();
 		// register event for three tabs
 		this.registerTabClick();
 	}
 	// events on the version tab
-	, onSumitVersionRegister: function() {
+	// only update version tab
+	, onSumitOrderRegister: function() {
 		// update whole body with edit page
 		var options = { 
-	        target: "#"+microBizConst.bodyContentId
+	        target: "#quoteDetailVersionDIV"
 	        , beforeSubmit: function() {
 	        	// clear content first
-	        	$("#"+microBizConst.bodyContentId).html("");
+	        	$("#quoteDetailVersionDIV").html("Saving...");
 	        	//keep product -1
 	        	// quoteNewFn.validate() 
 	        	if ( true ) {
@@ -149,20 +150,19 @@ var quoteDetailFn = {
 	        	}
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	// reload whole detail page
-	        	alert("save ok....")
-	        	quoteDetailFn.init();
+	        	// refresh the current tab, register change event
+	        	quoteDetailFn.registerQuoteOrderChange();
 	        }
 	    }; 
 	    // bind to the form's submit event 
-	    $("form[name=quoteDetailVersionForm]").submit(function() { 
+	    $("form[name=quoteDetailOrderForm]").submit(function() { 
 	    	$(this).ajaxSubmit(options); 
 	        // !!! Important !!! 
 	        // always return false to prevent standard browser submit and page navigation 
 	        return false; 
 	    }); 
 	}
-	// not working now
+	// not used now
 	, registerSaveButton: function() {
 		$("button[btnAction=save]").on("click", function(){
 			alert(1);
@@ -179,15 +179,15 @@ var quoteDetailFn = {
 			});
 		});
 	}
-	, registerQuoteVersionGroupChange: function() {
-		$("input[name=quoteVersionGroup]:radio").on("change",function(){
+	, registerQuoteOrderChange: function() {
+		$("a[link=quoteOrder]").on("click",function(){
 			// update lower DIV
-			var quoteOrderKey = $(this).val();
-			$("#quoteVersionChangeDIV").html("Saving...");
-			$("#quoteVersionChangeDIV").load("/quote/quoteVersion?quoteOrderKey=" + quoteOrderKey, function(){
+			var quoteOrderKey = $(this).attr("quoteOrderKey");
+			$("#quoteOrderChangeDIV").html("Loading...");
+			$("#quoteOrderChangeDIV").load("/quote/quoteOrder?quoteOrderKey=" + quoteOrderKey, function(){
 				// register form again
-				quoteDetailFn.onSumitVersionRegister();
-				quoteDetailFn.registerQuoteVersionGroupChange();
+				quoteDetailFn.onSumitOrderRegister();
+				//quoteDetailFn.registerQuoteOrderChange();
 			});
 		});
 	}

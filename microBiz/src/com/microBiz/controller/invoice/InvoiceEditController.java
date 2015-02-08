@@ -3,8 +3,7 @@ package com.microBiz.controller.invoice;
 import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
 
-import com.microBiz.MicroBizUtil;
-import com.microBiz.controller.CustomerContactLoadController;
+import com.microBiz.controller.common.CustomerContactLoadController;
 import com.microBiz.model.Contact;
 import com.microBiz.model.Customer;
 import com.microBiz.model.Invoice;
@@ -24,12 +23,9 @@ public class InvoiceEditController extends CustomerContactLoadController {
     
     @Override
     public Navigation run() throws Exception {
-    	
         // list at the top, details panel hidden first
         Invoice invoice = invoiceService.get(asKey("invoiceKey")); 
-
         BeanUtil.copy(invoice, request);
-        
         Customer customer = invoice.getCustomerRef().getModel();
         Contact contact = invoice.getContactRef().getModel();
         // show contact DIV flag, move to super class

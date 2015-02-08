@@ -264,7 +264,7 @@ var customerDetailFn = {
 		$("a[link=customerContactEditClose]").click(function() {
 			var customerKey = $(this).attr("customerKey");
 			// just load job list 
-			$("#customerDetailContactDIV").load("/customer/cusetomerContacts?customerKey="+customerKey, function() {
+			$("#customerDetailContactDIV").load("/customer/customerContacts?customerKey="+customerKey, function() {
 				// register event on contact list page
 				customerDetailFn.onCustomerContactEditClick();
 			});

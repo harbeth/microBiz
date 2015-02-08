@@ -22,7 +22,7 @@ import com.microBiz.service.ProductService;
 import com.microBiz.service.QuoteService;
 
 // command controller for new/edit save
-public class QuoteCreateActionController extends BaseController{
+public class QuoteCreateActionController extends BaseController {
 
     private QuoteService quoteService;
     private CustomerService customerService;
@@ -63,9 +63,9 @@ public class QuoteCreateActionController extends BaseController{
                            .get(Datastore.stringToKey(quote.getContactKey())));
         }
         
-        QuoteOrder qv = new QuoteOrder();
-        qv.setName(MicroBizUtil. getQuoteVersionName(quote.getCount()));
-        qv.setCreateAt(new Date());
+        QuoteOrder quoteOrder = new QuoteOrder();
+        quoteOrder.setName(MicroBizUtil. getQuoteVersionName(quote.getCount()));
+        quoteOrder.setCreateAt(new Date());
       
         Order orders = new Order();
      
@@ -85,19 +85,19 @@ public class QuoteCreateActionController extends BaseController{
         List<OrderItem> qiList = new ArrayList<OrderItem>();
         for ( int i = 0 ; i < arrLength; i ++ ) {
             if(rates[i]!=null && !rates[i].equals("")){
-            Product product = productService.get(Datastore.stringToKey(items[i]));
-            OrderItem qi = new OrderItem();
-            qi.getProductRef().setModel(product);
-            qi.setDesc(descs[i]);
-            qi.setRate(Double.valueOf(rates[i]));
-            qi.setQty(Double.valueOf(quantities[i]));
-  
-            qiList.add(qi);
+                Product product = productService.get(Datastore.stringToKey(items[i]));
+                OrderItem qi = new OrderItem();
+                qi.getProductRef().setModel(product);
+                qi.setDesc(descs[i]);
+                qi.setRate(Double.valueOf(rates[i]));
+                qi.setQty(Double.valueOf(quantities[i]));
+      
+                qiList.add(qi);
             }
         }
 
 
-        Key quoteKey = quoteService.createQuote(quote, qv, orders, qiList);
+        Key quoteKey = quoteService.createQuote(quote, quoteOrder, orders, qiList);
       
         return redirect("/quote/quoteDetails?quoteKey=" + Datastore.keyToString(quoteKey));
     }

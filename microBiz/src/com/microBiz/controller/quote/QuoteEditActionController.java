@@ -21,6 +21,7 @@ public class QuoteEditActionController extends BaseController {
     private QuoteMeta metaQuote;
     
     public QuoteEditActionController() {
+        
         super();
         quoteService = new QuoteService();
         customerService = new CustomerService();

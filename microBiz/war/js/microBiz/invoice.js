@@ -47,7 +47,7 @@ var invoiceNewFn = {
 	        }
 	    }; 
 	    // bind to the form's submit event 
-	    $("form[name=invoiceDetailInfoForm][type=new]").submit(function() { 
+	    $("form[name=invoiceDetailInfoNewForm]").submit(function() { 
 	    	$(this).ajaxSubmit(options); 
 	        // !!! Important !!! 
 	        // always return false to prevent standard browser submit and page navigation 
@@ -71,15 +71,13 @@ var invoiceUpdateFn = {
 	        	return invoiceEditFn.validateForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	// keep on the job tab
-	        	$("#invoiceDetailInfoDIV").hide();
-	        	$("#invoiceDetailJobDIV").show();
-	        	$("a[link=invoiceDetailJob]").parent().attr("class", "active");
-	        	$("a[link=invoiceDetailInfo]").parent().removeAttr("class");
+	        	// show order tab
+	        	var tabType = "Order";
+	        	invoiceDetailFn.setTabSelected(tabType);
 	        }
 	    }; 
 	    // bind to the form's submit event 
-	    $("form[name=invoiceDetailInfoForm][type=edit]").submit(function() { 
+	    $("form[name=invoiceDetailInfoEditForm]").submit(function() { 
 	    	$(this).ajaxSubmit(options); 
 	        // !!! Important !!! 
 	        // always return false to prevent standard browser submit and page navigation 
@@ -90,8 +88,13 @@ var invoiceUpdateFn = {
 // common function for new and edit page
 var invoiceEditFn = {
 		init: function() {
+			this.initPage();
 			microBizFn.onCustomerSelectChange();
 			this.fieldValidate();
+		}
+		, initPage: function() {
+			$( "#signDateStr" ).datepicker();
+			$( "#preferIntlDateStr" ).datepicker();
 		}
 		, fieldValidate: function() {
 			//$("input[valueType=price]").alphanumeric({allow:"."});
@@ -99,7 +102,7 @@ var invoiceEditFn = {
 		}
 		, onCloseClick: function() {
 			// back to invoice list page 
-			$("a[link=invoiceEditClose]").click(function(){
+			$("button[btnAction=invoiceEditClose]").click(function(){
 				window.location.href = "/invoice";
 			});
 		}
@@ -138,8 +141,30 @@ var invoiceDetailFn = {
 		// close button
 		invoiceEditFn.onCloseClick();
 		// register event for edit job link
-		this.onInvoiceJobEditClick();
-		this.onInvoicePaymentEditClick();
+		//this.onInvoiceJobEditClick();
+		this.registerOrderForm();
+		//this.onInvoicePaymentEditClick();
+	}
+	, registerOrderForm: function() {
+		// after submit, reload tab content
+		var options = { 
+	        target: "#invoiceDetailOrderDIV"
+	        , beforeSubmit: function() {
+	        	// set invoiceKey value
+	        	$("#invoiceDetailOrderDIV").html("Saving...");
+	        }
+	        , success: function(responseText, statusText, xhr, $form){
+	        	// register event again
+	        	invoiceDetailFn.registerOrderForm();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("#invoiceDetailOrderForm").submit(function() { 
+	        $(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
 	}
 	// tab event
 	, registerTabClick: function() {
@@ -182,8 +207,21 @@ var invoiceDetailFn = {
 			.attr("hasContent", "y");
 		}
 	}
+	, invoiceDetailOrderDisplay: function() {
+		
+	}
 	, invoiceDetailJobDisplay: function() {
-		// do nothing, already has content
+		var ctrl = $("#invoiceDetailPaymentDIV");
+		var hasContent = ctrl.attr("hasContent");
+		if ( hasContent == 'n' ) {
+			// load content first
+			var invoiceKey = ctrl.attr("invoiceKey");
+			ctrl.load("/invoice/invoiceJobs?invoiceKey=" + invoiceKey, function(){
+				// after edit tab loaded
+				invoiceDetailFn.onInvoiceJobEditClick();
+			})
+			.attr("hasContent", "y");
+		}
 	}
 	// assign job button and edit link
 	, onInvoiceJobEditClick: function() {
@@ -215,7 +253,6 @@ var invoiceDetailFn = {
 	        	// set invoiceKey value
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	// load job list
 	        	// register event again
 	        	invoiceDetailFn.onInvoiceJobEditClick();
 	        }
@@ -231,6 +268,15 @@ var invoiceDetailFn = {
 	// ======= END Job =====================
 	, isTabSelected: function(ctrlLink) {
 		return ctrlLink.parent().hasClass("active");
+	}
+	// Order, Payment, Job, Info
+	, setTabSelected: function(tabType) {
+		// hide three DIVs first
+		$("div[id^=invoiceDetail]").hide();
+		$("a[link^=invoiceDetai]").parent().removeAttr("class");
+		// set tab selected
+		$("a[link=invoiceDetail"+tabType+"]").parent().addClass("ative");
+		$("div[id=invoiceDetail"+tabType+"DIV]").show();
 	}
 	, onNewButtonClick: function(type, key) {
 		// when new payment and assign job button click, consider the current tab

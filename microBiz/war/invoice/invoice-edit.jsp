@@ -1,7 +1,9 @@
 <%@include file="../includes/taglib.jsp"%>
 
 <!-- for edit invoice -->
-<c:import url = "./invoice-edit-common.jsp">
-	<c:param name = "type" value ="edit"/>
-	<c:param name = "action" value ="${f:url('/invoice/invoiceEditAction')}"/>
-</c:import>
+<form name ="invoiceDetailInfoEditForm" typerole="form" method="post" action="/invoice/invoiceEditAction">
+	<jsp:include page="./invoice-detail-edit.jsp" flush="true"></jsp:include>
+	<div class="form-group">
+		<button type="submit" class="btn btn-default">Submit</button>
+	</div>
+</form>

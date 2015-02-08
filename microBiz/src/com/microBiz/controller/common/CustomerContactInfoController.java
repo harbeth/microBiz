@@ -1,4 +1,4 @@
-package com.microBiz.controller;
+package com.microBiz.controller.common;
 
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;

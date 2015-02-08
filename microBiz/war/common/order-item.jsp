@@ -1,4 +1,4 @@
-<%@include file="./includes/taglib.jsp"%>
+<%@include file="../includes/taglib.jsp"%>
 
 <%-- 
 put script here for independent 

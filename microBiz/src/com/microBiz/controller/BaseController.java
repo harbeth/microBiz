@@ -1,44 +1,40 @@
 package com.microBiz.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.slim3.controller.Controller;
-import org.apache.commons.lang.RandomStringUtils;
 
 import com.microBiz.MicroBizConst;
 
 
 
 public abstract class BaseController extends Controller{
-    protected List roles ;
-    protected List units ;
-    protected List cxRatings;
-    protected List prdTypes;
-    protected List suppliers;
-    protected List cxTypes;
-    protected List txRates;
-    protected List modules;
-    protected List inventoryChangeTypes;
-    protected List paymentTypes;
-    protected List quoteStatus;
+    protected List<String> roles ;
+    protected List<String>  units ;
+    protected List<String>  cxRatings;
+    protected List<String>  prdTypes;
+    protected List<String>  suppliers;
+    protected List<String>  cxTypes;
+    protected List<String>  txRates;
+    protected List<String>  modules;
+    protected List<String>  inventoryChangeTypes;
+    protected List<String>  paymentTypes;
+    protected List<String>  quoteStatus;
     
     public BaseController(){
 
-        roles = new ArrayList();
-        units  = new ArrayList();
-        prdTypes  = new ArrayList();
-        cxRatings  = new ArrayList();
-        suppliers  = new ArrayList();
-        cxTypes  = new ArrayList();
-        txRates  = new ArrayList();
-        modules  = new ArrayList();
-        inventoryChangeTypes = new ArrayList();
-        paymentTypes = new ArrayList();
-        quoteStatus = new ArrayList();
+        roles = new ArrayList<String>();
+        units  = new ArrayList<String>();
+        prdTypes  = new ArrayList<String>();
+        cxRatings  = new ArrayList<String>();
+        suppliers  = new ArrayList<String>();
+        cxTypes  = new ArrayList<String>();
+        txRates  = new ArrayList<String>();
+        modules  = new ArrayList<String>();
+        inventoryChangeTypes = new ArrayList<String>();
+        paymentTypes = new ArrayList<String>();
+        quoteStatus = new ArrayList<String>();
   
 
         roles.add("admin"); // have full rights, 
@@ -77,83 +73,5 @@ public abstract class BaseController extends Controller{
         quoteStatus.add("open");
         quoteStatus.add("won");
         quoteStatus.add("failed");
-        
-        
-
-
-        
     }
-    
-
- 
-    
-    
-    public List getRoles() {
-        return roles;
-    }
-
-
-    public void setRoles(List roles) {
-        this.roles = roles;
-    }
-
-
-    public List getUnits() {
-        return units;
-    }
-
-
-    public void setUnits(List units) {
-        this.units = units;
-    }
-
-
-    public List getCxRatings() {
-        return cxRatings;
-    }
-
-
-    public void setCxRatings(List cxRatings) {
-        this.cxRatings = cxRatings;
-    }
-
-
-    public List getPrdTypes() {
-        return prdTypes;
-    }
-
-
-    public void setPrdTypes(List prdTypes) {
-        this.prdTypes = prdTypes;
-    }
-    
-    public List getSuppliers() {
-        return suppliers;
-    }
-
-
-    public void setSuppliers(List suppliers) {
-        this.suppliers = suppliers;
-    }
-
-
-    public List getCxTypes() {
-        return cxTypes;
-    }
-
-
-    public void setCxTypes(List cxTypes) {
-        this.cxTypes = cxTypes;
-    }
-
-
-    public List getTxRates() {
-        return txRates;
-    }
-
-
-    public void setTxRates(List txRates) {
-        this.txRates = txRates;
-    }
-    
 }

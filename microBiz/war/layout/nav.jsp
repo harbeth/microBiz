@@ -23,13 +23,11 @@
 						Dashboard</a></li>
 				<li><a href="/customer"><i class="fa fa-table fa-fw"></i>
 						Customer</a></li>
-				<li><a href="/customerOld"><i class="fa fa-table fa-fw"></i>
-						CustomerOld</a></li>
-				<li><a href="/quote"><i class="fa fa-edit fa-fw"></i>
+				<li><a href="/quote/quote"><i class="fa fa-edit fa-fw"></i>
 						Quotation</a></li>
-				<li><a href="/invoice"><i class="fa fa-table fa-fw"></i>Invoice<span
+				<li><a href="/invoice/invoice"><i class="fa fa-table fa-fw"></i>Invoice<span
 						class="fa arrow"></span></a>
-				<li><a href="/jobReport"><i class="fa fa-table fa-fw"></i>job Report<span
+				<li><a href="#"><i class="fa fa-table fa-fw"></i>job Report<span
 						class="fa arrow"></span></a>
 				<li><a href="#"><i class="fa fa-wrench fa-fw"></i>Product<span
 						class="fa arrow"></span></a>

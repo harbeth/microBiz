@@ -17,9 +17,8 @@ import com.microBiz.model.OrderItem;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
 
-
-
 public class QuoteService {
+    
     private QuoteMeta p = new QuoteMeta();
     private QuoteOrderMeta quoteOrderMeta = new QuoteOrderMeta();
  
@@ -46,14 +45,12 @@ public class QuoteService {
         tx.commit();
         return key;
     }
-    
 
     public void saveQuoteVersion(QuoteOrder f) {
         Transaction tx = Datastore.beginTransaction();
         Datastore.put(tx, f);
         tx.commit();
     }
-    
    
     public void save(Key parentKey, Customer f) {
         Transaction tx = Datastore.beginTransaction();
@@ -64,8 +61,7 @@ public class QuoteService {
     }
 
     //here for insert new quote, return quote key
-    public Key createQuote(Quote quote, QuoteOrder qv, Order order,
-            List<OrderItem> qiList) {
+    public Key createQuote(Quote quote, QuoteOrder qv, Order order, List<OrderItem> qiList) {
 
         Transaction tx = Datastore.beginTransaction();
         Key parentKey = Datastore.put(tx, quote);
@@ -74,8 +70,6 @@ public class QuoteService {
         qv.setKey(quoteVersionKey);
         qv.getQuoteRef().setModel(quote);
         
-        
-
         Key ordersKey = Datastore.allocateId(quoteVersionKey, Order.class);
         order.setKey(ordersKey);
         qv.getOrderRef().setModel(order);
@@ -86,13 +80,12 @@ public class QuoteService {
         Datastore.put(tx,qiList);
         tx.commit();
         return parentKey;
-
-        
     }
 
     // return quote key
-    public Key saveAsNewVersion(QuoteOrder qv, Order order, List<OrderItem> qiList) {
+    public Key saveAsNewVersion(QuoteOrder qv, Order order) {
         Transaction tx = Datastore.beginTransaction();
+        List<OrderItem> oiList = order.getOrderItemList();
         Quote quote = qv.getQuoteRef().getModel();
         int quoteVersionCount = quote.getCount();
         quoteVersionCount ++ ;
@@ -108,59 +101,49 @@ public class QuoteService {
         qv.getOrderRef().setModel(order);
         Datastore.put(tx, qv);
         Datastore.put(tx, order);
-        setItemParent(ordersKey,order, qiList);
-        Datastore.put(tx, qiList);
+        setItemParent(ordersKey,order, oiList);
+        Datastore.put(tx, oiList);
         tx.commit();
         return quote.getKey();
     }
     
-
-    public void saveAsCurrentVersion(QuoteOrder qv, Order order, List<OrderItem> qiList) {
+    public void saveAsCurrentVersion(QuoteOrder quoteOrder, Order order) {
         Transaction tx = Datastore.beginTransaction();
-        Quote quote = qv.getQuoteRef().getModel();
+        List<OrderItem> oiList = order.getOrderItemList();
+        Quote quote = quoteOrder.getQuoteRef().getModel();
         QuoteOrder newQv = new QuoteOrder();
-        newQv.setName(qv.getName());
+        newQv.setName(quoteOrder.getName());
         newQv.getQuoteRef().setModel(quote);
         newQv.setCreateAt(new Date());
         
         Key quoteVersionKey = Datastore.allocateId(quote.getKey(), QuoteOrder.class);
-       
-        
-       newQv.setKey(quoteVersionKey);
+        newQv.setKey(quoteVersionKey);
         Datastore.put(tx, newQv);
         //delete old version
-        Datastore.deleteAll(tx, qv.getKey());
+        Datastore.deleteAll(tx, quoteOrder.getKey());
 
         Key ordersKey = Datastore.allocateId(quoteVersionKey, Order.class);
         order.setKey(ordersKey);
-       newQv.getOrderRef().setModel(order);
+        newQv.getOrderRef().setModel(order);
+        Datastore.put(tx, newQv);
+        Datastore.put(tx, order);
 
-        setItemParent(ordersKey,order, qiList);
-       
-        
+        setItemParent(ordersKey,order, oiList);
+        Datastore.put(tx, oiList);
+        tx.commit();
     }
     
- 
-    
-    private void setItemParent(Key ordersKey,Order orders, List<OrderItem> items ){
-       
+    private void setItemParent(Key ordersKey,Order orders, List<OrderItem> items){
         Iterator<OrderItem> itemsI= items.iterator();
-
         while(itemsI.hasNext()) {
             OrderItem oneItem = (OrderItem)itemsI.next();
             Key itemKey = Datastore.allocateId(ordersKey, OrderItem.class);
             oneItem.setKey(itemKey);
-            oneItem.getOrdersRef().setModel(orders);
-
+            oneItem.getOrderRef().setModel(orders);
         }
- 
     }
 
     public QuoteOrder getQuoteOrder(Key key) {
         return Datastore.get(quoteOrderMeta, key);
     }
-
-
-
-
 }

@@ -1,9 +1,10 @@
-package com.microBiz.controller;
+package com.microBiz.controller.common;
 
 import java.util.List;
 
 import org.slim3.controller.Navigation;
 
+import com.microBiz.controller.BaseController;
 import com.microBiz.model.Contact;
 import com.microBiz.model.Customer;
 import com.microBiz.service.CustomerService;

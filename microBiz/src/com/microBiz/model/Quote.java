@@ -34,10 +34,6 @@ public class Quote implements Serializable {
     @Attribute(persistent = false)
     private String contactKey = "-1";
     
-    @Attribute(persistent = false)
-    // only for create, just one
-    private QuoteOrder quoteVersion;
-    
     @Attribute(unindexed = true)
     private String note;
     
@@ -118,14 +114,6 @@ public class Quote implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-    
-    public QuoteOrder getQuoteVersion() {
-        return quoteVersion;
-    }
-
-    public void setQuoteVersion(QuoteOrder quoteVersion) {
-        this.quoteVersion = quoteVersion;
     }
     
     public String getCustomerKey() {

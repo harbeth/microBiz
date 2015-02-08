@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.slim3.controller.Navigation;
 
-import com.microBiz.controller.CustomerContactLoadController;
+import com.microBiz.controller.common.CustomerContactLoadController;
 import com.microBiz.model.Invoice;
 import com.microBiz.service.InvoiceService;
 

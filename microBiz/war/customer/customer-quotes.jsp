@@ -18,7 +18,7 @@
 							<td>${f:h(q.address)}</td>
 							<td>${f:h(q.count)}</td>
 							<td>${f:h(q.note)}</td>
-							<td><a href="/editQuote?quoteKey=${f:h(q.key)}">Edit</a></td>
+							<td><a href="/quote/editQuote?quoteKey=${f:h(q.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

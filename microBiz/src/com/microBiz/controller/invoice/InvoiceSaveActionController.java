@@ -1,6 +1,5 @@
 package com.microBiz.controller.invoice;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
@@ -9,12 +8,11 @@ import org.slim3.util.BeanUtil;
 
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
-import com.microBiz.controller.BaseController;
+import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.meta.InvoiceMeta;
 import com.microBiz.model.Invoice;
+import com.microBiz.model.InvoiceOrder;
 import com.microBiz.model.Order;
-import com.microBiz.model.OrderItem;
-import com.microBiz.model.Product;
 import com.microBiz.service.ContactService;
 import com.microBiz.service.CustomerService;
 import com.microBiz.service.InvoiceService;
@@ -22,7 +20,7 @@ import com.microBiz.service.MiUserService;
 import com.microBiz.service.ProductService;
 
 // command controller for new/edit save
-public abstract class InvoiceSaveActionController extends BaseController{
+public abstract class InvoiceSaveActionController extends OrderLoadActionController {
 
     protected InvoiceService invoiceService;
     protected CustomerService customerService;
@@ -69,37 +67,18 @@ public abstract class InvoiceSaveActionController extends BaseController{
         }
         
         invoice.getSalesRef().setModel(userService.get(Datastore.stringToKey(asString("sales"))));
-        
-        Order order = new Order();
-        
-        order.setTaxRate(asDouble("taxRate"));
-        order.setDiscount(asDouble("discount"));
-        order.setTotal(asDouble("total"));
-        // remove -1 for product
-        String[] items = paramValues("items");
-        String[] rates = paramValues("rates");
-        String[] descs = paramValues("descs");
-        String[] quantities = paramValues("qtys");
-        // product should not be empty
-        int arrLength = items.length - 1;
-        List<OrderItem> qiList = new ArrayList<OrderItem>();
-        for ( int i = 0 ; i < arrLength; i ++ ) {
-            if(rates[i]!=null && !rates[i].equals("")){
-            Product product = productService.get(Datastore.stringToKey(items[i]));
-            OrderItem qi = new OrderItem();
-            qi.getProductRef().setModel(product);
-            qi.setDesc(descs[i]);
-            qi.setRate(Double.valueOf(rates[i]));
-            qi.setQty(Double.valueOf(quantities[i]));
-  
-            qiList.add(qi);
-            }
+        Order order = getOrderData();
+        // also reused by edit tab save function
+        if ( order != null ) {
+            // should return key, if not, return to invoice list
+            Key key = invoiceService.saveNewInvoice(invoice, order);
+            invoice = invoiceService.get(key);
+            // get updated order
+            List<InvoiceOrder> invoiceOrder = invoice.getInvoiceOrderRef().getModelList();
+            // for invoice order data in items tab
+            Order newOrder = invoiceOrder.get(0).getOrderRef().getModel();
+            setOrderData(newOrder);
         }
-
-        // should return key, if not, return to invoice list
-        Key key = invoiceService.saveNewInvoice(invoice, order, qiList);
-        
-        invoice.setKey(key);
         // keep on same tab, update info DIV
         requestScope("invoice", invoice);
         return forward(getReturnJsp());

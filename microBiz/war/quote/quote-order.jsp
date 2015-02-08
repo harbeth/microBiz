@@ -3,13 +3,12 @@
 <div class="row">
 	<div class="col-lg-12">
 		<pre>Edit the Quote Version:
-			${f:h(quoteVersion.name)} Created At ${f:h(quoteVersion.createAtStr)} 
+			${f:h(quoteOrder.name)} Created At ${f:h(quoteOrder.createAtStr)} 
 	    </pre>
-		<form name="quoteDetailVersionForm" typerole="form" method="post"
-			action="/quote/quoteVersionAction">
-			<input type="hidden" name="quoteOrderKey"	value="${f:h(quoteVersion.key)}">
-			<div id="quoteVersionDIV" class="row">
-				<jsp:include page="../order-item.jsp" flush="true"></jsp:include>
+		<form name="quoteDetailOrderForm" typerole="form" method="post" action="/quote/quoteOrderAction">
+			<input type="hidden" name="quoteOrderKey" value="${f:h(quoteOrder.key)}">
+			<div id="quoteOrderDIV" class="row">
+				<jsp:include page="../common/order-item.jsp" flush="true"></jsp:include>
 			</div>
 			<div class="form-group">
 				<input type="radio" name="saveOption" value="save" checked>Save

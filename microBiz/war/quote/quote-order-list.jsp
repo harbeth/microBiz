@@ -16,8 +16,3 @@
 <div id ="quoteOrderChangeDIV">
 </div>
 
-<%--
-<jsp:include page="./quote-version.jsp" flush="true"></jsp:include>
- --%>
-
-

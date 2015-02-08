@@ -1,4 +1,4 @@
-package com.microBiz.controller;
+package com.microBiz.controller.common;
 
 import java.util.List;
 

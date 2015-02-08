@@ -1,11 +1,15 @@
 <%@include file="../includes/taglib.jsp"%>
 
 <!-- for new invoice -->
-<div class="panel-heading">
-	<a link="invoiceEditClose"  data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Close</a>
-</div>
-
-<c:import url = "./invoice-edit-common.jsp">
-	<c:param name = "type" value ="new"/>
-	<c:param name = "action" value ="${f:url('/invoice/invoiceCreateAction')}"/>
-</c:import>
+<form name ="invoiceDetailInfoNewForm" typerole="form" method="post" action="/invoice/invoiceCreateAction">
+	
+	<jsp:include page="./invoice-detail-edit.jsp" flush="true"></jsp:include>
+	<!-- order item DIV -->
+	<jsp:include page="../order-item.jsp" flush="true"></jsp:include>
+	
+	<div class="form-group">
+		<button type="submit" class="btn btn-default">Submit</button>
+		<button btnAction="invoiceEditClose" class="btn btn-default">Close</button>
+	</div>
+	
+</form>

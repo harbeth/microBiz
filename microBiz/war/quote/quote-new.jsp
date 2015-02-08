@@ -5,7 +5,7 @@
 	
 	<jsp:include page="./quote-detail-edit.jsp" flush="true"></jsp:include>
 	<!-- order item DIV -->
-	<jsp:include page="../order-item.jsp" flush="true"></jsp:include>
+	<jsp:include page="../common/order-item.jsp" flush="true"></jsp:include>
 	
 	<div class="form-group">
 		<button type="submit" class="btn btn-default">Submit</button>

@@ -1,6 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@taglib prefix="f" uri="http://www.slim3.org/functions"%>
+<%@include file="../includes/taglib.jsp"%>
 
 <div class="col-lg-12">
 	<div class="form-group input-group">
@@ -17,7 +15,7 @@
 	</div>
 	<div id="customerContactInfoDIV">
 		<c:if test = "${f:h(contactInfoShown)}" >
-			<jsp:include page="customer-contact-info.jsp" />
+			<jsp:include page="./customer-contact-info.jsp" />
 		</c:if>
 	</div>
 </div>

@@ -1,10 +1,8 @@
 package com.microBiz.model;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import org.slim3.datastore.Attribute;
-import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 

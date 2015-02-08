@@ -3,7 +3,7 @@ package com.microBiz.controller.invoice;
 import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
 
-import com.microBiz.controller.CustomerContactLoadController;
+import com.microBiz.controller.common.CustomerContactLoadController;
 import com.microBiz.model.Customer;
 import com.microBiz.model.Invoice;
 import com.microBiz.service.MiUserService;

@@ -18,6 +18,9 @@
 
 <ul class="nav nav-tabs">
 	<li class="active">
+		<a link="invoiceDetailOrder" data-toggle="tab" aria-expanded="false">Items</a>
+	</li>
+	<li>
 		<a link="invoiceDetailJob" data-toggle="tab" aria-expanded="false">Jobs</a>
 	</li>
 	<li class="">
@@ -29,8 +32,10 @@
 </ul>
 
 <!-- Page content : by default job div shown -->
+<div id="invoiceDetailOrderDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row">
+	<jsp:include page="./invoice-order.jsp" flush="true" />
+</div>
 <div id="invoiceDetailJobDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row">
-	<jsp:include page="invoice-jobs.jsp" flush="true"></jsp:include>
 </div>
 
 <div id="invoiceDetailInfoDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n">
@@ -38,3 +43,6 @@
 
 <div id="invoiceDetailPaymentDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n"></div>
 
+<%--
+<jsp:include page="invoice-jobs.jsp" flush="true"></jsp:include>
+--%>

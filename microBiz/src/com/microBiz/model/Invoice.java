@@ -7,8 +7,10 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
+import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizUtil;
 
 @Model
@@ -29,13 +31,8 @@ public class Invoice implements Serializable {
     // sales,(only available to admin, if user is a sales, the this is user)
     private String address;
 
-    
-
-    
     @Attribute(unindexed = false)
     private Double deposit;
-    
-
     
     @Attribute(unindexed = false)
     private String depositPymtMethod;
@@ -60,11 +57,8 @@ public class Invoice implements Serializable {
     private String note;
     
     private String status;
-
-    
     private ModelRef<MiUser> salesRef = new ModelRef<MiUser>(MiUser.class);
     private ModelRef<MiUser> creatorRef = new ModelRef<MiUser>(MiUser.class);
-    private ModelRef<InvoiceOrder> invoiceOrderRef = new ModelRef<InvoiceOrder>(InvoiceOrder.class);
     
     // for display
     @Attribute(persistent = false)
@@ -85,29 +79,24 @@ public class Invoice implements Serializable {
         return contactRef;
     }
     
-    
-    
     public ModelRef<MiUser> getSalesRef() {
         return salesRef;
     }
 
-
-
-    public ModelRef<InvoiceOrder> getInvoiceOrderRef() {
-        return invoiceOrderRef;
-    }
-
-
-
     public ModelRef<MiUser> getCreatorRef() {
         return creatorRef;
     }
-
+    
+    @Attribute(persistent = false)
+    private InverseModelListRef<InvoiceOrder, Invoice> invoiceOrderRef = new InverseModelListRef<InvoiceOrder, Invoice>(InvoiceOrder.class, "invoiceRef", this);
+ 
+    public InverseModelListRef<InvoiceOrder, Invoice> getInvoiceOrderRef() {
+        return invoiceOrderRef;
+    }
 
     // many to one
     @Attribute(persistent = false)
     private InverseModelListRef<Payment, Invoice> paymentListRef = new InverseModelListRef<Payment, Invoice>(Payment.class, "invoiceRef", this);
-
  
     public InverseModelListRef<Payment, Invoice> getPaymentListRef() {
         return paymentListRef;

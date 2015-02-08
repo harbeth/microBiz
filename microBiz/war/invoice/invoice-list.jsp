@@ -20,7 +20,6 @@
 						<th>Invoice #</th>
 						<th>Address</th>
 						<th>Sales</th>
-
 					</tr>
 				</thead>
 				<tbody>
@@ -29,7 +28,6 @@
 							<td><a link="invoiceEditDetail" invoiceKey="${f:h(i.key)}">${f:h(i.invoiceNumber)}</a></td>
 							<td>${f:h(i.address)}</td>
 							<td>${f:h(i.salesRef.model.name)}</td>
-
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -1,9 +1,10 @@
-package com.microBiz.controller;
+package com.microBiz.controller.invoice;
 
 import java.util.List;
 
 import org.slim3.controller.Navigation;
 
+import com.microBiz.controller.BaseController;
 import com.microBiz.model.Invoice;
 import com.microBiz.service.InvoiceService;
 
@@ -22,6 +23,6 @@ public class InvoiceController extends BaseController {
         // only get data for invoice list, not details
         List<Invoice> invoiceList = invoiceService.getAll();
         requestScope("invoices", invoiceList);
-        return forward("invoice/invoice.jsp");
+        return forward("invoice.jsp");
     }
 }
