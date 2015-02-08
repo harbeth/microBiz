@@ -10,7 +10,6 @@ import com.microBiz.meta.JobMeta;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.Job;
 import com.microBiz.model.MiUser;
-import com.microBiz.model.Payment;
 import com.microBiz.service.InvoiceService;
 import com.microBiz.service.JobService;
 import com.microBiz.service.MiUserService;

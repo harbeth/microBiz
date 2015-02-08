@@ -7,7 +7,6 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.meta.ContactMeta;
-import com.microBiz.meta.CustomerMeta;
 import com.microBiz.model.Contact;
 import com.microBiz.model.Customer;
 

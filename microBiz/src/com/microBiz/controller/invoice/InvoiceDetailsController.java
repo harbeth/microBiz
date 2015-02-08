@@ -1,13 +1,10 @@
 package com.microBiz.controller.invoice;
 
-import java.util.List;
-
 import org.slim3.controller.Navigation;
 
 import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.Order;
-import com.microBiz.model.OrderItem;
 import com.microBiz.service.InvoiceService;
 
 // on invoice edit link click, load job tab first
