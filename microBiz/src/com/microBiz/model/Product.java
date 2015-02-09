@@ -1,5 +1,6 @@
 package com.microBiz.model;
 import java.io.Serializable;
+import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
@@ -46,14 +47,20 @@ public class Product implements Serializable {
     @Attribute(unindexed = true)
     private String consumeReportUnit;
 
-    // many to one
+    // many to one, will set the list when retrieve product from datastore, eager loading
     @Attribute(persistent = false)
-    private InverseModelListRef<PrdRatio, Product> prdRatioListRef = new InverseModelListRef<PrdRatio, Product>(PrdRatio.class, "productRef", this);
-  
-    public InverseModelListRef<PrdRatio, Product> getPrdRatioListRef() {
-        return prdRatioListRef;
-    }
+    private List<PrdRatio> prdRatioList;
+ 
+
     
+    public List<PrdRatio> getPrdRatioList() {
+        return prdRatioList;
+    }
+
+    public void setPrdRatioList(List<PrdRatio> prdRatioList) {
+        this.prdRatioList = prdRatioList;
+    }
+
     @Attribute(unindexed = true)
     private String active;
     

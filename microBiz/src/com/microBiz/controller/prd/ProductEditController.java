@@ -30,7 +30,7 @@ public class ProductEditController extends BaseController{
         List<PrdRatio> prdRs = null;
         if(asKey("productKey")  != null){// from edit link
             p = s.get(asKey("productKey"));   
-            prdRs = p.getPrdRatioListRef().getModelList();
+            prdRs = p.getPrdRatioList();
             System.out.println("prdRs is" + prdRs.size());
         }else{
             p = new Product();

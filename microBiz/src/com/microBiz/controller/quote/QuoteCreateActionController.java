@@ -11,6 +11,7 @@ import org.slim3.util.BeanUtil;
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
+import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.model.OrderItem;
 import com.microBiz.model.Order;
 import com.microBiz.model.Product;
@@ -22,12 +23,12 @@ import com.microBiz.service.ProductService;
 import com.microBiz.service.QuoteService;
 
 // command controller for new/edit save
-public class QuoteCreateActionController extends BaseController {
+public class QuoteCreateActionController extends OrderLoadActionController {
 
     private QuoteService quoteService;
     private CustomerService customerService;
     private ContactService contactService;
-    private ProductService productService;
+
 
     
     public QuoteCreateActionController(){
@@ -35,7 +36,7 @@ public class QuoteCreateActionController extends BaseController {
         quoteService = new QuoteService();
         customerService = new CustomerService();
         contactService = new ContactService();
-        productService = new ProductService();
+
 
     }
     
@@ -67,37 +68,18 @@ public class QuoteCreateActionController extends BaseController {
         quoteOrder.setName(MicroBizUtil. getQuoteVersionName(quote.getCount()));
         quoteOrder.setCreateAt(new Date());
       
-        Order orders = new Order();
-     
-        orders.setTaxRate(quote.getTaxRate());
-        orders.setDiscount(quote.getDiscount());
-        // calculate at the front end
-        orders.setTotal(quote.getTotal());
+        Order order = getOrderData();
+
+        Key orderkey = orderService.saveNewOrder(order);
         
-        // assemble quote item
-        // remove -1 for product
-        String[] items = paramValues("items");
-        String[] rates = paramValues("rates");
-        String[] descs = paramValues("descs");
-        String[] quantities = paramValues("qtys");
-        // product should not be empty
-        int arrLength = items.length - 1;
-        List<OrderItem> qiList = new ArrayList<OrderItem>();
-        for ( int i = 0 ; i < arrLength; i ++ ) {
-            if(rates[i]!=null && !rates[i].equals("")){
-                Product product = productService.get(Datastore.stringToKey(items[i]));
-                OrderItem qi = new OrderItem();
-                qi.getProductRef().setModel(product);
-                qi.setDesc(descs[i]);
-                qi.setRate(Double.valueOf(rates[i]));
-                qi.setQty(Double.valueOf(quantities[i]));
-      
-                qiList.add(qi);
-            }
-        }
-
-
-        Key quoteKey = quoteService.createQuote(quote, quoteOrder, orders, qiList);
+        Key quoteKey = quoteService.save(quote);
+        
+        quoteOrder.getOrderRef().setKey(orderkey);
+        quoteOrder.getQuoteRef().setModel(quote);
+        
+        quoteService.saveQuoteOrder(quoteOrder);
+        
+        
       
         return redirect("/quote/quoteDetails?quoteKey=" + Datastore.keyToString(quoteKey));
     }

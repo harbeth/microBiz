@@ -30,8 +30,7 @@ public class OrderItem implements Serializable {
     private Double total;
     
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
-    
-    private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
+
     
     public Key getKey() {
         return key;
@@ -77,10 +76,7 @@ public class OrderItem implements Serializable {
         this.total = total;
     }
 
-    public ModelRef<Order> getOrderRef() {
-        return orderRef;
-    }
-
+ 
 
     @Override
     public int hashCode() {

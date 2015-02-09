@@ -7,7 +7,7 @@ import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
 
-
+// is child of product
 @Model(kind = "prdRatio")
 public class PrdRatio implements Serializable {
     
@@ -23,14 +23,6 @@ public class PrdRatio implements Serializable {
     @Attribute(unindexed = true)
     private String desc;
     
-    // many to one for Invoice
-    private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
-    
-    public ModelRef<Product> getProductRef() {
-        return productRef;
-    }
-
-
 
     @Override
     public int hashCode() {

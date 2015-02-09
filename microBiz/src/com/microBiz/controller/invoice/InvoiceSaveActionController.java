@@ -11,7 +11,6 @@ import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.meta.InvoiceMeta;
 import com.microBiz.model.Invoice;
-import com.microBiz.model.InvoiceOrder;
 import com.microBiz.model.Order;
 import com.microBiz.service.ContactService;
 import com.microBiz.service.CustomerService;
@@ -26,7 +25,7 @@ public abstract class InvoiceSaveActionController extends OrderLoadActionControl
     protected CustomerService customerService;
     protected ContactService contactService;
     protected MiUserService userService;
-    protected ProductService productService;
+  
     
     protected InvoiceMeta metaInvoice;
     
@@ -37,7 +36,7 @@ public abstract class InvoiceSaveActionController extends OrderLoadActionControl
         contactService = new ContactService();
         metaInvoice = new InvoiceMeta();
         userService = new MiUserService();
-        productService = new ProductService();
+ 
     }
     
     @Override
@@ -70,15 +69,14 @@ public abstract class InvoiceSaveActionController extends OrderLoadActionControl
         Order order = getOrderData();
         // also reused by edit tab save function
         if ( order != null ) {
-            // should return key, if not, return to invoice list
-            Key key = invoiceService.saveNewInvoice(invoice, order);
-            invoice = invoiceService.get(key);
-            // get updated order
-            List<InvoiceOrder> invoiceOrder = invoice.getInvoiceOrderRef().getModelList();
-            // for invoice order data in items tab
-            Order newOrder = invoiceOrder.get(0).getOrderRef().getModel();
-            setOrderData(newOrder);
+            
+            Key orderKey = orderService.saveNewOrder(order);
+            invoice.getOrderRef().setKey(orderKey);
+            
+
+            setOrderData(order);
         }
+        invoice = invoiceService.save(invoice);
         // keep on same tab, update info DIV
         requestScope("invoice", invoice);
         return forward(getReturnJsp());

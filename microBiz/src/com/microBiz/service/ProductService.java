@@ -34,7 +34,13 @@ public class ProductService {
     }
     
     public Product get(Key key) {
-        return Datastore.get(p, key);
+        Product prd = Datastore.get(p, key);
+        List<PrdRatio> prdRs = Datastore.query(PrdRatio.class,key).asList();
+        if(prdRs!=null && prdRs.size()>0 ){
+            prd.setPrdRatioList(prdRs);
+        }
+        
+        return prd;
     }
     
     public void delete(Key key) {
@@ -65,7 +71,7 @@ public class ProductService {
             PrdRatio prdR = (PrdRatio)prdRsI.next();
             Key childKey = Datastore.allocateId(parentKey, PrdRatio.class);
             prdR.setKey(childKey);
-            prdR.getProductRef().setModel(parent);
+
         }
 
         Datastore.put(tx, prdRs);
@@ -87,6 +93,10 @@ public class ProductService {
         InventoryChangeMeta icMeta = new InventoryChangeMeta();
         return Datastore.query(icMeta,ancestorKey)
                 .sort(icMeta.changeDate.desc).asList();
+    }
+
+    public PrdRatio getPrdRatio(Key prdRatioKey) {
+        return Datastore.get(pr, prdRatioKey);
     }
 
 }

@@ -25,7 +25,7 @@ public class InvoiceDetailsController extends OrderLoadActionController {
         System.out.println("get invoiceKey " + asString("invoiceKey")) ;
         requestScope("invoice", invoice); 
         
-        Order invoiceOrder = invoice.getInvoiceOrderRef().getModelList().get(0).getOrderRef().getModel();
+        Order invoiceOrder = invoice.getOrderRef().getModel();
         setOrderData(invoiceOrder);
         return forward(getReturnJsp());
     }

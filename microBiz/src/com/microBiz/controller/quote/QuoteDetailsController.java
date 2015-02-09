@@ -30,7 +30,7 @@ public class QuoteDetailsController extends BaseController {
         // get quote version list, the first is selected one, get quote item list
         // ?? some times
         List<QuoteOrder> quoteOrderList = quote.getQuoteOrderRef().getModelList();
-        System.out.println("get quote order list: " + quoteOrderList);
+        System.out.println("get quote order list: " + quoteOrderList.size());
         // quote order key could be empty
         requestScope("quoteOrders", quoteOrderList);
         

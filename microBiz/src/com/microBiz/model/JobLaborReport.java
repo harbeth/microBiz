@@ -7,6 +7,7 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.MicroBizUtil;
 
 
 @Model(kind = "job_labor_report")
@@ -20,19 +21,12 @@ public class JobLaborReport implements Serializable {
     private Date reportDate;
     private Double travelHours;
     private Double workingHours;
+    private Boolean isVoid;
     
     @Attribute(persistent = false)
     private String reportDateStr;
 
     private String note;
-    // many to one
-    private ModelRef<Job> jobRef = new ModelRef<Job>(Job.class);
-  
-    public ModelRef<Job> getJobRef() {
-        return jobRef;
-    }
-    
-
 
     public Date getReportDate() {
         return reportDate;
@@ -43,9 +37,12 @@ public class JobLaborReport implements Serializable {
 
     public void setReportDate(Date reportDate) {
         this.reportDate = reportDate;
+        setReportDate();
     }
 
-
+    public void setReportDate() {
+        this.reportDate = MicroBizUtil.parseStrToDate(reportDateStr);
+    }
 
 
     public Double getTravelHours() {
@@ -77,7 +74,7 @@ public class JobLaborReport implements Serializable {
 
 
     public String getReportDateStr() {
-        return reportDateStr;
+        return MicroBizUtil.parseDateToStr(reportDate);
     }
 
 
@@ -85,6 +82,20 @@ public class JobLaborReport implements Serializable {
 
     public void setReportDateStr(String reportDateStr) {
         this.reportDateStr = reportDateStr;
+    }
+
+
+
+
+    public Boolean getIsVoid() {
+        return isVoid;
+    }
+
+
+
+
+    public void setIsVoid(Boolean isVoid) {
+        this.isVoid = isVoid;
     }
 
 

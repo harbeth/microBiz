@@ -1,9 +1,10 @@
-package com.microBiz.controller;
+package com.microBiz.controller.jobReport;
 
 import java.util.List;
 
 import org.slim3.controller.Navigation;
 
+import com.microBiz.controller.BaseController;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.Job;
 import com.microBiz.service.InvoiceService;
@@ -24,6 +25,6 @@ public class JobReportController extends BaseController {
         // only get data for invoice list, not details
         List<Job> jobs = jobService.getAllUncompleteJobs();
         requestScope("jobs", jobs);
-        return forward("jobReport/job-report-wrapper.jsp");
+        return forward("job-report-wrapper.jsp");
     }
 }

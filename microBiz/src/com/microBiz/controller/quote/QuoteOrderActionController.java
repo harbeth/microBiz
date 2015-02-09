@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slim3.controller.Navigation;
 
+import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.model.Invoice;
@@ -50,13 +51,30 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             if(quote.getContactRef()!=null){
                 invoice.getContactRef().setModel(quote.getContactRef().getModel());
             }
-            invoiceService.convertQuoteToInvoice(invoice, order);
+            Key orderKey = orderService.updateOrderAsNew(order);
+            invoice.getOrderRef().setKey(orderKey);
+            invoiceService.save(invoice);
             
-        }else if ( saveOption.equals("saveAs") ) {
-            quoteService.saveAsNewVersion(quoteOrder, order);
+        }else if ( saveOption.equals("saveAs") ) {//save as current version, keep same version number
+            Key orderKey = orderService.updateOrder(order);
+            quoteOrder.getOrderRef().setKey(orderKey);
+            quoteService.saveQuoteOrder(quoteOrder);
 
-        }else{
-            quoteService.saveAsCurrentVersion(quoteOrder, order);
+        }else{// save as new version
+            Key orderKey = orderService.updateOrderAsNew(order);
+            
+            int quoteVersionCount = quote.getCount();
+            quoteVersionCount ++ ;
+            quote.setCount(quoteVersionCount);
+            quoteService.save(quote);
+            QuoteOrder qo = new QuoteOrder();
+ 
+            qo.setName(MicroBizUtil.getQuoteVersionName(quoteVersionCount));
+            qo.setCreateAt(new Date());
+            qo.getOrderRef().setKey(orderKey);
+            qo.getQuoteRef().setModel(quote);
+            
+            quoteService.saveQuoteOrder(qo);
 
         }
         // get order list

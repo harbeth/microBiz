@@ -12,16 +12,19 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.model.Order;
 import com.microBiz.model.OrderItem;
 import com.microBiz.model.Product;
+import com.microBiz.service.OrderService;
 import com.microBiz.service.ProductService;
 
 public abstract class OrderLoadActionController extends BaseController {
     
-    private ProductService productService;
+    protected ProductService productService;
+    protected OrderService orderService;
     
     // common logic to set order and order item data and save 
     public OrderLoadActionController(){
         super();
         productService = new ProductService();
+        orderService = new OrderService();
     }
     
     @Override
@@ -30,7 +33,7 @@ public abstract class OrderLoadActionController extends BaseController {
     }
     
     public void setOrderData(Order order) throws Exception {
-        List<OrderItem> items = order.getItemsRef().getModelList();
+        List<OrderItem> items = orderService.gerOrderItems(order.getKey());
         // set order sub total
         order.setSubTotal(MicroBizCalculator.getSubTotal(items));
         BeanUtil.copy(order, request);

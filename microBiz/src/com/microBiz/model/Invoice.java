@@ -70,6 +70,7 @@ public class Invoice implements Serializable {
     // one direction ?  customer need list of invoice ?
     private ModelRef<Customer> customerRef = new ModelRef<Customer>(Customer.class);
     private ModelRef<Contact> contactRef = new ModelRef<Contact>(Contact.class);
+    private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
     
     public ModelRef<Customer> getCustomerRef() {
         return customerRef;
@@ -87,12 +88,14 @@ public class Invoice implements Serializable {
         return creatorRef;
     }
     
-    @Attribute(persistent = false)
-    private InverseModelListRef<InvoiceOrder, Invoice> invoiceOrderRef = new InverseModelListRef<InvoiceOrder, Invoice>(InvoiceOrder.class, "invoiceRef", this);
- 
-    public InverseModelListRef<InvoiceOrder, Invoice> getInvoiceOrderRef() {
-        return invoiceOrderRef;
+
+
+    public ModelRef<Order> getOrderRef() {
+        return orderRef;
     }
+
+
+
 
     // many to one
     @Attribute(persistent = false)

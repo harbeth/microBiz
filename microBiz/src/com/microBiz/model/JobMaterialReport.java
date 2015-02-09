@@ -7,6 +7,7 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.MicroBizUtil;
 
 
 @Model(kind = "job_material_report")
@@ -19,35 +20,41 @@ public class JobMaterialReport implements Serializable {
       
     private Date reportDate;
     
-    // ratio for calculate maerial cost
-    private Double prdRatio;
-    
+    private Boolean isVoid;
+  
     private Double qty;
     
     @Attribute(persistent = false)
     private String reportDateStr;
 
     private String note;
-    // many to one
-    private ModelRef<Job> jobRef = new ModelRef<Job>(Job.class);
+
     
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
+    
+    private ModelRef<PrdRatio> prdRatioRef = new ModelRef<PrdRatio>(PrdRatio.class);
   
-    public ModelRef<Job> getJobRef() {
-        return jobRef;
-    }
     
 
 
-    public Double getPrdRatio() {
-        return prdRatio;
+    public ModelRef<PrdRatio> getPrdRatioRef() {
+        return prdRatioRef;
     }
 
 
 
-    public void setPrdRatio(Double prdRatio) {
-        this.prdRatio = prdRatio;
+    public Boolean getIsVoid() {
+        return isVoid;
     }
+
+
+
+    public void setIsVoid(Boolean isVoid) {
+        this.isVoid = isVoid;
+    }
+
+
+
 
 
 
@@ -77,12 +84,17 @@ public class JobMaterialReport implements Serializable {
 
     public void setReportDate(Date reportDate) {
         this.reportDate = reportDate;
+        setReportDate();
+    }
+    
+    public void setReportDate() {
+        this.reportDate = MicroBizUtil.parseStrToDate(reportDateStr);
     }
 
 
 
     public String getReportDateStr() {
-        return reportDateStr;
+        return MicroBizUtil.parseDateToStr(reportDate);
     }
 
 

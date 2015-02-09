@@ -21,11 +21,12 @@ public class InvoiceOrderActionController extends OrderLoadActionController {
     @Override
     public Navigation run() throws Exception {
         Invoice invoice = invoiceService.get(asKey("invoiceKey"));
+       
         // get order key, discount, taxRate, total from UI
         Order order = getOrderData();
-        Key newOrderKey = invoiceService.updateOrder(invoice, order);
-        // only reload order tab
-        order = invoiceService.getInvoiceOrder(newOrderKey);
+        Key newOrderKey = orderService.updateOrder(order);
+        invoice.getOrderRef().setKey(newOrderKey);
+        invoice = invoiceService.save(invoice);
         setOrderData(order);
         // for the key
         requestScope("invoice", invoice);
