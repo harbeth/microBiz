@@ -21,7 +21,7 @@
 				</li>
 				<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
 						Dashboard</a></li>
-				<li><a href="/customer"><i class="fa fa-table fa-fw"></i>
+				<li><a href="/customer/customer"><i class="fa fa-table fa-fw"></i>
 						Customer</a></li>
 				<li><a href="/quote/quote"><i class="fa fa-edit fa-fw"></i>
 						Quotation</a></li>

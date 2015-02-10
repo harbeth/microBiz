@@ -72,7 +72,7 @@ var customerUpdateFn = {
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// refresh whole page
-	        	window.location.href = "/customer";
+	        	window.location.href = "/customer/customer";
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -96,7 +96,7 @@ var customerEditFn = {
 		, onCloseClick: function() {
 			// back to invoice list page 
 			$("a[link=customerEditClose]").click(function(){
-				window.location.href = "/customer";
+				window.location.href = "/customer/customer";
 			});
 		}
 		, onCustomerSelectChange: function() {
