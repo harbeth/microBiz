@@ -2,14 +2,20 @@
 <!-- Page Heading -->
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
+		
+		<div class="panel-heading">
+		Invoice Details
+		</div>
+		<div class="panel-dody">
 			<div id="invoiceInfoDIV">
 				<jsp:include page="invoice-detail-info.jsp" flush="true"></jsp:include>
 			</div>
-			<div class="panel-heading">
-				<a link="invoicePaymentEdit" invoiceKey="${f:h(invoice.key)}" paymentKey="-1"  class="btn btn-info btn-sm" role="button">New Payment</a> 
-				<a link="invoiceJobEdit" invoiceKey="${f:h(invoice.key)}" jobKey="-1" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Assign Job</a>
-				<a link="invoiceEditClose"  class="btn btn-info btn-sm" role="button">Close</a>
+		</div>
+			<div class="panel-footer">
+				<a link="invoicePaymentEdit" invoiceKey="${f:h(invoice.key)}" paymentKey="-1"  class="btn btn-default btn-sm" role="button">New Payment</a> 
+				<a link="invoiceJobEdit" invoiceKey="${f:h(invoice.key)}" jobKey="-1" data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Assign Job</a>
+				<a link="invoiceEditClose"  class="btn btn-default btn-sm" role="button">Close</a>
 			</div>
 		</div>
 	</div>

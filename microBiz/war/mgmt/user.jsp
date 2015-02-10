@@ -3,7 +3,7 @@
 <!-- Page Heading -->
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">User </h1>
+		<h1 class="page-header">User</h1>
 
 	</div>
 </div>
@@ -25,8 +25,8 @@
 					${f:text("name")} class="form-control" />
 			</div>
 			<div class="form-group input-group">
-				<span class="input-group-addon">Email</span> <input
-					type="text" ${f:text("email")} class="form-control" />
+				<span class="input-group-addon">Email</span> <input type="text"
+					${f:text("email")} class="form-control" />
 			</div>
 
 
@@ -40,13 +40,13 @@
 		</div>
 		<div class="col-lg-6">
 			<div class="form-group input-group">
-				<span class="input-group-addon">Phone</span> <input
-					type="text" ${f:text("phone")} class="form-control" />
+				<span class="input-group-addon">Phone</span> <input type="text"
+					${f:text("phone")} class="form-control" />
 			</div>
 
 			<div class="form-group input-group">
-				<span class="input-group-addon">Role</span> <select
-					name="role" class="form-control">
+				<span class="input-group-addon">Role</span> <select name="role"
+					class="form-control">
 					<c:forEach items="${roles}" var="r">
 						<option value="${f:h(r)}"
 							<c:if test = "${f:h(role) == f:h(r)}" >
@@ -54,24 +54,15 @@
 							</c:if>>${f:h(r)}</option>
 					</c:forEach>
 				</select>
-
-
 			</div>
-
-
-
-
-	
-
 		</div>
-
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Submit</button>
 		</div>
 	</form>
 
 </div>
-</div>
+
 <!-- /.row -->
 <div class="row">
 	<div class="col-lg-12">

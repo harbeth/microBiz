@@ -9,7 +9,7 @@ import org.slim3.datastore.ModelRef;
 import com.google.appengine.api.datastore.Key;
 
 
-@Model(kind = "job_expense")
+@Model(kind = "invoice_expense")
 public class InvoiceExpense implements Serializable {
     
     private static final long serialVersionUID = 1L;

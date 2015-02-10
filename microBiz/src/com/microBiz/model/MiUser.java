@@ -20,6 +20,9 @@ public class MiUser {
     private String active;
     
     private String phone;
+    
+    // sales commission rate, installer hourly rate
+    private Double rate;
 
     public Key getKey() {
         return key;
@@ -67,6 +70,14 @@ public class MiUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
     
     
