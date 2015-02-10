@@ -55,7 +55,8 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             invoice.getOrderRef().setKey(orderKey);
             invoiceService.save(invoice);
             
-        }else if ( saveOption.equals("saveAs") ) {//save as current version, keep same version number
+        }else if ( saveOption.equals("save") ) {
+            //save as current version, keep same version number
             Key orderKey = orderService.updateOrder(order);
             quoteOrder.getOrderRef().setKey(orderKey);
             quoteService.saveQuoteOrder(quoteOrder);

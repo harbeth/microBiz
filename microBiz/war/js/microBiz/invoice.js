@@ -103,7 +103,7 @@ var invoiceEditFn = {
 		, onCloseClick: function() {
 			// back to invoice list page 
 			$("button[btnAction=invoiceEditClose]").click(function(){
-				window.location.href = "/invoice";
+				window.location.href = "/invoice/invoice";
 			});
 		}
 		, validateForm: function() {
@@ -139,11 +139,16 @@ var invoiceDetailFn = {
 		// register event for three tabs
 		this.registerTabClick();
 		// close button
-		invoiceEditFn.onCloseClick();
+		this.onDetailPageClose();
 		// register event for edit job link
-		//this.onInvoiceJobEditClick();
+		this.onInvoiceJobEditClick();
 		this.registerOrderForm();
-		//this.onInvoicePaymentEditClick();
+		this.onInvoicePaymentEditClick();
+	}
+	, onDetailPageClose: function() {
+		$("a[link=invoiceEditClose]").click(function(){
+			window.location.href = "/invoice/invoice";
+		});
 	}
 	, registerOrderForm: function() {
 		// after submit, reload tab content

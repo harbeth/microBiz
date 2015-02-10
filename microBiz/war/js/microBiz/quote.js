@@ -114,7 +114,7 @@ var quoteEditFn = {
 	, onCloseClick: function() {
 		// back to invoice list page 
 		$("a[link=quoteEditClose]").click(function(){
-			window.location.href = "/quote";
+			window.location.href = "/quote/quote";
 		});
 	}
 	, validateForm: function() {
