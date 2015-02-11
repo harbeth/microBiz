@@ -17,7 +17,7 @@
 						<tr>
 							<td>${f:h(i.invoiceNumber)}</td>
 							<td>${f:h(i.address)}</td>
-							<td><a href="/editInvoice?invoiceKey=${f:h(i.key)}">Edit</a></td>
+							<td><a href="/invoice/editInvoice?invoiceKey=${f:h(i.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

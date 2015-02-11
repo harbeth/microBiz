@@ -5,6 +5,6 @@ package com.microBiz.controller.invoice;
 public class EditInvoiceController extends InvoiceDetailsController {
 
     public String getReturnJsp() {
-        return "invoice/invoice-details-wrapper.jsp";
+        return "invoice-details-wrapper.jsp";
     }
 }
