@@ -1,12 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="f" uri="http://www.slim3.org/functions"%>
-
-    <script>
-     $(function() {
-       $( "#reportDateStr" ).datepicker();
-     });
-     </script>
      
 <form id="invoiceDetailExpenseDetailForm" role="form" method="post" action="${f:url('/invoice/invoiceExpenseEditAction')}">
 	<div class="col-lg-6">
@@ -17,7 +11,7 @@
 		
 		<div class="form-group input-group">
 			<span class="input-group-addon">Expense</span> 
-			<input type="text" ${f:text("expense")} class="form-control" />
+			<input type="text" valueType="price" ${f:text("expense")} class="form-control" />
 		</div>
 
 		<div class="form-group input-group">

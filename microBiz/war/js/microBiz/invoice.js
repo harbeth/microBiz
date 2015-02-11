@@ -377,8 +377,7 @@ var invoiceDetailFn = {
 			var expenseKey = $(this).attr("expenseKey");
 			invoiceDetailFn.onNewButtonClick("Expense", expenseKey);
 			$("#invoiceDetailExpenseDIV").load("/invoice/invoiceExpenseEdit?expenseKey="+expenseKey+"&invoiceKey="+invoiceKey, function() {
-				invoiceDetailFn.registerExpenseDetailForm();
-				invoiceDetailFn.onInvoiceExpenseEditClose();
+				invoiceDetailFn.initExpenseDetailPage();
 			});
 		});
 	}
@@ -412,4 +411,12 @@ var invoiceDetailFn = {
 	        return false; 
 	    }); 
     }
+	, initExpenseDetailPage: function() {
+		// init expense page
+		microBizFn.initPriceInput();
+		$( "#reportDateStr" ).datepicker();
+		
+		this.registerExpenseDetailForm();
+		this.onInvoiceExpenseEditClose();
+	}
 }

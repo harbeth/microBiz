@@ -41,6 +41,13 @@ var microBizFn = {
 			}
 		});
 	}
+	, initPriceInput: function() {
+		$('input[valueType=price]').priceFormat({
+		    prefix: ''
+		    , thousandsSeparator: ''
+		    , centsLimit: 2
+		});
+	}
 	, validateForm: function() {
 		var isOK = true;
 		// mandatory field
