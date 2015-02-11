@@ -45,7 +45,7 @@
 <div id="invoiceDetailOrderDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row">
 	<jsp:include page="./invoice-order.jsp" flush="true" />
 </div>
-<div id="invoiceDetailJobDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n">></div>
+<div id="invoiceDetailJobDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n"></div>
 <div id="invoiceDetailInfoDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n"></div>
 <div id="invoiceDetailPaymentDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n"></div>
 <div id="invoiceDetailExpenseDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n"></div>
