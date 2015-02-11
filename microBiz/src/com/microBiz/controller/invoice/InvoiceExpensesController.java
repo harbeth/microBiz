@@ -7,12 +7,12 @@ import com.microBiz.model.Invoice;
 import com.microBiz.service.InvoiceService;
 
 
-// click on Expense tab, show expense list
-public class InvoiceJobsController extends BaseController{
+// click on Job tab, show job list
+public class InvoiceExpensesController extends BaseController{
 
     private InvoiceService invoiceService;
     
-    public InvoiceJobsController(){
+    public InvoiceExpensesController(){
         super();
         invoiceService = new InvoiceService();
     }
@@ -22,7 +22,7 @@ public class InvoiceJobsController extends BaseController{
         // need to get invoiceKey
         Invoice invoice = invoiceService.get(asKey("invoiceKey"));
         requestScope("invoice", invoice);
-        requestScope("jobs", invoice.getJobListRef().getModelList());
-        return forward("invoice-jobs.jsp");
+        requestScope("expenses", invoice.getExpenseListRef().getModelList());
+        return forward("invoice-expenses.jsp");
     }
 }

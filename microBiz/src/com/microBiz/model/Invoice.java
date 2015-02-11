@@ -7,10 +7,8 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
-import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizUtil;
 
 @Model
@@ -67,7 +65,6 @@ public class Invoice implements Serializable {
     @Attribute(persistent = false)
     private String contactKey = "-1";
     
-    // one direction ?  customer need list of invoice ?
     private ModelRef<Customer> customerRef = new ModelRef<Customer>(Customer.class);
     private ModelRef<Contact> contactRef = new ModelRef<Contact>(Contact.class);
     private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
@@ -87,15 +84,10 @@ public class Invoice implements Serializable {
     public ModelRef<MiUser> getCreatorRef() {
         return creatorRef;
     }
-    
-
 
     public ModelRef<Order> getOrderRef() {
         return orderRef;
     }
-
-
-
 
     // many to one
     @Attribute(persistent = false)
@@ -110,6 +102,13 @@ public class Invoice implements Serializable {
 
     public InverseModelListRef<Job, Invoice> getJobListRef() {
         return jobListRef;
+    }
+    
+    @Attribute(persistent = false)
+    private InverseModelListRef<InvoiceExpense, Invoice> expenseListRef = new InverseModelListRef<InvoiceExpense, Invoice>(InvoiceExpense.class, "invoiceRef", this);
+
+    public InverseModelListRef<InvoiceExpense, Invoice> getExpenseListRef() {
+        return expenseListRef;
     }
     
     public String getPreferIntlDateStr() {

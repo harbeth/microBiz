@@ -40,20 +40,15 @@ public class Job implements Serializable {
     public ModelRef<Invoice> getInvoiceRef() {
         return invoiceRef;
     }
-    
 
     //display date string from date
     public String getStartingDateStr() {
         return MicroBizUtil.parseDateToStr(startingDate);
     }
 
-
-
     public void setStartingDateStr(String startingDateStr) {
         this.startingDateStr = startingDateStr;
     }
-
-
 
     public Date getStartingDate() {
         return startingDate;
@@ -67,14 +62,9 @@ public class Job implements Serializable {
         this.startingDate = MicroBizUtil.parseStrToDate(startingDateStr);
     }
 
-
-
     public ModelRef<MiUser> getInstallerRef() {
         return installerRef;
     }
-
-
-
 
     public String getArrivalTime() {
         return arrivalTime;

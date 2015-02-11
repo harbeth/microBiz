@@ -1,11 +1,8 @@
 package com.microBiz.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.slim3.datastore.Datastore;
-import org.slim3.util.BeanUtil;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
@@ -13,9 +10,6 @@ import com.microBiz.meta.InvoiceMeta;
 import com.microBiz.meta.OrderMeta;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.Order;
-import com.microBiz.model.OrderItem;
-
-
 
 public class InvoiceService {
     
@@ -46,16 +40,12 @@ public class InvoiceService {
     public Invoice save(Invoice i) {
         Transaction tx = Datastore.beginTransaction();
         Key key = Datastore.put(tx, i);
+        i.setKey(key);
         tx.commit();
         return i;
     }
-    
-
-    
 
     public List<Invoice> getByInvoiceNumber(String invoiceNumber) {
         return Datastore.query(i).filter(i.invoiceNumber.equal(invoiceNumber)).asList();
     }
-
-
 }

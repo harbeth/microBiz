@@ -64,7 +64,7 @@ var invoiceUpdateFn = {
 		this.onSumitEditRegister();
 	}
 	, onSumitEditRegister: function() {
-		// keep the same tab and update info DIV
+		// go to order tab and update info DIV
 		var options = { 
 	        target: "#invoiceInfoDIV"
 	        , beforeSubmit: function() {
@@ -142,6 +142,7 @@ var invoiceDetailFn = {
 		this.onDetailPageClose();
 		// register event for edit job link
 		this.onInvoiceJobEditClick();
+		this.onInvoiceExpenseEditClick();
 		this.registerOrderForm();
 		this.onInvoicePaymentEditClick();
 	}
@@ -212,6 +213,19 @@ var invoiceDetailFn = {
 			.attr("hasContent", "y");
 		}
 	}
+	, invoiceDetailExpenseDisplay: function() {
+		var ctrl = $("#invoiceDetailExpenseDIV");
+		var hasContent = ctrl.attr("hasContent");
+		if ( hasContent == 'n' ) {
+			// load content first
+			var invoiceKey = ctrl.attr("invoiceKey");
+			ctrl.load("/invoice/invoiceExpenses?invoiceKey=" + invoiceKey, function(){
+				// after edit tab loaded
+				invoiceDetailFn.onInvoiceExpenseEditClick();
+			})
+			.attr("hasContent", "y");
+		}
+	}
 	, invoiceDetailOrderDisplay: function() {
 		
 	}
@@ -274,7 +288,7 @@ var invoiceDetailFn = {
 	, isTabSelected: function(ctrlLink) {
 		return ctrlLink.parent().hasClass("active");
 	}
-	// Order, Payment, Job, Info
+	// Order, Payment, Job, Info, Expense
 	, setTabSelected: function(tabType) {
 		// hide three DIVs first
 		$("div[id^=invoiceDetail]").hide();
@@ -349,6 +363,49 @@ var invoiceDetailFn = {
 	    }; 
 	    // bind to the form's submit event 
 	    $("#invoiceDetailPaymentDetailForm").submit(function() { 
+	        $(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+    }
+	//======== Expense ===================
+	// new expense button and edit link
+	, onInvoiceExpenseEditClick: function() {
+		$("a[link=invoiceExpenseEdit]").click(function() {
+			var invoiceKey = $(this).attr("invoiceKey");
+			var expenseKey = $(this).attr("expenseKey");
+			invoiceDetailFn.onNewButtonClick("Expense", expenseKey);
+			$("#invoiceDetailExpenseDIV").load("/invoice/invoiceExpenseEdit?expenseKey="+expenseKey+"&invoiceKey="+invoiceKey, function() {
+				invoiceDetailFn.registerExpenseDetailForm();
+				invoiceDetailFn.onInvoiceExpenseEditClose();
+			});
+		});
+	}
+	// on job detail page
+	, onInvoiceExpenseEditClose: function() {
+		$("a[link=invoiceEditCloseExpense]").click(function() {
+			var invoiceKey = $(this).attr("invoiceKey");
+			// just load job list 
+			$("#invoiceDetailExpenseDIV").load("/invoice/invoiceExpenses?invoiceKey="+invoiceKey, function() {
+				invoiceDetailFn.onInvoiceExpenseEditClick();
+			});
+		});
+	}
+	, registerExpenseDetailForm: function() {
+    	// when job detail page is ready
+		var options = { 
+	        target: "#invoiceDetailExpenseDIV"
+	        , beforeSubmit: function(){
+	        	// set invoiceKey value
+	        }
+	        , success: function(responseText, statusText, xhr, $form){
+	        	// register event again
+	        	invoiceDetailFn.onInvoiceExpenseEditClick();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("#invoiceDetailExpenseDetailForm").submit(function() { 
 	        $(this).ajaxSubmit(options); 
 	        // !!! Important !!! 
 	        // always return false to prevent standard browser submit and page navigation 
