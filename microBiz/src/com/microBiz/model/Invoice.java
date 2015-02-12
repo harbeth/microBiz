@@ -39,7 +39,7 @@ public class Invoice implements Serializable {
     private String balancePymtMethod;
     
     private String poNumber;
-    //use input first, then datePicker
+
     private Date preferIntlDate;
     
     @Attribute(unindexed = false)
@@ -75,6 +75,10 @@ public class Invoice implements Serializable {
 
     public ModelRef<Contact> getContactRef() {
         return contactRef;
+    }
+    
+    public boolean isHasContact() {
+        return contactRef.getModel() != null;
     }
     
     public ModelRef<MiUser> getSalesRef() {

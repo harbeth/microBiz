@@ -180,9 +180,9 @@ var quoteDetailFn = {
 		});
 	}
 	, registerQuoteOrderChange: function() {
-		$("a[link=quoteOrder]").on("click",function(){
+		$("#quoteOrder").change(function(){
 			// update lower DIV
-			var quoteOrderKey = $(this).attr("quoteOrderKey");
+			var quoteOrderKey = $(this).val();
 			$("#quoteOrderChangeDIV").html("Loading...");
 			$("#quoteOrderChangeDIV").load("/quote/quoteOrder?quoteOrderKey=" + quoteOrderKey, function(){
 				// register form again

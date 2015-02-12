@@ -18,7 +18,10 @@
 				<thead>
 					<tr>
 						<th>Invoice #</th>
+						<th>Customer</th>
 						<th>Address</th>
+						<th>Amount</th>
+						<th>Preferred Install At</th>
 						<th>Sales</th>
 					</tr>
 				</thead>
@@ -26,7 +29,10 @@
 					<c:forEach var="i" items="${invoices}">
 						<tr>
 							<td><a link="invoiceEditDetail" invoiceKey="${f:h(i.key)}">${f:h(i.invoiceNumber)}</a></td>
+							<td>${f:h(i.customerRef.model.name)}</td>
 							<td>${f:h(i.address)}</td>
+							<td>${f:h(i.orderRef.model.total)}</td>
+							<td>${f:h(i.preferIntlDateStr)}</td>
 							<td>${f:h(i.salesRef.model.name)}</td>
 						</tr>
 					</c:forEach>

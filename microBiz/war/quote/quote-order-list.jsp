@@ -1,18 +1,22 @@
 <%@include file="../includes/taglib.jsp"%>
 
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="list-group">
-		   <c:forEach items="${quoteOrders}" var="qo">
-		        <a link="quoteOrder" quoteOrderKey="${f:h(qo.key)}" class="list-group-item">
-		            <i class="fa fa-comment fa-fw"></i> ${f:h(qo.name)}  ${f:h(qo.createAtStr)} 
-		             Total Amount: ${f:h(qo.orderRef.model.total)} 
-		            <span class="pull-right text-muted small"><em>Edit</em></span>
-		        </a>
-			</c:forEach>
-		</div>
-	</div>
-</div>
-<div id ="quoteOrderChangeDIV">
-</div>
+<div class="col-lg-12">
+	<div class="well">
 
+		<div class="form-group">
+          <form>
+			<select class="form-control" id="quoteOrder" name="quoteOrderKey">
+				<option value="">Select Versions To View or Change
+					Quotation Items</option>
+				<c:forEach items="${quoteOrders}" var="qo">
+
+					<option value="${f:h(qo.key)}">${f:h(qo.name)} ${f:nbsp('   ')}
+						${f:h(qo.createAtStr)} ${f:nbsp('    ')} Total Amount:
+						${f:h(qo.orderRef.model.total)}</option>
+				</c:forEach>
+			</select>
+			</form>
+		</div>
+
+		<div id="quoteOrderChangeDIV"></div>
+	</div>

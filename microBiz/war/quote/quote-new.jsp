@@ -1,5 +1,6 @@
 <%@include file="../includes/taglib.jsp"%>
-
+<div class="col-lg-12">
+	<div class="well">
 <!-- for quote new, details and order item in the same page -->
 <form name ="quoteDetailInfoNewForm" typerole="form" method="post" action="/quote/quoteCreateAction">
 	
@@ -12,3 +13,7 @@
 		<button btnAction="quoteEditClose" class="btn btn-default">Close</button>
 	</div>
 </form>
+
+	</div>
+
+</div>

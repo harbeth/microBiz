@@ -7,9 +7,10 @@
        $( "#startingDateStr" ).datepicker();
      });
      </script>
-     
+ <div class="col-lg-12">
+	<div class="well">    
 <form id="invoiceDetailJobDetailForm" role="form" method="post" action="${f:url('/invoice/invoiceJobEditAction')}">
-	<div class="col-lg-6">
+
 	    <input type="hidden" ${f:hidden("invoiceKey")}/>
 		<c:if test="${key != null}">
 			<input type="hidden" ${f:hidden("key")} />
@@ -43,10 +44,7 @@
 		
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Submit</button>
+			<a link="invoiceEditCloseJob" invoiceKey="${f:h(invoiceKey)}" class="btn btn-default" role="button">Close</a>
 		</div>
-	</div>
-	
-	<div class="panel-heading">
-		<a link="invoiceEditCloseJob" invoiceKey="${f:h(invoiceKey)}" class="btn btn-info btn-sm" role="button">Close</a>
-	</div>
+
 </form>

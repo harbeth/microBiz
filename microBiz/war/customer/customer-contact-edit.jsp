@@ -1,4 +1,6 @@
 <%@include file="../includes/taglib.jsp"%>
+<div class="col-lg-12">
+	<div class="well">
 <form id="customerDetailContactDetailForm" role="form" method="post" action="${f:url('/customer/customerContactEditAction')}">
 	<div class="col-lg-6">
 	    <input type="hidden" ${f:hidden("customerKey")}/>
@@ -18,6 +20,8 @@
 			<span class="input-group-addon">Phone</span> 
 			<input type="text" ${f:text("phone")} class="form-control" />
 		</div>
+		</div>
+		<div class="col-lg-6">
 		<div class="form-group input-group">
 			<span class="input-group-addon">Email</span> 
 			<input type="text" ${f:text("email")} class="form-control" />
@@ -26,12 +30,16 @@
 			<span class="input-group-addon">Note</span> 
 			<input type="text" ${f:text("notes")} class="form-control" />
 		</div>
-	</div>
-	<div class="form-group">
-		<button type="submit" class="btn btn-default">Submit</button>
-	</div>
+	    </div>
 	
-	<div class="panel-heading">
+
+		<button type="submit" class="btn btn-info">Submit</button>
+	
+
+	
+
 		<a link="customerContactEditClose" invoiceKey="${f:h(customerKey)}" class="btn btn-info btn-sm" role="button">Close</a>
-	</div>
+
 </form>
+</div>
+</div>

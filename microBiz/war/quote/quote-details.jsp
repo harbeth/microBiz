@@ -2,18 +2,24 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
+		
+		<div class="panel-heading">
+		Quote Details
+		</div>
+		<div class="panel-dody">
+
 			<div id="quoteInfoDIV">
 				<jsp:include page="quote-detail-info.jsp" flush="true"></jsp:include>
 			</div>
-			<div class="panel-heading">
-				<a link="quoteEditClose"  data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Close</a>
+			<div class="panel-footer">
+				<a link="quoteEditClose"  data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Close</a>
 			</div>
 		</div>
 	</div>
 </div>
  
-<ul class="nav nav-tabs">
+<ul class="nav nav-pills">
 	<li class="active">
 		<a link="quoteDetailVersion" data-toggle="tab" aria-expanded="false">Versions</a>
 	</li>

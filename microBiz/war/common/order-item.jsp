@@ -235,7 +235,7 @@ how to deal with Key enter event
 </script>
 
 
-	<table name="orderItemTbl" >
+	<table name="orderItemTbl" class="table table-condensed">
 		<thead>
 			<tr>
 				<td style="width: 15%" class="text-center">
