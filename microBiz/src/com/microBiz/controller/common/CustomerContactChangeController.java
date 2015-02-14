@@ -13,7 +13,7 @@ import com.microBiz.service.CustomerService;
 
 public class CustomerContactChangeController extends BaseController {
 
-    // for customer drop down change
+    // for customer drop down change test 
     private CustomerService customerService;
     
     public CustomerContactChangeController(){
