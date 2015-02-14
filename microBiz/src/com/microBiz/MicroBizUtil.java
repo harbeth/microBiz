@@ -1,12 +1,13 @@
 package com.microBiz;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.commons.lang.RandomStringUtils;
-
 public class MicroBizUtil {
+    
+    private static Calendar calendar = Calendar.getInstance();
     private MicroBizUtil() {
     }
     
@@ -19,8 +20,31 @@ public class MicroBizUtil {
         return "V" + count;
     }
     
+    private static String getFixedString(int value) {
+        String valueStr = String.valueOf(value);
+        if ( value < 10 ) {
+            valueStr = "0" + valueStr;
+        }
+        return valueStr;
+    }
+    
+    // return MB-yyyy-mm-dd-hhmmss-mmm
     public static String generateInvoiceNumber(){
-        return RandomStringUtils.randomNumeric(8);
+        //UUID.randomUUID().toString()
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        StringBuffer sb = new StringBuffer();
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+        
+        sb.append("MB-").append(calendar.get(Calendar.YEAR))
+          .append("-").append(getFixedString(month)).append(getFixedString(dayOfMonth))
+          .append("-").append(getFixedString(hourOfDay))
+          .append(getFixedString(minute)).append(getFixedString(second))
+          .append("-").append(calendar.get(Calendar.MILLISECOND));
+        return sb.toString();
 
     }
     public static String parseDateToStr(Date d) {

@@ -1,4 +1,10 @@
 <%@include file="../includes/taglib.jsp"%>
+
+<script type ="text/javascript">
+    $(document).ready(function() {
+    	invoiceDetailFn.init();
+	});
+</script>
 <!-- Page Heading -->
 <div class="row">
 	<div class="col-lg-12">
@@ -23,7 +29,7 @@
 </div>
 <!-- /.row -->
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-pills">
 	<li class="active">
 		<a link="invoiceDetailOrder" data-toggle="tab" aria-expanded="false">Items</a>
 	</li>
@@ -31,13 +37,13 @@
 		<a link="invoiceDetailJob" data-toggle="tab" aria-expanded="false">Jobs</a>
 	</li>
 	<li class="">
-		<a link="invoiceDetailPayment" data-toggle="tab" aria-expanded="false">Payment</a>
+		<a link="invoiceDetailPayment" data-toggle="tab" aria-expanded="false">Payments</a>
 	</li>
 	<li class="">
-		<a link="invoiceDetailExpense" data-toggle="tab" aria-expanded="false">Expense</a>
+		<a link="invoiceDetailExpense" data-toggle="tab" aria-expanded="false">Expenses</a>
 	</li>
     <li class="">
-    	<a link="invoiceDetailInfo" data-toggle="tab" aria-expanded="false">Edit</a>
+    	<a link="invoiceDetailInfo" data-toggle="tab" aria-expanded="false">Edit Invoice</a>
     </li>
 </ul>
 

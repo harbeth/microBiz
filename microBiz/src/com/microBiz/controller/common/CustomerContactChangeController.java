@@ -28,16 +28,19 @@ public class CustomerContactChangeController extends BaseController {
         String customerKey = asString("customerKey");
         Customer customer = customerService.get(Datastore.stringToKey(customerKey));
         // get contact list
+        boolean customerContactShown = false;
         boolean contactInfoShown = false;
         List<Contact> contactList = customer.getContactListRef().getModelList();
         if ( contactList != null && contactList.size() > 0 ) {
+            customerContactShown = true;
             contactInfoShown = true;
             requestScope("contacts", contactList);
-            // by default, show the first one
+            // by default, show the first onet
             Contact contact = contactList.get(0);
             contact.setSelected(true);
             requestScope("contact", contact);
         }
+        requestScope("customerContactShown", customerContactShown);
         requestScope("contactInfoShown", contactInfoShown);
         return forward("customer-contact.jsp");
     }

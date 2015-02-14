@@ -10,7 +10,8 @@ var invoiceFn = {
 			var invoiceKey = $(this).attr("invoiceKey");
 			// also need invoice key to get details
 			$("#"+microBizConst.bodyContentId).load("/invoice/invoiceDetails?invoiceKey=" + invoiceKey, function() {
-				invoiceDetailFn.init(); 
+				// put it in the page for short cut from customer
+				//invoiceDetailFn.init(); 
 			});
 		});
 	}
@@ -20,7 +21,8 @@ var invoiceFn = {
 			// after get invoice key, get details page
 			$("#"+microBizConst.bodyContentId).load("/invoice/invoiceCreate", function() {
 				// job page is shown by default
-				invoiceNewFn.init(); 
+				// put it in the page for short cut from customer
+				//invoiceNewFn.init(); 
 			});
 		});
 	}
@@ -28,22 +30,87 @@ var invoiceFn = {
 
 // for invoice info page,  new invoice page and edit invoice page "info" tab
 var invoiceNewFn = {
+	// put it in the page for short cut from customer
 	init: function() {
 		invoiceEditFn.init();
 		invoiceEditFn.onCloseClick();
 		// submit button event
 		this.onSumitNewRegister();
+		this.registerAutoInvoiceNumber();
+	}
+	, registerAutoInvoiceNumber: function() {
+		// change event on check box
+		$("input[name=autoInvoiceNumber]:checkbox").on("change", function(){
+			var invoiceNumberCtrl = $("input[name=invoiceNumber]");
+			var isChecked = $(this).is(":checked");
+			if ( isChecked ) {
+				// if selected, should disable invoice number input and not mandatory
+				invoiceNumberCtrl.removeAttr("mandatory");
+				invoiceNumberCtrl.val("");
+				invoiceNumberCtrl.attr('disabled','disabled');
+			}else{
+				// if not, enable invoice number input
+				invoiceNumberCtrl.attr("mandatory", "y");
+				invoiceNumberCtrl.removeAttr('disabled');
+			}
+		});
+		// focus lost event on invoice number input
+		$("input[name=invoiceNumber]").on("blur", function() {
+			// check hidden invoice number, if empty, ajax call
+			var invoiceNumberHidden = $("input[name=invoiceNumberHidden]").val();
+			var invoiceNumberCurrent = $(this).val();
+			if ( invoiceNumberHidden == "" ) {
+				// ajax call to validate current value
+				invoiceNewFn.validateInvoiceNumber(invoiceNumberCurrent);
+			}else{
+				// if not empty, compare current value, if different, ajax call
+				if ( invoiceNumberHidden != invoiceNumberCurrent ) {
+					invoiceNewFn.validateInvoiceNumber(invoiceNumberCurrent);
+				}
+			}
+		});
+	}
+	//call on input invoice number focus lost
+	, validateInvoiceNumber: function(invoiceNumberCurrent) {
+		var isOK = true;
+		var param = "invoiceNumber=" + invoiceNumberCurrent;
+		$.ajax({
+			type: "GET",
+			url: "/invoice/invoiceValidate",
+			data: param,
+			success: function(responseText, statusText) {
+				if ( responseText == "success" ) {
+					// update hidden invoice number
+					$("input[name=invoiceNumberHidden]").val(invoiceNumberCurrent);
+				}else{
+					isOK = false;
+					alert(responseText);
+					// set focus back to invoice number and clear value
+					$("input[name=invoiceNumber]").val("").focus();
+				}
+			}
+		});
+		return isOK;
+	}
+	, validateForm: function() {
+		var isOK = invoiceEditFn.validateForm();
+		if ( isOK ) {
+			// only for new
+			isOK = orderItemFn.validate();
+		}
+		return isOK;
 	}
 	, onSumitNewRegister: function() {
 		// refresh body
 		var options = { 
 	        target: "#"+microBizConst.bodyContentId
 	        , beforeSubmit: function() {
-	        	return invoiceEditFn.validateForm();
+	        	return invoiceNewFn.validateForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// load invoice details page
-	        	invoiceDetailFn.init();
+	        	// put it in the page for short cut from customer
+	        	//invoiceDetailFn.init();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -87,51 +154,29 @@ var invoiceUpdateFn = {
 }
 // common function for new and edit page
 var invoiceEditFn = {
-		init: function() {
-			this.initPage();
-			microBizFn.onCustomerSelectChange();
-			this.fieldValidate();
-		}
-		, initPage: function() {
-			$( "#signDateStr" ).datepicker();
-			$( "#preferIntlDateStr" ).datepicker();
-		}
-		, fieldValidate: function() {
-			//$("input[valueType=price]").alphanumeric({allow:"."});
-			$("input[valueType=price]").numeric();
-		}
-		, onCloseClick: function() {
-			// back to invoice list page 
-			$("button[btnAction=invoiceEditClose]").click(function(){
-				window.location.href = "/invoice/invoice";
-			});
-		}
-		, validateForm: function() {
-			return microBizFn.validateForm();
-		}
-		, registerInvoiceNumberInputEvent: function() {
-			$("input[name=invoiceNumber").on("blur", function() {
-				invoiceEditFn.validateInvoiceNumber();
-			});
-		}
-		//call on input invoice number focus lost
-		, validateInvoiceNumber: function() {
-			var isOK = true;
-			var invoiceNumber = $("input[name=invoiceNumber]").val();
-			var param = "invoiceNumber=" + invoiceNumber;
-			$.ajax({
-				type: "GET",
-				url: "/invoice/invoiceValidate",
-				data: param,
-				success: function(responseText, statusText) {
-					if ( responseText != "success" ) {
-						isOK = false;
-						alert(responseText);
-					}
-				}
-			});
-			return isOK;
-		}
+	init: function() {
+		this.initPage();
+		microBizFn.onCustomerSelectChange();
+		this.fieldValidate();
+	}
+	, initPage: function() {
+		$( "#signDateStr" ).datepicker();
+		$( "#preferIntlDateStr" ).datepicker();
+	}
+	, fieldValidate: function() {
+		//$("input[valueType=price]").alphanumeric({allow:"."});
+		$("input[valueType=price]").numeric();
+	}
+	, onCloseClick: function() {
+		// back to invoice list page 
+		$("button[btnAction=invoiceEditClose]").click(function(){
+			window.location.href = "/invoice/invoice";
+		});
+	}
+	, validateForm: function() {
+		// check customer cannot be empty, set to mandatory
+		return microBizFn.validateForm();
+	}
 }
 
 var invoiceDetailFn = {
@@ -230,7 +275,7 @@ var invoiceDetailFn = {
 		
 	}
 	, invoiceDetailJobDisplay: function() {
-		var ctrl = $("#invoiceDetailPaymentDIV");
+		var ctrl = $("#invoiceDetailJobDIV");
 		var hasContent = ctrl.attr("hasContent");
 		if ( hasContent == 'n' ) {
 			// load content first
@@ -294,7 +339,7 @@ var invoiceDetailFn = {
 		$("div[id^=invoiceDetail]").hide();
 		$("a[link^=invoiceDetai]").parent().removeAttr("class");
 		// set tab selected
-		$("a[link=invoiceDetail"+tabType+"]").parent().addClass("ative");
+		$("a[link=invoiceDetail"+tabType+"]").parent().addClass("active");
 		$("div[id=invoiceDetail"+tabType+"DIV]").show();
 	}
 	, onNewButtonClick: function(type, key) {

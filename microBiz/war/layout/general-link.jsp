@@ -36,6 +36,8 @@
 <script src="../js/plugins/numeric/jquery.numeric.min.js"></script>
 <!-- jQuery plugin : price validation -->
 <script src="../js/plugins/priceFormat/price_format.2.0.js"></script>
+<!-- jQuery plugin : auto complete -->
+<script src="../js/plugins/autocomplete/jquery.autocomplete.js"></script>
 <!-- jQuery plugin : ui date picker -->
 <script src="../js/plugins/ui/jquery-ui.js"></script>
 

@@ -1,5 +1,6 @@
 <%@include file="../includes/taglib.jsp"%>
 
+<%-- 
 <div class="form-group input-group">
 	<span class="input-group-addon">Customer</span> 
 	<select id="customerSelect" name="customerKey" class="form-control">
@@ -12,9 +13,14 @@
 		</c:forEach>
 	</select>
 </div>
+--%>
+
+<div class="form-group input-group">
+	<span class="input-group-addon">Customer</span> 
+	<input class="form-control input-sm" mandatory="y" field="Customer" name="customerSearch" type="text" value="${customerName}" />
+	<input type="hidden" name="customerKey" value="${customerKey}" />
+</div>
 
 <div id="customerContactDIV">
-	<c:if test = "${f:h(contactShown)}" >
-		<jsp:include page="./customer-contact.jsp" />
-	</c:if>
+	<jsp:include page="./customer-contact.jsp" />
 </div>

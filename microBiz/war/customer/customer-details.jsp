@@ -2,37 +2,42 @@
 <!-- Page Heading -->
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
+		<div class="panel-heading">
+		Customer Details
+		</div>
+		<div class="panel-dody">
 			<div id="customerInfoDIV">
 				<jsp:include page="customer-detail-info.jsp" flush="true"></jsp:include>
 			</div>
-			<div class="panel-heading">
+		</div>
+			<div class="panel-footer">
 				<c:if test = "${f:h(customer.commercial)}" >
-					<a link="customerContactEdit" customerKey="${f:h(customer.key)}" contactKey="-1"  class="btn btn-info btn-sm" role="button">New Contact</a>
+					<a link="customerContactEdit" customerKey="${f:h(customer.key)}" contactKey="-1"  class="btn btn-default btn-sm" role="button">New Contact</a>
 				</c:if>
-				<a href="/invoice/invoiceCreate?customerkey=${f:h(customer.key)}" class="btn btn-info btn-sm" role="button">New Invoice</a>  
-				<a href="/quote/newQuote?customerKey=${f:h(customer.key)}" class="btn btn-info btn-sm" role="button">New Quotation</a>
-				<a link="customerEditClose"  class="btn btn-info btn-sm" role="button">Close</a>
+				<a href="/invoice/invoiceCreate?customerkey=${f:h(customer.key)}" class="btn btn-default btn-sm" role="button">New Invoice</a>  
+				<a href="/quote/newQuote?customerKey=${f:h(customer.key)}" class="btn btn-default btn-sm" role="button">New Quotation</a>
+				<a link="customerEditClose"  class="btn btn-default btn-sm" role="button">Back to Customer List</a>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- /.row -->
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-pills">
 	<li class="active">
-		<a link="customerDetailQuote" data-toggle="tab" aria-expanded="false">Quote</a>
+		<a link="customerDetailQuote" data-toggle="tab" aria-expanded="false">Quotations</a>
 	</li>
 	<c:if test = "${f:h(customer.commercial)}" >
 		<li class="">
-			<a link="customerDetailContact" data-toggle="tab" aria-expanded="false">Contact</a>
+			<a link="customerDetailContact" data-toggle="tab" aria-expanded="false">Contacts</a>
 		</li>
 	</c:if>
 	<li class="">
-		<a link="customerDetailInvoice" data-toggle="tab" aria-expanded="false">Invoice</a>
+		<a link="customerDetailInvoice" data-toggle="tab" aria-expanded="false">Invoices</a>
 	</li>
 	<li class="">
-    	<a link="customerDetailInfo" data-toggle="tab" aria-expanded="false">Edit</a>
+    	<a link="customerDetailInfo" data-toggle="tab" aria-expanded="false">Edit Customer</a>
     </li>
 </ul>
 

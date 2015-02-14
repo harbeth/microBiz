@@ -6,7 +6,7 @@ var microBizConst = {
 var microBizFn = {
 	// customer, contact
 	onCustomerSelectChange: function() {
-		
+		/*
 		// register event for customer select
 		$("#customerSelect").change(function(){
 			// based on customerKey, refresh contact DIV
@@ -21,11 +21,39 @@ var microBizFn = {
 				});
 			}
 		});
-		
+		*/
 		// contact select could be there
-		if ( $("#customerContactSelect").length ) {
+		if ( $("#customerContactSelect").length > 0 ) {
 			this.onCustomerContactSelectChange();
 		}
+		
+		$("input[name=customerSearch]").devbridgeAutocomplete({
+			serviceUrl: "/common/customerSearch" + "?customerSearch="
+			, onSelect: function (suggestion) {
+		    	// update hidden field
+		    	var customerKey = suggestion.data;
+		    	if ( customerKey == "-1" ) {
+		    		// new customer
+		    		var msg = "Are you sure you want to create a new customer?";
+		    		if ( confirm(msg) ) {
+		    			window.location.href = "/customer/newCustomer";
+		    		}else{
+		    			// clear input
+		    			$(this).val("");
+		    		}
+		    	}else{
+		    		$("input[name=customerKey]:hidden").val(customerKey);
+		    		microBizFn.loadCustomerContact(customerKey);
+		    	}
+		    }
+		});
+
+	}
+	, loadCustomerContact: function(customerKey) {
+		// AJAX call to retrieve contact
+		$( "#customerContactDIV").load( "/common/customerContactChange?customerKey=" + customerKey, function() {
+			microBizFn.onCustomerContactSelectChange();
+		});
 	}
 	, onCustomerContactSelectChange: function() {
 		// register event for contact select

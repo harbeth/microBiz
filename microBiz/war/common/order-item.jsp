@@ -99,6 +99,7 @@ how to deal with Key enter event
     			var clonedTr = trCtrl.clone();
     			// after clone change source
     			// update tr rowIndex, 
+    			$(this).attr("rowIndex", rowCount);
     			trCtrl.attr("rowIndex", rowCount);
     			// update rowTotal rowIndex
     			trCtrl.find("input[calType=rowTotal]").attr("rowIndex", rowCount);
@@ -200,11 +201,12 @@ how to deal with Key enter event
     		// must have at least one order item
     		var rowCount = $("table[name=orderItemTbl] tbody tr[rowIndex != -1]").length;
     		// product has selection
-    		var producCount = $("table[name=orderItemTbl] tbody tr[rowIndex!=-1] select[name=items][rowIndex!=-1] option:selected").length;
+    		var productCount = $("table[name=orderItemTbl] tbody tr[rowIndex!=-1] select[name=items][rowIndex!=-1] option:selected").length;
     		if ( rowCount == 0 ) {
     			isOK = false;
-    			alert("At least have one item.")
-    		}else if ( productCount == 0 ) {
+    			alert("At least have one item.");
+    		}
+    		else if ( productCount == 0 ) {
     			isOK = false;
     			alert("Product cannnot be empty.");
     		}
@@ -221,6 +223,7 @@ how to deal with Key enter event
     			    	}
     			    });
     		}
+    		return isOK;
     	}
     	// cannot remove
     	, removeEmptyTr: function() {
@@ -235,7 +238,7 @@ how to deal with Key enter event
 </script>
 
 
-	<table name="orderItemTbl" >
+	<table name="orderItemTbl" class="table table-condensed">
 		<thead>
 			<tr>
 				<td style="width: 15%" class="text-center">

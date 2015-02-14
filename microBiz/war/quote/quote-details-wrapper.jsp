@@ -5,9 +5,3 @@
 	<c:param name = "module" value ="quote"/>
 	<c:param name = "body" value ="quote-details.jsp"/>
 </c:import>
-
-<script type ="text/javascript">
-    $(document).ready(function() {
-    	quoteDetailFn.init();
-	});
-</script>

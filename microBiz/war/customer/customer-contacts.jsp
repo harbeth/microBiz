@@ -1,10 +1,11 @@
 <%@include file="../includes/taglib.jsp"%>
 
-<div class="panel panel-default">
-	<div class="panel-heading">Contact List</div>
-	<div class="panel-body">
+
+	<div class="col-lg-12">
+                    <div class="well">
+	
 		<div class="table-responsive">
-			<table class="table table-hover table-striped">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -26,6 +27,7 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
 </div>
+</div>
+
 			

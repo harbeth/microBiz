@@ -32,9 +32,10 @@ var customerNewFn = {
 		customerEditFn.init();
 		customerEditFn.onCloseClick();
 		// submit button event
-		this.onSumitNewRegister();
+		this.onSubmitNewRegister();
 	}
-	, onSumitNewRegister: function() {
+	// ??????
+	, onSubmitNewRegisterBad: function() {
 		// refresh body
 		var options = { 
 	        target: "#"+microBizConst.bodyContentId
@@ -54,6 +55,26 @@ var customerNewFn = {
 	        return false; 
 	    }); 
 	}
+	, onSubmitNewRegister: function() {
+		// keep the same tab and update info DIV
+		var options = { 
+	        target: "#"+microBizConst.bodyContentId
+	        , beforeSubmit: function() {
+	        	return customerEditFn.validateForm();
+	        }
+	        , success: function(responseText, statusText, xhr, $form){
+	        	// load invoice details page
+	        	customerDetailFn.init();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=customerDetailInfoForm][type=new]").submit(function() {
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+	}
 }
 
 //on edit tab selected
@@ -61,14 +82,14 @@ var customerUpdateFn = {
 	init: function() {
 		customerEditFn.init();
 		// submit button event
-		this.onSumitEditRegister();
+		this.onSubmitEditRegister();
 	}
-	, onSumitEditRegister: function() {
+	, onSubmitEditRegister: function() {
 		// keep the same tab and update info DIV
 		var options = { 
 	        target: "#customerInfoDIV"
 	        , beforeSubmit: function() {
-	        	return customerEditFn.validateForm();
+	        	return customerUpdateFn.validateForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// refresh whole page
@@ -82,7 +103,25 @@ var customerUpdateFn = {
 	        // always return false to prevent standard browser submit and page navigation 
 	        return false; 
 	    }); 
-	}	
+	}
+	, validateForm: function() {
+		var isOK = customerEditFn.validateForm();
+		// only for edit
+		if( isOK ) {
+			// check customer type
+			var oldCustomerType = $("input[name=oldCustomerType]").val();
+			var editMode = $("input[name=oldCustomerType]").attr("editMode");
+			if ( editMode == "edit" ) {
+				var currentCustomerType = $("#customerTypeSelect").val();
+				if ( oldCustomerType == "commercial" && currentCustomerType == "residential" ) {
+					isOK = false;
+					alert("Cannot change customer type from commercial to residential.");
+				}
+				// from residential to commercial, need to info add contact to invoice and quotation
+			}
+		}
+		return isOK;
+	}
 }
 var customerEditFn = {
 		init: function() {
@@ -130,45 +169,7 @@ var customerEditFn = {
 			});
 		}
 		, validateForm: function() {
-			var isOK = true;
-			// mandatory field
-			var fields = [];
-			$("input[mandatory=y]").each(function(){
-				if ( $(this).val() == "" ) {
-					fields.push($(this).attr("field"));
-				}
-			});
-			if ( fields.length > 0 ) {
-				isOK = false;
-				alert(fields.join() + " cannot be empty.")
-			}
-			if( isOK ) {
-				// check customer type
-				var oldCustomerType = $("input[name=oldCustomerType]").val();
-				var editMode = $("input[name=oldCustomerType]").attr("editMode");
-				if ( editMode == "edit" ) {
-					var currentCustomerType = $("#customerTypeSelect").val();
-					if ( oldCustomerType == "commercial" && currentCustomerType == "residential" ) {
-						isOK = false;
-						alert("Cannot change customer type from commercial to residential.");
-					}
-					// from residential to commercial, need to info add contact to invoice and quotation
-				}
-			}
-				/*
-				$("input[valueType=price]").each(function(){
-					var priceValue = $(this).val();
-					if ( priceValue != "" ) {
-						var regex = /^(\$|)([1-9]\d{0,2}(\,\d{3})*|([1-9]\d*))(\.\d{2})/;
-				        var passed = priceValue.match(regex);
-				        if (passed == null) {
-				        	isOK = false;
-				            alert($(this).attr("field") + " is price only. For example: 523.36");
-				        }
-					}
-				});
-				*/
-			return isOK;
+			return microBizFn.validateForm();
 		}
 }
 

@@ -16,11 +16,17 @@ public class CustomerCreateController extends BaseController{
     public Navigation run() throws Exception {
         
         // list at the top, details panel hidden first
-        Customer customer = new Customer();
-        BeanUtil.copy(customer, request);
-        
+        BeanUtil.copy(getCustomer(), request);
         requestScope("cxTypes", cxTypes);
-        requestScope("ratings", cxRatings);
-        return forward("customer-new.jsp");
+        requestScope("cxRatings", cxRatings);
+        return forward(getReturnJsp());
+    }
+    
+    public Customer getCustomer() {
+        return new Customer();
+    }
+    
+    public String getReturnJsp() {
+        return "customer-new.jsp";
     }
 }

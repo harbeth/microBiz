@@ -1,5 +1,6 @@
 <%@include file="../includes/taglib.jsp"%>
 
+<c:if test = "${f:h(customerContactShown)}" >
 <div class="col-lg-12">
 	<div class="form-group input-group">
 		<span class="input-group-addon">Contact</span> 
@@ -14,8 +15,7 @@
 		</select>
 	</div>
 	<div id="customerContactInfoDIV">
-		<c:if test = "${f:h(contactInfoShown)}" >
-			<jsp:include page="./customer-contact-info.jsp" />
-		</c:if>
+		<jsp:include page="./customer-contact-info.jsp" />
 	</div>
 </div>
+</c:if>

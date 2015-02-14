@@ -44,6 +44,7 @@ public class QuoteCreateActionController extends OrderLoadActionController {
     public Navigation run() throws Exception {
         
         Quote quote = new Quote();
+        quote.setCreateDate(new Date());
         BeanUtil.copy(request, quote); 
         // for new, not from UI
         quote.setCount(1);

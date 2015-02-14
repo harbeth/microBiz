@@ -1,5 +1,6 @@
 package com.microBiz.model;
 import java.io.Serializable;
+import java.util.Date;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
@@ -9,6 +10,7 @@ import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.microBiz.MicroBizUtil;
 
 
 @Model
@@ -20,7 +22,10 @@ public class Quote implements Serializable {
     private Key key;
     
     private String address;
-    private String createDate;
+    
+    @Attribute(persistent = false)
+    private String createDateStr;
+    private Date createDate;
     private String creator;
     // open failed won
     private String status;
@@ -32,18 +37,13 @@ public class Quote implements Serializable {
     private String customerKey = "-1";
     
     @Attribute(persistent = false)
+    private String customerName = "";
+    
+    @Attribute(persistent = false)
     private String contactKey = "-1";
     
     @Attribute(unindexed = true)
     private String note;
-    
-    // for quote version, new
-    @Attribute(persistent = false)
-    private Double taxRate;
-    @Attribute(persistent = false)
-    private Double discount;
-    @Attribute(persistent = false)
-    private Double total;
     
     //sort by createAt descending
     @Attribute(persistent = false)
@@ -64,11 +64,20 @@ public class Quote implements Serializable {
         return contactRef.getModel() != null;
     }
     
-    public String getCreateDate() {
+
+    public String getCreateDateStr() {
+        return MicroBizUtil.parseDateToStr(createDate);
+    }
+
+    public void setCreateDateStr(String createDateStr) {
+        this.createDateStr = createDateStr;
+    }
+
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
@@ -139,29 +148,13 @@ public class Quote implements Serializable {
     public void setCount(Integer count) {
         this.count = count;
     }
-    
-    public Double getTaxRate() {
-        return taxRate;
+
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setTaxRate(Double taxRate) {
-        this.taxRate = taxRate;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     @Override

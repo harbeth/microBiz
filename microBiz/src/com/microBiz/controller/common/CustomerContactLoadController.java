@@ -3,6 +3,7 @@ package com.microBiz.controller.common;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
+import org.slim3.datastore.Datastore;
 
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Contact;
@@ -27,7 +28,7 @@ public abstract class CustomerContactLoadController extends BaseController {
     
     public void setCustomerContactData(Customer selectedCustomer, Contact selectedContact) throws Exception {
   
-        boolean contactShown = false;
+        boolean customerContactShown = false;
         boolean contactInfoShown = false;
         
         // get all customer
@@ -43,7 +44,7 @@ public abstract class CustomerContactLoadController extends BaseController {
                         List<Contact> contactList = c.getContactListRef().getModelList();
                         if ( contactList != null && contactList.size() > 0 ) {
                             // has contact
-                            contactShown = true;
+                            customerContactShown = true;
                             // set contact selection
                             if ( selectedContact != null ) {
                                 for ( Contact contact : contactList ) {
@@ -61,8 +62,12 @@ public abstract class CustomerContactLoadController extends BaseController {
             }
         }
         requestScope("customers", customerList);
+        if ( selectedCustomer != null ) {
+            requestScope("customerKey", Datastore.keyToString(selectedCustomer.getKey()));
+            requestScope("customerName", selectedCustomer.getName());
+        }
         // show contact DIV flag
-        requestScope("contactShown", contactShown);
+        requestScope("customerContactShown", customerContactShown);
         requestScope("contactInfoShown", contactInfoShown);
     }
 }

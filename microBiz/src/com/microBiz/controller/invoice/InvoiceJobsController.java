@@ -7,7 +7,7 @@ import com.microBiz.model.Invoice;
 import com.microBiz.service.InvoiceService;
 
 
-// click on Expense tab, show expense list
+// click on Job tab, show job list
 public class InvoiceJobsController extends BaseController{
 
     private InvoiceService invoiceService;

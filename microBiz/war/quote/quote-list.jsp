@@ -17,17 +17,24 @@
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
+						
 						<th>Address</th>
-						<th>Version Count</th>
-						<th>Note</th>
+						<th>Customer</th>
+
+						<th>Created At</th>
+						<th>Sales</th>
+
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="q" items="${quotes}">
 						<tr>
 							<td><a link="quoteEditDetail" quoteKey="${f:h(q.key)}">${f:h(q.address)}</a></td>
-							<td>${f:h(q.count)}</td>
-							<td>${f:h(q.note)}</td>
+							<td>${f:h(q.customerRef.model.name)}</td>
+					
+
+							<td>${f:h(q.createDateStr)}</td>
+							<td>${f:h(q.creator)}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

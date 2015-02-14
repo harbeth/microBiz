@@ -5,22 +5,30 @@
 		<input type="hidden" ${f:hidden("key")} />
 	</c:if>
 	<c:if test="${key == null}">
-		<label>Let System Generate Invoice Number</label> 
+		<label>Auto Generate</label> 
 		<label class="checkbox-inline">
-			<input type="checkbox" ${f:checkbox("autoInvoiceNumber")}> yes
+			<input type="checkbox" ${f:checkbox("autoInvoiceNumber")}>
 		</label>
 	</c:if>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Invoice Number *</span>
-		<input type="text" mandatory="y" field="Invoice Number" ${f:text("invoiceNumber")} class="form-control" />
+		<c:choose>
+			<c:when test="${key == null}">
+				<input type="text" mandatory="y" field="Invoice Number" ${f:text("invoiceNumber")} class="form-control" />
+				<input type="hidden" name="invoiceNumberHidden" value="" />
+			</c:when>
+			<c:otherwise>
+				<input type="text" disabled="disabled" ${f:text("invoiceNumber")} class="form-control" />
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Address *</span>
-		<input type="text" ${f:text("address")} class="form-control" />
+		<input type="text" mandatory="y" field="Address" ${f:text("address")} class="form-control" />
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Sign Date *</span>
-		<input type="text" ${f:text("signDateStr")} id = "signDateStr" class="form-control" />
+		<input type="text" mandatory="y" field="Sign Date" ${f:text("signDateStr")} id = "signDateStr" class="form-control" />
 	</div>
 	
 	<div class="form-group input-group">

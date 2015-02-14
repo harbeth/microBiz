@@ -1,5 +1,6 @@
 <%@include file="../includes/taglib.jsp"%>
-<!-- for shortcut, refresh whole page , not use now -->
+
+<!-- for customer new invoice, -->
 
 <c:import url = "../layout/layout.jsp">
 	<c:param name = "title" value ="Invoice"/>

@@ -10,7 +10,8 @@ var quoteFn = {
 			var quoteKey = $(this).attr("quoteKey");
 			// also need invoice key to get details
 			$("#"+microBizConst.bodyContentId).load("/quote/quoteDetails?quoteKey=" + quoteKey, function() {
-				quoteDetailFn.init(); 
+				// put it in the page for short cut from customer
+				//quoteDetailFn.init(); 
 			});
 		});
 	}
@@ -21,13 +22,15 @@ var quoteFn = {
 			// new and edit should be the same for quote
 			$("#"+microBizConst.bodyContentId).load("/quote/quoteCreate", function() {
 				// job page is shown by default
-				quoteNewFn.init(); 
+				// put it in the page for short cut from customer
+				// quoteNewFn.init(); 
 			});
 		});
 	}
 }
 
 var quoteNewFn = {
+	// put it in the page for short cut from customer
 	init: function() {
 		quoteEditFn.init();
 		// submit button event
@@ -39,15 +42,12 @@ var quoteNewFn = {
 	        target: "#"+microBizConst.bodyContentId
 	        , beforeSubmit: function() {
 	        	//keep product -1
-	        	// quoteNewFn.validate() 
-	        	if ( true ) {
-	        		// delete the empty tr
-	        		//orderItemFn.removeEmptyTr();
-	        	}
+	        	return quoteNewFn.validate();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// after edit page loaded
-	        	quoteDetailFn.init();
+	        	// put it in the page for short cut from customer
+	        	// quoteDetailFn.init();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -60,13 +60,13 @@ var quoteNewFn = {
 	}
 	, validate: function() {
 		// check basic info first
-    	var isDetailFormOK = quoteEditFn.validateDetailForm();
-    	if ( isDetailFormOK ) {
+    	var isOK = quoteEditFn.validateForm();
+    	if ( isOK ) {
     		// check order item form
     		// must have at least one order item
-    		isDetailFormOk = orderItemFn.validate();
+    		isOK = quoteDetailFn.validateOrderForm();
     	}
-    	return isDetailFormOK;
+    	return isOK;
 	}
 }
 
@@ -82,10 +82,11 @@ var quoteUpdateFn = {
 		var options = { 
 	        target: "#quoteInfoDIV"
 	        , beforeSubmit: function() {
+	        	// validate detail info
 	        	return quoteEditFn.validateForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	// keep on the version tab
+	        	// keep on the order tab
 	        	$("#quoteDetailInfoDIV").hide();
 	        	$("#quoteDetailVersionDIV").show();
 	        	$("a[link=quoteDetailVersion]").parent().attr("class", "active");
@@ -133,6 +134,10 @@ var quoteDetailFn = {
 		// register event for three tabs
 		this.registerTabClick();
 	}
+    // just validate order items in detail page
+	, validateOrderForm: function() {
+		return orderItemFn.validate();
+	}
 	// events on the version tab
 	// only update version tab
 	, onSumitOrderRegister: function() {
@@ -140,14 +145,8 @@ var quoteDetailFn = {
 		var options = { 
 	        target: "#quoteDetailVersionDIV"
 	        , beforeSubmit: function() {
-	        	// clear content first
-	        	$("#quoteDetailVersionDIV").html("Saving...");
-	        	//keep product -1
-	        	// quoteNewFn.validate() 
-	        	if ( true ) {
-	        		// delete the empty tr
-	        		//orderItemFn.removeEmptyTr();
-	        	}
+	        	// just validate order item
+	        	return quoteDetailFn.validateOrderForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// refresh the current tab, register change event
@@ -165,7 +164,6 @@ var quoteDetailFn = {
 	// not used now
 	, registerSaveButton: function() {
 		$("button[btnAction=save]").on("click", function(){
-			alert(1);
 			var actionName = $(this).attr("name");
 			var formParam = $("form[name=quoteDetailVersionForm]").serialize();
 			formParam += "actionName="+actionName+"&";
@@ -180,9 +178,9 @@ var quoteDetailFn = {
 		});
 	}
 	, registerQuoteOrderChange: function() {
-		$("a[link=quoteOrder]").on("click",function(){
+		$("#quoteOrder").change(function(){
 			// update lower DIV
-			var quoteOrderKey = $(this).attr("quoteOrderKey");
+			var quoteOrderKey = $(this).val();
 			$("#quoteOrderChangeDIV").html("Loading...");
 			$("#quoteOrderChangeDIV").load("/quote/quoteOrder?quoteOrderKey=" + quoteOrderKey, function(){
 				// register form again

@@ -27,7 +27,7 @@ public class InvoiceValidateController extends CustomerContactLoadController {
         if ( returnList == null || returnList.size() == 0 ) {
             response.getWriter().write("success");
         }else{
-            response.getWriter().write("The invoice number " + invoiceNumber + " already exists.");
+            response.getWriter().write("The invoice number " + invoiceNumber + " already exists, please input another one.");
         }
         return null;
     }

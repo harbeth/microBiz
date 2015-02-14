@@ -1,7 +1,7 @@
 <%@include file="../includes/taglib.jsp"%>
 
-<div class="row">
-	<div class="col-lg-12">
+<div class="col-lg-12">
+	<div class="well">
 		<form id="invoiceDetailOrderForm" typerole="form" method="post" action="/invoice/invoiceOrderAction">
 			<div id="invoiceOrderDIV" class="row">
 				<input type="hidden" name="invoiceKey" value="${f:h(invoice.key)}" />
