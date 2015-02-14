@@ -1,19 +1,13 @@
 package com.microBiz.service;
 
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
-import com.microBiz.MicroBizUtil;
 import com.microBiz.meta.QuoteMeta;
 import com.microBiz.meta.QuoteOrderMeta;
-import com.microBiz.model.Customer;
-import com.microBiz.model.Order;
-import com.microBiz.model.OrderItem;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
 

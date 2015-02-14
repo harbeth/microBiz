@@ -1,7 +1,5 @@
 package com.microBiz.controller.invoice;
 
-import java.util.List;
-
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
@@ -16,7 +14,6 @@ import com.microBiz.service.ContactService;
 import com.microBiz.service.CustomerService;
 import com.microBiz.service.InvoiceService;
 import com.microBiz.service.MiUserService;
-import com.microBiz.service.ProductService;
 
 // command controller for new/edit save
 public abstract class InvoiceSaveActionController extends OrderLoadActionController {

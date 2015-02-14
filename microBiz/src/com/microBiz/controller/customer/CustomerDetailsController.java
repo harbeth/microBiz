@@ -8,18 +8,15 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.model.Customer;
 import com.microBiz.model.Quote;
 import com.microBiz.service.CustomerService;
-import com.microBiz.service.QuoteService;
 
 // on invoice edit link click, load job tab first
-public class CustomerDetailsController extends BaseController{
+public class CustomerDetailsController extends BaseController {
 
     private CustomerService customerService;
-    private QuoteService quoteService;
     
     public CustomerDetailsController(){
         super();
         customerService = new CustomerService();
-        quoteService = new QuoteService();
     }
     
     @Override

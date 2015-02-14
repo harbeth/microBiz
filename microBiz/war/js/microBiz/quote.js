@@ -185,7 +185,6 @@ var quoteDetailFn = {
 			$("#quoteOrderChangeDIV").load("/quote/quoteOrder?quoteOrderKey=" + quoteOrderKey, function(){
 				// register form again
 				quoteDetailFn.onSumitOrderRegister();
-				//quoteDetailFn.registerQuoteOrderChange();
 			});
 		});
 	}

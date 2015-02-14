@@ -1,8 +1,6 @@
 package com.microBiz.controller.quote;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
@@ -10,16 +8,12 @@ import org.slim3.util.BeanUtil;
 
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
-import com.microBiz.controller.BaseController;
 import com.microBiz.controller.common.OrderLoadActionController;
-import com.microBiz.model.OrderItem;
 import com.microBiz.model.Order;
-import com.microBiz.model.Product;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
 import com.microBiz.service.ContactService;
 import com.microBiz.service.CustomerService;
-import com.microBiz.service.ProductService;
 import com.microBiz.service.QuoteService;
 
 // command controller for new/edit save

@@ -9,17 +9,14 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.model.Customer;
 import com.microBiz.model.Invoice;
 import com.microBiz.service.CustomerService;
-import com.microBiz.service.InvoiceService;
 
-public class CustomerInvoiceController extends BaseController{
+public class CustomerInvoiceController extends BaseController {
 
     private CustomerService customerService;
-    private InvoiceService invoiceService;
     
     public CustomerInvoiceController(){
         super();
         customerService = new CustomerService();
-        invoiceService = new InvoiceService();
     }
     
     @Override
