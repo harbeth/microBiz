@@ -27,7 +27,7 @@
 						Quotation</a></li>
 				<li><a href="/invoice/invoice"><i class="fa fa-table fa-fw"></i>Invoice<span
 						class="fa arrow"></span></a>
-				<li><a href="/jobReport/jobReport"><i class="fa fa-table fa-fw"></i>job Report<span
+				<li><a href="/jobReport/jobsToReport"><i class="fa fa-table fa-fw"></i>job Report<span
 						class="fa arrow"></span></a>
 				<li><a href="#"><i class="fa fa-wrench fa-fw"></i>Product<span
 						class="fa arrow"></span></a>

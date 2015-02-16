@@ -29,29 +29,29 @@ public class Invoice implements Serializable {
     // sales,(only available to admin, if user is a sales, the this is user)
     private String address;
 
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private Double deposit;
     
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private String depositPymtMethod;
     
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private String balancePymtMethod;
     
     private String poNumber;
 
     private Date preferIntlDate;
     
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private String preferIntlDateStr;
     
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private String preferArrivalTime;
     
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private Integer estimatedWorkingHours;
     
-    @Attribute(unindexed = false)
+    @Attribute(unindexed = true)
     private String note;
     
     private String status;

@@ -1,6 +1,5 @@
 package com.microBiz.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.slim3.datastore.Datastore;
@@ -9,8 +8,8 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.meta.JobMeta;
 import com.microBiz.model.Job;
-import com.microBiz.model.JobLaborReport;
 import com.microBiz.model.JobMaterialReport;
+import com.microBiz.model.JobReport;
 
 
 
@@ -40,31 +39,29 @@ public class JobService {
         return Datastore.query(job).filter(job.status.notEqual("complete")).asList();
     
     }
-    public void addJobMaterialReport(JobMaterialReport jmr, Key jobKey) {
-        Transaction tx = Datastore.beginTransaction();
-        Key childKey = Datastore.allocateId(jobKey, JobMaterialReport.class);
-        jmr.setKey(childKey);
-        jmr.setReportDate(new Date());
-        Datastore.put(tx, jmr);
-        tx.commit();
-    }
-
-    public void saveJobLaborReport(JobLaborReport jbr, Key jobKey) {
-        Transaction tx = Datastore.beginTransaction();
-        Key childKey = Datastore.allocateId(jobKey, JobLaborReport.class);
-        jbr.setReportDate(new Date());
-        jbr.setKey(childKey);
-        Datastore.put(tx, jbr);
-        tx.commit();
-        
-    }
-
-    public List<JobMaterialReport> getJobMaterialReports(Key jobKey) {
-        return Datastore.query(JobMaterialReport.class, jobKey).asList();
+    
+    public JobReport getJobReport(Key jobReportKey) {
+        return Datastore.get(JobReport.class, jobReportKey);
     }
     
-    public List<JobLaborReport> getJobLaborReports(Key jobKey) {
-        return Datastore.query(JobLaborReport.class, jobKey).asList();
+    public List<JobMaterialReport> getJobMaterialReport(Key jobReportKey){
+        return Datastore.query(JobMaterialReport.class, jobReportKey).asList();
+    }
+
+
+    public Key saveJobReport(JobReport jobReport){
+        Key result = null;
+        Transaction tx = Datastore.beginTransaction();
+        result = Datastore.put(tx, jobReport);
+        tx.commit();
+        return result;
+    }
+
+    public void saveJobMaterialReport(JobMaterialReport jmr) {
+        Transaction tx = Datastore.beginTransaction();
+        Datastore.put(tx, jmr);
+        tx.commit();
+        
     }
 
 }

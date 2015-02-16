@@ -1,30 +1,32 @@
 var jobReportFn = {
 	init: function() {
 		// register event for edit prd link
-		this.onJobMaterialReportClick();
-		this.onJobReportDetailsClick();
-		this.onJobLaborReportClick();
+		this.onJobReportClick();
+		this.onJobReportEditClick();
+
 	}
-	, onJobMaterialReportClick: function() {
+	, onJobReportClick: function() {
 		// prd number link to sh invoice details on AJAX call in the body panel
-		$("a[link=jobMaterialReport]").click(function(){
+		$("a[link=jobReport]").click(function(){
 			var jobKey = $(this).attr("jobKey");
 			// also need invoice key to get details
-			$("#"+microBizConst.bodyContentId).load("/jobReport/jobMaterialReport?jobKey=" + jobKey, function() {
+			$("#jobReportEditDIV").load("/jobReport/jobReportNew?jobKey=" + jobKey, function() {
 				jobReportEditFn.init(); 
 			});
 		});
 	}
-	, onJobLaborReportClick: function() {
+	
+	, onJobReportEditClick: function() {
 		// prd number link to sh invoice details on AJAX call in the body panel
-		$("a[link=jobLaborReport]").click(function(){
-			var jobKey = $(this).attr("jobKey");
+		$("a[link=jobReportEdit]").click(function(){
+			var jobReportKey = $(this).attr("jobReportKey");
 			// also need invoice key to get details
-			$("#"+microBizConst.bodyContentId).load("/jobReport/jobLaborReport?jobKey=" + jobKey, function() {
+			$("#jobReportEditDIV").load("/jobReport/jobReportEdit?jobReportKey=" + jobReportKey, function() {
 				jobReportEditFn.init(); 
 			});
 		});
 	}
+	
 	, onJobReportDetailsClick: function() {
 		// new invoice button in the invoice list page
 		$("a[link=jobReportDetails]").click(function(){

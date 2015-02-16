@@ -1,5 +1,9 @@
 package com.microBiz.controller.invoice;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
@@ -48,6 +52,12 @@ public class InvoiceJobEditActionController extends BaseController{
         job.getInvoiceRef().setModel(invoice);
         MiUser installer = userService.get(Datastore.stringToKey(asString("installer")));
         job.getInstallerRef().setModel(installer);
+        
+        String[] prds = paramValues("prds");
+        List<String> prdKeys = new ArrayList<String>(prds.length);
+        Collections.addAll(prdKeys, prds);
+        
+        job.setUsePrdKeys(prdKeys);
         jobService.save(job);
         
         invoice = invoiceService.get(invoiceKey);

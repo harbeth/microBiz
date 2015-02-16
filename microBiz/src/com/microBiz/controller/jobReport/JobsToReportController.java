@@ -11,11 +11,11 @@ import com.microBiz.service.InvoiceService;
 import com.microBiz.service.JobService;
 
 
-public class JobReportController extends BaseController {
+public class JobsToReportController extends BaseController {
 
     private JobService jobService;
     
-    public JobReportController(){
+    public JobsToReportController(){
         super();
         jobService = new JobService();
     }

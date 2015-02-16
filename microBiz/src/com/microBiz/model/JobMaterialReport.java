@@ -9,7 +9,7 @@ import org.slim3.datastore.ModelRef;
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 
-
+//is child of repobReport
 @Model(kind = "job_material_report")
 public class JobMaterialReport implements Serializable {
     
@@ -17,44 +17,31 @@ public class JobMaterialReport implements Serializable {
 
     @Attribute(primaryKey = true)
     private Key key;
-      
-    private Date reportDate;
-    
-    private Boolean isVoid;
   
     private Double qty;
     
-    @Attribute(persistent = false)
-    private String reportDateStr;
-
-    private String note;
-
-    
+    //make sure JobMaterialReport for a job is as the same order if Job: usedPrdKey[]
+    private Integer count;
+ 
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
     
     private ModelRef<PrdRatio> prdRatioRef = new ModelRef<PrdRatio>(PrdRatio.class);
+    
+    private ModelRef<JobReport> jobReportRef = new ModelRef<JobReport>(JobReport.class);
   
     
+
+
+    public ModelRef<JobReport> getJobReportRef() {
+        return jobReportRef;
+    }
+
+
 
 
     public ModelRef<PrdRatio> getPrdRatioRef() {
         return prdRatioRef;
     }
-
-
-
-    public Boolean getIsVoid() {
-        return isVoid;
-    }
-
-
-
-    public void setIsVoid(Boolean isVoid) {
-        this.isVoid = isVoid;
-    }
-
-
-
 
 
 
@@ -74,46 +61,18 @@ public class JobMaterialReport implements Serializable {
         return productRef;
     }
 
-
-    public Date getReportDate() {
-        return reportDate;
+    public Integer getCount() {
+        return count;
     }
 
 
 
 
-    public void setReportDate(Date reportDate) {
-        this.reportDate = reportDate;
-        setReportDate();
-    }
-    
-    public void setReportDate() {
-        this.reportDate = MicroBizUtil.parseStrToDate(reportDateStr);
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
 
-
-    public String getReportDateStr() {
-        return MicroBizUtil.parseDateToStr(reportDate);
-    }
-
-
-
-
-    public void setReportDateStr(String reportDateStr) {
-        this.reportDateStr = reportDateStr;
-    }
-
-
-
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     @Override
     public int hashCode() {

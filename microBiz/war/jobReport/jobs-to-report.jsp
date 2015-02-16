@@ -2,48 +2,49 @@
 <!-- /.row -->
 <%@include file="../includes/taglib.jsp"%>
 
-<script type ="text/javascript">
-    $(document).ready(function() {
-    	jobReportFn.init();
+<script type="text/javascript">
+	$(document).ready(function() {
+		jobReportFn.init();
 	});
 </script>
 
+<div id="jobReportEditDIV"></div>
 
 <div class="row">
 	<div class="col-lg-12">
-		<h3>Jobs To Report</h3>
-		<div class="table-responsive">
-			<table class="table table-hover table-striped">
-				<thead>
-					<tr>
-						<th>Invoice Number</th>
-						<th>Customer</th>
-						<th>Address</th>
-						<th>Job Start Date</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="j" items="${jobs}">
-						<tr>
-						
-							<td>${f:h(j.invoiceRef.model.invoiceNumber)}</td>
-							<td>${f:h(j.invoiceRef.model.customerRef.model.name)} </td>
-							<td>${f:h(j.invoiceRef.model.address)}</td>
-							<td>${f:h(j.startingDateStr)}</td>
-							<td>
-							<a link="jobMaterialReport" jobKey="${f:h(j.key)}" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Job Material Report</a>
-							 ${f:nbsp('  ')}
-							 <a link="jobLaborReport" jobKey="${f:h(j.key)}" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Job Labour Report</a>
-							 ${f:nbsp('  ')}
-							<a link="jobReportDetails" jobKey="${f:h(j.key)}" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Reports of This Job</a>
-							</td>
-							
+		<div class="panel panel-default">
+			<div class="panel-heading">Jobs To Report</div>
+			<div class="panel-body">
+				<ul>
 
-						</tr>
+
+					<c:forEach var="j" items="${jobs}">
+						<li>${f:h(j.invoiceRef.model.customerRef.model.name)}
+							${f:nbsp('  ')} ${f:h(j.invoiceRef.model.invoiceNumber)}
+							${f:nbsp('  ')} ${f:h(j.invoiceRef.model.address)} ${f:nbsp('  ')}
+							${f:h(j.startingDateStr)} ${f:nbsp('  ')} 
+							<a link="jobReport"
+							jobKey="${f:h(j.key)}" data-toggle="tab" aria-expanded="false"
+							class="btn btn-default btn-sm" role="button">Job Report</a>
+							<ul>
+								<c:forEach var="jr" items="${j.jobReportListRef.modelList}">
+									<li><a link="jobReportEdit" jobReportKey="${f:h(jr.key)}"
+										data-toggle="tab" aria-expanded="false"
+										class="btn btn-default btn-sm" role="button">Edit</a>
+										${f:h(jr.reportDateStr)} ${f:nbsp(' ')} Working Hrs:
+										${f:h(jr.workingHours)} ${f:nbsp(' ')} Travel Hrs:
+										${f:h(jr.travelHours)}<br> ${f:h(jr.materialReportStr)}<br>
+										Notes: ${f:h(jr.note)}</li>
+								</c:forEach>
+							</ul>
+
+
+						</li>
 					</c:forEach>
-				</tbody>
-			</table>
+
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
+

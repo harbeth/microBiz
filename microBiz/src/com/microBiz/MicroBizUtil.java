@@ -39,8 +39,8 @@ public class MicroBizUtil {
         int minute = calendar.get(Calendar.MINUTE);
         int second = calendar.get(Calendar.SECOND);
         
-        sb.append("MB-").append(calendar.get(Calendar.YEAR))
-          .append("-").append(getFixedString(month)).append(getFixedString(dayOfMonth))
+        sb.append(calendar.get(Calendar.YEAR))
+          .append(getFixedString(month)).append(getFixedString(dayOfMonth))
           .append("-").append(getFixedString(hourOfDay))
           .append(getFixedString(minute)).append(getFixedString(second))
           .append("-").append(calendar.get(Calendar.MILLISECOND));

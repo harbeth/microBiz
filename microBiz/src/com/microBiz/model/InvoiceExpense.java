@@ -27,6 +27,7 @@ public class InvoiceExpense implements Serializable {
     @Attribute(persistent = false)
     private String invoiceKey;
 
+    @Attribute(unindexed = true)
     private String note;
     // many to one
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);

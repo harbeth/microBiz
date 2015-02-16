@@ -20,8 +20,10 @@ public class Payment implements Serializable {
     
     @Attribute(unindexed = true)
     private Double amount;
-    
+
     private String method;
+    
+    
     private String note;
     private String user;
     

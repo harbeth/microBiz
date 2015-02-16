@@ -27,6 +27,7 @@
 		<div class="form-group input-group">
 			<span class="input-group-addon">Sales</span> <select
 				name="sales" class="form-control">
+				<option value="">Select ... </option>
 				<c:forEach items="${sales}" var="s">
 					<option value="${f:h(s.key)}"
 						<c:if test = "${f:h(salesRef.model.key) == f:h(s.key)}" >

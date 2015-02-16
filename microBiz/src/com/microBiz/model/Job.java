@@ -1,8 +1,10 @@
 package com.microBiz.model;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.slim3.datastore.Attribute;
+import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
@@ -24,19 +26,36 @@ public class Job implements Serializable {
     
     private Date startingDate;
     
+    @Attribute(unindexed = true)
     private String arrivalTime;
+    
+    @Attribute(unindexed = true)
     private String note;
+    
+    @Attribute(unindexed = true)
+    private List<String> usePrdKeys;
     
     // ongoing, complete, canceled
     private String status;
     // only for display
     @Attribute(persistent = false)
     private String invoiceKey;
+    
+  
     // many to one
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
     
     private ModelRef<MiUser> installerRef = new ModelRef<MiUser>(MiUser.class);
   
+    @Attribute(persistent = false)
+    private InverseModelListRef<JobReport, Job> jobReportListRef = new InverseModelListRef<JobReport, Job>(JobReport.class, "jobRef", this);
+ 
+
+    public InverseModelListRef<JobReport, Job> getJobReportListRef() {
+        return jobReportListRef;
+    }
+
+
     public ModelRef<Invoice> getInvoiceRef() {
         return invoiceRef;
     }
@@ -96,6 +115,16 @@ public class Job implements Serializable {
 
     public void setInvoiceKey(String invoiceKey) {
         this.invoiceKey = invoiceKey;
+    }
+    
+
+
+    public List<String> getUsePrdKeys() {
+        return usePrdKeys;
+    }
+
+    public void setUsePrdKeys(List<String> usePrdKeys) {
+        this.usePrdKeys = usePrdKeys;
     }
 
     @Override
