@@ -22,8 +22,8 @@
 					<tr>
 						<th>Model</th>
 						<th>Type</th>
-						<th>Selling Price</th>
-						<th>Purchase Cost</th>
+						<th>Rate</th>
+						<th>Unit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,8 +31,8 @@
 						<tr>
 							<td><a link="productEdit" productKey="${f:h(p.key)}">${f:h(p.model)}</a></td>
 							<td>${f:h(p.type)}</td>
-							<td>${f:h(p.sellingRate)}per ${f:h(p.sellingUnit)}</td>
-							<td>${f:h(p.purchaseRate)}per ${f:h(p.purchaseUnit)}</td>
+							<td>${f:h(p.rate)}</td>
+							<td>${f:h(p.unit)}</td>
 
 						</tr>
 					</c:forEach>

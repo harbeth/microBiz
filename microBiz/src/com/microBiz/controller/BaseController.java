@@ -21,6 +21,7 @@ public abstract class BaseController extends Controller{
     protected List<String>  inventoryChangeTypes;
     protected List<String>  paymentTypes;
     protected List<String>  quoteStatus;
+    protected List<String>  pymtTerms;
     
     public BaseController(){
 
@@ -35,13 +36,13 @@ public abstract class BaseController extends Controller{
         inventoryChangeTypes = new ArrayList<String>();
         paymentTypes = new ArrayList<String>();
         quoteStatus = new ArrayList<String>();
+        pymtTerms = new ArrayList<String>();
   
 
         roles.add("admin"); // have full rights, 
         roles.add("installer"); // can only report job assinged to him
         roles.add("sales"); // can create quote, invoice, and see quote and invoice he created
         roles.add("manager"); // everything but configuration
-        units.add("");
         units.add("kg");
         units.add("pound");
         units.add("stroke");
@@ -73,5 +74,8 @@ public abstract class BaseController extends Controller{
         quoteStatus.add("open");
         quoteStatus.add("won");
         quoteStatus.add("failed");
+        pymtTerms.add("0d");
+        pymtTerms.add("30d");
+        pymtTerms.add("45d");
     }
 }

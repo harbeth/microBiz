@@ -62,18 +62,16 @@
 		prdRatioFn.init();
 	});
 </script>
-
 <div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">Product Edit</h1>
-	<a link="productEditClose"  class="btn btn-info btn-sm" role="button">Close</a>
-	</div>
+
+		<h3 class="page-header">Product Edit</h3>
+
 </div>
 <!-- /.row -->
 
 <!-- Page conent -->
 <div class="row">
-
+<div class="col-lg-12">
 	<form  name="productEditForm" typerole="form" method="post" action="${f:url('/prd/productEditAction')}">
 		<div class="col-lg-6">
 			<c:if test="${key!=null}">
@@ -83,6 +81,7 @@
 			<div class="form-group input-group">
 				<span class="input-group-addon">Product Type</span> <select
 					name="type" class="form-control">
+					<option value="-1">Select ... </option>
 					<c:forEach items="${prdTypes}" var="pt">
 						<option value="${f:h(pt)}"
 							<c:if test = "${f:h(type) == f:h(pt)}" >
@@ -100,14 +99,20 @@
 					type="text" ${f:text("desc")} class="form-control" />
 			</div>
 
-			<div class="form-group input-group">
-				<span class="input-group-addon">Supplier</span> <select
-					name="supplier" class="form-control">
-					<c:forEach items="${suppliers}" var="s">
-						<option value="${f:h(s)}"
-							<c:if test = "${f:h(supplier) == f:h(s)}" >
+				<div class="form-group input-group">
+				<span class="input-group-addon">Rate</span> <input
+					type="text" ${f:text("rate")} class="form-control" />
+			</div>
+			
+					<div class="form-group input-group">
+				<span class="input-group-addon">Unit</span> <select
+					name="unit" class="form-control">
+					<option value="-1">Select ... </option>
+					<c:forEach items="${units}" var="u1">
+						<option value="${f:h(u1)}"
+							<c:if test = "${f:h(unit) == f:h(u1)}" >
 								selected
-							</c:if>>${f:h(s)}</option>
+							</c:if>>${f:h(u1)}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -119,22 +124,9 @@
 			</div>
 		</div>
 		<div class="col-lg-6">
-			<div class="form-group input-group">
-				<span class="input-group-addon">Selling Rate</span> <input
-					type="text" ${f:text("sellingRate")} class="form-control" />
-			</div>
 
-			<div class="form-group input-group">
-				<span class="input-group-addon">Selling Unit</span> <select
-					name="sellingUnit" class="form-control">
-					<c:forEach items="${units}" var="u1">
-						<option value="${f:h(u1)}"
-							<c:if test = "${f:h(sellingUnit) == f:h(u1)}" >
-								selected
-							</c:if>>${f:h(u1)}</option>
-					</c:forEach>
-				</select>
-			</div>
+
+	
 			<div class="form-group input-group">
 				<span class="input-group-addon">Consume Report Unit</span> <select
 					name="consumeReportUnit" class="form-control">
@@ -146,27 +138,23 @@
 					</c:forEach>
 				</select>
 			</div>
-			<div class="form-group input-group">
-				<span class="input-group-addon">Purchase Cost</span> <input
-					type="text" ${f:text("purchaseRate")} class="form-control" />
-			</div>
+	
 
+	
 			<div class="form-group input-group">
-				<span class="input-group-addon">Purchase Unit</span> <select
-					name="purchaseUnit" class="form-control">
-					<c:forEach items="${units}" var="u3">
-						<option value="${f:h(u3)}"
-							<c:if test = "${f:h(purchaseUnit) == f:h(u3)}" >
+				<span class="input-group-addon">Supplier</span> <select
+					name="supplier" class="form-control">
+					<c:forEach items="${suppliers}" var="s">
+						<option value="${f:h(s)}"
+							<c:if test = "${f:h(supplier) == f:h(s)}" >
 								selected
-							</c:if>>${f:h(u3)}</option>
+							</c:if>>${f:h(s)}</option>
 					</c:forEach>
 				</select>
-
-
 			</div>
-		</div>
-	<div class="row">
-	<div class="col-lg-6">
+			<div>
+			<h4>Product Ratio
+			<a link="addRow" data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Add</a></h4>
 	<table name="prdRatioTbl" class="table">
 		<thead>
 			<tr>
@@ -185,7 +173,7 @@
 				<td><input class="form-control input-sm" rowIndex="-1" prdInput="true" name="ratioDescs" value="" /></td>
 				<td><input class="form-control input-sm" rowIndex="-1" prdInput="true" name="ratios" value="" /></td>
 				<td class="text-center">
-					<a link="removeRow" rowIndex="-1" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Remove Row</a>
+					<a link="removeRow" rowIndex="-1" data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Remove Row</a>
 				</td>
 			</tr>
 			<c:forEach items="${prdRatios}" var="pr" varStatus="status">
@@ -193,7 +181,7 @@
 				<td><input class="form-control input-sm" rowIndex="${status.index}" prdInput="true" name="ratioDescs" value="${f:h(pr.desc)}" /></td>
 				<td><input class="form-control input-sm" rowIndex="${status.index}" prdInput="true" name="ratios" value="${f:h(pr.ratio)}" /></td>
 				<td class="text-center">
-					<a link="removeRow" rowIndex="${status.index}" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Remove Row</a>
+					<a link="removeRow" rowIndex="${status.index}" data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Remove Row</a>
 				</td>
 			</tr>
 			</c:forEach>
@@ -201,11 +189,11 @@
 		</table>
 		</div>
 		</div>
-		<div class="panel-heading">
-			<a link="addRow" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Add More</a>
-		</div>
+
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Submit</button>
+			
+			<a link="productEditClose"  class="btn btn-default btn-sm" role="button">Close</a>
 		</div>
 	</form>
 </div>

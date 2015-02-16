@@ -35,10 +35,6 @@
 		</div>
 
 		<div class="form-group input-group">
-			<span class="input-group-addon">Date</span> 
-			<input type="text" ${f:text("enterDateStr")} class="form-control" id="enterDateStr"/>
-		</div>
-		<div class="form-group input-group">
 			<span class="input-group-addon">Notes</span>
 			<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
 		</div>

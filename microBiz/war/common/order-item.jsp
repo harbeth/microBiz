@@ -271,7 +271,7 @@ how to deal with Key enter event
 								<c:if test = "${f:h(oi.productRef.model.key) == f:h(p.key)}" >
 									selected
 								</c:if>
-							>${f:h(p.model)}--${f:h(p.sellingRate)}
+							>${f:h(p.model)}--${f:h(p.rate)}
 							</option>
 						</c:forEach>
 					</select>
@@ -292,7 +292,7 @@ how to deal with Key enter event
 					<select name="items" rowIndex="-1">
 						<option value="-1">Select</option>
 						<c:forEach items="${products}" var="p">
-							<option value="${f:h(p.key)}">${f:h(p.model)}--${f:h(p.sellingRate)}</option>
+							<option value="${f:h(p.key)}">${f:h(p.model)}--${f:h(p.rate)}</option>
 						</c:forEach>
 					</select>
 				</td>
@@ -312,6 +312,7 @@ how to deal with Key enter event
 				<td>
 					Tax Rate:
 					<select name="taxRate" calType="taxRate">
+					<option value="-1">Select</option>
 						<c:forEach items="${txRates}" var="tr">
 							<option value="${f:h(tr)}" <c:if test="${f:h(tr) eq orders.taxRate}">selected="selected"</c:if> >${f:h(tr)}</option>
 						</c:forEach>

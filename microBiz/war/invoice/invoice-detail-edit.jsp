@@ -76,6 +76,7 @@
 	<div class="form-group input-group">
 		<span class="input-group-addon">Deposit Payment Method</span>
 		<select name="depositPymtMethod" class="form-control">
+		<option value="">Select ... </option>
 			<c:forEach items="${paymentTypes}" var="pt">
 				<option value="${f:h(pt)}"
 					<c:if test = "${f:h(depositPymtMethod) == f:h(pt)}" >
@@ -88,6 +89,7 @@
 	<div class="form-group input-group">
 		<span class="input-group-addon">Balance Payment Method</span>
 		<select name="balancePymtMethod" class="form-control">
+		<option value="">Select ... </option>
 			<c:forEach items="${paymentTypes}" var="pt">
 				<option value="${f:h(pt)}"
 					<c:if test = "${f:h(balancePymtMethod) == f:h(pt)}" >

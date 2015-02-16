@@ -20,6 +20,8 @@ public class Customer extends MiBaseModel {
     
     private String phone;
     
+    private String pymtTerm;
+    
     private String altPhone;
     
     private String address;
@@ -159,6 +161,14 @@ public class Customer extends MiBaseModel {
 
     public void setOldCustomerType(String oldCustomerType) {
         this.oldCustomerType = oldCustomerType;
+    }
+
+    public String getPymtTerm() {
+        return pymtTerm;
+    }
+
+    public void setPymtTerm(String pymtTerm) {
+        this.pymtTerm = pymtTerm;
     }
 
   

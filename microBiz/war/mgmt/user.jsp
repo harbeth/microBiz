@@ -28,25 +28,11 @@
 				<span class="input-group-addon">Email</span> <input type="text"
 					${f:text("email")} class="form-control" />
 			</div>
-
-
-			<div class="form-group">
-				<label>Active</label> <label class="checkbox-inline"> <input
-					type="checkbox" ${f:checkbox("active")}> yes
-				</label>
-			</div>
-
-
-		</div>
-		<div class="col-lg-6">
-			<div class="form-group input-group">
-				<span class="input-group-addon">Phone</span> <input type="text"
-					${f:text("phone")} class="form-control" />
-			</div>
-
+			
 			<div class="form-group input-group">
 				<span class="input-group-addon">Role</span> <select name="role"
 					class="form-control">
+					<option value="">Select ... </option>
 					<c:forEach items="${roles}" var="r">
 						<option value="${f:h(r)}"
 							<c:if test = "${f:h(role) == f:h(r)}" >
@@ -55,6 +41,30 @@
 					</c:forEach>
 				</select>
 			</div>
+
+
+
+		</div>
+		<div class="col-lg-6">
+			<div class="form-group input-group">
+				<span class="input-group-addon">Phone</span> <input type="text"
+					${f:text("phone")} class="form-control" />
+			</div>
+			
+			<div class="form-group input-group">
+				<span class="input-group-addon">Rate</span> <input type="text"
+					${f:text("rate")} class="form-control" />
+			</div>
+			
+			
+
+			<div class="form-group">
+				<label>Active</label> <label class="checkbox-inline"> <input
+					type="checkbox" ${f:checkbox("active")}> yes
+				</label>
+			</div>
+
+
 		</div>
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Submit</button>

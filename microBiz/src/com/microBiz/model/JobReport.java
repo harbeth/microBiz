@@ -51,11 +51,14 @@ public class JobReport extends MiBaseModel {
         while(i.hasNext()){
             JobMaterialReport jmr = (JobMaterialReport)i.next();
             Product p = jmr.getProductRef().getModel();
+
             result.append(p.getModel())
             .append(": ").append(jmr.getQty())
-            .append("  ").append(p.getConsumeReportUnit())
-            .append("  by  ").append(jmr.getPrdRatioRef().getModel().getDesc())
-            .append(" * ");
+            .append("  ").append(p.getConsumeReportUnit());
+            if(jmr.getPrdRatioRef()!=null && jmr.getPrdRatioRef().getKey()!=null){
+                result.append("  by  ").append(jmr.getPrdRatioRef().getModel().getDesc());
+            }
+            result.append(" * ");
 
             
         }

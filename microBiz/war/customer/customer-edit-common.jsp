@@ -35,6 +35,18 @@
 					<span class="input-group-addon">Alt.Phone</span> <input type="text"
 						${f:text("altPhone")} class="form-control" />
 				</div>
+				
+				<div class="form-group input-group">
+					<span class="input-group-addon">Payment Terms</span> <select
+						name="pymtTerm" class="form-control">
+						<c:forEach items="${pymtTerms}" var="pt">
+							<option value="${f:h(pt)}"
+								<c:if test = "${f:h(pymtTerm) == f:h(pt)}" >
+							selected
+						</c:if>>${f:h(pt)}</option>
+						</c:forEach>
+					</select>
+				</div>
 	
 				<div class="form-group">
 					<label>Active</label> <label class="checkbox-inline"> <input

@@ -34,7 +34,7 @@ public class ProductEditController extends BaseController{
             
         }else{
             p = new Product();
-
+            p.setActive("on");
         }
         BeanUtil.copy(p, request);
         requestScope("prdTypes", prdTypes);

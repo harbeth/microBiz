@@ -19,11 +19,14 @@ public class CustomerCreateController extends BaseController{
         BeanUtil.copy(getCustomer(), request);
         requestScope("cxTypes", cxTypes);
         requestScope("cxRatings", cxRatings);
+        requestScope("pymtTerms", pymtTerms);
         return forward(getReturnJsp());
     }
     
     public Customer getCustomer() {
-        return new Customer();
+        Customer c = new Customer();
+        c.setActive("on");
+        return c;
     }
     
     public String getReturnJsp() {

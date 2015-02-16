@@ -52,9 +52,11 @@ public class JobReportNewActionController extends BaseController {
         for(int i=0; i<prdKeys.size();i++){
             JobMaterialReport jmr = new JobMaterialReport();
             Key productKey = Datastore.stringToKey(prdKeys.get(i));
-            Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
+            if(!prdRatioKeys[i].equals("-1")){
+                Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
+                jmr.getPrdRatioRef().setKey(prdRatioKey);
+            }
             jmr.getProductRef().setKey(productKey);
-            jmr.getPrdRatioRef().setKey(prdRatioKey);
             jmr.setQty(Double.valueOf(qtys[i]));
             jmr.setCount(new Integer(i));
             jmr.getJobReportRef().setKey(jobKey);

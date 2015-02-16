@@ -7,8 +7,13 @@
 					<span class="input-group-addon">${f:h(p.model)}
 						${f:nbsp('  ')} ${f:h(p.consumeReportUnit)}</span> <input
 						type="text" name="qty" value="${f:h(qty[loop.index])}" class="form-control" />
+						<c:if test = "${f:h(p.showRatio==false)}">
+						<input type="hidden" name="prdRatioKey" value="-1"/>
+						</c:if>
+				<c:if test = "${f:h(p.showRatio==true)}">
 				by
                  <select name="prdRatioKey" >
+                 <option value="-1">Select</option>
 				<c:forEach items="${p.prdRatioList}" var="r">
 				 <option value="${f:h(r.key)}"
  
@@ -18,7 +23,7 @@
 				 ${f:h(r.desc)} </option>
 				</c:forEach>
 				</select>
-				
+				</c:if>
 				</div>
 			</c:forEach>
 </div>

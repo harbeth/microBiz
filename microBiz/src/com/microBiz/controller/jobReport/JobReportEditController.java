@@ -44,7 +44,11 @@ public class JobReportEditController extends BaseController {
         for (int a = 0; a< jmrList.size(); a++){
             JobMaterialReport jmr = jmrList.get(a);
             qty[a]=jmr.getQty().toString();
-            prdRatioKey[a] = Datastore.keyToString(jmr.getPrdRatioRef().getModel().getKey());
+            if(jmr.getPrdRatioRef().getModel()!=null && jmr.getPrdRatioRef().getModel().getKey()!=null){
+                prdRatioKey[a] = Datastore.keyToString(jmr.getPrdRatioRef().getModel().getKey());
+            }else{
+                prdRatioKey[a] = "-1";
+            }
             System.out.println("prdR key is " + prdRatioKey[a]);
             prds.add(productService.get(jmr.getProductRef().getKey()));
         }

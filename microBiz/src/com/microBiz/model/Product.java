@@ -24,21 +24,16 @@ public class Product extends MiBaseModel {
     private String supplier;
     
     @Attribute(unindexed = true)
-    private String sellingUnit;
+    private String unit;
     
     @Attribute(unindexed = true)
-    private String purchaseUnit;
-    
-    @Attribute(unindexed = true)
-    private Double sellingRate;
+    private Double rate;
     
 
     @Attribute(unindexed = true)
     private Double currentQty;
     
-    @Attribute(unindexed = true)
-    private Double purchaseRate;
-    
+   
     @Attribute(unindexed = true)
     private String consumeReportUnit;
 
@@ -46,7 +41,13 @@ public class Product extends MiBaseModel {
     @Attribute(persistent = false)
     private List<PrdRatio> prdRatioList;
  
-
+    public boolean getShowRatio(){
+        if(prdRatioList!=null && prdRatioList.size()>1){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
     public List<PrdRatio> getPrdRatioList() {
         return prdRatioList;
@@ -102,37 +103,6 @@ public class Product extends MiBaseModel {
         this.supplier = supplier;
     }
 
-    public String getSellingUnit() {
-        return sellingUnit;
-    }
-
-    public void setSellingUnit(String sellingUnit) {
-        this.sellingUnit = sellingUnit;
-    }
-
-    public String getPurchaseUnit() {
-        return purchaseUnit;
-    }
-
-    public void setPurchaseUnit(String purchaseUnit) {
-        this.purchaseUnit = purchaseUnit;
-    }
-
-    public Double getSellingRate() {
-        return sellingRate;
-    }
-
-    public void setSellingRate(Double sellingRate) {
-        this.sellingRate = sellingRate;
-    }
-
-    public Double getPurchaseRate() {
-        return purchaseRate;
-    }
-
-    public void setPurchaseRate(Double purchaseRate) {
-        this.purchaseRate = purchaseRate;
-    }
 
     public String getConsumeReportUnit() {
         return consumeReportUnit;
@@ -149,6 +119,22 @@ public class Product extends MiBaseModel {
 
     public void setCurrentQty(Double currentQty) {
         this.currentQty = currentQty;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
 

@@ -46,10 +46,11 @@ public class JobReportEditActionController extends BaseController {
         
         for(int i=0; i<jmrList.size();i++){
             JobMaterialReport jmr = jmrList.get(i);
-
-            Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
+            if(!prdRatioKeys[i].equals("-1")){
+                Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
  
-            jmr.getPrdRatioRef().setKey(prdRatioKey);
+                jmr.getPrdRatioRef().setKey(prdRatioKey);
+            }
             jmr.setQty(Double.valueOf(qtys[i]));
             jobService.saveJobMaterialReport(jmr);
             
