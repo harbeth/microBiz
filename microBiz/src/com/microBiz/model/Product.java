@@ -10,13 +10,8 @@ import com.google.appengine.api.datastore.Key;
 
 
 @Model(kind = "prd")
-public class Product implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
+public class Product extends MiBaseModel {
 
-    @Attribute(primaryKey = true)
-    private Key key;
-    
   
     // selling, only displayed for quotation and invoice, raw material, only displayed for job report, both
     private String type;
@@ -71,36 +66,6 @@ public class Product implements Serializable {
 
     public void setActive(String active) {
         this.active = active;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Product other = (Product) obj;
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        return true;
     }
 
     public String getType() {
@@ -177,13 +142,6 @@ public class Product implements Serializable {
         this.consumeReportUnit = consumeReportUnit;
     }
 
-    public Key getKey() {
-        return key;
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
-    }
 
     public Double getCurrentQty() {
         return currentQty;

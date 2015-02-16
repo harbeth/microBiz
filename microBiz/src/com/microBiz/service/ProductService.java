@@ -92,7 +92,7 @@ public class ProductService {
     public List<InventoryChange> getAllInventoryDetailsByProduct(Key ancestorKey) {
         InventoryChangeMeta icMeta = new InventoryChangeMeta();
         return Datastore.query(icMeta,ancestorKey)
-                .sort(icMeta.changeDate.desc).asList();
+                .sort(icMeta.createdAt.desc).asList();
     }
 
     public PrdRatio getPrdRatio(Key prdRatioKey) {

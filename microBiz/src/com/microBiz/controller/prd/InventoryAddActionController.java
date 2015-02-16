@@ -32,9 +32,8 @@ public class InventoryAddActionController extends BaseController{
         Product p = s.get(asKey("productKey"));
         InventoryChange ic = new InventoryChange();
         BeanUtil.copy(request,ic); 
-        ic.setChangeDate(new Date());
         ic.setOriginalQty(p.getCurrentQty());
-        ic.setReasons("add inventory");
+        ic.setNotes("add inventory");
         Double newQty = p.getCurrentQty() + ic.getChangeQty();
         p.setCurrentQty(newQty);
         ic.setNewQty(newQty);

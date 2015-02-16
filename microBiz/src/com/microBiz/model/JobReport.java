@@ -18,16 +18,9 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 
 @Model(kind = "job_report")
-public class JobReport implements Serializable {
+public class JobReport extends MiBaseModel {
     
-    private static final long serialVersionUID = 1L;
-
-    @Attribute(primaryKey = true)
-    private Key key;
-      
-    private Date reportDate;
-
-    
+   
     //new, installer entered, not verified by manager, can be edited
     // void, manager modify a job report entered by installer, the original job report become void, a void job report can not be edited
     // verified, only verified job report is used to caculate cost
@@ -96,21 +89,8 @@ public class JobReport implements Serializable {
     }
 
 
-    public Date getReportDate() {
-        return reportDate;
-    }
-
-
-
-
-    public void setReportDate(Date reportDate) {
-        this.reportDate = reportDate;
-
-    }
-
-
     public String getReportDateStr() {
-        return MicroBizUtil.parseDateToStr(reportDate);
+        return MicroBizUtil.parseDateToStr(createdAt);
     }
 
 
@@ -134,41 +114,5 @@ public class JobReport implements Serializable {
     }
 
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        JobReport other = (JobReport) obj;
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        return true;
-    }
-
-    public Key getKey() {
-        return key;
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
-    }
 }

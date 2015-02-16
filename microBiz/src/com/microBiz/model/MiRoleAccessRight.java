@@ -6,24 +6,15 @@ import org.slim3.datastore.Model;
 import com.google.appengine.api.datastore.Key;
 
 @Model
-public class MiRoleAccessRight {
+public class MiRoleAccessRight extends MiBaseModel {
 
-    @Attribute(primaryKey = true)
-    private Key key;
-    
+ 
     private String role;
     
     private String accessibleModule;
     
  
 
-    public Key getKey() {
-        return key;
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
-    }
 
     public String getRole() {
         return role;

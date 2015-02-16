@@ -71,7 +71,7 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             QuoteOrder qo = new QuoteOrder();
  
             qo.setName(MicroBizUtil.getQuoteVersionName(quoteVersionCount));
-            qo.setCreateAt(new Date());
+
             qo.getOrderRef().setKey(orderKey);
             qo.getQuoteRef().setModel(quote);
             

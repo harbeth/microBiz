@@ -14,19 +14,15 @@ import com.microBiz.MicroBizUtil;
 
 
 @Model
-public class Quote implements Serializable {
+public class Quote extends MiBaseModel {
     
-    private static final long serialVersionUID = 1L;
 
-    @Attribute(primaryKey = true)
-    private Key key;
     
     private String address;
     
     @Attribute(persistent = false)
     private String createDateStr;
-    private Date createDate;
-    private String creator;
+
     // open failed won
     private String status;
     // version count
@@ -66,28 +62,13 @@ public class Quote implements Serializable {
     
 
     public String getCreateDateStr() {
-        return MicroBizUtil.parseDateToStr(createDate);
+        return MicroBizUtil.parseDateToStr(createdAt);
     }
 
     public void setCreateDateStr(String createDateStr) {
         this.createDateStr = createDateStr;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
 
     public String getStatus() {
         return status;
@@ -109,13 +90,6 @@ public class Quote implements Serializable {
         return contactRef;
     }
 
-    public Key getKey() {
-        return key;
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
-    }
 
     public String getAddress() {
         return address;
@@ -157,33 +131,5 @@ public class Quote implements Serializable {
         this.customerName = customerName;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Quote other = (Quote) obj;
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        return true;
-    }
+   
 }

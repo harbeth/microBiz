@@ -11,12 +11,9 @@ import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 
 @Model
-public class Payment implements Serializable {
+public class Payment extends MiBaseModel {
     
-    private static final long serialVersionUID = 1L;
-
-    @Attribute(primaryKey = true)
-    private Key key;
+ 
     
     @Attribute(unindexed = true)
     private Double amount;
@@ -25,13 +22,10 @@ public class Payment implements Serializable {
     
     
     private String note;
-    private String user;
-    
+
     @Attribute(persistent = false)
     private String enterDateStr;
-    
-    
-    private Date enterDate;
+ 
     // only for display
     @Attribute(persistent = false)
     private String invoiceKey;
@@ -68,34 +62,20 @@ public class Payment implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
-    public String getUser() {
-        return user;
-    }
-    public void setUser(String user) {
-        this.user = user;
-    }
+ 
 
     public String getEnterDateStr() {
-        return MicroBizUtil.parseDateToStr(enterDate);
+        return MicroBizUtil.parseDateToStr(createdAt);
 
     }
     
-    public void setEnterDate() {
-        this.enterDate = MicroBizUtil.parseStrToDate(enterDateStr);
-    }
+ 
 
     public void setEnterDateStr(String enterDateStr) {
         this.enterDateStr = enterDateStr;
     }
 
-    public Date getEnterDate() {
-        return enterDate;
-    }
-
-    public void setEnterDate(Date enterDate) {
-        this.enterDate = enterDate;
-    }
-
+  
     public String getInvoiceKey() {
         return invoiceKey;
     }

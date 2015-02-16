@@ -37,9 +37,7 @@ public class JobReportEditActionController extends BaseController {
 
         
         BeanUtil.copy(request,jr);
-        
 
-        jr.setReportDate(new Date());
         jobService.saveJobReport(jr);
 
         List<JobMaterialReport> jmrList = jr.getJobMaterialReportListRef().getModelList();

@@ -42,7 +42,6 @@ public class JobReportNewActionController extends BaseController {
         
   
         jr.getJobRef().setModel(job);
-        jr.setReportDate(new Date());
         Key jobKey = jobService.saveJobReport(jr);
         
         List<String> prdKeys = job.getUsePrdKeys();

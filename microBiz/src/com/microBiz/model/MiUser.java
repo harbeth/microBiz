@@ -6,11 +6,8 @@ import org.slim3.datastore.Model;
 import com.google.appengine.api.datastore.Key;
 
 @Model
-public class MiUser {
+public class MiUser extends MiBaseModel{
 
-    @Attribute(primaryKey = true)
-    private Key key;
-    
     private String name;
     
     private String email;
@@ -24,13 +21,7 @@ public class MiUser {
     // sales commission rate, installer hourly rate
     private Double rate;
 
-    public Key getKey() {
-        return key;
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
-    }
+ 
 
     public String getName() {
         return name;

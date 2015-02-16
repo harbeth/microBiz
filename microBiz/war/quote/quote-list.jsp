@@ -22,7 +22,7 @@
 						<th>Customer</th>
 
 						<th>Created At</th>
-						<th>Sales</th>
+						<th>Sales Email</th>
 
 					</tr>
 				</thead>
@@ -34,7 +34,7 @@
 					
 
 							<td>${f:h(q.createDateStr)}</td>
-							<td>${f:h(q.creator)}</td>
+							<td>${f:h(q.createdEmail)}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

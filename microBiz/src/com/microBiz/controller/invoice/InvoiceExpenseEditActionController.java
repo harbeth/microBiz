@@ -40,7 +40,6 @@ public class InvoiceExpenseEditActionController extends BaseController{
         BeanUtil.copy(request, expense);
         Key invoiceKey = Datastore.stringToKey(expense.getInvoiceKey());
         Invoice invoice = invoiceService.get(invoiceKey);
-        expense.setReportDate();
         expense.getInvoiceRef().setModel(invoice);
         expenseService.save(expense);
         

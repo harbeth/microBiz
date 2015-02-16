@@ -10,13 +10,9 @@ import com.google.appengine.api.datastore.Key;
 
 
 @Model(kind = "InventoryChange")
-public class InventoryChange implements Serializable {
+public class InventoryChange extends MiBaseModel {
     
-    private static final long serialVersionUID = 1L;
 
-    @Attribute(primaryKey = true)
-    private Key key;
-    
     @Attribute(unindexed = true)
     private Double originalQty;
     
@@ -26,17 +22,12 @@ public class InventoryChange implements Serializable {
     @Attribute(unindexed = true)
     private Double newQty;
     
-    private Date changeDate;
-    
 
-    
     //this is for user input notes
     @Attribute(unindexed = true)
     private String notes;
     
-   // this is for system input 
-    @Attribute(unindexed = true)
-    private String reasons;
+ 
     
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
     
@@ -46,13 +37,7 @@ public class InventoryChange implements Serializable {
         return productRef;
     }
 
-    public Key getKey() {
-        return key;
-    }
-
-    public void setKey(Key key) {
-        this.key = key;
-    }
+  
 
     public Double getOriginalQty() {
         return originalQty;
@@ -78,14 +63,6 @@ public class InventoryChange implements Serializable {
         this.newQty = newQty;
     }
 
-    public Date getChangeDate() {
-        return changeDate;
-    }
-
-    public void setChangeDate(Date changeDate) {
-        this.changeDate = changeDate;
-    }
-
 
     public String getNotes() {
         return notes;
@@ -95,15 +72,7 @@ public class InventoryChange implements Serializable {
         this.notes = notes;
     }
 
-    public String getReasons() {
-        return reasons;
-    }
-
-    public void setReasons(String reasons) {
-        this.reasons = reasons;
-    }
-
-
+ 
 
     
 }

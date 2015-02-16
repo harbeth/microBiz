@@ -42,7 +42,6 @@ public class InvoicePaymentEditActionController extends BaseController{
         Key invoiceKey = Datastore.stringToKey(payment.getInvoiceKey());
         Invoice invoice = invoiceService.get(invoiceKey);
         payment.getInvoiceRef().setModel(invoice);
-        payment.setEnterDate();
         paymentService.save(payment);
         
         invoice = invoiceService.get(invoiceKey);
