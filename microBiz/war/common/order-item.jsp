@@ -28,6 +28,9 @@ how to deal with Key enter event
     			// register existing first
     			orderItemFn.onCalTextBlur();
 			});
+    		// ignore ENTER key
+    		var ctrlInput = $("select[name=items][rowIndex != -1], input[calType=rate][rowIndex != -1], input[calType=qty][rowIndex != -1], input[calType=desc][rowIndex != -1]");
+    		this.registerInputIgnoreEnterWithCtrl(ctrlInput);
     		
     		// register existing remove button event
     		this.registerRemoveBtnEvent();
@@ -92,7 +95,9 @@ how to deal with Key enter event
     		orderItemModuleData.setRowCount(rowCount);
     	}
     	, registerSelectChangeEvent: function() {
-    		$("select[name=items][rowIndex=-1]").on("change",function(){
+    		var selCtrl = $("select[name=items][rowIndex=-1]");
+    		this.registerInputIgnoreEnterWithCtrl(selCtrl);
+    		selCtrl.on("change",function(){
     			var rowCount = orderItemModuleData.increaseRowCountByOne();
     			// clone last one before change
     			var trCtrl = $("table[name=orderItemTbl] tbody tr:last");
@@ -108,11 +113,18 @@ how to deal with Key enter event
     			removeBtnCtrl.attr("rowIndex", rowCount).show();
     			orderItemFn.registerRemoveBtnEventWithCtrl(removeBtnCtrl);
     			trCtrl.find("input[name=descs]").removeAttr("disabled");
+    			// ignore ENTER key
+    			var trInput = trCtrl.find("input[calType=rate], input[calType=qty], input[calType=desc]");
+    			orderItemFn.registerInputIgnoreEnterWithCtrl(trInput);
+    			
     			// update td rowIndex, 
-    			trCtrl.find("input[calType=rate], input[calType=qty]").attr("rowIndex", rowCount)
+    			trInput.attr("rowIndex", rowCount)
     			// enabled
-    			.removeAttr("disabled")
-    			// register input event
+    			.removeAttr("disabled");
+    			
+    			var trInputForCalc = trCtrl.find("input[calType=rate], input[calType=qty]");
+    			trInputForCalc
+    			// register calc event
     			.on("blur",function(){
     				// new create tr
 	    			// cannot calculate for the created tr only
@@ -138,6 +150,7 @@ how to deal with Key enter event
     		ctrl.on("click", function() {
     			// remove the current tr
     			var rowIndex = $(this).attr("rowIndex");
+    			alert("in remove event: " + rowIndex);
     			// remove tr
     			$("table[name=orderItemTbl] tbody tr[rowIndex="+rowIndex+"]").remove();
     			// update subTotal and total
@@ -230,6 +243,14 @@ how to deal with Key enter event
     		// before submit the form, delete empty tr
     		$("table[name=orderItemTbl] tbody tr[rowIndex=-1]").remove();
     	}
+    	, registerInputIgnoreEnterWithCtrl: function(ctrl) {
+    		ctrl.on("keydown",function(event){
+    			// register existing first
+    			if ( event.which == 13 ) {
+    			 	event.preventDefault();
+    			 }
+			});
+    	}
     }
     
     $(document).ready(function() {
@@ -276,7 +297,7 @@ how to deal with Key enter event
 						</c:forEach>
 					</select>
 				</td>
-				<td><input class="form-control input-sm" name="descs" value="${f:h(oi.desc)}" /></td>
+				<td><input class="form-control input-sm" calType="desc" name="descs" value="${f:h(oi.desc)}" /></td>
 				<td><input rowIndex="${status.index}" calType="rate" class="form-control input-sm text-right" name="rates" value="${f:h(oi.rate)}" /></td>
 				<td><input rowIndex="${status.index}" calType="qty" class="form-control input-sm text-right" name="qtys" value="${f:h(oi.qty)}" /></td>
 				<td><input rowIndex="${status.index}" calType="rowTotal" disabled class="form-control input-sm text-right" name="total" value="${f:h(oi.total)}" /></td>
@@ -296,7 +317,7 @@ how to deal with Key enter event
 						</c:forEach>
 					</select>
 				</td>
-				<td><input disabled class="form-control input-sm" name="descs" value="" /></td>
+				<td><input rowIndex="-1" calType="desc" disabled class="form-control input-sm" name="descs" value="" /></td>
 				<td><input rowIndex="-1" calType="rate" disabled class="form-control input-sm text-right" name="rates" value="" /></td>
 				<td><input rowIndex="-1" calType="qty" disabled class="form-control input-sm text-right" name="qtys" value="" /></td>
 				<td><input rowIndex="-1" calType="rowTotal" disabled class="form-control input-sm text-right" name="total" value="" /></td>
