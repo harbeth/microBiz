@@ -65,6 +65,8 @@ public abstract class BaseController extends Controller{
         modules.add("invoice");
         modules.add("mgmt");
         modules.add("quote");
+        modules.add("prd");
+        modules.add("jobReport");
         inventoryChangeTypes.add("decrease");
         inventoryChangeTypes.add("increase");
         inventoryChangeTypes.add("reset");

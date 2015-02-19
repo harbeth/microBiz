@@ -13,12 +13,12 @@
         <param-name>javax.servlet.jsp.jstl.fmt.request.charset</param-name>
         <param-value>UTF-8</param-value>
     </context-param>
-  <!-- 
+
     <filter>
         <filter-name>MiFilter</filter-name>
         <filter-class>com.microBiz.controller.MiFilter</filter-class>
     </filter> 
- --> 
+ 
     <filter>
         <filter-name>HotReloadingFilter</filter-name>
         <filter-class>org.slim3.controller.HotReloadingFilter</filter-class>
@@ -43,13 +43,13 @@
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-<!--  
+ 
     <filter-mapping>
         <filter-name>MiFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
--->
+
     <filter-mapping>
         <filter-name>FrontController</filter-name>
         <url-pattern>/*</url-pattern>
@@ -98,7 +98,7 @@
         <welcome-file>login.jsp</welcome-file>
         <welcome-file>noAccess.jsp</welcome-file>
     </welcome-file-list>
-    <!--  
+  <!--  
     <security-constraint>
         <web-resource-collection>
             <url-pattern>/*</url-pattern>

@@ -1,5 +1,6 @@
 package com.microBiz.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.slim3.datastore.Attribute;
@@ -10,17 +11,12 @@ import org.slim3.datastore.ModificationDate;
 
 import com.google.appengine.api.datastore.Key;
 
-public abstract class MiBaseModel {
+public abstract class MiBaseModel implements Serializable {
     
     protected static final long serialVersionUID = 1L;
 
     @Attribute(primaryKey = true)
     protected Key key;
-    @Attribute(listener = CreationDate.class)
-    protected Date createdAt;
-    
-    @Attribute(listener = CreationEmail.class)
-    protected String createdEmail;
 
     public Key getKey() {
         return key;
@@ -30,21 +26,7 @@ public abstract class MiBaseModel {
         this.key = key;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getCreatedEmail() {
-        return createdEmail;
-    }
-
-    public void setCreatedEmail(String createdEmail) {
-        this.createdEmail = createdEmail;
-    }
     
     @Override
     public int hashCode() {

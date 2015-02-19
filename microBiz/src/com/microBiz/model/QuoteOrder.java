@@ -11,7 +11,7 @@ import com.microBiz.MicroBizUtil;
 
 
 @Model
-public class QuoteOrder extends MiBaseModel {
+public class QuoteOrder extends MiCreatorBaseModel {
 
       
     private String name;

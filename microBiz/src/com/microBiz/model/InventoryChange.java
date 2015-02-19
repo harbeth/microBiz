@@ -10,7 +10,7 @@ import com.google.appengine.api.datastore.Key;
 
 
 @Model(kind = "InventoryChange")
-public class InventoryChange extends MiBaseModel {
+public class InventoryChange extends MiCreatorBaseModel {
     
 
     @Attribute(unindexed = true)

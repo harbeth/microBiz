@@ -11,7 +11,7 @@ import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 
 @Model
-public class Payment extends MiBaseModel {
+public class Payment extends MiCreatorBaseModel {
     
  
     

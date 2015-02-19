@@ -12,7 +12,7 @@ import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 
 @Model
-public class Invoice extends MiBaseModel {
+public class Invoice extends MiCreatorBaseModel {
       
     private String invoiceNumber;
 
@@ -51,7 +51,7 @@ public class Invoice extends MiBaseModel {
     
     private String status;
     private ModelRef<MiUser> salesRef = new ModelRef<MiUser>(MiUser.class);
-    private ModelRef<MiUser> creatorRef = new ModelRef<MiUser>(MiUser.class);
+    
     
     // for display
     @Attribute(persistent = false)
@@ -83,9 +83,7 @@ public class Invoice extends MiBaseModel {
         return salesRef;
     }
 
-    public ModelRef<MiUser> getCreatorRef() {
-        return creatorRef;
-    }
+
 
     public ModelRef<Order> getOrderRef() {
         return orderRef;

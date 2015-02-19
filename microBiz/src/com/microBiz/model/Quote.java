@@ -14,7 +14,7 @@ import com.microBiz.MicroBizUtil;
 
 
 @Model
-public class Quote extends MiBaseModel {
+public class Quote extends MiCreatorBaseModel {
     
 
     
@@ -43,7 +43,7 @@ public class Quote extends MiBaseModel {
     
     //sort by createAt descending
     @Attribute(persistent = false)
-    private InverseModelListRef<QuoteOrder, Quote> quoteOrderRef = new InverseModelListRef<QuoteOrder, Quote>(QuoteOrder.class, "quoteRef", this,new Sort("createAt", SortDirection.DESCENDING));
+    private InverseModelListRef<QuoteOrder, Quote> quoteOrderRef = new InverseModelListRef<QuoteOrder, Quote>(QuoteOrder.class, "quoteRef", this,new Sort("createdAt", SortDirection.DESCENDING));
  
     public InverseModelListRef<QuoteOrder, Quote> getQuoteOrderRef() {
         return quoteOrderRef;

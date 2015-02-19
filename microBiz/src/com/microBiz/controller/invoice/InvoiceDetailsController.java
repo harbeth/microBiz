@@ -21,9 +21,15 @@ public class InvoiceDetailsController extends OrderLoadActionController {
     public Navigation run() throws Exception {
         
         Invoice invoice = invoiceService.get(asKey("invoiceKey"));
+        String myRole = (String)request.getSession().getAttribute("myrole");
+        boolean isSales = false;
+        if(myRole.equals("sales")){
+            isSales = true;
+        }
         // get invoice key to get invoice order list
         System.out.println("get invoiceKey " + asString("invoiceKey")) ;
         requestScope("invoice", invoice); 
+        requestScope("isSales", isSales); 
         
         Order invoiceOrder = invoice.getOrderRef().getModel();
         setOrderData(invoiceOrder);

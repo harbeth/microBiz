@@ -11,7 +11,7 @@ import com.microBiz.MicroBizUtil;
 
 
 @Model(kind = "invoice_expense")
-public class InvoiceExpense extends MiBaseModel {
+public class InvoiceExpense extends MiCreatorBaseModel {
     
     private Double expense;
 

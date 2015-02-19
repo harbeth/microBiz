@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 
 @Model(kind = "job_report")
-public class JobReport extends MiBaseModel {
+public class JobReport extends MiCreatorBaseModel {
     
    
     //new, installer entered, not verified by manager, can be edited

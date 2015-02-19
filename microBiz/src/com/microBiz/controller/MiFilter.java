@@ -40,38 +40,39 @@ public class MiFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        String role = null;
+        String myrole = null;
         String uriStr = req.getRequestURI();
 
         if (gaeUserService.isUserLoggedIn()) {//
 
             if (session.getAttribute("role") == null) {
-                                                       
-                MiUser user = miUserService.getUserByEmail(gaeUserService.getCurrentUser().getEmail());
+                String email =  gaeUserService.getCurrentUser().getEmail().toLowerCase();                                  
+                MiUser user = miUserService.getUserByEmail(email);
                 if (user == null) {
                     // if user not exist in user table, no access
                     req.getRequestDispatcher("/noAccess.jsp").forward(req, res);
                     return;
                 }
-                System.out.println("get user" + user.getName());
-                role = user.getRole();
-                session.setAttribute("role", role);
+                //System.out.println("get user" + user.getName());
+                myrole = user.getRole();
+                session.setAttribute("myrole", myrole);
+                session.setAttribute("email", email);
 
             } else {
-                role = (String) session.getAttribute("role");
+                myrole = (String) session.getAttribute("myrole");
             }
             MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
             syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
-            String accesssibleModules = (String)syncCache.get(role); // read from cache
+            String accesssibleModules = (String)syncCache.get(myrole); // read from cache
             if (accesssibleModules == null) {
-                accesssibleModules =  miRoleService.getAccessibleModuleByRole(role);
+                accesssibleModules =  miRoleService.getAccessibleModuleByRole(myrole);
 
-              syncCache.put(role, accesssibleModules); // populate cache
+              syncCache.put(myrole, accesssibleModules); // populate cache
             }
 
 
-            System.out.println(role + "  " + accesssibleModules);
-            System.out.println("uri is *****" + uriStr);
+            //System.out.println(role + "  " + accesssibleModules);
+            //System.out.println("uri is *****" + uriStr);
             
             if(uriStr.length()>1 && uriStr.indexOf("_ah")==-1){// not from http:// localhost:8888/, not from localhost:8888/_ad/admin
                 String requestedModule = "";

@@ -9,7 +9,7 @@ import com.google.appengine.api.datastore.Key;
 
 
 @Model(kind = "contact")
-public class Contact extends MiBaseModel {
+public class Contact extends MiCreatorBaseModel {
     
  
     private String name;

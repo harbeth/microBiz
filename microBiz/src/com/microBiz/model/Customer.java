@@ -10,7 +10,7 @@ import com.microBiz.MicroBizConst;
 
 
 @Model(kind = "ctm")
-public class Customer extends MiBaseModel {
+public class Customer extends MiCreatorBaseModel {
     
     @Attribute(unindexed = true)
     // residential or commercial

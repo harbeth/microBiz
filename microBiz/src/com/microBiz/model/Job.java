@@ -13,7 +13,7 @@ import com.microBiz.MicroBizUtil;
 
 
 @Model(kind = "job")
-public class Job extends MiBaseModel {
+public class Job extends MiCreatorBaseModel {
     
  
     

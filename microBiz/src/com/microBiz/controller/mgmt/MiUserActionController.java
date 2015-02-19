@@ -36,6 +36,7 @@ public class MiUserActionController extends BaseController{
             p = new MiUser();
             
             BeanUtil.copy(request,p); 
+        
  
         }
         s.save(p);

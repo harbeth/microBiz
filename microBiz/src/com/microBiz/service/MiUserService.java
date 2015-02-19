@@ -46,6 +46,7 @@ public class MiUserService {
 
     public void save(MiUser f) {
         Transaction tx = Datastore.beginTransaction();
+        f.setEmail(f.getEmail().toLowerCase());
         Datastore.put(tx, f);
         tx.commit();
     }

@@ -21,10 +21,10 @@ public class InvoiceService {
         return Datastore.query(i).asList();
     }
     
-    public List<Invoice> getCustomerInvoice(Key customerKey) {
-        return Datastore.query(i).asList();
+    public List<Invoice> getInvoicesByCreatedEamil(String email) {
+        return Datastore.query(i).filter(i.createdEmail.equal(email)).asList();
     }
-    
+
     public Order getInvoiceOrder(Key orderKey) {
         return Datastore.get(o, orderKey);
     }
