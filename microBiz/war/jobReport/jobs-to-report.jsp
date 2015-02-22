@@ -19,10 +19,11 @@
 
 
 					<c:forEach var="j" items="${jobs}">
-						<li>${f:h(j.invoiceRef.model.customerRef.model.name)}
-							${f:nbsp('  ')} ${f:h(j.invoiceRef.model.invoiceNumber)}
-							${f:nbsp('  ')} ${f:h(j.invoiceRef.model.address)} ${f:nbsp('  ')}
-							${f:h(j.startingDateStr)} ${f:nbsp('  ')} 
+						<li>
+							<p class="fa fa-th"> ${f:h(j.invoiceRef.model.invoiceNumber)}</p>
+							${f:nbsp('     ')} 
+							<p class="fa fa-home">${f:h(j.invoiceRef.model.address)} </p>${f:nbsp('     ')}
+							<p class="fa fa-calendar"> ${f:h(j.startingDateStr)} </p>${f:nbsp('     ')} 
 							<a link="jobReport"
 							jobKey="${f:h(j.key)}" data-toggle="tab" aria-expanded="false"
 							class="btn btn-default btn-sm" role="button">Job Report</a>
@@ -31,8 +32,8 @@
 									<li><a link="jobReportEdit" jobReportKey="${f:h(jr.key)}"
 										data-toggle="tab" aria-expanded="false"
 										class="btn btn-default btn-sm" role="button">Edit</a>
-										${f:h(jr.reportDateStr)} ${f:nbsp(' ')} Working Hrs:
-										${f:h(jr.workingHours)} ${f:nbsp(' ')} Travel Hrs:
+										${f:h(jr.reportDateStr)} ${f:nbsp('   ')} Working Hrs:
+										${f:h(jr.workingHours)} ${f:nbsp('   ')} Travel Hrs:
 										${f:h(jr.travelHours)}<br> ${f:h(jr.materialReportStr)}<br>
 										Notes: ${f:h(jr.note)}</li>
 								</c:forEach>
@@ -47,4 +48,3 @@
 		</div>
 	</div>
 </div>
-

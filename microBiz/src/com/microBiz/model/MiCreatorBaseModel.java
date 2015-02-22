@@ -36,7 +36,12 @@ public abstract class MiCreatorBaseModel extends MiBaseModel {
     }
 
     public void setCreatedEmail(String createdEmail) {
-        this.createdEmail = createdEmail.toLowerCase();
+        if(createdEmail!=null){
+            this.createdEmail = createdEmail.toLowerCase();
+        }else{
+            this.createdEmail = createdEmail;
+        }
+        
     }
     
 

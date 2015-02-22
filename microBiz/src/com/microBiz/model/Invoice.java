@@ -33,6 +33,7 @@ public class Invoice extends MiCreatorBaseModel {
     @Attribute(unindexed = true)
     private String balancePymtMethod;
     
+    @Attribute(unindexed = true)
     private String poNumber;
 
     private Date preferIntlDate;
@@ -50,6 +51,7 @@ public class Invoice extends MiCreatorBaseModel {
     private String note;
     
     private String status;
+    
     private ModelRef<MiUser> salesRef = new ModelRef<MiUser>(MiUser.class);
     
     
@@ -64,7 +66,11 @@ public class Invoice extends MiCreatorBaseModel {
     private String contactKey = "-1";
     
     private ModelRef<Customer> customerRef = new ModelRef<Customer>(Customer.class);
+    
+    @Attribute(unindexed = true)
     private ModelRef<Contact> contactRef = new ModelRef<Contact>(Contact.class);
+    
+    @Attribute(unindexed = true)
     private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
     
     public ModelRef<Customer> getCustomerRef() {

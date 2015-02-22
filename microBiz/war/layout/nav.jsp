@@ -7,11 +7,13 @@ java.util.logging.Level"%>
 
 <%
 	String myrole = (String) request.getSession().getAttribute("myrole");
+
 	MemcacheService syncCache = MemcacheServiceFactory
 			.getMemcacheService();
 	syncCache.setErrorHandler(ErrorHandlers
 			.getConsistentLogAndContinue(Level.INFO));
 	String accesssibleModules = (String) syncCache.get(myrole); // read from cache
+	
 %>
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -35,7 +37,7 @@ java.util.logging.Level"%>
 						</span>
 					</div> <!-- /input-group -->
 				</li>
-				<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
+				<li><a href="/manager/dashboard"><i class="fa fa-dashboard fa-fw"></i>
 						Dashboard</a></li>
 				<%
 					if (accesssibleModules.contains("customer")) {

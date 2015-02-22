@@ -37,15 +37,17 @@ public class MiFilter implements Filter {
 
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
+    
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         String myrole = null;
         String uriStr = req.getRequestURI();
 
+       
         if (gaeUserService.isUserLoggedIn()) {//
 
-            if (session.getAttribute("role") == null) {
+            if (session.getAttribute("myrole") == null) {
                 String email =  gaeUserService.getCurrentUser().getEmail().toLowerCase();                                  
                 MiUser user = miUserService.getUserByEmail(email);
                 if (user == null) {
@@ -89,7 +91,7 @@ public class MiFilter implements Filter {
                 
             }
          
-            chain.doFilter(request, response);
+            chain.doFilter(req, res);
         } else {// user hasn't loggin via google
             if (!req.getRequestURI().contains("login")) {
                 req.getRequestDispatcher("/login.jsp").forward(req, res);
@@ -99,6 +101,8 @@ public class MiFilter implements Filter {
                 chain.doFilter(req, res);
             }
         }
+ 
+
 
     }
 
