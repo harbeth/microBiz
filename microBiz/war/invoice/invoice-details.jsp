@@ -39,7 +39,7 @@
 									<li>4 Jobs Completed</li>
 									<li>6 Jobs On going</li>
 								</div>
-								<a href="#">
+							
 									<div class="panel-footer">
 										<span class="pull-left"><a link="invoiceJobEdit"
 											invoiceKey="${f:h(invoice.key)}" jobKey="-1">Assign Job</a></span>
@@ -47,7 +47,7 @@
 										<span class="pull-right"><a link="">View Details</a></span>
 										<div class="clearfix"></div>
 									</div>
-								</a>
+							
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-8">
@@ -57,7 +57,7 @@
 									<li>Amount: $4789</li>
 									<li>Received: $0</li>
 								</div>
-								<a href="#">
+							
 									<div class="panel-footer">
 										<span class="pull-left"><a link="invoicePaymentEdit"
 											invoiceKey="${f:h(invoice.key)}" paymentKey="-1"
@@ -65,7 +65,7 @@
 											link="">View Details</a></span>
 										<div class="clearfix"></div>
 									</div>
-								</a>
+							
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-8">
@@ -75,25 +75,18 @@
 									<li>Labor Cost: $4789</li>
 									<li>Material Cost: $9087</li>
 								</div>
-								<a href="#">
+						
 									<div class="panel-footer">
 										<span class="pull-left"><a link="invoiceExpenseEdit"
 											invoiceKey="${f:h(invoice.key)}" expenseKey="-1"
-											role="button">Add Expense</a> <span class="pull-right"><a
-												link="">View Details</span>
+											role="button">Add Expense</a></span> <span class="pull-right"><a
+												link="">View Details
 								</a></span>
 								<div class="clearfix"></div>
 							</div>
-							</a>
+						
 						</div>
 					</div>
-
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <div class="row">
                 <div class="col-lg-12">
              
@@ -110,5 +103,12 @@ There are multiple horseback and canine units involved as well, as there are a n
            
 </div>
 </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 
 
