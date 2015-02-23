@@ -61,6 +61,7 @@ public class MiFilter implements Filter {
                 session.setAttribute("email", email);
 
             } else {
+                // ??? org.slim3.controller.BytesHolder cannot be cast to java.lang.String
                 myrole = (String) session.getAttribute("myrole");
             }
             MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();

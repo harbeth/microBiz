@@ -5,13 +5,10 @@ import java.util.Date;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.CreationEmail;
-import org.slim3.datastore.CreationUser;
-import org.slim3.datastore.ModificationDate;
-
-import com.google.appengine.api.datastore.Key;
 
 public abstract class MiCreatorBaseModel extends MiBaseModel {
     
+    private static final long serialVersionUID = 1L;
 
     @Attribute(listener = CreationDate.class)
     protected Date createdAt;

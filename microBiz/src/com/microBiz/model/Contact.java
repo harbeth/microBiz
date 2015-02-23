@@ -1,17 +1,14 @@
 package com.microBiz.model;
-import java.io.Serializable;
-
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
-
-import com.google.appengine.api.datastore.Key;
 
 
 @Model(kind = "contact")
 public class Contact extends MiCreatorBaseModel {
     
- 
+    private static final long serialVersionUID = 1L;
+
     private String name;
     
     @Attribute(unindexed = true)

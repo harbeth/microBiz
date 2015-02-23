@@ -1,8 +1,5 @@
 package com.microBiz.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
@@ -13,8 +10,8 @@ import com.microBiz.MicroBizUtil;
 @Model
 public class Payment extends MiCreatorBaseModel {
     
- 
-    
+    private static final long serialVersionUID = 1L;
+
     @Attribute(unindexed = true)
     private Double amount;
 

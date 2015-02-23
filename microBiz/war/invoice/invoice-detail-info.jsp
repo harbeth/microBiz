@@ -1,14 +1,9 @@
 <%@include file="../includes/taglib.jsp"%>
-
-
-
 <div class="panel-body">
 	<div class="row">
 		<div class="col-xs-6 col-md-4">
-
 			<strong>${f:h(invoice.customerRef.model.name)} </strong> 
 			${f:nbsp('   ')}
-
 			<c:if test="${f:h(invoice.hasContact)}">
 			<font class="text-muted"> Contact:</font> ${f:h(invoice.contactRef.model.name)} <br>
 			</c:if>
@@ -26,5 +21,4 @@
 			<font class="text-muted">Note:</font> ${f:h(quote.note)}
 		</div>
 	</div>
-
 </div>

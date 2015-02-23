@@ -1,17 +1,16 @@
 package com.microBiz.model;
-import java.io.Serializable;
-
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 
-import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizConst;
 
 
 @Model(kind = "ctm")
 public class Customer extends MiCreatorBaseModel {
     
+    private static final long serialVersionUID = 1L;
+
     @Attribute(unindexed = true)
     // residential or commercial
     private String type;

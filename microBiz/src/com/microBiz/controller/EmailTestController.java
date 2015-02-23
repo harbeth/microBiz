@@ -1,6 +1,5 @@
 package com.microBiz.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.StringWriter;
 import java.util.Date;
 import java.util.Properties;
@@ -15,9 +14,6 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.slim3.controller.Navigation;
-import org.slim3.util.ResponseLocator;
-
-import com.google.appengine.api.datastore.KeyFactory;
 
 
 public class EmailTestController extends BaseController {

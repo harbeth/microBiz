@@ -28,7 +28,7 @@ public class MiUserService {
     }
     
     public MiUser getUserByEmail(String email) {
-        List result = Datastore.query(p).filter(p.email.equal(email.toLowerCase().trim())).asList();
+        List<MiUser> result = Datastore.query(p).filter(p.email.equal(email.toLowerCase().trim())).asList();
         if(result.size() == 0){
             return null;
         }else{

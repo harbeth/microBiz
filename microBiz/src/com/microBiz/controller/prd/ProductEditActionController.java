@@ -42,7 +42,7 @@ public class ProductEditActionController extends BaseController{
        
         String[] ratios = paramValues("ratios");
         String[] ratioDescs = paramValues("ratioDescs");
-        List<PrdRatio> prdRs = new ArrayList();
+        List<PrdRatio> prdRs = new ArrayList<PrdRatio>();
         for (int i = 1; i< ratioDescs.length;i++){
             PrdRatio pr = new PrdRatio();
             pr.setDesc(ratioDescs[i]);

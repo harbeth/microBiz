@@ -33,6 +33,8 @@ public class InvoiceDetailsController extends OrderLoadActionController {
         
         Order invoiceOrder = invoice.getOrderRef().getModel();
         setOrderData(invoiceOrder);
+        // for manage tab
+        requestScope("jobs", invoice.getJobListRef().getModelList());
         return forward(getReturnJsp());
     }
 

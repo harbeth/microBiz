@@ -2,9 +2,7 @@ package com.microBiz.controller.prd;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
-import org.slim3.util.BeanUtil;
 
-import com.google.appengine.api.datastore.Key;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.InventoryChange;
 import com.microBiz.model.Product;

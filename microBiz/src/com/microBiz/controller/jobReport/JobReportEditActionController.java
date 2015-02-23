@@ -1,6 +1,5 @@
 package com.microBiz.controller.jobReport;
 
-import java.util.Date;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
@@ -13,19 +12,18 @@ import com.microBiz.meta.JobReportMeta;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
 import com.microBiz.service.JobService;
-import com.microBiz.service.ProductService;
 
 
 public class JobReportEditActionController extends BaseController {
 
     private JobService jobService;
-    private ProductService productService;
+    //private ProductService productService;
     private JobReportMeta jrMeta;
     
     public JobReportEditActionController(){
         super();
         jobService = new JobService();
-        productService  = new ProductService();
+        //productService  = new ProductService();
         jrMeta = new JobReportMeta();
     }
     

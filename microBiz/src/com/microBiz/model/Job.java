@@ -1,5 +1,4 @@
 package com.microBiz.model;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -8,15 +7,14 @@ import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
-import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 
 
 @Model(kind = "job")
 public class Job extends MiCreatorBaseModel {
     
- 
-    
+    private static final long serialVersionUID = 1L;
+
     @Attribute(persistent = false)
     private String startingDateStr;
     

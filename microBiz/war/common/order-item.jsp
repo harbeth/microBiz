@@ -335,7 +335,7 @@ how to deal with Key enter event
 					<select name="taxRate" calType="taxRate">
 					<option value="-1">Select</option>
 						<c:forEach items="${txRates}" var="tr">
-							<option value="${f:h(tr)}" <c:if test="${f:h(tr) eq orders.taxRate}">selected="selected"</c:if> >${f:h(tr)}</option>
+							<option value="${f:h(tr)}" <c:if test="${f:h(tr) eq taxRateStr}">selected="selected"</c:if> >${f:h(tr)}</option>
 						</c:forEach>
 					</select>
 				</td>

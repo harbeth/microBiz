@@ -33,7 +33,7 @@ public class JobReportEditController extends BaseController {
 
         JobReport jr = jobService.getJobReport(asKey("jobReportKey"));
         Job job = jr.getJobRef().getModel();
-        List<Product> prds = new ArrayList();
+        List<Product> prds = new ArrayList<Product>();
         List<JobMaterialReport> jmrList = jr.getJobMaterialReportListRef().getModelList();
         String[] prdRatioKey = new String[jmrList.size()];
 

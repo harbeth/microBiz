@@ -1,6 +1,4 @@
 package com.microBiz.model;
-import java.io.Serializable;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,17 +8,14 @@ import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 import org.slim3.datastore.Sort;
 
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizUtil;
-
-import org.apache.commons.lang.StringEscapeUtils;
-
 
 @Model(kind = "job_report")
 public class JobReport extends MiCreatorBaseModel {
     
-   
+    private static final long serialVersionUID = 1L;
+
     //new, installer entered, not verified by manager, can be edited
     // void, manager modify a job report entered by installer, the original job report become void, a void job report can not be edited
     // verified, only verified job report is used to caculate cost
@@ -47,9 +42,9 @@ public class JobReport extends MiCreatorBaseModel {
     public String getMaterialReportStr(){
         List<JobMaterialReport> jmrList = jobMaterialReportListRef.getModelList();
         StringBuffer result = new StringBuffer();
-        Iterator i = jmrList.iterator();
+        Iterator<JobMaterialReport> i = jmrList.iterator();
         while(i.hasNext()){
-            JobMaterialReport jmr = (JobMaterialReport)i.next();
+            JobMaterialReport jmr = i.next();
             Product p = jmr.getProductRef().getModel();
 
             result.append(p.getModel())

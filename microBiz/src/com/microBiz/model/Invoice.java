@@ -1,6 +1,5 @@
 package com.microBiz.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import org.slim3.datastore.Attribute;
@@ -8,12 +7,13 @@ import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
-import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizUtil;
 
 @Model
 public class Invoice extends MiCreatorBaseModel {
       
+    private static final long serialVersionUID = 1L;
+
     private String invoiceNumber;
 
     @Attribute(persistent = false)

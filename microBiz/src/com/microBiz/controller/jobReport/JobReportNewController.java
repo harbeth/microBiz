@@ -33,12 +33,11 @@ public class JobReportNewController extends BaseController {
         JobReport jr = new JobReport();
 
         List<String> prdKeys = job.getUsePrdKeys();
+        List<Product> prds = new ArrayList<Product>();
 
-        List<Product> prds = new ArrayList();
-
-        Iterator i = prdKeys.iterator();
+        Iterator<String> i = prdKeys.iterator();
         while (i.hasNext()) {
-            String keyStr = (String) i.next();
+            String keyStr = i.next();
             Product prd = productService.get(Datastore.stringToKey(keyStr));
             prds.add(prd);
         }

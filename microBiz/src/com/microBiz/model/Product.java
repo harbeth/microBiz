@@ -1,18 +1,15 @@
 package com.microBiz.model;
-import java.io.Serializable;
 import java.util.List;
 
 import org.slim3.datastore.Attribute;
-import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
-
-import com.google.appengine.api.datastore.Key;
 
 
 @Model(kind = "prd")
 public class Product extends MiBaseModel {
 
-  
+    private static final long serialVersionUID = 1L;
+
     // selling, only displayed for quotation and invoice, raw material, only displayed for job report, both
     private String type;
     

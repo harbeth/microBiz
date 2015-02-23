@@ -1,18 +1,16 @@
 package com.microBiz.model;
-import java.io.Serializable;
 import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 
-import com.google.appengine.api.datastore.Key;
-
 
 @Model
 public class Order extends MiBaseModel{
  
-        
+    private static final long serialVersionUID = 1L;
+
     @Attribute(unindexed = true)
     private Double taxRate;
     
@@ -58,7 +56,10 @@ public class Order extends MiBaseModel{
     public void setDiscount(Double discount) {
         this.discount = discount;
     }
-
+    
+    public String getTaxRateStr() {
+        return String.valueOf(taxRate);
+    }
 
     public Double getTaxRate() {
         return taxRate;

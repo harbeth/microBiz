@@ -1,14 +1,10 @@
 package com.microBiz.model;
-import java.io.Serializable;
-import java.util.Date;
-
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 import org.slim3.datastore.Sort;
 
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizUtil;
 
@@ -16,8 +12,8 @@ import com.microBiz.MicroBizUtil;
 @Model
 public class Quote extends MiCreatorBaseModel {
     
+    private static final long serialVersionUID = 1L;
 
-    
     private String address;
     
     @Attribute(persistent = false)

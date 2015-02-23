@@ -1,7 +1,6 @@
 package com.microBiz.controller.jobReport;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
@@ -14,18 +13,17 @@ import com.microBiz.model.Job;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
 import com.microBiz.service.JobService;
-import com.microBiz.service.ProductService;
 
 
 public class JobReportNewActionController extends BaseController {
 
     private JobService jobService;
-    private ProductService productService;
+    //private ProductService productService;
     
     public JobReportNewActionController(){
         super();
         jobService = new JobService();
-        productService  = new ProductService();
+        //productService  = new ProductService();
     }
     
     //save job report, jobmaterialreport, 
@@ -45,7 +43,7 @@ public class JobReportNewActionController extends BaseController {
         Key jobKey = jobService.saveJobReport(jr);
         
         List<String> prdKeys = job.getUsePrdKeys();
-        List<JobMaterialReport> jmrList = new ArrayList();
+        List<JobMaterialReport> jmrList = new ArrayList<JobMaterialReport>();
         String[] qtys = paramValues("qty");
         String[] prdRatioKeys = paramValues("prdRatioKey");
        

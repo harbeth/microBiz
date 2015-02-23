@@ -129,6 +129,7 @@ var invoiceUpdateFn = {
 		invoiceEditFn.init();
 		// submit button event
 		this.onSumitEditRegister();
+		this.onDetailCloseClick();
 	}
 	, onSumitEditRegister: function() {
 		// go to order tab and update info DIV
@@ -139,8 +140,7 @@ var invoiceUpdateFn = {
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// show order tab
-	        	var tabType = "Order";
-	        	invoiceDetailFn.setTabSelected(tabType);
+	        	invoiceDetailFn.showOrderPage();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -150,7 +150,14 @@ var invoiceUpdateFn = {
 	        // always return false to prevent standard browser submit and page navigation 
 	        return false; 
 	    }); 
-	}	
+	}
+	, onDetailCloseClick: function() {
+		// back to invoice list page 
+		$("a[link=invoiceDetailEditClose]").click(function(){
+			// show order tab
+	    	invoiceDetailFn.showOrderPage();
+		});
+	}
 }
 // common function for new and edit page
 var invoiceEditFn = {
@@ -181,15 +188,18 @@ var invoiceEditFn = {
 
 var invoiceDetailFn = {
 	init: function() {
-		// register event for three tabs
-		this.registerTabClick();
-		// close button
+		// ===  detail tab ===
+		// close button on detail tab
+		this.onEditInvoiceClick();
 		this.onDetailPageClose();
-		// register event for edit job link
+		this.registerOrderForm();
+		// ===== manage tab ====
+		// register event for edit job/payment/expense link
 		this.onInvoiceJobEditClick();
 		this.onInvoiceExpenseEditClick();
-		this.registerOrderForm();
 		this.onInvoicePaymentEditClick();
+		// register event for three tabs
+		this.registerSectionClick();
 	}
 	, onDetailPageClose: function() {
 		$("a[link=invoiceEditClose]").click(function(){
@@ -217,10 +227,42 @@ var invoiceDetailFn = {
 	        return false; 
 	    }); 
 	}
-	// tab event
-	, registerTabClick: function() {
+	, onEditInvoiceClick: function() {
+		$("a[link=invoiceEdit]").click(function(){
+			var invoiceKey = $(this).attr("invoiceKey");
+			// hide order DIV first
+			$("#invoiceOrderDIV").hide();
+			// load content of the edit DIV
+			var ctrl = $("#invoiceEditDetailDIV");
+			// load content first
+			ctrl.load("/invoice/invoiceEdit?invoiceKey=" + invoiceKey, function(){
+				// after edit tab loaded
+				invoiceUpdateFn.init();
+			});
+		});
+	}
+	, showOrderPage: function() {
+		// clear edit DIV
+		$("#invoiceEditDetailDIV").html("");
+		$("#invoiceOrderDIV").show();
+	}
+	// ============ manage tab =================
+	// if list page is show
+	, isListPageShown: function() {
+		var title = $("#detailPaneTitleSpan").text();
+		// has list inside
+		return title.indexOf("List") > -1;
+	}
+	, setDetailPanelTitle: function(title) {
+		$("#detailPaneTitleSpan").text(title);
+	}
+	// on manage page
+	, registerSectionClick: function() {
 		$("a[link^=invoiceDetail]").click(function(){
-			if ( !invoiceDetailFn.isTabSelected($(this)) ) {
+			// check if not list or not selected
+			if ( !invoiceDetailFn.isSectionSelected($(this)) 
+					   || !invoiceDetailFn.isListPageShown() ) {
+				invoiceDetailFn.setSelected($(this));
 				// hide three DIVs first
 				$("div[id^=invoiceDetail]").hide();
 				// reset selected flag
@@ -232,62 +274,45 @@ var invoiceDetailFn = {
 			}
 		});
 	}
-	, invoiceDetailInfoDisplay: function() {
-		var ctrl = $("#invoiceDetailInfoDIV");
-		var hasContent = ctrl.attr("hasContent");
-		if ( hasContent == 'n' ) {
-			// load content first
-			var invoiceKey = ctrl.attr("invoiceKey");
-			ctrl.load("/invoice/invoiceEdit?invoiceKey=" + invoiceKey, function(){
-				// after edit tab loaded
-				invoiceUpdateFn.init();
-			})
-			.attr("hasContent", "y");
-		}
-	}
 	, invoiceDetailPaymentDisplay: function() {
 		var ctrl = $("#invoiceDetailPaymentDIV");
 		var hasContent = ctrl.attr("hasContent");
+		var invoiceKey = ctrl.attr("invoiceKey");
 		if ( hasContent == 'n' ) {
 			// load content first
-			var invoiceKey = ctrl.attr("invoiceKey");
 			ctrl.load("/invoice/invoicePayments?invoiceKey=" + invoiceKey, function(){
 				// after edit tab loaded
 				invoiceDetailFn.paymentListPageInit();
 			})
 			.attr("hasContent", "y");
+		}else{
+			// show list view
+			invoiceDetailFn.invoicePaymentListImpl(invoiceKey);
 		}
 	}
 	, invoiceDetailExpenseDisplay: function() {
 		var ctrl = $("#invoiceDetailExpenseDIV");
 		var hasContent = ctrl.attr("hasContent");
+		var invoiceKey = ctrl.attr("invoiceKey");
 		if ( hasContent == 'n' ) {
 			// load content first
-			var invoiceKey = ctrl.attr("invoiceKey");
 			ctrl.load("/invoice/invoiceExpenses?invoiceKey=" + invoiceKey, function(){
 				// after edit tab loaded
 				invoiceDetailFn.onInvoiceExpenseEditClick();
 			})
 			.attr("hasContent", "y");
+		}else{
+			invoiceDetailFn.onInvoiceExpenseListImpl(invoiceKey);
 		}
 	}
-	, invoiceDetailOrderDisplay: function() {
-		
-	}
+	// just show job tab
 	, invoiceDetailJobDisplay: function() {
+		// show job list, check lager
 		var ctrl = $("#invoiceDetailJobDIV");
-		var hasContent = ctrl.attr("hasContent");
-		if ( hasContent == 'n' ) {
-			// load content first
-			var invoiceKey = ctrl.attr("invoiceKey");
-			ctrl.load("/invoice/invoiceJobs?invoiceKey=" + invoiceKey, function(){
-				// after edit tab loaded
-				invoiceDetailFn.onInvoiceJobEditClick();
-			})
-			.attr("hasContent", "y");
-		}
+		var invoiceKey = ctrl.attr("invoiceKey");
+		invoiceDetailFn.onInvoiceJobListImpl(invoiceKey);
 	}
-	// assign job button and edit link
+	// assign job button and edit link, new/edit
 	, onInvoiceJobEditClick: function() {
 		$("a[link=invoiceJobEdit]").click(function() {
 			var invoiceKey = $(this).attr("invoiceKey");
@@ -303,10 +328,14 @@ var invoiceDetailFn = {
 	, onInvoiceJobEditClose: function() {
 		$("a[link=invoiceEditCloseJob]").click(function() {
 			var invoiceKey = $(this).attr("invoiceKey");
-			// just load job list 
-			$("#invoiceDetailJobDIV").load("/invoice/invoiceJobList?invoiceKey="+invoiceKey, function() {
-				invoiceDetailFn.onInvoiceJobEditClick();
-			});
+			invoiceDetailFn.onInvoiceJobListImpl(invoiceKey);
+		});
+	}
+	, onInvoiceJobListImpl: function(invoiceKey) {
+		// just load job list 
+		$("#invoiceDetailJobDIV").load("/invoice/invoiceJobList?invoiceKey="+invoiceKey, function() {
+			invoiceDetailFn.onInvoiceJobEditClick();
+			invoiceDetailFn.setDetailPanelTitle("Job List");
 		});
 	}
 	, registerJobDetailForm: function() {
@@ -330,10 +359,16 @@ var invoiceDetailFn = {
 	    }); 
     }
 	// ======= END Job =====================
-	, isTabSelected: function(ctrlLink) {
-		return ctrlLink.parent().hasClass("active");
+	, isSectionSelected: function(ctrlLink) {
+		return ctrlLink.attr("nowSelected") == "y";
+	}
+	, setSelected: function(ctrlLink) {
+		var ctrlArr = $("a[link^=invoiceDetail]");
+		ctrlArr.attr("nowSelected", "n");
+		ctrlLink.attr("nowSelected", "y");
 	}
 	// Order, Payment, Job, Info, Expense
+	// now used now
 	, setTabSelected: function(tabType) {
 		// hide three DIVs first
 		$("div[id^=invoiceDetail]").hide();
@@ -347,19 +382,20 @@ var invoiceDetailFn = {
 		if ( key == "-1" ) {
 			// if payment tab is not selected
 			var ctrl = $("a[link=invoiceDetail"+type+"]");
-			if ( !this.isTabSelected(ctrl) ) {
-				// tab
-				var ctrlArr = $("a[link^=invoiceDetail]");
-				ctrlArr.parent().removeAttr("class");
-				ctrl.parent().attr("class", "active");
+			if ( !this.isSectionSelected(ctrl) ) {
+				// set selected
+				this.setSelected(ctrl);
 				// DIV
-				ctrlArr = $("div[type=tab][id^=invoiceDetail]");
+				var ctrlArr = $("div[type=tab][id^=invoiceDetail]");
 				ctrlArr.hide();
 				var tabType = ctrl.attr("link");
 				// also need invoice key to get job list after submit
 				// show the current tab DIV
 				$("#"+tabType+"DIV").show();
 			}
+			invoiceDetailFn.setDetailPanelTitle("New " + type);
+		}else{
+			invoiceDetailFn.setDetailPanelTitle("Edit " + type);
 		}
 	}
 	// ====== Payment ======================
@@ -387,10 +423,14 @@ var invoiceDetailFn = {
 	, onInvoicePaymentEditClose: function() {
 		$("a[link=invoiceEditClosePayment]").click(function() {
 			var invoiceKey = $(this).attr("invoiceKey");
-			// just load job list 
-			$("#invoiceDetailPaymentDIV").load("/invoice/invoicePaymentList?invoiceKey="+invoiceKey, function() {
-				invoiceDetailFn.onInvoicePaymentEditClick();
-			});
+			invoiceDetailFn.invoicePaymentListImpl(invoiceKey);
+		});
+	}
+	, invoicePaymentListImpl: function(invoiceKey) {
+		// just load job list 
+		$("#invoiceDetailPaymentDIV").load("/invoice/invoicePaymentList?invoiceKey="+invoiceKey, function() {
+			invoiceDetailFn.onInvoicePaymentEditClick();
+			invoiceDetailFn.setDetailPanelTitle("Payment List");
 		});
 	}
 	, registerPaymentDetailForm: function() {
@@ -431,9 +471,14 @@ var invoiceDetailFn = {
 		$("a[link=invoiceEditCloseExpense]").click(function() {
 			var invoiceKey = $(this).attr("invoiceKey");
 			// just load job list 
-			$("#invoiceDetailExpenseDIV").load("/invoice/invoiceExpenses?invoiceKey="+invoiceKey, function() {
-				invoiceDetailFn.onInvoiceExpenseEditClick();
-			});
+			invoiceDetailFn.onInvoiceExpenseListImpl(invoiceKey);
+		});
+	}
+	, onInvoiceExpenseListImpl: function(invoiceKey) {
+		// just load expense list 
+		$("#invoiceDetailExpenseDIV").load("/invoice/invoiceExpenses?invoiceKey="+invoiceKey, function() {
+			invoiceDetailFn.onInvoiceExpenseEditClick();
+			invoiceDetailFn.setDetailPanelTitle("Expense List");
 		});
 	}
 	, registerExpenseDetailForm: function() {

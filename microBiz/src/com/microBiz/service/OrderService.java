@@ -1,15 +1,12 @@
 package com.microBiz.service;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.slim3.datastore.Datastore;
-import org.slim3.util.BeanUtil;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
-
 import com.microBiz.model.Order;
 import com.microBiz.model.OrderItem;
 

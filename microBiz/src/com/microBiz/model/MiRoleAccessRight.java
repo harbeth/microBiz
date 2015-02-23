@@ -1,21 +1,16 @@
 package com.microBiz.model;
 
-import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
-
-import com.google.appengine.api.datastore.Key;
 
 @Model
 public class MiRoleAccessRight extends MiBaseModel {
 
- 
+    private static final long serialVersionUID = 1L;
+
     private String role;
     
     private String accessibleModule;
     
- 
-
-
     public String getRole() {
         return role;
     }

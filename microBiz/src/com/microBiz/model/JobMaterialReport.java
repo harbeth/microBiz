@@ -1,19 +1,13 @@
 package com.microBiz.model;
-import java.io.Serializable;
-import java.util.Date;
-
-import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
-
-import com.google.appengine.api.datastore.Key;
-import com.microBiz.MicroBizUtil;
 
 //is child of repobReport
 @Model(kind = "job_material_report")
 public class JobMaterialReport extends MiBaseModel {
 
-  
+    private static final long serialVersionUID = 1L;
+
     private Double qty;
     
     //make sure JobMaterialReport for a job is as the same order if Job: usedPrdKey[]

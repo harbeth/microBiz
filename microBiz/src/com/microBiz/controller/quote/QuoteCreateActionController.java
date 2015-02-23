@@ -1,7 +1,5 @@
 package com.microBiz.controller.quote;
 
-import java.util.Date;
-
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;

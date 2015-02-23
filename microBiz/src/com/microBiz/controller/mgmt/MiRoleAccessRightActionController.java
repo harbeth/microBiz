@@ -6,7 +6,6 @@ import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
 
 import com.microBiz.controller.BaseController;
-import com.microBiz.meta.MiRoleAccessRightMeta;
 import com.microBiz.model.MiRoleAccessRight;
 import com.microBiz.service.MiRoleAccessRightService;
 
@@ -14,12 +13,11 @@ import com.microBiz.service.MiRoleAccessRightService;
 
 public class MiRoleAccessRightActionController extends BaseController{
     private MiRoleAccessRightService s;
-    private MiRoleAccessRightMeta metaP;
+    //private MiRoleAccessRightMeta metaP;
     public MiRoleAccessRightActionController(){
         super();
         s = new MiRoleAccessRightService();
-        metaP = new MiRoleAccessRightMeta();
-
+        //metaP = new MiRoleAccessRightMeta();
     }
     @Override
     public Navigation run() throws Exception {
