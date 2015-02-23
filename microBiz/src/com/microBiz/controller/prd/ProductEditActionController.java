@@ -39,6 +39,10 @@ public class ProductEditActionController extends BaseController{
         if(asString("active")==null){
             p.setActive("");
         }
+        
+        if ( p.getSupplier().equals("-1") ) {
+            p.setSupplier("");
+        }
        
         String[] ratios = paramValues("ratios");
         String[] ratioDescs = paramValues("ratioDescs");

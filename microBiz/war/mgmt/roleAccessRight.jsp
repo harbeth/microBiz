@@ -4,7 +4,6 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Role Access Right</h1>
-
 	</div>
 </div>
 <!-- /.row -->
@@ -14,11 +13,9 @@
 
 	<form role="form" method="post" action="${f:url('/mgmt/miRoleAccessRightAction')}">
 		<div class="col-lg-6">
-
-
 			<div class="form-group input-group">
-				<span class="input-group-addon">Role</span> <select
-					name="role" class="form-control">
+				<span class="input-group-addon">Role</span>
+				<select name="role" class="form-control">
 					<c:forEach items="${roles}" var="r">
 						<option value="${f:h(r)}"
 							<c:if test = "${f:h(role) == f:h(r)}" >
@@ -26,13 +23,11 @@
 							</c:if>>${f:h(r)}</option>
 					</c:forEach>
 				</select>
-
-
 			</div>
 
 			<div class="form-group input-group">
-				<span class="input-group-addon">Accessible Module</span> <select
-					name="accessibleModule" class="form-control">
+				<span class="input-group-addon">Accessible Module</span>
+				<select name="accessibleModule" class="form-control">
 					<c:forEach items="${modules}" var="m">
 						<option value="${f:h(m)}"
 							<c:if test = "${f:h(accessibleModule) == f:h(m)}" >
@@ -40,21 +35,15 @@
 							</c:if>>${f:h(m)}</option>
 					</c:forEach>
 				</select>
-
-
 			</div>
-
-	
-
 		</div>
 
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Submit</button>
 		</div>
 	</form>
+</div>
 
-</div>
-</div>
 <!-- /.row -->
 <div class="row">
 	<div class="col-lg-12">
@@ -65,7 +54,6 @@
 					<tr>
 						<th>Role</th>
 						<th>Access Right</th>
-
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -74,9 +62,7 @@
 						<tr>
 							<td>${f:h(rr.role)}</td>
 							<td>${f:h(rr.accessibleModule)}</td>
-
 							<td><a href="/mgmt/miRoleAccessRight?key=${f:h(rr.key)}">Delete</a></td>
-
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -4,7 +4,6 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">User</h1>
-
 	</div>
 </div>
 <!-- /.row -->
@@ -19,19 +18,18 @@
 
 			</c:if>
 
-
 			<div class="form-group input-group">
-				<span class="input-group-addon">Name</span> <input type="text"
-					${f:text("name")} class="form-control" />
+				<span class="input-group-addon">Name</span>
+				<input type="text" ${f:text("name")} class="form-control" />
 			</div>
 			<div class="form-group input-group">
-				<span class="input-group-addon">Email</span> <input type="text"
-					${f:text("email")} class="form-control" />
+				<span class="input-group-addon">Email</span>
+				<input type="text" ${f:text("email")} class="form-control" />
 			</div>
 			
 			<div class="form-group input-group">
-				<span class="input-group-addon">Role</span> <select name="role"
-					class="form-control">
+				<span class="input-group-addon">Role</span>
+				<select name="role" class="form-control">
 					<option value="">Select ... </option>
 					<c:forEach items="${roles}" var="r">
 						<option value="${f:h(r)}"
@@ -41,36 +39,29 @@
 					</c:forEach>
 				</select>
 			</div>
-
-
-
 		</div>
 		<div class="col-lg-6">
 			<div class="form-group input-group">
-				<span class="input-group-addon">Phone</span> <input type="text"
-					${f:text("phone")} class="form-control" />
+				<span class="input-group-addon">Phone</span>
+				<input type="text" ${f:text("phone")} class="form-control" />
 			</div>
 			
 			<div class="form-group input-group">
-				<span class="input-group-addon">Rate</span> <input type="text"
-					${f:text("rate")} class="form-control" />
+				<span class="input-group-addon">Rate</span>
+				<input type="text" ${f:text("rate")} class="form-control" />
 			</div>
-			
-			
 
 			<div class="form-group">
-				<label>Active</label> <label class="checkbox-inline"> <input
-					type="checkbox" ${f:checkbox("active")}> yes
+				<label>Active</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" ${f:checkbox("active")}>yes
 				</label>
 			</div>
-
-
 		</div>
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Submit</button>
 		</div>
 	</form>
-
 </div>
 
 <!-- /.row -->
@@ -98,7 +89,6 @@
 							<td>${f:h(u.phone)}</td>
 							<td>${f:h(u.active)}</td>
 							<td><a href="/mgmt/miUser?key=${f:h(u.key)}">Edit</a></td>
-
 						</tr>
 					</c:forEach>
 				</tbody>
