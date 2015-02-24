@@ -63,9 +63,7 @@
 	});
 </script>
 <div class="row">
-
-		<h3 class="page-header">Product Edit</h3>
-
+	<h3 class="page-header">Product Edit</h3>
 </div>
 <!-- /.row -->
 
@@ -83,10 +81,10 @@
 					<select name="type" class="form-control">
 						<option value="-1">Select ... </option>
 						<c:forEach items="${prdTypes}" var="pt">
-							<option value="${f:h(pt)}"
-								<c:if test = "${f:h(type) == f:h(pt)}" >
+							<option value="${f:h(pt.value)}"
+								<c:if test = "${f:h(type) == f:h(pt.value)}" >
 									selected
-								</c:if>>${f:h(pt)}</option>
+								</c:if>>${f:h(pt.label)}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -111,10 +109,11 @@
 					<select name="unit" class="form-control">
 						<option value="-1">Select ... </option>
 						<c:forEach items="${units}" var="u1">
-							<option value="${f:h(u1)}"
-								<c:if test = "${f:h(unit) == f:h(u1)}" >
+							<option value="${f:h(u1.value)}"
+								<c:if test = "${f:h(unit) == f:h(u1.value)}" >
 									selected
-								</c:if>>${f:h(u1)}</option>
+								</c:if>>${f:h(u1.label)}
+							</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -132,10 +131,11 @@
 					<select name="consumeReportUnit" class="form-control">
 						<option value="-1">Select ... </option>
 						<c:forEach items="${units}" var="u2">
-							<option value="${f:h(u2)}"
-								<c:if test = "${f:h(consumeReportUnit) == f:h(u2)}" >
+							<option value="${f:h(u2.value)}"
+								<c:if test = "${f:h(consumeReportUnit) == f:h(u2.value)}" >
 									selected
-								</c:if>>${f:h(u2)}</option>
+								</c:if>>${f:h(u2.label)}
+							</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -145,10 +145,10 @@
 						<select name="supplier" class="form-control">
 							<option value="-1">Select ... </option>
 							<c:forEach items="${suppliers}" var="s">
-								<option value="${f:h(s)}"
-									<c:if test = "${f:h(supplier) == f:h(s)}" >
+								<option value="${f:h(s.value)}"
+									<c:if test = "${f:h(supplier) == f:h(s.value)}">
 										selected
-									</c:if>>${f:h(s)}</option>
+									</c:if>>${f:h(s.label)}</option>
 							</c:forEach>
 					</select>
 				</div>

@@ -22,14 +22,12 @@
 		<span class="input-group-addon">Status</span>
 		<select name="status" class="form-control">
 			<c:forEach items="${quoteStatus}" var="qs">
-				<option value="${f:h(qs)}"
-					<c:if test = "${f:h(status) == f:h(qs)}" >
+				<option value="${f:h(qs.value)}"
+					<c:if test = "${f:h(status) == f:h(qs.value)}" >
 							selected
 						</c:if>
-					>${f:h(qs)}</option>
+					>${f:h(qs.label)}</option>
 			</c:forEach>
 		</select>
 	</div>
 </div>
-
-

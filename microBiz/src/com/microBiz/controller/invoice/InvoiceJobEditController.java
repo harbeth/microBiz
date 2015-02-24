@@ -43,7 +43,7 @@ public class InvoiceJobEditController extends BaseController{
         requestScope("installers", userService.getInstallers());
         requestScope("prds", productService.getReportingPrds());
         
-        requestScope("paymentTypes", paymentTypes);
+        //requestScope("paymentTypes", paymentTypes);
         return forward("invoice-job-edit.jsp");
     }
 }

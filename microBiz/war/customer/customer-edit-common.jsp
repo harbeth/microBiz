@@ -8,71 +8,72 @@
 				</c:if>
 	
 				<div class="form-group input-group">
-					<input type="hidden" editMode="${param.type}"
-						${f:hidden("oldCustomerType")} /> <span class="input-group-addon">Customer
-						Type</span> <select id="customerTypeSelect" name="type"
-						class="form-control">
+					<input type="hidden" editMode="${param.type}" ${f:hidden("oldCustomerType")} />
+					<span class="input-group-addon">Customer Type</span>
+					<select id="customerTypeSelect" name="type" class="form-control">
 						<option value="">Select ... </option>
-						<c:forEach items="${cxTypes}" var="pt">
-							<option value="${f:h(pt)}"
-								<c:if test = "${f:h(type) == f:h(pt)}" >
-							selected
-						</c:if>>${f:h(pt)}</option>
+						<c:forEach items="${cxTypes}" var="cp">
+							<option value="${f:h(cp.value)}"
+								<c:if test = "${f:h(type) == f:h(cp.value)}" >
+									selected
+								</c:if>>${f:h(cp.label)}
+							</option>
 						</c:forEach>
 					</select>
 				</div>
 	
 				<div class="form-group input-group">
-					<span class="input-group-addon">Customer Name</span> <input
-						type="text" ${f:text("name")} class="form-control" />
+					<span class="input-group-addon">Customer Name</span>
+					<input type="text" ${f:text("name")} class="form-control" />
 				</div>
 				<div class="form-group input-group">
-					<span class="input-group-addon">Phone</span> <input type="text"
-						${f:text("phone")} class="form-control" />
+					<span class="input-group-addon">Phone</span>
+					<input type="text" ${f:text("phone")} class="form-control" />
 				</div>
 	
 				<div class="form-group input-group">
-					<span class="input-group-addon">Alt.Phone</span> <input type="text"
-						${f:text("altPhone")} class="form-control" />
+					<span class="input-group-addon">Alt.Phone</span>
+					<input type="text" ${f:text("altPhone")} class="form-control" />
 				</div>
 				
 				<div class="form-group input-group">
-					<span class="input-group-addon">Payment Terms</span> <select
-						name="pymtTerm" class="form-control">
+					<span class="input-group-addon">Payment Terms</span>
+					<select name="pymtTerm" class="form-control">
 						<c:forEach items="${pymtTerms}" var="pt">
-							<option value="${f:h(pt)}"
-								<c:if test = "${f:h(pymtTerm) == f:h(pt)}" >
-							selected
-						</c:if>>${f:h(pt)}</option>
+							<option value="${f:h(pt.value)}"
+								<c:if test = "${f:h(pymtTerm) == f:h(pt.value)}" >
+									selected
+								</c:if>>${f:h(pt.label)}</option>
 						</c:forEach>
 					</select>
 				</div>
 	
 				<div class="form-group">
-					<label>Active</label> <label class="checkbox-inline"> <input
-						type="checkbox" ${f:checkbox("active")}> yes
+					<label>Active</label>
+					<label class="checkbox-inline">
+						<input type="checkbox" ${f:checkbox("active")}>yes
 					</label>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group input-group">
-					<span class="input-group-addon">Address</span> <input type="text"
-						${f:text("address")} class="form-control" />
+					<span class="input-group-addon">Address</span>
+					<input type="text" ${f:text("address")} class="form-control" />
 				</div>
 	
 				<div class="form-group input-group">
-					<span class="input-group-addon">Email</span> <input type="text"
-						${f:text("email")} class="form-control" />
+					<span class="input-group-addon">Email</span>
+					<input type="text" ${f:text("email")} class="form-control" />
 				</div>
 	
 				<div class="form-group input-group">
-					<span class="input-group-addon">Rating</span> <select
-						name="purchaseUnit" class="form-control">
+					<span class="input-group-addon">Rating</span>
+					<select name="rating" class="form-control">
 						<c:forEach items="${cxRatings}" var="r">
-							<option value="${f:h(r)}"
-								<c:if test = "${f:h(rating) == f:h(r)}" >
+							<option value="${f:h(r.value)}"
+								<c:if test = "${f:h(rating) == f:h(r.value)}" >
 							selected
-						</c:if>>${f:h(r)}</option>
+						</c:if>>${f:h(r.label)}</option>
 						</c:forEach>
 					</select>
 				</div>

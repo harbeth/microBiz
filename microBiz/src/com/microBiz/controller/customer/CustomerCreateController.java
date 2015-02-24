@@ -6,7 +6,7 @@ import org.slim3.util.BeanUtil;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Customer;
 
-public class CustomerCreateController extends BaseController{
+public class CustomerCreateController extends BaseController {
     
     public CustomerCreateController(){
         super();

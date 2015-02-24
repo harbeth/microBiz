@@ -30,7 +30,7 @@ public class CustomerInvoiceController extends BaseController {
         List<Invoice> invoices = customer.getInvoiceListRef().getModelList();
         requestScope("invoices", invoices);
         
-        requestScope("cxTypes", cxTypes);
+        //requestScope("cxTypes", cxTypes);
         
         return forward("customer-invoices.jsp");
     }

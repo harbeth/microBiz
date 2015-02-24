@@ -1,7 +1,7 @@
 <%@include file="../includes/taglib.jsp"%>
 
-	<div class="col-lg-12">
-                    <div class="well">
+<div class="col-lg-12">
+    <div class="well">
 		<div class="table-responsive">
 			<table class="table">
 				<thead>

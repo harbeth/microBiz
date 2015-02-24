@@ -71,10 +71,10 @@
 			<select name="depositPymtMethod" class="form-control">
 			<option value="">Select ... </option>
 				<c:forEach items="${paymentTypes}" var="pt">
-					<option value="${f:h(pt)}"
-						<c:if test = "${f:h(depositPymtMethod) == f:h(pt)}" >
+					<option value="${f:h(pt.value)}"
+						<c:if test = "${f:h(depositPymtMethod) == f:h(pt.value)}" >
 							selected
-						</c:if>>${f:h(pt)}</option>
+						</c:if>>${f:h(pt.label)}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -83,10 +83,10 @@
 				name="balancePymtMethod" class="form-control">
 				<option value="">Select ... </option>
 				<c:forEach items="${paymentTypes}" var="pt">
-					<option value="${f:h(pt)}"
-						<c:if test = "${f:h(balancePymtMethod) == f:h(pt)}" >
+					<option value="${f:h(pt.value)}"
+						<c:if test = "${f:h(balancePymtMethod) == f:h(pt.value)}" >
 							selected
-						</c:if>>${f:h(pt)}</option>
+						</c:if>>${f:h(pt.label)}</option>
 				</c:forEach>
 			</select>
 		</div>		

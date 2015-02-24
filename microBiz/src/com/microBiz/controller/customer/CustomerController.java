@@ -25,7 +25,6 @@ public class CustomerController extends BaseController{
 
         requestScope("cxTypes", cxTypes);
         requestScope("ratings", cxRatings);
-        requestScope("units", units);
         
         return forward("customer.jsp");
     }

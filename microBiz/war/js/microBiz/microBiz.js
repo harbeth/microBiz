@@ -1,5 +1,8 @@
 var microBizConst = {
 	bodyContentId: "bodyContentDIV"
+	// should get it from java constant file
+	, CODE_CUSTOMER_TYPE_RESIDENTIAL: "70"
+	, CODE_CUSTOMER_TYPE_COMMERCIAL: "71"
 }
 
 // common function

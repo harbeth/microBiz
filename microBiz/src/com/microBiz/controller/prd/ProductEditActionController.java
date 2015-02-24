@@ -40,10 +40,6 @@ public class ProductEditActionController extends BaseController{
             p.setActive("");
         }
         
-        if ( p.getSupplier().equals("-1") ) {
-            p.setSupplier("");
-        }
-       
         String[] ratios = paramValues("ratios");
         String[] ratioDescs = paramValues("ratioDescs");
         List<PrdRatio> prdRs = new ArrayList<PrdRatio>();

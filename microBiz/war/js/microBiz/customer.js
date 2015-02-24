@@ -113,7 +113,7 @@ var customerUpdateFn = {
 			var editMode = $("input[name=oldCustomerType]").attr("editMode");
 			if ( editMode == "edit" ) {
 				var currentCustomerType = $("#customerTypeSelect").val();
-				if ( oldCustomerType == "commercial" && currentCustomerType == "residential" ) {
+				if ( oldCustomerType == microBizConst.CODE_CUSTOMER_TYPE_COMMERCIAL && currentCustomerType == microBizConst.CODE_CUSTOMER_TYPE_RESIDENTIAL ) {
 					isOK = false;
 					alert("Cannot change customer type from commercial to residential.");
 				}
@@ -280,9 +280,8 @@ var customerDetailFn = {
 	        	// set invoiceKey value
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	// load job list
 	        	// register event again
-	        	// customerDetailFn.onCustomerContactEditClick();
+	        	customerDetailFn.onCustomerContactEditClick();
 	        }
 	    }; 
 	    // bind to the form's submit event 

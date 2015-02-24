@@ -13,7 +13,7 @@ public class Customer extends MiCreatorBaseModel {
 
     @Attribute(unindexed = true)
     // residential or commercial
-    private String type;
+    private Integer type;
     
     private String name;
     
@@ -29,7 +29,7 @@ public class Customer extends MiCreatorBaseModel {
     
     @Attribute(persistent = false)
     // for validation on FE, commercial cannot change to residential
-    private String oldCustomerType;
+    private Integer oldCustomerType;
     
     @Attribute(unindexed = true)
     private String rating;
@@ -77,15 +77,14 @@ public class Customer extends MiCreatorBaseModel {
     }
     
     public boolean isCommercial() {
-        return MicroBizConst.CUSTOMER_TYPE_COMMERCIAL.equals(type);
+        return Integer.valueOf(MicroBizConst.CODE_CUSTOMER_TYPE_COMMERCIAL) == type;
     }
-
  
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -154,11 +153,11 @@ public class Customer extends MiCreatorBaseModel {
         this.active = active;
     }
     
-    public String getOldCustomerType() {
+    public Integer getOldCustomerType() {
         return oldCustomerType;
     }
 
-    public void setOldCustomerType(String oldCustomerType) {
+    public void setOldCustomerType(Integer oldCustomerType) {
         this.oldCustomerType = oldCustomerType;
     }
 

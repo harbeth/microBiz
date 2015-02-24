@@ -18,8 +18,8 @@
 			</c:if>
 
 			<div class="form-group input-group">
-				<span class="input-group-addon">Installer</span> <select
-					name="installer" class="form-control">
+				<span class="input-group-addon">Installer</span>
+				<select name="installer" class="form-control">
 					<option value="">Select ...</option>
 					<c:forEach items="${installers}" var="i">
 						<option value="${f:h(i.key)}"
@@ -44,7 +44,8 @@
 				<label>Check the Products For the Job:</label>
 				<c:forEach items="${prds}" var="p">
 					<div class="checkbox">
-						<label> <input type="checkbox" name="prds" value="${f:h(p.key)}"> ${f:h(p.model)}  from  ${f:h(p.supplier)}
+						<label>
+							<input type="checkbox" name="prds" value="${f:h(p.key)}"> ${f:h(p.model)}  from  ${f:h(p.supplier)}
 						</label>
 					</div>
 				</c:forEach>
