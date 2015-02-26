@@ -7,6 +7,7 @@ import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
+import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 
 @Model
@@ -38,7 +39,7 @@ public class Invoice extends MiCreatorBaseModel {
 
     private Date preferIntlDate;
     
-    @Attribute(unindexed = true)
+    @Attribute(persistent = false)
     private String preferIntlDateStr;
     
     @Attribute(unindexed = true)
@@ -73,6 +74,12 @@ public class Invoice extends MiCreatorBaseModel {
     @Attribute(unindexed = true)
     private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
     
+    @Attribute(unindexed = true)
+    private ModelRef<InvoiceReport> invoiceReportRef = new ModelRef<InvoiceReport>(InvoiceReport.class);
+    
+    public Invoice(){
+        status = MicroBizConst.CODE_STATUS_OPEN;
+    }
     public ModelRef<Customer> getCustomerRef() {
         return customerRef;
     }
@@ -115,6 +122,10 @@ public class Invoice extends MiCreatorBaseModel {
 
     public InverseModelListRef<InvoiceExpense, Invoice> getExpenseListRef() {
         return expenseListRef;
+    }
+    
+    public ModelRef<InvoiceReport> getInvoiceReportRef() {
+        return invoiceReportRef;
     }
     
     public String getPreferIntlDateStr() {

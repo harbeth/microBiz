@@ -11,7 +11,7 @@ public class MiUser extends MiBaseModel{
     
     private String email;
     
-    private String role;
+    private String miRole;
     
     private String active;
     
@@ -38,12 +38,13 @@ public class MiUser extends MiBaseModel{
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
+
+    public String getMiRole() {
+        return miRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setMiRole(String miRole) {
+        this.miRole = miRole;
     }
 
     public String getActive() {

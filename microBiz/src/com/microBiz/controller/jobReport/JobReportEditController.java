@@ -16,10 +16,10 @@ import com.microBiz.service.JobService;
 import com.microBiz.service.ProductService;
 
 
-public class JobReportEditController extends BaseController {
+public abstract class JobReportEditController extends BaseController {
 
-    private JobService jobService;
-    private ProductService productService;
+    protected JobService jobService;
+    protected ProductService productService;
     
     public JobReportEditController(){
         super();
@@ -49,7 +49,7 @@ public class JobReportEditController extends BaseController {
             }else{
                 prdRatioKey[a] = "-1";
             }
-            System.out.println("prdR key is " + prdRatioKey[a]);
+            //System.out.println("prdR key is " + prdRatioKey[a]);
             prds.add(productService.get(jmr.getProductRef().getKey()));
         }
         requestScope("qty", qty);
@@ -60,8 +60,11 @@ public class JobReportEditController extends BaseController {
 
 
         requestScope("job", job);
-        return forward("job-report-edit.jsp");
+        setRequestScope(jr);
+        return forward(getReturnedJsp());
     }
 
+    public abstract String getReturnedJsp();
+    public abstract void setRequestScope(JobReport jr);
 
 }

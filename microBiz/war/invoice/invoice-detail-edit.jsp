@@ -74,31 +74,29 @@
 	</div>
 	
 	<div class="form-group input-group">
-		<span class="input-group-addon">Deposit Payment Method</span>
-		<select name="depositPymtMethod" class="form-control">
-		<option value="">Select ... </option>
-			<c:forEach items="${paymentTypes}" var="pt">
-				<option value="${f:h(pt)}"
-					<c:if test = "${f:h(depositPymtMethod) == f:h(pt)}" >
-						selected
-					</c:if>>${f:h(pt)}</option>
-			</c:forEach>
-		</select>
-	</div>
-	
-	<div class="form-group input-group">
-		<span class="input-group-addon">Balance Payment Method</span>
-		<select name="balancePymtMethod" class="form-control">
-		<option value="">Select ... </option>
-			<c:forEach items="${paymentTypes}" var="pt">
-				<option value="${f:h(pt)}"
-					<c:if test = "${f:h(balancePymtMethod) == f:h(pt)}" >
-						selected
-					</c:if>>${f:h(pt)}</option>
-			</c:forEach>
-		</select>
-	</div>
-		
+			<span class="input-group-addon">Deposit Payment Method</span>
+			<select name="depositPymtMethod" class="form-control">
+			<option value="">Select ... </option>
+				<c:forEach items="${paymentTypes}" var="pt">
+					<option value="${f:h(pt.value)}"
+						<c:if test = "${f:h(depositPymtMethod) == f:h(pt.value)}" >
+							selected
+						</c:if>>${f:h(pt.label)}</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div class="form-group input-group">
+			<span class="input-group-addon">Balance Payment Method</span> <select
+				name="balancePymtMethod" class="form-control">
+				<option value="">Select ... </option>
+				<c:forEach items="${paymentTypes}" var="pt">
+					<option value="${f:h(pt.value)}"
+						<c:if test = "${f:h(balancePymtMethod) == f:h(pt.value)}" >
+							selected
+						</c:if>>${f:h(pt.label)}</option>
+				</c:forEach>
+			</select>
+		</div>	
 	<div class="form-group input-group">
 		<span class="input-group-addon">Notes</span>
 		<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>

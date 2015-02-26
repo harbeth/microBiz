@@ -6,6 +6,8 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
 import org.slim3.datastore.CreationEmail;
 
+import com.microBiz.MicroBizUtil;
+
 public abstract class MiCreatorBaseModel extends MiBaseModel {
     
     private static final long serialVersionUID = 1L;
@@ -20,6 +22,10 @@ public abstract class MiCreatorBaseModel extends MiBaseModel {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+    
+    public String getCreatedAtStr() {
+        return MicroBizUtil.parseDateToStr(createdAt);
     }
 
     public void setCreatedAt(Date createdAt) {

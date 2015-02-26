@@ -13,14 +13,8 @@
 <div class="well">
 	<form name="jobReportForm" typerole="form" method="post"
 		action="${f:url('/jobReport/jobReportEditAction')}">
-		<div class="col-lg-6">
-
-
 		
-				<input type="hidden" ${f:hidden("key")} />
-				<c:if test="${fromManager}">
-					<input type="hidden" name="fromManager" value="yes" />
-				</c:if>
-		
+
+		<input type="hidden" ${f:hidden("key")} />
 
 <jsp:include page="./job-report-common.jsp" flush="true"></jsp:include>

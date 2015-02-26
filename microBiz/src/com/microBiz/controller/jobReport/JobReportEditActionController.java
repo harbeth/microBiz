@@ -50,9 +50,10 @@ public class JobReportEditActionController extends BaseController {
                 jmr.getPrdRatioRef().setKey(prdRatioKey);
             }
             jmr.setQty(Double.valueOf(qtys[i]));
-            jobService.saveJobMaterialReport(jmr);
+           
             
         }
+        jobService.saveJobMaterialReports(jmrList);
 
         requestScope("jobs", jobService.getAllUncompleteJobs());
         return forward("jobs-to-report.jsp");

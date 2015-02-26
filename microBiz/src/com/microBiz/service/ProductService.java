@@ -7,6 +7,7 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.microBiz.MicroBizConst;
 import com.microBiz.meta.InventoryChangeMeta;
 import com.microBiz.meta.PrdRatioMeta;
 import com.microBiz.meta.ProductMeta;
@@ -26,11 +27,11 @@ public class ProductService {
     }
     
     public List<Product> getSellingPrds() {
-        return Datastore.query(p).filter(p.type.in("selling", "both")).asList();
+        return Datastore.query(p).filter(p.type.in(MicroBizConst.CODE_PRODUCT_TYPE_SELLING, MicroBizConst.CODE_PRODUCT_TYPE_BOTH)).asList();
     }
     
     public List<Product> getReportingPrds() {
-        return Datastore.query(p).filter(p.type.in("both", "raw material")).asList();
+        return Datastore.query(p).filter(p.type.in( MicroBizConst.CODE_PRODUCT_TYPE_BOTH, MicroBizConst.CODE_PRODUCT_TYPE_RAW_MATERIAL)).asList();
     }
     
     public Product get(Key key) {

@@ -6,6 +6,7 @@ import org.slim3.datastore.ModelRef;
 import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 
 
@@ -48,6 +49,9 @@ public class Quote extends MiCreatorBaseModel {
     private ModelRef<Customer> customerRef = new ModelRef<Customer>(Customer.class);
     private ModelRef<Contact> contactRef = new ModelRef<Contact>(Contact.class);
     
+    public Quote(){
+        status = MicroBizConst.CODE_STATUS_OPEN;
+    }
     public ModelRef<Customer> getCustomerRef() {
         return customerRef;
     }

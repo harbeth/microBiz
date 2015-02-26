@@ -8,6 +8,7 @@ import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.MicroBizConst;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Job;
 import com.microBiz.model.JobMaterialReport;
@@ -15,9 +16,9 @@ import com.microBiz.model.JobReport;
 import com.microBiz.service.JobService;
 
 
-public class JobReportNewActionController extends BaseController {
+public abstract class JobReportNewActionController extends BaseController {
 
-    private JobService jobService;
+    protected JobService jobService;
     //private ProductService productService;
     
     public JobReportNewActionController(){
@@ -30,13 +31,14 @@ public class JobReportNewActionController extends BaseController {
     @Override
     public Navigation run() throws Exception {
         // only get data for invoice list, not details
-        Job job = jobService.get(asKey("jobKey"));
+        Job job = getJob();
  
         
         JobReport jr = new JobReport();
-        jr.setStatus("new");
-        
+       
         BeanUtil.copy(request,jr);
+        
+        
         
   
         jr.getJobRef().setModel(job);
@@ -59,11 +61,15 @@ public class JobReportNewActionController extends BaseController {
             jmr.setCount(new Integer(i));
             jmr.getJobReportRef().setKey(jobKey);
             jmrList.add(jmr);
-            jobService.saveJobMaterialReport(jmr);
+            
             
         }
-
-        requestScope("jobs", jobService.getAllUncompleteJobs());
-        return forward("jobs-to-report.jsp");
+        jobService.saveJobMaterialReports(jmrList);
+        setRequestScope();
+        return forward(getForwardJsp());
     }
+    
+    public abstract Job getJob();
+    public abstract String getForwardJsp();
+    public abstract void setRequestScope();
 }

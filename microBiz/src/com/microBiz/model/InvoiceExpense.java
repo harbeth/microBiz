@@ -11,6 +11,7 @@ public class InvoiceExpense extends MiCreatorBaseModel {
     
     private static final long serialVersionUID = 1L;
 
+    @Attribute(unindexed = true)
     private Double expense;
 
     @Attribute(persistent = false)

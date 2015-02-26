@@ -6,14 +6,16 @@ java.util.logging.Level"%>
 
 
 <%
-	String myrole = (String) request.getSession().getAttribute("myrole");
+	/*
+    String myrole = (String) request.getSession().getAttribute("myrole");
 
 	MemcacheService syncCache = MemcacheServiceFactory
 			.getMemcacheService();
 	syncCache.setErrorHandler(ErrorHandlers
 			.getConsistentLogAndContinue(Level.INFO));
 	String accesssibleModules = (String) syncCache.get(myrole); // read from cache
-	
+	*/
+	String accesssibleModules = "manager, invoice, jobReport,quote, customer, mgmt, prd ";
 %>
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -37,8 +39,14 @@ java.util.logging.Level"%>
 						</span>
 					</div> <!-- /input-group -->
 				</li>
+				<%
+					if (accesssibleModules.contains("manager")) {
+				%>
 				<li><a href="/manager/dashboard"><i class="fa fa-dashboard fa-fw"></i>
 						Dashboard</a></li>
+			   	<%
+					}
+				%>
 				<%
 					if (accesssibleModules.contains("customer")) {
 				%>
@@ -61,8 +69,7 @@ java.util.logging.Level"%>
 				<%
 					if (accesssibleModules.contains("invoice")) {
 				%>
-				<li><a href="/invoice/invoice"><i class="fa fa-table fa-fw"></i>Invoice<span
-						class="fa arrow"></span></a></li>
+				<li><a href="/invoice/invoice"><i class="fa fa-table fa-fw"></i>Invoice</a></li>
 
 				<%
 					}
@@ -71,7 +78,7 @@ java.util.logging.Level"%>
 					if (accesssibleModules.contains("jobReport")) {
 				%>
 				<li><a href="/jobReport/jobsToReport"><i
-						class="fa fa-table fa-fw"></i>job Report<span class="fa arrow"></span></a></li>
+						class="fa fa-table fa-fw"></i>job Report</a></li>
 				<%
 					}
 				%>
@@ -88,7 +95,7 @@ java.util.logging.Level"%>
 					}
 				%>
 				<%
-					if (accesssibleModules.contains("prd")) {
+					if (accesssibleModules.contains("mgmt")) {
 				%>
 				<li><a href="#"><i class="fa fa-wrench fa-fw"></i>Management<span
 						class="fa arrow"></span></a>

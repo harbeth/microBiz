@@ -1,4 +1,5 @@
 package com.microBiz.model;
+import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
@@ -8,6 +9,7 @@ public class JobMaterialReport extends MiBaseModel {
 
     private static final long serialVersionUID = 1L;
 
+    @Attribute(unindexed = true)
     private Double qty;
     
     //make sure JobMaterialReport for a job is as the same order if Job: usedPrdKey[]

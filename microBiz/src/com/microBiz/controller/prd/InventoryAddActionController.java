@@ -36,7 +36,7 @@ public class InventoryAddActionController extends BaseController{
 
 
         s.save(p, ic);
-        List<Product> prds = s.getAll();
+        List<Product> prds = s.getReportingPrds();
         requestScope("prds", prds);
         return forward("inventory-list.jsp");
 

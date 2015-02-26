@@ -6,7 +6,9 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.microBiz.MicroBizConst;
 import com.microBiz.meta.JobMeta;
+import com.microBiz.meta.JobReportMeta;
 import com.microBiz.model.Job;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
@@ -16,6 +18,7 @@ import com.microBiz.model.JobReport;
 public class JobService {
     
     private JobMeta job = new JobMeta();
+    private JobReportMeta jobReport = new JobReportMeta();
     
     public List<Job> getAll() {
         return Datastore.query(job).asList();
@@ -36,7 +39,13 @@ public class JobService {
     }
 
     public List<Job> getAllUncompleteJobs() {
-        return Datastore.query(job).filter(job.status.notEqual("complete")).asList();
+        return Datastore.query(job).filter(job.status.notEqual(MicroBizConst.CODE_STATUS_COMPLETED)).asList();
+    
+    }
+    
+    public List<JobReport> getNewJobReports() {
+        
+        return Datastore.query(jobReport).filter(jobReport.status.equal(MicroBizConst.CODE_STATUS_NEW)).asList();
     
     }
     
@@ -57,11 +66,9 @@ public class JobService {
         return result;
     }
 
-    public void saveJobMaterialReport(JobMaterialReport jmr) {
-        Transaction tx = Datastore.beginTransaction();
-        Datastore.put(tx, jmr);
-        tx.commit();
-        
+    public void saveJobMaterialReports(List<JobMaterialReport> jmrList) {
+        Datastore.put(jmrList);    
     }
+
 
 }

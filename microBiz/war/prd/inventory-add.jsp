@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="panel-heading">
 		Add inventory for product: ${f:h(product.model)} <br>
-		Current Quantity is: ${f:h(product.currentQty)}, ${f:h(product.purchaseUnit)}
+		Current Quantity is: ${f:h(product.currentQty)}, ${f:h(product.unit)}
 	</div>
 </div>
 <div class="row">

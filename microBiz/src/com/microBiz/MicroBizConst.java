@@ -39,9 +39,15 @@ public interface MicroBizConst {
     public String CODE_PAYMENT_TYPE_CASH = "91";
     public String CODE_PAYMENT_TYPE_CREDIT_CARD = "92";
     
-    public String CODE_QUOTE_STATUS_OPEN = "100";
-    public String CODE_QUOTE_STATUS_WON = "101";
-    public String CODE_QUOTE_STATUS_FAILED = "102";
+    public String CODE_STATUS_OPEN = "100";
+    public String CODE_STATUS_WON = "101";
+    public String CODE_STATUS_FAILED = "102";
+    public String CODE_STATUS_COMPLETED = "103";
+    public String CODE_STATUS_CANCELED = "104";
+    public String CODE_STATUS_VOID = "105";
+    public String CODE_STATUS_APPROVED = "106";
+    public String CODE_STATUS_NEW = "107";
+    
     
     public String CODE_PAYMENT_TERMS_0D = "110";
     public String CODE_PAYMENT_TERMS_30D = "111";

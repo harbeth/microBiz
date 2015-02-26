@@ -9,6 +9,7 @@ import org.slim3.datastore.ModelRef;
 import org.slim3.datastore.Sort;
 
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 
 @Model(kind = "job_report")
@@ -24,8 +25,10 @@ public class JobReport extends MiCreatorBaseModel {
     @Attribute(unindexed = true)
     private String note;
 
+    @Attribute(unindexed = true)
     private Double travelHours;
 
+    @Attribute(unindexed = true)
     private Double workingHours;
     
     private ModelRef<Job> jobRef = new ModelRef<Job>(Job.class);
@@ -34,6 +37,9 @@ public class JobReport extends MiCreatorBaseModel {
     private InverseModelListRef<JobMaterialReport, JobReport> jobMaterialReportListRef = 
     new InverseModelListRef<JobMaterialReport, JobReport>(JobMaterialReport.class, "jobReportRef", this,new Sort("count", SortDirection.ASCENDING));
  
+    public JobReport(){
+        status = MicroBizConst.CODE_STATUS_NEW;
+    }
     
     public InverseModelListRef<JobMaterialReport, JobReport> getJobMaterialReportListRef() {
         return jobMaterialReportListRef;

@@ -29,11 +29,11 @@
 			
 			<div class="form-group input-group">
 				<span class="input-group-addon">Role</span>
-				<select name="role" class="form-control">
+				<select name="miRole" class="form-control">
 					<option value="">Select ... </option>
 					<c:forEach items="${roles}" var="r">
 						<option value="${f:h(r)}"
-							<c:if test = "${f:h(role) == f:h(r)}" >
+							<c:if test = "${f:h(miRole) == f:h(r)}" >
 								selected
 							</c:if>>${f:h(r)}</option>
 					</c:forEach>
@@ -85,7 +85,7 @@
 						<tr>
 							<td>${f:h(u.name)}</td>
 							<td>${f:h(u.email)}</td>
-							<td>${f:h(u.role)}</td>
+							<td>${f:h(u.miRole)}</td>
 							<td>${f:h(u.phone)}</td>
 							<td>${f:h(u.active)}</td>
 							<td><a href="/mgmt/miUser?key=${f:h(u.key)}">Edit</a></td>

@@ -28,7 +28,7 @@
 						
 							<td>${f:h(p.model)}</td>
 							<td>${f:h(p.desc)} </td>
-							<td>${f:h(p.currentQty)} ${f:nbsp('  ')}  ${f:h(p.purchaseUnit)}</td>
+							<td>${f:h(p.currentQty)} ${f:nbsp('  ')}  ${f:h(p.unit)}</td>
 							<td>
 							<a link="inventoryAdd" productKey="${f:h(p.key)}" data-toggle="tab" aria-expanded="false" class="btn btn-info btn-sm" role="button">Add Inventory</a>
 							 ${f:nbsp('  ')}

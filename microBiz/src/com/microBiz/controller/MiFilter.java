@@ -2,8 +2,6 @@ package com.microBiz.controller;
 
 import java.io.IOException;
 
-import java.util.logging.Level;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -13,12 +11,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.google.appengine.api.memcache.ErrorHandlers;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
+
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.microBiz.model.MiUser;
 import com.microBiz.service.MiRoleAccessRightService;
 import com.microBiz.service.MiUserService;
 
@@ -44,7 +39,7 @@ public class MiFilter implements Filter {
         String myrole = null;
         String uriStr = req.getRequestURI();
 
-       
+       /*
         if (gaeUserService.isUserLoggedIn()) {//
 
             if (session.getAttribute("myrole") == null) {
@@ -56,13 +51,14 @@ public class MiFilter implements Filter {
                     return;
                 }
                 //System.out.println("get user" + user.getName());
-                myrole = user.getRole();
+                myrole = user.getMiRole();
                 session.setAttribute("myrole", myrole);
                 session.setAttribute("email", email);
 
             } else {
-                // ??? org.slim3.controller.BytesHolder cannot be cast to java.lang.String
-                myrole = (String) session.getAttribute("myrole");
+                
+                    myrole = (String)session.getAttribute("myrole");
+               
             }
             MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
             syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
@@ -102,8 +98,12 @@ public class MiFilter implements Filter {
                 chain.doFilter(req, res);
             }
         }
- 
-
+        */
+        if (session.getAttribute("myrole")==null){
+            session.setAttribute("myrole", "admin");
+            session.setAttribute("email", "admin@gmail.com");
+        }
+        chain.doFilter(req, res);
 
     }
 
