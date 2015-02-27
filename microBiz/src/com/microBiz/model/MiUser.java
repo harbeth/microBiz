@@ -21,7 +21,9 @@ public class MiUser extends MiBaseModel{
     private Double rate;
 
  
-
+    public MiUser(){
+        active="on";
+    }
     public String getName() {
         return name;
     }

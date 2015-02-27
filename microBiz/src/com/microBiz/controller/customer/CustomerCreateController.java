@@ -25,7 +25,6 @@ public class CustomerCreateController extends BaseController {
     
     public Customer getCustomer() {
         Customer c = new Customer();
-        c.setActive("on");
         return c;
     }
     

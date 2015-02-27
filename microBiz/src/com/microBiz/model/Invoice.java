@@ -51,7 +51,7 @@ public class Invoice extends MiCreatorBaseModel {
     @Attribute(unindexed = true)
     private String note;
     
-    private String status;
+    private Integer status;
     
     private ModelRef<MiUser> salesRef = new ModelRef<MiUser>(MiUser.class);
     
@@ -80,13 +80,6 @@ public class Invoice extends MiCreatorBaseModel {
     public Invoice(){
         status = MicroBizConst.CODE_STATUS_OPEN;
     }
-    public ModelRef<Customer> getCustomerRef() {
-        return customerRef;
-    }
-
-    public ModelRef<Contact> getContactRef() {
-        return contactRef;
-    }
     
     public boolean isHasContact() {
         return contactRef.getModel() != null;
@@ -94,6 +87,18 @@ public class Invoice extends MiCreatorBaseModel {
     
     public ModelRef<MiUser> getSalesRef() {
         return salesRef;
+    }
+
+   
+
+    public ModelRef<Customer> getCustomerRef() {
+        return customerRef;
+    }
+
+
+
+    public ModelRef<Contact> getContactRef() {
+        return contactRef;
     }
 
 
@@ -212,10 +217,10 @@ public class Invoice extends MiCreatorBaseModel {
     public void setNote(String note) {
         this.note = note;
     }
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

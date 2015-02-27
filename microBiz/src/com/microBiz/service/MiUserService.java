@@ -20,7 +20,7 @@ public class MiUserService {
     }
     
     public List<MiUser> getSales() {
-        return Datastore.query(p).filter(p.miRole.equal("sales")).asList();
+        return Datastore.query(p).filter(p.miRole.in("manager","sales")).asList();
     }
     
     public List<MiUser> getInstallers() {

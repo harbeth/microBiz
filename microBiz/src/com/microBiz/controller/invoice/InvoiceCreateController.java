@@ -25,8 +25,7 @@ public class InvoiceCreateController extends CustomerContactLoadController {
     public Navigation run() throws Exception {
         
         Invoice invoice = new Invoice();
-       
-        invoice.setStatus("open");
+
         String forwardJsp = "";
         Customer c = null;
         if(asKey("customerkey")!=null){// from customer details page

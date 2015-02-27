@@ -8,10 +8,11 @@
 	});
 </script>
 <div class="col-lg-12">
-	<div class="well">
+
+
 		<form id="invoiceDetailJobDetailForm" role="form" method="post"
 			action="${f:url('/invoice/invoiceJobEditAction')}">
-
+	<div class="col-lg-6">
 			<input type="hidden" ${f:hidden("invoiceKey")} />
 			<c:if test="${key != null}">
 				<input type="hidden" ${f:hidden("key")} />
@@ -39,7 +40,20 @@
 				<span class="input-group-addon">Arrival Time</span> <input
 					type="text" ${f:text("arrivalTime")} class="form-control" />
 			</div>
-
+			<div class="form-group input-group">
+		<span class="input-group-addon">Status</span>
+		<select name="status" class="form-control">
+			<c:forEach items="${jobStatus}" var="js">
+				<option value="${f:h(js.value)}"
+					<c:if test = "${f:h(status) == f:h(js.value)}" >
+							selected
+						</c:if>
+					>${f:h(js.label)}</option>
+			</c:forEach>
+		</select>
+	</div>
+			</div>
+<div class="col-lg-6">
 			<div class="form-group">
 				<label>Check the Products For the Job:</label>
 				<c:forEach items="${prds}" var="p">
@@ -62,5 +76,7 @@
 				<a link="invoiceEditCloseJob" invoiceKey="${f:h(invoiceKey)}"
 					class="btn btn-default" role="button">Close</a>
 			</div>
-
+	</div>
 		</form>
+		</div>	
+		

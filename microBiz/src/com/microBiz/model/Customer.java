@@ -1,73 +1,85 @@
 package com.microBiz.model;
+
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 
 import com.microBiz.MicroBizConst;
 
-
 @Model(kind = "ctm")
 public class Customer extends MiCreatorBaseModel {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Attribute(unindexed = true)
     // residential or commercial
     private Integer type;
-    
+
     private String name;
-    
+
     private String phone;
-    
-    private String pymtTerm;
-    
+
+    private Integer pymtTerm;
+
     private String altPhone;
-    
+
     private String address;
-    
+
     private String email;
-    
+
     @Attribute(persistent = false)
     // for validation on FE, commercial cannot change to residential
     private Integer oldCustomerType;
-    
+
     @Attribute(unindexed = true)
-    private String rating;
-    
+    private Integer rating;
+
     @Attribute(unindexed = true)
     private String notes;
-    
-    @Attribute(unindexed = true)
-    private String active;
-    
-    @Attribute(persistent = false)
-    private InverseModelListRef<Contact, Customer> contactListRef = new InverseModelListRef<Contact, Customer>(Contact.class, "customerRef", this);
 
- 
+    private String active;
+
+    @Attribute(persistent = false)
+    private InverseModelListRef<Contact, Customer> contactListRef =
+        new InverseModelListRef<Contact, Customer>(
+            Contact.class,
+            "customerRef",
+            this);
+
+    public Customer() {
+        active = "on";
+    }
+
     public InverseModelListRef<Contact, Customer> getContactListRef() {
         return contactListRef;
     }
-    
-    @Attribute(persistent = false)
-    private InverseModelListRef<Quote, Customer> quoteListRef = new InverseModelListRef<Quote, Customer>(Quote.class, "customerRef", this);
 
- 
+    @Attribute(persistent = false)
+    private InverseModelListRef<Quote, Customer> quoteListRef =
+        new InverseModelListRef<Quote, Customer>(
+            Quote.class,
+            "customerRef",
+            this);
+
     public InverseModelListRef<Quote, Customer> getQuoteListRef() {
         return quoteListRef;
     }
-    
-    @Attribute(persistent = false)
-    private InverseModelListRef<Invoice, Customer> invoiceListRef = new InverseModelListRef<Invoice, Customer>(Invoice.class, "customerRef", this);
 
- 
+    @Attribute(persistent = false)
+    private InverseModelListRef<Invoice, Customer> invoiceListRef =
+        new InverseModelListRef<Invoice, Customer>(
+            Invoice.class,
+            "customerRef",
+            this);
+
     public InverseModelListRef<Invoice, Customer> getInvoiceListRef() {
         return invoiceListRef;
     }
-    
+
     @Attribute(persistent = false)
     // only for display
     private boolean selected;
-    
+
     public boolean isSelected() {
         return selected;
     }
@@ -75,11 +87,11 @@ public class Customer extends MiCreatorBaseModel {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
-    
+
     public boolean isCommercial() {
-        return Integer.valueOf(MicroBizConst.CODE_CUSTOMER_TYPE_COMMERCIAL) == type;
+        return MicroBizConst.CODE_CUSTOMER_TYPE_COMMERCIAL == type;
     }
- 
+
     public Integer getType() {
         return type;
     }
@@ -87,7 +99,11 @@ public class Customer extends MiCreatorBaseModel {
     public void setType(Integer type) {
         this.type = type;
     }
-
+    /*
+    public String getTypeLable() {
+        return getLable(type);
+    }
+    */
     public String getName() {
         return name;
     }
@@ -103,7 +119,6 @@ public class Customer extends MiCreatorBaseModel {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 
     public String getAltPhone() {
         return altPhone;
@@ -129,14 +144,18 @@ public class Customer extends MiCreatorBaseModel {
         this.email = email;
     }
 
-    public String getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
-
+    /*
+    public String getRatingLable() {
+        return getLable(rating);
+    }
+    */
     public String getNotes() {
         return notes;
     }
@@ -152,7 +171,7 @@ public class Customer extends MiCreatorBaseModel {
     public void setActive(String active) {
         this.active = active;
     }
-    
+
     public Integer getOldCustomerType() {
         return oldCustomerType;
     }
@@ -161,14 +180,16 @@ public class Customer extends MiCreatorBaseModel {
         this.oldCustomerType = oldCustomerType;
     }
 
-    public String getPymtTerm() {
+    public Integer getPymtTerm() {
         return pymtTerm;
     }
-
-    public void setPymtTerm(String pymtTerm) {
+    /*
+    public String getPymtTermLable() {
+        return getLable(pymtTerm);
+    }
+    */
+    public void setPymtTerm(Integer pymtTerm) {
         this.pymtTerm = pymtTerm;
     }
 
-  
-    
 }

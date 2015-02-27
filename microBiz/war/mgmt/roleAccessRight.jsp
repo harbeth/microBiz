@@ -15,10 +15,10 @@
 		<div class="col-lg-6">
 			<div class="form-group input-group">
 				<span class="input-group-addon">Role</span>
-				<select name="role" class="form-control">
+				<select name="miRole" class="form-control">
 					<c:forEach items="${roles}" var="r">
 						<option value="${f:h(r)}"
-							<c:if test = "${f:h(role) == f:h(r)}" >
+							<c:if test = "${f:h(miRole) == f:h(r)}" >
 								selected
 							</c:if>>${f:h(r)}</option>
 					</c:forEach>
@@ -60,7 +60,7 @@
 				<tbody>
 					<c:forEach var="rr" items="${roleRights}">
 						<tr>
-							<td>${f:h(rr.role)}</td>
+							<td>${f:h(rr.miRole)}</td>
 							<td>${f:h(rr.accessibleModule)}</td>
 							<td><a href="/mgmt/miRoleAccessRight?key=${f:h(rr.key)}">Delete</a></td>
 						</tr>

@@ -24,7 +24,7 @@ public class NewQuoteController extends CustomerContactLoadController {
     public Navigation run() throws Exception {
         // from customer details page
         Quote quote = new Quote();
-        quote.setStatus("open");
+
         Customer c = null;
         if(asKey("customerKey") !=null ){
             c= customerService.get(asKey("customerKey"));

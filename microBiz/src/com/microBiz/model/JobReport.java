@@ -20,7 +20,7 @@ public class JobReport extends MiCreatorBaseModel {
     //new, installer entered, not verified by manager, can be edited
     // void, manager modify a job report entered by installer, the original job report become void, a void job report can not be edited
     // verified, only verified job report is used to caculate cost
-    private String status;
+    private Integer status;
 
     @Attribute(unindexed = true)
     private String note;
@@ -108,12 +108,12 @@ public class JobReport extends MiCreatorBaseModel {
 
 
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

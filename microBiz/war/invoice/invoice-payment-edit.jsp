@@ -37,6 +37,13 @@
 				<span class="input-group-addon">Notes</span>
 				<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
 			</div>
+			
+					<div class="form-group">
+					<label>Canceled</label>
+					<label class="checkbox-inline">
+						<input type="checkbox" ${f:checkbox("canceled")}>yes
+					</label>
+		</div>
 		
 			<div class="form-group">
 				<button type="submit" class="btn btn-default">Submit</button> 

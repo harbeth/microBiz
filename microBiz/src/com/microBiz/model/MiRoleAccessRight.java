@@ -7,16 +7,18 @@ public class MiRoleAccessRight extends MiBaseModel {
 
     private static final long serialVersionUID = 1L;
 
-    private String role;
+    private String miRole;
     
     private String accessibleModule;
     
-    public String getRole() {
-        return role;
+ 
+
+    public String getMiRole() {
+        return miRole;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setMiRole(String miRole) {
+        this.miRole = miRole;
     }
 
     public String getAccessibleModule() {

@@ -42,6 +42,7 @@ public class InvoiceJobEditController extends BaseController{
         BeanUtil.copy(job, request);
         requestScope("installers", userService.getInstallers());
         requestScope("prds", productService.getReportingPrds());
+        requestScope("jobStatus", jobStatus);
         
         //requestScope("paymentTypes", paymentTypes);
         return forward("invoice-job-edit.jsp");

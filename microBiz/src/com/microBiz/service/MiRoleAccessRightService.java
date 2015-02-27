@@ -20,7 +20,7 @@ public class MiRoleAccessRightService {
     }
     
     public String getAccessibleModuleByRole(String role) {
-        List<MiRoleAccessRight> rights = Datastore.query(p).filter(p.role.equal(role)).asList();
+        List<MiRoleAccessRight> rights = Datastore.query(p).filter(p.miRole.equal(role)).asList();
         if(rights.size() == 0){
             return null;
         }else{

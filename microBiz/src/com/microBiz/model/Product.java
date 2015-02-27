@@ -11,7 +11,7 @@ public class Product extends MiBaseModel {
     private static final long serialVersionUID = 1L;
 
     // selling, only displayed for quotation and invoice, raw material, only displayed for job report, both
-    private String type;
+    private Integer type;
     
     @Attribute(unindexed = true)
     private String desc;
@@ -33,10 +33,16 @@ public class Product extends MiBaseModel {
    
     @Attribute(unindexed = true)
     private String consumeReportUnit;
+    
+    private String active;
 
     // many to one, will set the list when retrieve product from datastore, eager loading
     @Attribute(persistent = false)
     private List<PrdRatio> prdRatioList;
+    
+    public Product(){
+        active="on";
+    }
  
     public boolean getShowRatio(){
         if(prdRatioList!=null && prdRatioList.size()>1){
@@ -54,8 +60,7 @@ public class Product extends MiBaseModel {
         this.prdRatioList = prdRatioList;
     }
 
-    @Attribute(unindexed = true)
-    private String active;
+ 
     
  
     public String getActive() {
@@ -66,11 +71,11 @@ public class Product extends MiBaseModel {
         this.active = active;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

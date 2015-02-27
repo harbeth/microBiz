@@ -42,12 +42,13 @@ public abstract class BaseController extends Controller {
     protected List<LabelValue>  inventoryChangeTypes;
     protected List<LabelValue>  paymentTypes;
     protected List<LabelValue>  quoteStatus;
+    protected List<LabelValue>  jobStatus;
+    protected List<LabelValue>  invoiceStatus;
     protected List<LabelValue>  pymtTerms;
     
-    protected PropertyHelper proHelper;
-    
+  
     public BaseController(){
-        proHelper = new PropertyHelper();
+
         populateDropdownList();
     }
     
@@ -117,61 +118,74 @@ public abstract class BaseController extends Controller {
     
     private void populateDropdownList(){
         loadLegacyDropDown();       
-        List<String> roleKeyList = new ArrayList<String>();
+        List<Integer> roleKeyList = new ArrayList<Integer>();
         roleKeyList.add(MicroBizConst.CODE_ROLE_ADMIN);
         roleKeyList.add(MicroBizConst.CODE_ROLE_INSTALLER);
         roleKeyList.add(MicroBizConst.CODE_ROLE_MANAGER);
         roleKeyList.add(MicroBizConst.CODE_ROLE_SALES);
         getDropDownList(roleKeyList);
         
-        List<String> unitKeyList = new ArrayList<String>();
+        List<Integer> unitKeyList = new ArrayList<Integer>();
         unitKeyList.add(MicroBizConst.CODE_UNIT_KG);
         unitKeyList.add(MicroBizConst.CODE_UNIT_POUND);
         unitKeyList.add(MicroBizConst.CODE_UNIT_STROKE);
         unitKeyList.add(MicroBizConst.CODE_UNIT_SQFT);
         units = getDropDownList(unitKeyList);
         
-        List<String> cxRatingList = new ArrayList<String>();
-        cxRatingList.add(MicroBizConst.CODE_CUSTOMER_RATING_BAD);
+        List<Integer> cxRatingList = new ArrayList<Integer>();
+
         cxRatingList.add(MicroBizConst.CODE_CUSTOMER_RATING_NORMAL);
+        cxRatingList.add(MicroBizConst.CODE_CUSTOMER_RATING_BAD);
         cxRatingList.add(MicroBizConst.CODE_CUSTOMER_RATING_VIP);
         cxRatings = getDropDownList(cxRatingList);
         
-        List<String> productionTypeList = new ArrayList<String>();
+        List<Integer> productionTypeList = new ArrayList<Integer>();
         productionTypeList.add(MicroBizConst.CODE_PRODUCT_TYPE_SELLING);
         productionTypeList.add(MicroBizConst.CODE_PRODUCT_TYPE_RAW_MATERIAL);
         productionTypeList.add(MicroBizConst.CODE_PRODUCT_TYPE_BOTH);
         prdTypes = getDropDownList(productionTypeList);
         
-        List<String> supplierList = new ArrayList<String>();
+        List<Integer> supplierList = new ArrayList<Integer>();
         supplierList.add(MicroBizConst.CODE_SUPPLIER_PLOYFOAM);
         supplierList.add(MicroBizConst.CODE_SUPPLIER_BASF);
         suppliers = getDropDownList(supplierList);
         
-        List<String> cxTypeList = new ArrayList<String>();
+        List<Integer> cxTypeList = new ArrayList<Integer>();
         cxTypeList.add(MicroBizConst.CODE_CUSTOMER_TYPE_RESIDENTIAL);
         cxTypeList.add(MicroBizConst.CODE_CUSTOMER_TYPE_COMMERCIAL);
         cxTypes = getDropDownList(cxTypeList);
         
-        List<String> inventoryChangeTypeList = new ArrayList<String>();
+        List<Integer> inventoryChangeTypeList = new ArrayList<Integer>();
         inventoryChangeTypeList.add(MicroBizConst.CODE_INVENTORY_CHANGE_TYPE_INCR);
         inventoryChangeTypeList.add(MicroBizConst.CODE_INVENTORY_CHANGE_TYPE_DESC);
         inventoryChangeTypeList.add(MicroBizConst.CODE_INVENTORY_CHANGE_TYPE_RESET);
         inventoryChangeTypes = getDropDownList(inventoryChangeTypeList);
         
-        List<String> paymentTypeList = new ArrayList<String>();
+        List<Integer> paymentTypeList = new ArrayList<Integer>();
         paymentTypeList.add(MicroBizConst.CODE_PAYMENT_TYPE_CASH);
         paymentTypeList.add(MicroBizConst.CODE_PAYMENT_TYPE_CHECK);
         paymentTypeList.add(MicroBizConst.CODE_PAYMENT_TYPE_CREDIT_CARD);
         paymentTypes = getDropDownList(paymentTypeList);
         
-        List<String> quoteStatusList = new ArrayList<String>();
+        List<Integer> quoteStatusList = new ArrayList<Integer>();
         quoteStatusList.add(MicroBizConst.CODE_STATUS_OPEN);
         quoteStatusList.add(MicroBizConst.CODE_STATUS_WON);
         quoteStatusList.add(MicroBizConst.CODE_STATUS_FAILED);
         quoteStatus = getDropDownList(quoteStatusList);
         
-        List<String> paymentTermsList = new ArrayList<String>();
+        List<Integer> jobStatusList = new ArrayList<Integer>();
+        jobStatusList.add(MicroBizConst.CODE_STATUS_OPEN);
+        jobStatusList.add(MicroBizConst.CODE_STATUS_CANCELED);
+        jobStatusList.add(MicroBizConst.CODE_STATUS_COMPLETED);
+        jobStatus = getDropDownList(jobStatusList);
+        
+        List<Integer> invoiceStatusList = new ArrayList<Integer>();
+        invoiceStatusList.add(MicroBizConst.CODE_STATUS_OPEN);
+        invoiceStatusList.add(MicroBizConst.CODE_STATUS_CANCELED);
+        invoiceStatusList.add(MicroBizConst.CODE_STATUS_CLOSED);
+        invoiceStatus = getDropDownList(invoiceStatusList);
+        
+        List<Integer> paymentTermsList = new ArrayList<Integer>();
         paymentTermsList.add(MicroBizConst.CODE_PAYMENT_TERMS_0D);
         paymentTermsList.add(MicroBizConst.CODE_PAYMENT_TERMS_30D);
         paymentTermsList.add(MicroBizConst.CODE_PAYMENT_TERMS_45D);
@@ -204,13 +218,16 @@ public abstract class BaseController extends Controller {
         txRates.add("0.065");
     }
     
+
   
-    private List<LabelValue> getDropDownList(List<String> keyList) {
+    private List<LabelValue> getDropDownList(List<Integer> keyList) {
+
+ 
         List<LabelValue> lvList = new ArrayList<LabelValue>();
        
-        for ( String key : keyList ) {
-            String label = proHelper.getConstantLable(key);
-            LabelValue lv = new LabelValue(label, Integer.valueOf(key));
+        for ( Integer key : keyList ) {
+            String label = PropertyHelper.getInstance().getLable(key);
+            LabelValue lv = new LabelValue(label, key);
             lvList.add(lv);
         }
         return lvList;

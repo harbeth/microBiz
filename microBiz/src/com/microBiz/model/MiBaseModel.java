@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.slim3.datastore.Attribute;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.PropertyHelper;
 
 public abstract class MiBaseModel implements Serializable {
     
@@ -21,6 +22,9 @@ public abstract class MiBaseModel implements Serializable {
         this.key = key;
     }
 
+    protected String getLable(Integer code){
+        return PropertyHelper.getInstance().getLable(code);
+    }
 
     
     @Override

@@ -22,6 +22,8 @@ public class InvoiceExpense extends MiCreatorBaseModel {
 
     @Attribute(unindexed = true)
     private String note;
+    
+    private String canceled;
     // many to one
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
 
@@ -64,6 +66,16 @@ public class InvoiceExpense extends MiCreatorBaseModel {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public String getCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(String canceled) {
+        this.canceled = canceled;
+    }
+    
+    
 
  
 }

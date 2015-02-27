@@ -6,6 +6,7 @@ import java.util.List;
 import org.slim3.controller.Navigation;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.model.Invoice;
@@ -41,7 +42,7 @@ public class QuoteOrderActionController extends OrderLoadActionController {
         System.out.println("saveOption: " + saveOption);
         if ( saveOption.equals("convertToInvoice") ) {
             // for final, change status and create new invoice
-            quote.setStatus("won");
+            quote.setStatus(MicroBizConst.CODE_STATUS_WON);
             quoteService.save(quote);
             Invoice invoice = new Invoice();
             invoice.setAddress(quote.getAddress());

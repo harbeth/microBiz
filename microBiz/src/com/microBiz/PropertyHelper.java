@@ -3,33 +3,37 @@ package com.microBiz;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
+import org.slim3.memcache.Memcache;
 
-import com.google.appengine.api.memcache.ErrorHandlers;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 public class PropertyHelper {
+    private static PropertyHelper helper = new PropertyHelper( );
     
-    
-    public String getConstantLable(String constant){
-        MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
-        syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
-        String lable = (String)syncCache.get(constant); // read from cache
+    private PropertyHelper(){
+  
+        String lable = (String)Memcache.get(MicroBizConst.CODE_CUSTOMER_RATING_BAD);
         if (lable == null) {
             Properties prop = new Properties();
             try {
                 // microBiz.properties
                 InputStream in = getClass().getResourceAsStream("/microBiz.properties");
                 prop.load(in);
-                syncCache.putAll(prop);
+                Memcache.putAll(prop);
             }catch(Exception e) {
                 System.out.println("cannot find file: " + e.getMessage());
             }
-
-          lable = (String)syncCache.get(constant); 
         }
         
-        return lable;
+    }
+    
+    public static PropertyHelper getInstance( ) {
+        return helper;
+     }
+    public static String getLable(Integer constant){
+
+         return (String)Memcache.get(constant.toString()); 
+     
     }
 
 }
+

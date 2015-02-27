@@ -27,9 +27,12 @@ public class Payment extends MiCreatorBaseModel {
     @Attribute(persistent = false)
     private String invoiceKey;
     
+    private String canceled;
+    
     // many to one for Invoice
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
     
+  
     public ModelRef<Invoice> getInvoiceRef() {
         return invoiceRef;
     }
@@ -66,7 +69,16 @@ public class Payment extends MiCreatorBaseModel {
 
     }
     
+    
  
+
+    public String getCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(String canceled) {
+        this.canceled = canceled;
+    }
 
     public void setEnterDateStr(String enterDateStr) {
         this.enterDateStr = enterDateStr;

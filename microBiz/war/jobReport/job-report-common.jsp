@@ -42,9 +42,9 @@
 					type="text" ${f:text("workingHours")} class="form-control" />
 			</div>
 			<div class="form-group input-group">
-				<span class="input-group-addon">Notes</span> <input type="text"
-					${f:text("note")} class="form-control" />
-			</div>
+			<span class="input-group-addon">Notes</span>
+			<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
+		</div>
 </div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-default">Submit</button>

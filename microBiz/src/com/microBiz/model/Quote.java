@@ -21,7 +21,7 @@ public class Quote extends MiCreatorBaseModel {
     private String createDateStr;
 
     // open failed won
-    private String status;
+    private Integer status;
     // version count
     private Integer count;
     
@@ -70,11 +70,11 @@ public class Quote extends MiCreatorBaseModel {
     }
 
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

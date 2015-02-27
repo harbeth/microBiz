@@ -7,6 +7,7 @@ import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
+import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 
 
@@ -30,7 +31,7 @@ public class Job extends MiCreatorBaseModel {
     private List<String> usePrdKeys;
     
     // ongoing, complete, canceled
-    private String status;
+    private Integer status;
     // only for display
     @Attribute(persistent = false)
     private String invoiceKey;
@@ -44,6 +45,9 @@ public class Job extends MiCreatorBaseModel {
     @Attribute(persistent = false)
     private InverseModelListRef<JobReport, Job> jobReportListRef = new InverseModelListRef<JobReport, Job>(JobReport.class, "jobRef", this);
  
+    public Job(){
+        status = MicroBizConst.CODE_STATUS_OPEN;
+    }
 
     public InverseModelListRef<JobReport, Job> getJobReportListRef() {
         return jobReportListRef;
@@ -95,11 +99,11 @@ public class Job extends MiCreatorBaseModel {
         this.note = note;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
     

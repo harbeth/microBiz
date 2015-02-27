@@ -21,6 +21,13 @@
 			<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
 		</div>
 		
+					<div class="form-group">
+					<label>Canceled</label>
+					<label class="checkbox-inline">
+						<input type="checkbox" ${f:checkbox("canceled")}>yes
+					</label>
+		</div>
+		
 		<div class="form-group">
 			<button type="submit" class="btn btn-default">Submit</button>${f:nbsp('    ')}
 			<a link="invoiceEditCloseExpense" invoiceKey="${f:h(invoiceKey)}" class="btn btn-default" role="button">Close</a>
