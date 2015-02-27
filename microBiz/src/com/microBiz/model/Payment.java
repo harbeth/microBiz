@@ -15,7 +15,7 @@ public class Payment extends MiCreatorBaseModel {
     @Attribute(unindexed = true)
     private Double amount;
 
-    private String method;
+    private Integer method;
     
     
     private String note;
@@ -50,10 +50,13 @@ public class Payment extends MiCreatorBaseModel {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-    public String getMethod() {
+    public Integer getMethod() {
         return method;
     }
-    public void setMethod(String method) {
+    public String getMethodLable() {
+        return getLable(method);
+    }
+    public void setMethod(Integer method) {
         this.method = method;
     }
     public String getNote() {

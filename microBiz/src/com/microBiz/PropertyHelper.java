@@ -30,8 +30,11 @@ public class PropertyHelper {
         return helper;
      }
     public static String getLable(Integer constant){
-
+        if(constant!=null){
          return (String)Memcache.get(constant.toString()); 
+        }else{
+            return "";
+        }
      
     }
 

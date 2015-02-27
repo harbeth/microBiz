@@ -17,7 +17,7 @@
 						<tr>
 							<td>${f:h(q.address)}</td>
 							<td>${f:h(q.createDateStr)}</td>
-							<td>${f:h(q.status)}</td>
+							<td>${f:h(q.statusLable)}</td>
 							<td><a href="/quote/editQuote?quoteKey=${f:h(q.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>

@@ -14,10 +14,6 @@ public class QuoteOrder extends MiCreatorBaseModel {
 
     private String name;
 
-    
-    @Attribute(persistent = false)
-    private String createAtStr;
-    
     private ModelRef<Order> orderRef = new ModelRef<Order>(Order.class);
     
     private ModelRef<Quote> quoteRef = new ModelRef<Quote>(Quote.class);
@@ -33,12 +29,6 @@ public class QuoteOrder extends MiCreatorBaseModel {
 
     public String getCreateAtStr() {
         return MicroBizUtil.parseDateToStr(createdAt);
-    }
-
-
-
-    public void setCreateAtStr(String createAtStr) {
-        this.createAtStr = createAtStr;
     }
 
 

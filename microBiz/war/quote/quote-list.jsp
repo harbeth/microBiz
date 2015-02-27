@@ -23,6 +23,7 @@
 
 						<th>Created At</th>
 						<th>Sales Email</th>
+						<th>Status</th>
 
 					</tr>
 				</thead>
@@ -35,6 +36,7 @@
 
 							<td>${f:h(q.createDateStr)}</td>
 							<td>${f:h(q.createdEmail)}</td>
+							<td>${f:h(q.statusLable)}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

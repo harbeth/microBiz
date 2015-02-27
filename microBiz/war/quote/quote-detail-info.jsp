@@ -13,7 +13,7 @@
 			${f:h(quote.address)} &nbsp;
 		</div>
 		<div class="col-xs-6 col-md-4">
-			<font class="text-muted">Status:</font>${f:h(quote.status)} <br>
+			<font class="text-muted">Status:</font>${f:h(quote.statusLable)} <br>
 			<font class="text-muted">Note:</font>
 			${f:h(quote.note)}
 		</div>

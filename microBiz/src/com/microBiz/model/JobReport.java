@@ -55,7 +55,7 @@ public class JobReport extends MiCreatorBaseModel {
 
             result.append(p.getModel())
             .append(": ").append(jmr.getQty())
-            .append("  ").append(p.getConsumeReportUnit());
+            .append("  ").append(p.getConsumeReportUnitLable());
             if(jmr.getPrdRatioRef()!=null && jmr.getPrdRatioRef().getKey()!=null){
                 result.append("  by  ").append(jmr.getPrdRatioRef().getModel().getDesc());
             }
@@ -110,6 +110,10 @@ public class JobReport extends MiCreatorBaseModel {
 
     public Integer getStatus() {
         return status;
+    }
+    
+    public String getStatusLable() {
+        return getLable(status);
     }
 
 

@@ -21,7 +21,7 @@ public class Product extends MiBaseModel {
     private String supplier;
     
     @Attribute(unindexed = true)
-    private String unit;
+    private Integer unit;
     
     @Attribute(unindexed = true)
     private Double rate;
@@ -32,7 +32,7 @@ public class Product extends MiBaseModel {
     
    
     @Attribute(unindexed = true)
-    private String consumeReportUnit;
+    private Integer consumeReportUnit;
     
     private String active;
 
@@ -74,6 +74,10 @@ public class Product extends MiBaseModel {
     public Integer getType() {
         return type;
     }
+    
+    public String getTypeLable() {
+        return getLable(type);
+    }
 
     public void setType(Integer type) {
         this.type = type;
@@ -106,11 +110,15 @@ public class Product extends MiBaseModel {
     }
 
 
-    public String getConsumeReportUnit() {
+    public Integer getConsumeReportUnit() {
         return consumeReportUnit;
     }
+    
+    public String getConsumeReportUnitLable() {
+        return getLable(consumeReportUnit);
+    }
 
-    public void setConsumeReportUnit(String consumeReportUnit) {
+    public void setConsumeReportUnit(Integer consumeReportUnit) {
         this.consumeReportUnit = consumeReportUnit;
     }
 
@@ -123,11 +131,15 @@ public class Product extends MiBaseModel {
         this.currentQty = currentQty;
     }
 
-    public String getUnit() {
+    public Integer getUnit() {
         return unit;
     }
+    
+    public String getUnitLable() {
+        return getLable(unit);
+    }
 
-    public void setUnit(String unit) {
+    public void setUnit(Integer unit) {
         this.unit = unit;
     }
 

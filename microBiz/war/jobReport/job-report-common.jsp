@@ -9,7 +9,7 @@
 			<c:forEach items="${prds}" var="p" varStatus="loop">
 				<div class="form-group input-group">
 					<span class="input-group-addon">${f:h(p.model)}
-						${f:nbsp('  ')} ${f:h(p.consumeReportUnit)}</span> <input
+						${f:nbsp('  ')} ${f:h(p.consumeReportUnitLable)}</span> <input
 						type="text" name="qty" value="${f:h(qty[loop.index])}" class="form-control" />
 						<c:if test = "${f:h(p.showRatio==false)}">
 						<input type="hidden" name="prdRatioKey" value="-1"/>

@@ -14,7 +14,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Invoice #</th>
+							<th>Inv #</th>
 							<th>Customer</th>
 							<th>Address</th>
 							<th>Installer</th>

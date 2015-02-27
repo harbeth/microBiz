@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h2>Inventory Details For Product:${f:h(product.model)}  Current Quantity :  ${f:h(product.currentQty)}${f:nbsp('  ')} ${f:h(product.unit)}  </h2> 
+		<h2>Inventory Details For Product:${f:h(product.model)}  Current Quantity :  ${f:h(product.currentQty)}${f:nbsp('  ')} ${f:h(product.unitLable)}  </h2> 
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
 				<thead>

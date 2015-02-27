@@ -24,7 +24,7 @@
 						<tr>
 
 							<td>${f:h(p.model)}</td>
-							<td>${f:h(p.currentQyt)} ${f:h(p.purchaseUnit)}</td>
+							<td>${f:h(p.currentQyt)} ${f:h(p.unitLable)}</td>
 							<td>list details  add Quantity</td>
 
 						</tr>

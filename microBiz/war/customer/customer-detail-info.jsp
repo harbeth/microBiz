@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-xs-6 col-md-4">
   
-		<Strong> ${f:h(customer.name)} </Strong>  ${f:nbsp('  ')}  ${f:h(customer.type)}  <br>
+		<Strong> ${f:h(customer.name)} </Strong>  ${f:nbsp('  ')}  ${f:h(customer.typeLable)}  <br>
 		 ${f:h(customer.address)}<br> 
 		  ${f:h(customer.phone)} ${f:nbsp('  ')}
 		 ${f:h(customer.altPhone)} 
@@ -13,7 +13,7 @@
   </div>
   <div class="col-xs-6 col-md-4">
   <font class="text-muted">Notes:</font> ${f:h(customer.notes)} <br>
-  <font class="text-muted">Rating:</font>${f:h(customer.rating)}<br>
+  <font class="text-muted">Rating:</font>${f:h(customer.ratingLable)}<br>
   <font class="text-muted">Active:</font> ${f:h(customer.active)}
   
   

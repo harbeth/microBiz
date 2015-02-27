@@ -16,9 +16,7 @@ public class Quote extends MiCreatorBaseModel {
     private static final long serialVersionUID = 1L;
 
     private String address;
-    
-    @Attribute(persistent = false)
-    private String createDateStr;
+
 
     // open failed won
     private Integer status;
@@ -65,13 +63,14 @@ public class Quote extends MiCreatorBaseModel {
         return MicroBizUtil.parseDateToStr(createdAt);
     }
 
-    public void setCreateDateStr(String createDateStr) {
-        this.createDateStr = createDateStr;
-    }
 
 
     public Integer getStatus() {
         return status;
+    }
+    
+    public String getStatusLable() {
+        return getLable(status);
     }
 
     public void setStatus(Integer status) {

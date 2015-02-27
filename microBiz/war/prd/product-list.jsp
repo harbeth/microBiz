@@ -30,9 +30,9 @@
 					<c:forEach var="p" items="${prds}">
 						<tr>
 							<td><a link="productEdit" productKey="${f:h(p.key)}">${f:h(p.model)}</a></td>
-							<td>${f:h(p.type)}</td>
+							<td>${f:h(p.typeLable)}</td>
 							<td>${f:h(p.rate)}</td>
-							<td>${f:h(p.unit)}</td>
+							<td>${f:h(p.unitLable)}</td>
 
 						</tr>
 					</c:forEach>

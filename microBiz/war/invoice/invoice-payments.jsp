@@ -15,7 +15,7 @@
 				<tbody>
 					<c:forEach var="p" items="${payments}">
 						<tr>
-							<td>${f:h(p.method)}</td>
+							<td>${f:h(p.methodLable)}</td>
 							<td>${f:h(p.amount)}</td>
 							<td>${f:h(p.enterDateStr)}</td>
 							<td>${f:h(p.note)}</td>

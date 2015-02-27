@@ -27,7 +27,7 @@
 					<c:forEach var="c" items="${customers}">
 						<tr>
 							<td><a link="customerEditDetail" customerKey="${f:h(c.key)}">${f:h(c.name)}</a></td>
-							<td>${f:h(c.type)}</td>
+							<td>${f:h(c.typeLable)}</td>
 							<td>${f:h(c.phone)}</td>
 							<td>${f:h(c.address)}</td>
 						</tr>

@@ -27,6 +27,7 @@ public class Customer extends MiCreatorBaseModel {
 
     private String email;
 
+
     @Attribute(persistent = false)
     // for validation on FE, commercial cannot change to residential
     private Integer oldCustomerType;
@@ -99,11 +100,11 @@ public class Customer extends MiCreatorBaseModel {
     public void setType(Integer type) {
         this.type = type;
     }
-    /*
-    public String getTypeLable() {
-        return getLable(type);
-    }
-    */
+
+    
+     public String getTypeLable()
+     { return getLable(type); }
+    
     public String getName() {
         return name;
     }
@@ -151,11 +152,12 @@ public class Customer extends MiCreatorBaseModel {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
-    /*
-    public String getRatingLable() {
-        return getLable(rating);
-    }
-    */
+
+    
+    public String getRatingLable() { 
+        return getLable(rating); 
+   }
+    
     public String getNotes() {
         return notes;
     }
@@ -183,11 +185,11 @@ public class Customer extends MiCreatorBaseModel {
     public Integer getPymtTerm() {
         return pymtTerm;
     }
-    /*
-    public String getPymtTermLable() {
-        return getLable(pymtTerm);
-    }
-    */
+
+
+     public String getPymtTermLable() { return getLable(pymtTerm); }
+     
+     
     public void setPymtTerm(Integer pymtTerm) {
         this.pymtTerm = pymtTerm;
     }
