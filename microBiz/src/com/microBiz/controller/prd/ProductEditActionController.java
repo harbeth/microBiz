@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
+import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
 
 import com.microBiz.controller.BaseController;
@@ -49,6 +50,8 @@ public class ProductEditActionController extends BaseController{
             pr.setRatio(Double.parseDouble(ratios[i]));     
             prdRs.add(pr);
         }
+
+        p.getSupplierRef().setKey(Datastore.stringToKey(asString("supplier")));
         s.save(p, prdRs);
         List<Product> prds = s.getAll();
         requestScope("prds", prds);

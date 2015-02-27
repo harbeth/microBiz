@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
+import org.slim3.datastore.ModelRef;
 
 
 @Model(kind = "prd")
@@ -17,8 +18,7 @@ public class Product extends MiBaseModel {
     private String desc;
     
     private String model;
-    
-    private String supplier;
+
     
     @Attribute(unindexed = true)
     private Integer unit;
@@ -35,6 +35,8 @@ public class Product extends MiBaseModel {
     private Integer consumeReportUnit;
     
     private String active;
+    
+    private ModelRef<Supplier> supplierRef = new ModelRef<Supplier>(Supplier.class);
 
     // many to one, will set the list when retrieve product from datastore, eager loading
     @Attribute(persistent = false)
@@ -101,13 +103,6 @@ public class Product extends MiBaseModel {
         this.model = model;
     }
 
-    public String getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(String supplier) {
-        this.supplier = supplier;
-    }
 
 
     public Integer getConsumeReportUnit() {
@@ -151,9 +146,10 @@ public class Product extends MiBaseModel {
         this.rate = rate;
     }
 
+    public ModelRef<Supplier> getSupplierRef() {
+        return supplierRef;
+    }
 
-
-    
     
     
 }

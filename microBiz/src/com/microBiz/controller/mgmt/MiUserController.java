@@ -31,7 +31,6 @@ public class MiUserController extends BaseController{
             p = s.get(asKey(metaP.key));         
         }else{
             p = new MiUser();
-            p.setActive("on");
         }
         BeanUtil.copy(p, request);
         List<MiUser> uList = s.getAll();

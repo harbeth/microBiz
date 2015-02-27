@@ -59,7 +59,7 @@
 				<c:forEach items="${prds}" var="p">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" name="prds" value="${f:h(p.key)}"> ${f:h(p.model)}  from  ${f:h(p.supplier)}
+							<input type="checkbox" name="prds" value="${f:h(p.key)}"> ${f:h(p.model)} 
 						</label>
 					</div>
 				</c:forEach>

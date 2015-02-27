@@ -24,9 +24,7 @@ public interface MicroBizConst {
     public Integer CODE_PRODUCT_TYPE_SELLING = new Integer(50);
     public Integer CODE_PRODUCT_TYPE_RAW_MATERIAL = new Integer(51);
     public Integer CODE_PRODUCT_TYPE_BOTH = new Integer(52);
-    
-    public Integer CODE_SUPPLIER_PLOYFOAM = new Integer(60);
-    public Integer CODE_SUPPLIER_BASF = new Integer(61);
+
     
     public Integer CODE_CUSTOMER_TYPE_RESIDENTIAL =new Integer(70);
     public Integer CODE_CUSTOMER_TYPE_COMMERCIAL = new Integer(71);

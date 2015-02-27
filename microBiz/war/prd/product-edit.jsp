@@ -145,10 +145,10 @@
 						<select name="supplier" class="form-control">
 							<option value="-1">Select ... </option>
 							<c:forEach items="${suppliers}" var="s">
-								<option value="${f:h(s.value)}"
-									<c:if test = "${f:h(supplier) == f:h(s.value)}">
-										selected
-									</c:if>>${f:h(s.label)}</option>
+								<option value="${f:h(s.key)}"
+					<c:if test = "${f:h(supplierRef.model.key) == f:h(s.key)}" >
+						selected
+					</c:if>>${f:h(s.name)}</option>
 							</c:forEach>
 					</select>
 				</div>

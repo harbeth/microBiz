@@ -8,15 +8,17 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.model.PrdRatio;
 import com.microBiz.model.Product;
 import com.microBiz.service.ProductService;
+import com.microBiz.service.SupplierService;
 
 public class ProductEditController extends BaseController{
 
     private ProductService s;
+    private SupplierService supplierS;
 
     public ProductEditController(){
         super();
         s = new ProductService();
-
+        supplierS = new SupplierService();
 
     }
     @Override
@@ -35,7 +37,7 @@ public class ProductEditController extends BaseController{
         }
         BeanUtil.copy(p, request);
         requestScope("prdTypes", prdTypes);
-        requestScope("suppliers", suppliers);
+        requestScope("suppliers", supplierS.getAll());
         requestScope("units", units); 
         if(prdRs!=null){
             requestScope("prdRatios", prdRs);

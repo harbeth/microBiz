@@ -90,6 +90,7 @@ java.util.logging.Level"%>
 					<ul class="nav nav-second-level">
 						<li><a href="/prd/product">Product</a></li>
 						<li><a href="/prd/inventory">Inventory</a></li>
+						<li><a href="/prd/supplier">Supplier</a></li>
 					</ul> <!-- /.nav-second-level --></li>
 				<%
 					}

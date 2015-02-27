@@ -36,7 +36,6 @@ public abstract class BaseController extends Controller {
     protected List<LabelValue>  units ;
     protected List<LabelValue>  cxRatings;
     protected List<LabelValue>  prdTypes;
-    protected List<LabelValue>  suppliers;
     protected List<LabelValue>  cxTypes;
     
     protected List<LabelValue>  inventoryChangeTypes;
@@ -144,11 +143,7 @@ public abstract class BaseController extends Controller {
         productionTypeList.add(MicroBizConst.CODE_PRODUCT_TYPE_RAW_MATERIAL);
         productionTypeList.add(MicroBizConst.CODE_PRODUCT_TYPE_BOTH);
         prdTypes = getDropDownList(productionTypeList);
-        
-        List<Integer> supplierList = new ArrayList<Integer>();
-        supplierList.add(MicroBizConst.CODE_SUPPLIER_PLOYFOAM);
-        supplierList.add(MicroBizConst.CODE_SUPPLIER_BASF);
-        suppliers = getDropDownList(supplierList);
+
         
         List<Integer> cxTypeList = new ArrayList<Integer>();
         cxTypeList.add(MicroBizConst.CODE_CUSTOMER_TYPE_RESIDENTIAL);
