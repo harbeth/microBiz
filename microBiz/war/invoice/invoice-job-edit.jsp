@@ -8,7 +8,10 @@
 	});
 </script>
 <div class="col-lg-12">
-
+<div class="panel panel-green">
+		<div class="panel-heading">Assign Job </div>
+		<!-- /.panel-heading -->
+		<div class="panel-body">
 
 		<form id="invoiceDetailJobDetailForm" role="form" method="post"
 			action="${f:url('/invoice/invoiceJobEditAction')}">
@@ -79,4 +82,4 @@
 	</div>
 		</form>
 		</div>	
-		
+		</div>

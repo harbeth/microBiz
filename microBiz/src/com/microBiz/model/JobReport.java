@@ -59,7 +59,7 @@ public class JobReport extends MiCreatorBaseModel {
             if(jmr.getPrdRatioRef()!=null && jmr.getPrdRatioRef().getKey()!=null){
                 result.append("  by  ").append(jmr.getPrdRatioRef().getModel().getDesc());
             }
-            result.append("  ---  ");
+            result.append("   ::::   ");
 
             
         }

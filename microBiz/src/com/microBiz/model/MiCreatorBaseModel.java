@@ -37,6 +37,12 @@ public abstract class MiCreatorBaseModel extends MiBaseModel {
         return createdEmail;
       
     }
+    
+    public String getCreatorName() {
+        
+        return createdEmail;
+      
+    }
 
     public void setCreatedEmail(String createdEmail) {
         if(createdEmail!=null){
