@@ -8,7 +8,7 @@
                 <form role="form">
 					<div class="form-group input-group">
 						<span class="input-group-addon">Notes:</span> 
-						<input type="text" name="qty" />
+						<input class="form-control" type="text" name="qty" />
 					</div>
 					<div class="form-group input-group">
 						<span class="input-group-addon">Status:</span> 
