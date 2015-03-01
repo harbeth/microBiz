@@ -66,12 +66,12 @@
 		</div>
 	</div>
 
-		<div id="dashboardWorkingAreaDIV"></div>
+		
 			
 
 	<div class="row">
 		<div id="unpaidInvoiceDIV" type="tab" hasContent="n" class="col-lg-12" >
-			
+			<jsp:include page="test-template.jsp" flush="true"></jsp:include>
 		</div>
 		<div id="ongoingInvoiceDIV" type="tab"  hasContent="n" class="col-lg-12" ></div>
 		<div id="unApprovedJobReportsDIV" type="tab" hasContent="y" class="col-lg-12" ></div>
