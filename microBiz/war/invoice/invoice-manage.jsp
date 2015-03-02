@@ -7,7 +7,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-4 col-md-8">
-		<div class="panel panel-green">
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<li>Closed 2/12/2015</li>
 				<li>4 Jobs Completed</li>
@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	<div class="col-lg-4 col-md-8">
-		<div class="panel panel-yellow">
+		<div class="panel panel-success">
 			<div class="panel-heading">
 				<li>30 Days Term</li>
 				<li>Amount: $4789</li>
@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	<div class="col-lg-4 col-md-8">
-		<div class="panel panel-red">
+		<div class="panel panel-danger">
 			<div class="panel-heading">
 				<li>Profit Margin: 10%</li>
 				<li>Labor Cost: $4789</li>

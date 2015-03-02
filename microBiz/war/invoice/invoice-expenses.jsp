@@ -1,13 +1,14 @@
 <%@include file="../includes/taglib.jsp"%>
 
 <div class="col-lg-12">
-	<div class="well"> 
+	<div class="panel panel-danger">
+	<div class="panel-body"> 
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
-						<th>Expense</th>
-						<th>Report Date</th>
+						<th>Expense Amount</th>
+						<th>Date</th>
 						<th>Note</th>
 					</tr>
 				</thead>
@@ -23,6 +24,7 @@
 				</tbody>
 			</table>
 		</div>
+	</div>
 	</div>
 </div>
 			

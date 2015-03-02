@@ -1,13 +1,8 @@
 <%@include file="../includes/taglib.jsp"%>
 <div class="col-lg-12">
-	<div class="panel panel-green">
-		<div class="panel-heading">
-			Jobs for Inv#: ${f:h(invoice.invoiceNumber)}
-			${f:nbsp('     ')} 
-			<span class="fa fa-home">${f:h(invoice.address)} </span>
-		</div>
-	</div>
-	<!-- /.panel-heading -->
+	<div class="panel panel-info">
+	
+	<h4>${f:nbsp('   ')}  All Jobs</h4>	
 	<div class="panel-body">
 		<ul>
 		<c:forEach var="j" items="${jobs}">
@@ -31,5 +26,6 @@
 			</li>
 		</c:forEach>
 		</ul>
+		</div>
 	</div>
 </div>

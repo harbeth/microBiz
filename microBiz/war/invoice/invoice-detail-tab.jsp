@@ -1,12 +1,22 @@
 <%@include file="../includes/taglib.jsp"%>
-<div id="invoiceInfoDIV">
+<div id="invoiceInfoDIV" class="row">
 	<jsp:include page="invoice-detail-info.jsp" flush="true" />
 </div>
-<div>
-	<a link="invoiceEdit" invoiceKey="${f:h(invoice.key)}">Edit</a>&nbsp;<a link="invoiceEditClose">Close</a>
+
+<ul class="nav nav-pills">
+	<li class="active">
+		<a link="invoiceOrder" data-toggle="tab" aria-expanded="false">Items</a>
+	</li>
+    <li class="">
+    	<a link="invoiceEdit" invoiceKey="${f:h(invoice.key)}" data-toggle="tab" aria-expanded="false">Edit</a>
+    </li>
+</ul>
+
+<div id="invoiceOrderDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row">
+	<jsp:include page="./invoice-order.jsp" flush="true"></jsp:include>
 </div>
-<div id="invoiceOrderDIV">
-	<jsp:include page="./invoice-order.jsp" flush="true" />
+
+<div id="invoiceEditDetailDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n">
+
 </div>
-<div id="invoiceEditDetailDIV">
-</div>
+

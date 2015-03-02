@@ -1,12 +1,22 @@
-package com.microBiz.controller;
+package com.microBiz.controller.pub;
 
 import java.io.BufferedOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
+import org.slim3.datastore.Datastore;
 import org.slim3.util.ResponseLocator;
 
+import com.microBiz.controller.BaseController;
+import com.microBiz.model.Customer;
+import com.microBiz.model.Invoice;
+import com.microBiz.model.Order;
+import com.microBiz.model.OrderItem;
+import com.microBiz.service.CustomerService;
+import com.microBiz.service.InvoiceService;
+import com.microBiz.service.OrderService;
 import com.pdfjet.Align;
 import com.pdfjet.Cell;
 import com.pdfjet.Color;
@@ -23,20 +33,30 @@ import com.pdfjet.TextAlign;
 import com.pdfjet.TextBox;
 import com.pdfjet.TextLine;
 
-public class PdfTestController extends BaseController {
-
+public class InvoiceToPdfController extends BaseController {
+    private InvoiceService invoiceService;
+    private OrderService orderService;
+    
+    public InvoiceToPdfController(){
+        super();
+        invoiceService = new InvoiceService();
+        orderService = new OrderService();
+    }
     @Override
     public Navigation run() throws Exception {
         PDF pdf = new PDF(
             new BufferedOutputStream(
                 ResponseLocator.get().getOutputStream()));
-
+        System.out.println("key is" + asString("invoiceKey"));
+        Invoice invoice = invoiceService.get(Datastore.stringToKey(asString("invoiceKey"))); 
+        Order order = invoice.getOrderRef().getModel();
+        
         Font fs = new Font(pdf, CoreFont.HELVETICA);
         Font fbig = new Font(pdf, CoreFont.HELVETICA_BOLD);
         Font flg = new Font(pdf, CoreFont.HELVETICA_BOLD);
         Font f4 = new Font(pdf, CoreFont.HELVETICA_OBLIQUE);
         
-        fs.setSize(8);
+        fs.setSize(10);
         fbig.setSize(14);
         flg.setSize(20);
         f4.setSize(10);
@@ -75,8 +95,8 @@ public class PdfTestController extends BaseController {
     List<Cell> row2 = new ArrayList<Cell>();
     Cell cell1 = new Cell(f4, "Date");
     Cell cell2 = new Cell(f4, "Invoice #");
-    Cell cell3 = new Cell(f4, "2014/12/12");
-    Cell cell4 = new Cell(f4, "456987");
+    Cell cell3 = new Cell(f4, invoice.getCreatedAtStr());
+    Cell cell4 = new Cell(f4, invoice.getInvoiceNumber());
     row1.add(cell1);
     row1.add(cell2);
     row2.add(cell3);
@@ -97,9 +117,9 @@ public class PdfTestController extends BaseController {
     billTo.drawOn(page);
    
     StringBuilder buf = new StringBuilder();
-    buf.append("Dominion Drywall company \n");
-    buf.append("address here \n");
-    buf.append("phone number here \n");
+    buf.append(invoice.getCustomerRef().getModel().getName() +"\n");
+    buf.append(invoice.getCustomerRef().getModel().getAddress()+"\n");
+    buf.append(invoice.getCustomerRef().getModel().getPhone());
 
     // TextBox textBox = new TextBox(f1, buf.toString(), 400f, 363f);
     TextBox textBox = new TextBox(f4, buf.toString(), 300f, 50f);
@@ -117,9 +137,9 @@ public class PdfTestController extends BaseController {
     Cell cellpo1 = new Cell(f4, "Customer PO #");
     Cell cellpo2 = new Cell(f4, "Job Address");
     Cell cellpo3 = new Cell(f4, "Completion Date");
-    Cell cellpo4 = new Cell(f4, "456987dag");
-    Cell cellpo5 = new Cell(f4, "sth stre  toronto northjk ");
-    Cell cellpo6 = new Cell(f4, "2015/01/01");
+    Cell cellpo4 = new Cell(f4, invoice.getPoNumber());
+    Cell cellpo5 = new Cell(f4, invoice.getAddress());
+    Cell cellpo6 = new Cell(f4, invoice.getStatusChangeDateStr());
     poR1.add(cellpo1);
     poR1.add(cellpo2);
     poR1.add(cellpo3);
@@ -142,11 +162,10 @@ public class PdfTestController extends BaseController {
     
     List<List<Cell>> itemsTableData = new ArrayList<List<Cell>>();
     List<Cell> itemsH = new ArrayList<Cell>();
-    List<Cell> items1 = new ArrayList<Cell>();
-    List<Cell> items2 = new ArrayList<Cell>();
+
     Cell cellH1 = new Cell(f4, "Description");
-    Cell cellH2 = new Cell(f4, "Qyt");
-    Cell cellH3 = new Cell(f4, "Rate");
+    Cell cellH2 = new Cell(f4, "Rate");
+    Cell cellH3 = new Cell(f4, "Qty");
     Cell cellH4 = new Cell(f4, "Amount");
     cellH1.setBgColor(Color.lightgray);
     cellH2.setBgColor(Color.lightgray);
@@ -161,37 +180,31 @@ public class PdfTestController extends BaseController {
     itemsH.add(cellH2);
     itemsH.add(cellH3);
     itemsH.add(cellH4);
-    
-    Cell cellIR1 = new Cell(f4, "skfdskgds");
-    cellIR1.setNoBorders();
-    Cell cellIR2 = new Cell(f4, "230");
-    cellIR2.setNoBorders();
-    Cell cellIR3 = new Cell(f4, "5.23");
-    cellIR3.setNoBorders();
-    Cell cellIR4 = new Cell(f4, "1453");
-    cellIR4.setNoBorders();
-    items1.add(cellIR1);
-    items1.add(cellIR2);
-    items1.add(cellIR3);
-    items1.add(cellIR4);
-    
-    Cell cellIR11 = new Cell(f4, "skfdskgds");
-    cellIR11.setNoBorders();
-    Cell cellIR12 = new Cell(f4, "230");
-    cellIR12.setNoBorders();
-    Cell cellIR13 = new Cell(f4, "5.23");
-    cellIR13.setNoBorders();
-    Cell cellIR14 = new Cell(f4, "1453");
-    cellIR14.setNoBorders();
-    items2.add(cellIR11);
-    items2.add(cellIR12);
-    items2.add(cellIR13);
-    items2.add(cellIR14);
-
-
     itemsTableData.add(itemsH);
-    itemsTableData.add(items1);
-    itemsTableData.add(items2);
+    
+    List<OrderItem> items = orderService.gerOrderItems(order.getKey());
+    Iterator i = items.iterator();
+    Double subTotal = new Double(0);
+    while (i.hasNext()){
+        List<Cell> items1 = new ArrayList<Cell>();
+        OrderItem oi = (OrderItem)i.next();
+        Cell cellIR1 = new Cell(f4, oi.getProductRef().getModel().getModel() + " :  "+ oi.getDesc());
+        cellIR1.setNoBorders();
+        Cell cellIR2 = new Cell(f4, oi.getRate().toString());
+        cellIR2.setNoBorders();
+        Cell cellIR3 = new Cell(f4, oi.getQty().toString());
+        cellIR3.setNoBorders();
+        Double total = oi.getQty()*oi.getRate();
+        subTotal = subTotal+total;
+        Cell cellIR4 = new Cell(f4, total.toString());
+        cellIR4.setNoBorders();
+        items1.add(cellIR1);
+        items1.add(cellIR2);
+        items1.add(cellIR3);
+        items1.add(cellIR4);
+        itemsTableData.add(items1);
+    }
+
 
     Table itemTable = new Table();
     itemTable.setData(itemsTableData, Table.DATA_HAS_2_HEADER_ROWS);
@@ -210,9 +223,9 @@ public class PdfTestController extends BaseController {
     List<Cell> totalR3 = new ArrayList<Cell>();
     List<Cell> totalR4 = new ArrayList<Cell>();
     
-    Cell cellT11 = new Cell(f4,"Sub Total:");
+    Cell cellT11 = new Cell(f4,"Sub Total: ");
     cellT11.setNoBorders();
-    Cell cellT12 = new Cell(f4,"12365");
+    Cell cellT12 = new Cell(f4,subTotal.toString());
     cellT12.setNoBorders();
     cellT12.setLeftPadding(22);
     totalR1.add(cellT11);
@@ -220,7 +233,7 @@ public class PdfTestController extends BaseController {
     
     Cell cellT21 = new Cell(f4,"Discount:");
     cellT21.setNoBorders();
-    Cell cellT22 = new Cell(f4,"236");
+    Cell cellT22 = new Cell(f4,order.getDiscount().toString());
     cellT22.setNoBorders();
     cellT22.setLeftPadding(22);
     totalR2.add(cellT21);
@@ -228,7 +241,8 @@ public class PdfTestController extends BaseController {
     
     Cell cellT31 = new Cell(f4,"HST(#45944326678):");
     cellT31.setNoBorders();
-    Cell cellT32 = new Cell(f4,"236");
+    Double taxAmt = order.getTaxRate()*subTotal;
+    Cell cellT32 = new Cell(f4,taxAmt.toString());
     cellT32.setLeftPadding(22);
     cellT32.setNoBorders();
     totalR3.add(cellT31);
@@ -236,7 +250,7 @@ public class PdfTestController extends BaseController {
     
     Cell cellT41 = new Cell(f4,"Total:");
     cellT41.setNoBorders();
-    Cell cellT42 = new Cell(f4,"2360");
+    Cell cellT42 = new Cell(f4,order.getTotal().toString());
     cellT42.setNoBorders();
     cellT42.setLeftPadding(22);
     

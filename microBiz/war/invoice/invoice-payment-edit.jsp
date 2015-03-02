@@ -8,7 +8,9 @@
 	});
 </script>
  <div class="col-lg-12">
-	<div class="well">    
+	<div class="panel panel-success">
+	<div class="panel-body">
+		<h4>${f:nbsp('   ')}  Receive Payment</h4>	  
 		<form id="invoiceDetailPaymentDetailForm" role="form" method="post" action="${f:url('/invoice/invoicePaymentEditAction')}">
 		    <input type="hidden" ${f:hidden("invoiceKey")}/>
 			<c:if test="${key != null}">
@@ -52,5 +54,6 @@
 			</div>
 	
 		</form>
+	</div>
 	</div>
 </div>

@@ -1,11 +1,6 @@
 <%@include file="../includes/taglib.jsp"%>
 		
 <div class="col-lg-6">
-
-
-		
-				
-
 			<c:forEach items="${prds}" var="p" varStatus="loop">
 				<div class="form-group input-group">
 					<span class="input-group-addon">${f:h(p.model)}

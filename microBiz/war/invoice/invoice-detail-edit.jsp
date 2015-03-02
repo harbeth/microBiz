@@ -1,5 +1,5 @@
 <%@include file="../includes/taglib.jsp"%>
-     
+
 <div class="col-lg-6">
 	<c:if test="${key != null}">
 		<input type="hidden" ${f:hidden("key")} />

@@ -33,7 +33,7 @@ public class EmailTestController extends BaseController {
         template.merge(context, writer);
         
         String message = writer.toString();
-        
+        System.out.println("message is " + message);
         try{
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("admin@heleadsys.appspotmail.com ", "HE Lead Alert"));

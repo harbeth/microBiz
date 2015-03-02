@@ -4,7 +4,9 @@
     	dashboardFn.init();
 	});
 </script>
-
+<div class="row">
+<div id="dashboardWorkingAreaDIV"></div>
+</div>
 <div class="col-lg-12">
 	<div class="panel panel-yellow">
 		<div class="panel-heading">Job Reports To Approve</div>

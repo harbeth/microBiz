@@ -30,7 +30,7 @@ public class MiRoleAccessRightService {
                 MiRoleAccessRight right = (MiRoleAccessRight)i.next();
                 result.append(right.getAccessibleModule()+",");
             }
-            return result.append("common").toString();
+            return result.append("common,pub").toString();
         }
     }
     

@@ -2,7 +2,10 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="f" uri="http://www.slim3.org/functions"%>
 <div class="col-lg-12">
-<div class="well">     
+<div class="panel panel-danger">
+<div class="panel-body">  
+<h4>${f:nbsp('   ')}  Add Expense</h4>	
+  
 <form id="invoiceDetailExpenseDetailForm" role="form" method="post" action="${f:url('/invoice/invoiceExpenseEditAction')}">
 
 	    <input type="hidden" ${f:hidden("invoiceKey")}/>
@@ -34,5 +37,6 @@
 		</div>
 
 </form>
+</div>
 </div>
 </div>
