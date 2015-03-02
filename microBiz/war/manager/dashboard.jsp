@@ -20,7 +20,7 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="unpaidInvoices" nowSelected="n">View Details</a>
+					<a link="managerTabUnpaidInvoices" nowSelected="y">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -33,7 +33,7 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="ongoingInvoices" nowSelected="n">View Details</a>
+					<a link="managerTabOngoingInvoices" nowSelected="n">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -46,7 +46,7 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="unApprovedJobReports" nowSelected="y">View Details</a>
+					<a link="managerTabUnApprovedJobReports" nowSelected="y">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -59,22 +59,19 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="unCompleteJobs" nowSelected="n">View Details</a>
+					<a link="managerTabUnCompleteJobs" nowSelected="n">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
 
-		
-			
-
 	<div class="row">
-		<div id="unpaidInvoiceDIV" type="tab" hasContent="n" class="col-lg-12" >
-			<jsp:include page="test-template.jsp" flush="true"></jsp:include>
+		<div id="managerTabUnpaidInvoiceDIV" type="tab" hasContent="y" class="col-lg-12" >
+			<jsp:include page="./manager-invoice-list.jsp" flush="true" />
 		</div>
-		<div id="ongoingInvoiceDIV" type="tab"  hasContent="n" class="col-lg-12" ></div>
-		<div id="unApprovedJobReportsDIV" type="tab" hasContent="y" class="col-lg-12" ></div>
-		<div id="unCompleteJobsDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
+		<div id="managerTabOngoingInvoiceDIV" type="tab"  hasContent="n" class="col-lg-12" ></div>
+		<div id="managerTabUnApprovedJobReportsDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
+		<div id="managerTabUnCompleteJobsDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
 	</div>
 </div>

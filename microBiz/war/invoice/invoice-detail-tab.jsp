@@ -5,10 +5,10 @@
 
 <ul class="nav nav-pills">
 	<li class="active">
-		<a link="invoiceOrder" data-toggle="tab" aria-expanded="false">Items</a>
+		<a link="invoiceOrder" nowSelected="y" data-toggle="tab" aria-expanded="false">Items</a>
 	</li>
     <li class="">
-    	<a link="invoiceEdit" invoiceKey="${f:h(invoice.key)}" data-toggle="tab" aria-expanded="false">Edit</a>
+    	<a link="invoiceEdit" invoiceKey="${f:h(invoice.key)}" nowSelected="n" data-toggle="tab" aria-expanded="false">Edit</a>
     </li>
 </ul>
 

@@ -32,27 +32,21 @@ java.util.logging.Level"%>
 				<%
 					if (accesssibleModules.contains("manager")) {
 				%>
-				<li><a href="/manager/dashboard"><i class="fa fa-dashboard fa-fw"></i>
-						Dashboard</a></li>
+				<li><a href="/manager/dashboard"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a></li>
 			   	<%
 					}
 				%>
 				<%
 					if (accesssibleModules.contains("customer")) {
 				%>
-				<li><a href="/customer/customer"><i
-						class="fa fa-table fa-fw"></i> Customer</a></li>
+				<li><a href="/customer/customer"><i class="fa fa-table fa-fw"></i> Customer</a></li>
 				<%
 					}
 				%>
 				<%
 					if (accesssibleModules.contains("quote")) {
 				%>
-
-
-				<li><a href="/quote/quote"><i class="fa fa-edit fa-fw"></i>
-						Quotation</a></li>
-
+				<li><a href="/quote/quote"><i class="fa fa-edit fa-fw"></i>Quotation</a></li>
 				<%
 					}
 				%>
@@ -60,15 +54,13 @@ java.util.logging.Level"%>
 					if (accesssibleModules.contains("invoice")) {
 				%>
 				<li><a href="/invoice/invoice"><i class="fa fa-table fa-fw"></i>Invoice</a></li>
-
 				<%
 					}
 				%>
 				<%
 					if (accesssibleModules.contains("jobReport")) {
 				%>
-				<li><a href="/jobReport/jobsToReport"><i
-						class="fa fa-table fa-fw"></i>job Report</a></li>
+				<li><a href="/jobReport/jobsToReport"><i class="fa fa-table fa-fw"></i>job Report</a></li>
 				<%
 					}
 				%>

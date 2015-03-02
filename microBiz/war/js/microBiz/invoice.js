@@ -170,9 +170,10 @@ var invoiceEditFn = {
 		$( "#signDateStr" ).datepicker();
 		$( "#preferIntlDateStr" ).datepicker();
 	}
+	// put it on the page for portable
 	, fieldValidate: function() {
 		//$("input[valueType=price]").alphanumeric({allow:"."});
-		$("input[valueType=price]").numeric();
+		//$("input[valueType=price]").numeric();
 	}
 	, onCloseClick: function() {
 		// back to invoice list page 
@@ -191,6 +192,7 @@ var invoiceDetailFn = {
 		// ===  detail tab ===
 		// close button on detail tab
 		this.onEditInvoiceClick();
+		this.onOrderClick();
 		this.onDetailPageClose();
 		this.registerOrderForm();
 		// ===== manage tab ====
@@ -229,22 +231,34 @@ var invoiceDetailFn = {
 	}
 	, onEditInvoiceClick: function() {
 		$("a[link=invoiceEdit]").click(function(){
-			var invoiceKey = $(this).attr("invoiceKey");
 			// hide order DIV first
 			$("#invoiceOrderDIV").hide();
-			// load content of the edit DIV
+			$("a[link=invoiceOrder]").attr("nowSelected", "n");
+			$(this).attr("nowSelected", "y");
+			// load content of the edit DIV, always edit latest
 			var ctrl = $("#invoiceEditDetailDIV");
+			var invoiceKey = $(this).attr("invoiceKey");
 			// load content first
 			ctrl.load("/invoice/invoiceEdit?invoiceKey=" + invoiceKey, function(){
 				// after edit tab loaded
+				$(this).attr("hasContent", "y");
 				invoiceUpdateFn.init();
 			});
+			ctrl.show();
+		});
+	}
+	, onOrderClick: function() {
+		$("a[link=invoiceOrder]").click(function(){
+			invoiceDetailFn.showOrderPage();
 		});
 	}
 	, showOrderPage: function() {
 		// clear edit DIV
 		$("#invoiceEditDetailDIV").html("");
 		$("#invoiceOrderDIV").show();
+		// selected
+		$("a[link=invoiceOrder]").attr("nowSelected", "y");
+		$("a[link=invoiceEdit]").attr("nowSelected", "n");
 	}
 	// ============ manage tab =================
 	// if list page is show
