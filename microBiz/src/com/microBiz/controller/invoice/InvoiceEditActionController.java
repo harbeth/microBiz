@@ -14,6 +14,4 @@ public class InvoiceEditActionController extends InvoiceSaveActionController {
     public String getReturnJsp() {
         return "invoice-detail-info.jsp";
     }
-    
-    
 }

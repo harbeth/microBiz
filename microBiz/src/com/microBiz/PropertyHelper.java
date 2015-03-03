@@ -2,12 +2,13 @@ package com.microBiz;
 
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
+
 import org.slim3.memcache.Memcache;
 
 
 public class PropertyHelper {
-    private static PropertyHelper helper = new PropertyHelper( );
+    
+    private static PropertyHelper helper = null;
     
     private PropertyHelper(){
   
@@ -26,10 +27,14 @@ public class PropertyHelper {
         
     }
     
-    public static PropertyHelper getInstance( ) {
+    public static PropertyHelper getInstance() {
+        if ( helper == null ) {
+            helper = new PropertyHelper();
+        }
         return helper;
      }
-    public static String getLable(Integer constant){
+    
+    public String getLable(Integer constant){
         if(constant!=null){
          return (String)Memcache.get(constant.toString()); 
         }else{

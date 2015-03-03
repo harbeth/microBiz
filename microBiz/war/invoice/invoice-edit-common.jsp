@@ -41,6 +41,18 @@
 			<span class="input-group-addon">PO Number</span>
 			<input type="text" ${f:text("poNumber")} class="form-control" />
 		</div>
+		
+		<div class="form-group input-group">
+			<span class="input-group-addon">Status</span>
+			<select name="status" class="form-control">
+				<c:forEach items="${invoiceStatus}" var="s">
+					<option value="${f:h(s.value)}"
+						<c:if test = "${f:h(status) == f:h(s.value)}" >
+							selected
+						</c:if>>${f:h(s.label)}</option>
+				</c:forEach>
+			</select>
+		</div>		
 
 		<jsp:include page="../customer-contact-common.jsp" />
 
@@ -79,8 +91,8 @@
 			</select>
 		</div>
 		<div class="form-group input-group">
-			<span class="input-group-addon">Balance Payment Method</span> <select
-				name="balancePymtMethod" class="form-control">
+			<span class="input-group-addon">Balance Payment Method</span>
+			<select name="balancePymtMethod" class="form-control">
 				<option value="">Select ... </option>
 				<c:forEach items="${paymentTypes}" var="pt">
 					<option value="${f:h(pt.value)}"

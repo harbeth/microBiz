@@ -1,14 +1,11 @@
 package com.microBiz.controller;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.slim3.controller.Controller;
 
 import com.microBiz.MicroBizConst;
-import com.microBiz.MicroBizUtil;
 import com.microBiz.PropertyHelper;
 import com.microBiz.model.LabelValue;
 
@@ -185,7 +182,6 @@ public abstract class BaseController extends Controller {
         paymentTermsList.add(MicroBizConst.CODE_PAYMENT_TERMS_30D);
         paymentTermsList.add(MicroBizConst.CODE_PAYMENT_TERMS_45D);
         pymtTerms = getDropDownList(paymentTermsList);
-        
     }
     
 
@@ -212,14 +208,9 @@ public abstract class BaseController extends Controller {
         txRates.add("0");
         txRates.add("0.065");
     }
-    
-
   
     private List<LabelValue> getDropDownList(List<Integer> keyList) {
-
- 
         List<LabelValue> lvList = new ArrayList<LabelValue>();
-       
         for ( Integer key : keyList ) {
             String label = PropertyHelper.getInstance().getLable(key);
             LabelValue lv = new LabelValue(label, key);

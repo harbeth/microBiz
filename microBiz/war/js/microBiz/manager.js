@@ -2,9 +2,7 @@ var dashboardFn = {
 	init: function() {
 		// view details link
 		this.registerSectionClick();
-		//
-		//this.onUnpaidInvoicesClick();
-		this.onReceivePaymentClick();
+		unPaidInvoiceFn.initUnpaidPage();
 		//
 		//this.onOngoingInvoicesClick();
 		//this.onUnapprovedJobReportsClick();
@@ -37,51 +35,17 @@ var dashboardFn = {
 		ctrlArr.attr("nowSelected", "n");
 		ctrlLink.attr("nowSelected", "y");
 	}
-	// edit link on unpaid invoice list
-	, onReceivePaymentClick: function() {
-		// show new payment detail
-		$("a[link=managerInvoicePaymentNew]").click(function() {
-			var invoiceKey = $(this).attr("invoiceKey");
-			$("#managerPaymentDetailDIV").load("/manager/managerPaymentEdit?paymentKey=-1&invoiceKey="+invoiceKey, function() {
-				dashboardFn.registerPaymentSubmit();
-			});
-		});
-	}
-	, registerPaymentSubmit: function() {
-		// refresh invoice list
-		var options = { 
-	        target: "#managerTabUnpaidInvoiceDIV"
-	        , beforeSubmit: function() {
-	        	return true;
-	        }
-	        , success: function(responseText, statusText, xhr, $form){
-	        	// clear edit payment DIV
-	        	alert(2);
-	        	$("#managerPaymentDetailDIV").html("");
-	        	// register edit link
-	        	dashboardFn.onReceivePaymentClick();
-	        }
-	    }; 
-	    // bind to the form's submit event 
-	    $("form[name=managerPaymentDetailForm]").submit(function() { 
-	    	$(this).ajaxSubmit(options); 
-	        // !!! Important !!! 
-	        // always return false to prevent standard browser submit and page navigation 
-	        return false; 
-	    }); 
-	}
-	, managerUnpaidInvoicesDisplay: function() {
+	, managerTabUnpaidInvoiceDisplay: function() {
 		// already loaded
 	}
-	, managerOngoingInvoicesDisplay: function() {
-		var ctrl = $("#invoiceDetailPaymentDIV");
+	, managerTabOngoingInvoiceDisplay: function() {
+		var ctrl = $("#managerTabOngoingInvoiceDIV");
 		var hasContent = ctrl.attr("hasContent");
-		var invoiceKey = ctrl.attr("invoiceKey");
 		if ( hasContent == 'n' ) {
 			// load content first
-			ctrl.load("/invoice/invoicePayments?invoiceKey=" + invoiceKey, function(){
+			ctrl.load("/manager/managerOngoingInvoice", function(){
 				// after edit tab loaded
-				//invoiceDetailFn.paymentListPageInit();
+				ongoingInvoiceFn.initOngoingPage();
 			})
 			.attr("hasContent", "y");
 		}else{
@@ -122,6 +86,90 @@ var dashboardFn = {
 		});
 	}
 
+}
+
+var ongoingInvoiceFn = {
+	initOngoingPage: function() {
+		this.onEditInvoiceClick();
+	}
+	, registerInvoiceSubmit: function() {
+		// refresh invoice list
+		var options = { 
+	        target: "#managerTabOngoingInvoiceDIV"
+	        , beforeSubmit: function() {
+	        	return true;
+	        }
+	        , success: function(responseText, statusText, xhr, $form){
+	        	// clear edit payment DIV
+	        	$("#managerInvoiceDetailDIV").html("");
+	        	// register edit link
+	        	ongoingInvoiceFn.onEditInvoiceClick();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=managerInvoiceDetailForm]").submit(function() { 
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+	}
+	//edit link on unpaid invoice list
+	, onEditInvoiceClick: function() {
+		// show new payment detail
+		$("a[link=managerInvoiceEdit]").click(function() {
+			var ctrl = $("#managerInvoiceDetailDIV");
+			if( ctrl.attr("hasContent") == "n" ) {
+				var invoiceKey = $(this).attr("invoiceKey");
+				ctrl.load("/manager/managerInvoiceEdit?invoiceKey="+invoiceKey, function() {
+					ongoingInvoiceFn.registerInvoiceSubmit();
+				});
+				ctrl.attr("hasContent", "y");
+			}
+		});
+	}
+}
+
+var unPaidInvoiceFn = {
+	initUnpaidPage: function() {
+		this.onReceivePaymentClick();
+	}
+	, registerPaymentSubmit: function() {
+		// refresh invoice list
+		var options = { 
+	        target: "#managerTabUnpaidInvoiceDIV"
+	        , beforeSubmit: function() {
+	        	return true;
+	        }
+	        , success: function(responseText, statusText, xhr, $form){
+	        	// clear edit payment DIV
+	        	$("#managerPaymentDetailDIV").html("");
+	        	// register edit link
+	        	unPaidInvoiceFn.onReceivePaymentClick();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=managerPaymentDetailForm]").submit(function() { 
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+	}
+	//edit link on unpaid invoice list
+	, onReceivePaymentClick: function() {
+		// show new payment detail
+		$("a[link=managerInvoicePaymentNew]").click(function() {
+			var ctrl = $("#managerPaymentDetailDIV");
+			if( ctrl.attr("hasContent") == "n" ) {
+				var invoiceKey = $(this).attr("invoiceKey");
+				ctrl.load("/manager/managerPaymentEdit?paymentKey=-1&invoiceKey="+invoiceKey, function() {
+					ongoingInvoiceFn.registerInvoiceSubmit();
+				});
+				ctrl.attr("hasContent", "y");
+			}
+		});
+	}
 }
 
 var jobReportEditFn = {

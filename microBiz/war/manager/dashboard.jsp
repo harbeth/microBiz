@@ -20,7 +20,7 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="managerTabUnpaidInvoices" nowSelected="y">View Details</a>
+					<a link="managerTabUnpaidInvoice" nowSelected="y">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -33,7 +33,7 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="managerTabOngoingInvoices" nowSelected="n">View Details</a>
+					<a link="managerTabOngoingInvoice" nowSelected="n">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -59,7 +59,7 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="managerTabUnCompleteJobs" nowSelected="n">View Details</a>
+					<a link="managerTabUnCompleteJob" nowSelected="n">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -68,7 +68,7 @@
 
 	<div class="row">
 		<div id="managerTabUnpaidInvoiceDIV" type="tab" hasContent="y" class="col-lg-12" >
-			<jsp:include page="./manager-invoice-list.jsp" flush="true" />
+			<jsp:include page="./manager-unpaid-invoice-list.jsp" flush="true" />
 		</div>
 		<div id="managerTabOngoingInvoiceDIV" type="tab"  hasContent="n" class="col-lg-12" ></div>
 		<div id="managerTabUnApprovedJobReportsDIV" type="tab" hasContent="n" class="col-lg-12" ></div>

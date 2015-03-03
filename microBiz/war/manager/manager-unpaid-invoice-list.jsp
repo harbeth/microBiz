@@ -4,7 +4,7 @@
  -->
 
 <div class="panel panel-primary">
-	<div id="managerPaymentDetailDIV">
+	<div id="managerPaymentDetailDIV" hasContent="n">
 	</div>
 	<div class="panel-footer">
 		<div class="table-responsive">

@@ -62,15 +62,15 @@ public abstract class InvoiceSaveActionController extends OrderLoadActionControl
                            .get(Datastore.stringToKey(invoice.getContactKey())));
         }
         
-        invoice.getSalesRef().setModel(userService.get(Datastore.stringToKey(asString("sales"))));
+        String salesStr = asString("sales");
+        if ( salesStr != null ) {
+            invoice.getSalesRef().setModel(userService.get(Datastore.stringToKey(salesStr)));
+        }
         Order order = getOrderData();
         // also reused by edit tab save function
         if ( order != null ) {
-            
             Key orderKey = orderService.saveNewOrder(order);
             invoice.getOrderRef().setKey(orderKey);
-            
-
             setOrderData(order);
         }
         invoice = invoiceService.save(invoice);
