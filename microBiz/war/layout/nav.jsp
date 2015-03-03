@@ -15,7 +15,7 @@ java.util.logging.Level"%>
 			.getConsistentLogAndContinue(Level.INFO));
 	String accesssibleModules = (String) syncCache.get(myrole); // read from cache
 	*/
-	String accesssibleModules = "manager, invoice, jobReport,quote, customer, mgmt, prd ";
+	String accesssibleModules = "manager, invoice, jobReport,quote, customer, mgmt, prd,manager ";
 %>
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation"
@@ -54,6 +54,13 @@ java.util.logging.Level"%>
 					if (accesssibleModules.contains("invoice")) {
 				%>
 				<li><a href="/invoice/invoice"><i class="fa fa-table fa-fw"></i>Invoice</a></li>
+				<%
+					}
+				%>
+				<%
+					if (accesssibleModules.contains("manager")) {
+				%>
+				<li><a href="/manager/salesCommission"><i class="fa fa-table fa-fw"></i>Sales Commission</a></li>
 				<%
 					}
 				%>

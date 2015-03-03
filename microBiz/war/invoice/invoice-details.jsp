@@ -22,7 +22,7 @@
 			</c:if>
 			<span class="pull-right">
 			<a href="/pub/invoiceToPdf?invoiceKey=${f:h(invoice.key)}" target="_blank" class="btn btn-default" role="button">Download</a>
-			<a href="/invoice/emailIinvoice?invoiceKey=${f:h(invoice.key)}" target="_blank" class="btn btn-default" role="button">Email to Customer</a>
+			<a href="/invoice/emailInvoice?invoiceKey=${f:h(invoice.key)}" target="_blank" class="btn btn-default" role="button">Email to Customer</a>
 			</span>
 			</p>
 			<ul class="nav nav-tabs">

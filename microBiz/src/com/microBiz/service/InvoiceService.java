@@ -50,4 +50,10 @@ public class InvoiceService {
     public List<Invoice> getByInvoiceNumber(String invoiceNumber) {
         return Datastore.query(i).filter(i.invoiceNumber.equal(invoiceNumber)).asList();
     }
+
+
+
+    public List<Invoice> getInvoicesForSalesCommission(Key stringToKey) {
+        return Datastore.query(i).asList();
+    }
 }

@@ -4,8 +4,7 @@
 <div class="col-lg-12">
 <div class="panel panel-danger">
 <div class="panel-body">  
-<h4>${f:nbsp('   ')}  Add Expense</h4>	
-  
+
 <form id="invoiceDetailExpenseDetailForm" role="form" method="post" action="${f:url('/invoice/invoiceExpenseEditAction')}">
 
 	    <input type="hidden" ${f:hidden("invoiceKey")}/>
@@ -28,6 +27,11 @@
 					<label>Canceled</label>
 					<label class="checkbox-inline">
 						<input type="checkbox" ${f:checkbox("canceled")}>yes
+					</label>
+					${f:nbsp('         ')}
+					<label>For Sales Commission</label>
+					<label class="checkbox-inline">
+						<input type="checkbox" ${f:checkbox("forSalesCommission")}>yes
 					</label>
 		</div>
 		

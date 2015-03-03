@@ -1,0 +1,7 @@
+Dear $name :
+
+Invoice Number: $invoice_number
+
+Amount: $amount
+
+To get the invoice, please click $link

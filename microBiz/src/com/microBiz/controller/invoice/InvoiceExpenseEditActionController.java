@@ -38,6 +38,13 @@ public class InvoiceExpenseEditActionController extends BaseController{
         }
 
         BeanUtil.copy(request, expense);
+        if(asString("canceled")==null){
+            expense.setCanceled("");
+        }
+        
+        if(asString("forSalesCommission")==null){
+            expense.setForSalesCommission("");
+        }
         Key invoiceKey = Datastore.stringToKey(expense.getInvoiceKey());
         Invoice invoice = invoiceService.get(invoiceKey);
         expense.getInvoiceRef().setModel(invoice);

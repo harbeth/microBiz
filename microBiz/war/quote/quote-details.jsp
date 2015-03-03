@@ -17,7 +17,9 @@
 				<jsp:include page="quote-detail-info.jsp" flush="true"></jsp:include>
 			</div>
 			<div class="panel-footer">
-				<a link="quoteEditClose"  data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Close</a>
+				<a link="quoteEditClose"  data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Back to Quotation List</a>
+				<a href="/pub/quoteToPdf?quoteKey=${f:h(quote.key)}" target="_blank"  class="btn btn-default btn-sm" role="button">Download</a>
+				<a href="/quote/emailQuote?quoteKey=${f:h(quote.key)}" target="_blank" class="btn btn-default btn-sm" role="button">Email to Customer</a>
 			</div>
 		</div>
 	</div>

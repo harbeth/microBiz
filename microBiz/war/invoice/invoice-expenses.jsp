@@ -10,6 +10,9 @@
 						<th>Expense Amount</th>
 						<th>Date</th>
 						<th>Note</th>
+						<th>Caneled</th>
+						<th>Sales Commission</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -18,6 +21,8 @@
 							<td>${f:h(e.expense)}</td>
 							<td>${f:h(e.reportDateStr)}</td>
 							<td>${f:h(e.note)}</td>
+							<td>${f:h(e.canceled)}</td>
+							<td>${f:h(e.forSalesCommission)}</td>
 							<td><a link="invoiceExpenseEdit" invoiceKey="${f:h(invoice.key)}" expenseKey="${f:h(e.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>

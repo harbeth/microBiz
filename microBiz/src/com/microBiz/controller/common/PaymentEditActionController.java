@@ -42,6 +42,9 @@ public abstract class PaymentEditActionController extends BaseController {
         }
         
         BeanUtil.copy(request, payment);
+        if(asString("canceled")==null){
+            payment.setCanceled("");
+        }
         Key invoiceKey = getInvoiceKey(payment);
         Invoice invoice = invoiceService.get(invoiceKey);
         payment.getInvoiceRef().setModel(invoice);

@@ -16,6 +16,19 @@ public class InvoiceReport extends MiBaseModel {
     
     @Attribute(unindexed = true)
     private Double materialCost;
+    
+    @Attribute(unindexed = true)
+    private Double total;
+    
+    @Attribute(unindexed = true)
+    private Double pymtReceived;
+    
+    private Double salesCommission;
+    
+    @Attribute(unindexed = true)
+    private Double otherExpense;
+    
+    private Boolean paidOff;
 
 
 
@@ -23,6 +36,10 @@ public class InvoiceReport extends MiBaseModel {
         labourHrs = new Double(0);
         labourCost = new Double(0);
         materialCost = new Double(0);
+        total = new Double(0);
+        pymtReceived = new Double(0);
+        salesCommission = new Double(0);
+        otherExpense = new Double(0);
  
         
     }
@@ -64,6 +81,46 @@ public class InvoiceReport extends MiBaseModel {
 
     public void setMaterialCost(Double materialCost) {
         this.materialCost = materialCost;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Double getPymtReceived() {
+        return pymtReceived;
+    }
+
+    public void setPymtReceived(Double pymtReceived) {
+        this.pymtReceived = pymtReceived;
+    }
+
+    public Double getSalesCommission() {
+        return salesCommission;
+    }
+
+    public void setSalesCommission(Double salesCommission) {
+        this.salesCommission = salesCommission;
+    }
+
+    public Double getOtherExpense() {
+        return otherExpense;
+    }
+
+    public void setOtherExpense(Double otherExpense) {
+        this.otherExpense = otherExpense;
+    }
+
+    public Boolean getPaidOff() {
+        return paidOff;
+    }
+
+    public void setPaidOff(Boolean paidOff) {
+        this.paidOff = paidOff;
     }
 
 

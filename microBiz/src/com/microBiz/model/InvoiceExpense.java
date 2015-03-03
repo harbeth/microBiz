@@ -24,6 +24,8 @@ public class InvoiceExpense extends MiCreatorBaseModel {
     private String note;
     
     private String canceled;
+    
+    private String forSalesCommission;
     // many to one
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
 
@@ -74,8 +76,19 @@ public class InvoiceExpense extends MiCreatorBaseModel {
     public void setCanceled(String canceled) {
         this.canceled = canceled;
     }
-    
-    
+
+    public String getForSalesCommission() {
+        return forSalesCommission;
+    }
+
+    public void setForSalesCommission(String forSalesCommission) {
+        this.forSalesCommission = forSalesCommission;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
 
  
 }

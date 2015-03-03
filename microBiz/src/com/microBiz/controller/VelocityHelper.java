@@ -9,7 +9,7 @@ import org.apache.velocity.app.VelocityEngine;
 public class VelocityHelper {
     private static VelocityEngine velocityEngine;
     
-    static VelocityEngine getVelocityEngine() {
+    public static VelocityEngine getVelocityEngine() {
       if (velocityEngine == null)
         init();
       return velocityEngine;

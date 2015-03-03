@@ -249,3 +249,22 @@ var jobReportEditFn = {
 	    }); 
 	}
 }
+
+var salesCommissionFn = {
+		init: function() {
+			
+			this.salesSelectChange();
+			
+		}
+		, salesSelectChange: function() {
+			$("#selectSales").change(function(){
+				// update lower DIV
+				//alert("select sales");
+				var salesKey = $(this).val();
+				$("#invoicesForSalesCommissionDIV").html("Loading...");
+				$("#invoicesForSalesCommissionDIV").load("/manager/loadInvoicesForSalesCommission?salesKey=" + salesKey, function(){
+					
+				});
+			});
+		}
+}
