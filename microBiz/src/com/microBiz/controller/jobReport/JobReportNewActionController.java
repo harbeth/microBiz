@@ -32,15 +32,8 @@ public abstract class JobReportNewActionController extends BaseController {
     public Navigation run() throws Exception {
         // only get data for invoice list, not details
         Job job = getJob();
- 
-        
         JobReport jr = new JobReport();
-       
         BeanUtil.copy(request,jr);
-        
-        
-        
-  
         jr.getJobRef().setModel(job);
         Key jobKey = jobService.saveJobReport(jr);
         
@@ -61,8 +54,6 @@ public abstract class JobReportNewActionController extends BaseController {
             jmr.setCount(new Integer(i));
             jmr.getJobReportRef().setKey(jobKey);
             jmrList.add(jmr);
-            
-            
         }
         jobService.saveJobMaterialReports(jmrList);
         setRequestScope();

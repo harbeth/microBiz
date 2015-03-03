@@ -9,8 +9,6 @@ import com.microBiz.model.JobReport;
 
 
 public class ManagerJobReportEditActionController extends JobReportNewActionController {
-
-
     
     public  Job getJob(){
         
