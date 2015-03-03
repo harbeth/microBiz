@@ -46,7 +46,7 @@
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="managerTabUnApprovedJobReports" nowSelected="y">View Details</a>
+					<a link="managerTabUnApprovedJobReport" nowSelected="y">View Details</a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -71,7 +71,7 @@
 			<jsp:include page="./manager-unpaid-invoice-list.jsp" flush="true" />
 		</div>
 		<div id="managerTabOngoingInvoiceDIV" type="tab"  hasContent="n" class="col-lg-12" ></div>
-		<div id="managerTabUnApprovedJobReportsDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
+		<div id="managerTabUnApprovedJobReportDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
 		<div id="managerTabUnCompleteJobDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
 	</div>
 </div>

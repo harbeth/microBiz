@@ -3,12 +3,6 @@ var dashboardFn = {
 		// view details link
 		this.registerSectionClick();
 		unPaidInvoiceFn.initUnpaidPage();
-		//
-		//this.onOngoingInvoicesClick();
-		//this.onUnapprovedJobReportsClick();
-		//this.onUncompleteJobsClick();
-		//this.onJobReportEditClick();
-		//this.onJobReportApproveClick();
 	}
 	// for four sections: unpaid, ungoing, 
 	, registerSectionClick: function() {
@@ -68,18 +62,20 @@ var dashboardFn = {
 			//invoiceDetailFn.invoicePaymentListImpl(invoiceKey);
 		}
 	}
-	, onUnapprovedJobReportsClick: function() {
-		$("a[link=unApprovedJobReports]").click(function() {
-			$("#unApprovedJobReportsDIV").load("/manager/unApprovedJobReports", function() {
-
-			});
-		});
-	}
-	, onUncompleteJobsClick: function() {
-		$("a[link=unCompleteJobs]").click(function() {
-			$("#unCompleteJobsDIV").load("/manager/unCompleteJobs", function() {
-			});
-		});
+	, managerTabUnApprovedJobReportDisplay: function() {
+		var ctrl = $("#managerTabUnApprovedJobReportDIV");
+		var hasContent = ctrl.attr("hasContent");
+		if ( hasContent == 'n' ) {
+			// load content first
+			ctrl.load("/manager/unApprovedJobReports", function(){
+				dashboardFn.onJobReportEditClick();
+				dashboardFn.onJobReportApproveClick();
+			})
+			.attr("hasContent", "y");
+		}else{
+			// show list view
+			//invoiceDetailFn.invoicePaymentListImpl(invoiceKey);
+		}
 	}
 	, onJobReportEditClick: function() {
 		// prd number link to sh invoice details on AJAX call in the body panel
@@ -231,33 +227,25 @@ var uncompleteJobFn = {
 
 
 var jobReportEditFn = {
-		init: function() {
-			this.onCloseClick();
-			// submit button event
-			this.onSumitRegister();
-		
-		}
-		, onSumitRegister: function() {
-			// refresh body
-			var options = { 
-		        target: "#"+microBizConst.bodyContentId
+	init: function() {
+		// submit button event
+		this.onSumitRegister();
+	}
+	, onSumitRegister: function() {
+		// refresh body
+		var options = { 
+	        target: "#"+microBizConst.bodyContentId
 
-		        , success: function(responseText, statusText, xhr, $form){
-		        	
-		        }
-		    }; 
-		    // bind to the form's submit event 
-		    $("form[name=jobReportForm]").submit(function() { 
-		    	$(this).ajaxSubmit(options); 
-		        // !!! Important !!! 
-		        // always return false to prevent standard browser submit and page navigation 
-		        return false; 
-		    }); 
-		}
-		, onCloseClick: function() {
-			// back to invoice list page 
-			$("a[link=quoteEditClose]").click(function(){
-				window.location.href = "/quote";
-			});
-		}
+	        , success: function(responseText, statusText, xhr, $form){
+	        	
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=jobReportForm]").submit(function() { 
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+	}
 }

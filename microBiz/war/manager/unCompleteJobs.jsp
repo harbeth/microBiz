@@ -1,9 +1,4 @@
 <%@include file="../includes/taglib.jsp"%>
-<script type ="text/javascript">
-    $(document).ready(function() {
-    	dashboardFn.init();
-	});
-</script>
 
 <div class="col-lg-12">
 	<div class="panel panel-yellow">
