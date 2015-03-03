@@ -53,6 +53,21 @@ var dashboardFn = {
 			//invoiceDetailFn.invoicePaymentListImpl(invoiceKey);
 		}
 	}
+	, managerTabUnCompleteJobDisplay: function() {
+		var ctrl = $("#managerTabUnCompleteJobDIV");
+		var hasContent = ctrl.attr("hasContent");
+		if ( hasContent == 'n' ) {
+			// load content first
+			ctrl.load("/manager/managerUncompleteJob", function(){
+				// after edit tab loaded
+				uncompleteJobFn.initUncomplatePage();
+			})
+			.attr("hasContent", "y");
+		}else{
+			// show list view
+			//invoiceDetailFn.invoicePaymentListImpl(invoiceKey);
+		}
+	}
 	, onUnapprovedJobReportsClick: function() {
 		$("a[link=unApprovedJobReports]").click(function() {
 			$("#unApprovedJobReportsDIV").load("/manager/unApprovedJobReports", function() {
@@ -171,6 +186,49 @@ var unPaidInvoiceFn = {
 		});
 	}
 }
+
+var uncompleteJobFn = {
+	initUncomplatePage: function() {
+		this.onEditJobClick();
+	}
+	, registerJobSubmit: function() {
+		// refresh invoice list
+		var options = { 
+	        target: "#managerTabUnCompleteJobDIV"
+	        , beforeSubmit: function() {
+	        	return true;
+	        }
+	        , success: function(responseText, statusText, xhr, $form){
+	        	// clear edit payment DIV
+	        	$("#managerInvoiceDetailDIV").html("");
+	        	// register edit link
+	        	uncompleteJobFn.onEditJobClick();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=managerJobDetailForm]").submit(function() { 
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+	}
+	//edit link on unpaid invoice list
+	, onEditJobClick: function() {
+		// show new payment detail
+		$("a[link=managerJobEdit]").click(function() {
+			var ctrl = $("#managerJobDetailDIV");
+			if( ctrl.attr("hasContent") == "n" ) {
+				var jobKey = $(this).attr("jobKey");
+				ctrl.load("/manager/managerJobEdit?jobKey="+jobKey, function() {
+					uncompleteJobFn.registerJobSubmit();
+				});
+				ctrl.attr("hasContent", "y");
+			}
+		});
+	}
+}
+
 
 var jobReportEditFn = {
 		init: function() {

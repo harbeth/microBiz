@@ -72,6 +72,6 @@
 		</div>
 		<div id="managerTabOngoingInvoiceDIV" type="tab"  hasContent="n" class="col-lg-12" ></div>
 		<div id="managerTabUnApprovedJobReportsDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
-		<div id="managerTabUnCompleteJobsDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
+		<div id="managerTabUnCompleteJobDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
 	</div>
 </div>

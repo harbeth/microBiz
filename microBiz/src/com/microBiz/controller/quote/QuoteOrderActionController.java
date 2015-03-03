@@ -88,6 +88,10 @@ public class QuoteOrderActionController extends OrderLoadActionController {
         System.out.println("get quote order list: " + quoteOrderList);
         // quote order key could be empty
         requestScope("quoteOrders", quoteOrderList);
+        
+        // get first quote version  quoteOrderList.size() should > 0
+        setOrderFromList(quoteOrderList);
+        
         // only refresh the current tab
         return forward("quote-order-list.jsp");
     }

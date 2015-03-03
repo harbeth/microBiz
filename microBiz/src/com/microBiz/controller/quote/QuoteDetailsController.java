@@ -4,19 +4,15 @@ import java.util.List;
 
 import org.slim3.controller.Navigation;
 
-import com.microBiz.controller.BaseController;
+import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
-import com.microBiz.service.QuoteService;
 
 // load quote details page
-public class QuoteDetailsController extends BaseController {
-    
-    private QuoteService quoteService;
+public class QuoteDetailsController extends OrderLoadActionController {
     
     public QuoteDetailsController(){
         super();
-        quoteService = new QuoteService();
     }
     
     @Override
@@ -33,6 +29,9 @@ public class QuoteDetailsController extends BaseController {
         System.out.println("get quote order list: " + quoteOrderList.size());
         // quote order key could be empty
         requestScope("quoteOrders", quoteOrderList);
+        
+        // get first quote version  quoteOrderList.size() should > 0
+        setOrderFromList(quoteOrderList);
         
         return forward(getReturnJsp());
     }

@@ -12,22 +12,20 @@
 				<thead>
 					<tr>
 						<th>Invoice #</th>
-						<th>Customer</th>
 						<th>Address</th>
-						<th>Preferred Install At</th>
-						<th>Sales</th>
+						<th>Installer</th>
+						<th>Start Date</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="j" items="${jobs}">
 						<tr>
-							<td>${f:h(i.invoiceNumber)}</td>
-							<td>${f:h(i.customerRef.model.name)}</td>
-							<td>${f:h(i.address)}</td>
-							<td>${f:h(i.preferIntlDateStr)}</td>
-							<td>${f:h(i.salesRef.model.name)}</td>
-							<td><a link="managerJobEdit" invoiceKey="${f:h(i.key)}">Edit</a></td>
+							<td>${f:h(j.invoiceRef.model.invoiceNumber)}</td>
+							<td>${f:h(j.invoiceRef.model.address)}</td>
+							<td>${f:h(j.installerRef.model.name)}</td>
+							<td>${f:h(j.startingDateStr)}</td>
+							<td><a link="managerJobEdit" jobKey="${f:h(j.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

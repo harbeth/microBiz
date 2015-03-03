@@ -133,6 +133,8 @@ var quoteDetailFn = {
 		this.registerQuoteOrderChange();
 		// register event for three tabs
 		this.registerTabClick();
+		// load order page
+		this.onSumitOrderRegister();
 	}
     // just validate order items in detail page
 	, validateOrderForm: function() {

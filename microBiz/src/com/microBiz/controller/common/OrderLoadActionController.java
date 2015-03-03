@@ -12,19 +12,23 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.model.Order;
 import com.microBiz.model.OrderItem;
 import com.microBiz.model.Product;
+import com.microBiz.model.QuoteOrder;
 import com.microBiz.service.OrderService;
 import com.microBiz.service.ProductService;
+import com.microBiz.service.QuoteService;
 
 public abstract class OrderLoadActionController extends BaseController {
     
     protected ProductService productService;
     protected OrderService orderService;
+    protected QuoteService quoteService;
     
     // common logic to set order and order item data and save 
     public OrderLoadActionController(){
         super();
         productService = new ProductService();
         orderService = new OrderService();
+        quoteService = new QuoteService();
     }
     
     @Override
@@ -42,6 +46,15 @@ public abstract class OrderLoadActionController extends BaseController {
         List<Product> prodcutList = productService.getSellingPrds();
         requestScope("products", prodcutList);
         requestScope("txRates", txRates);
+    }
+    
+    public void setOrderFromList(List<QuoteOrder> quoteOrderList) throws Exception {
+        // get first quote version  quoteOrderList.size() should > 0
+        QuoteOrder firstQuoteOrder = quoteOrderList.get(0);
+        QuoteOrder quoteOrder = quoteService.getQuoteOrder(firstQuoteOrder.getKey());
+        Order order = quoteOrder.getOrderRef().getModel();
+        setOrderData(order);
+        requestScope("quoteOrder", quoteOrder);
     }
     
     public Order getOrderData() {

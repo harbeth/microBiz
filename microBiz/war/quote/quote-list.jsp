@@ -17,14 +17,12 @@
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
-						
 						<th>Address</th>
 						<th>Customer</th>
 
 						<th>Created At</th>
 						<th>Sales Email</th>
 						<th>Status</th>
-
 					</tr>
 				</thead>
 				<tbody>
@@ -32,8 +30,6 @@
 						<tr>
 							<td><a link="quoteEditDetail" quoteKey="${f:h(q.key)}">${f:h(q.address)}</a></td>
 							<td>${f:h(q.customerRef.model.name)}</td>
-					
-
 							<td>${f:h(q.createDateStr)}</td>
 							<td>${f:h(q.createdEmail)}</td>
 							<td>${f:h(q.statusLable)}</td>
