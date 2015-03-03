@@ -48,6 +48,20 @@
 		<span class="input-group-addon">PO Number</span>
 		<input type="text" ${f:text("poNumber")} class="form-control" />
 	</div>
+	
+	<c:if test="${key != null}">
+		<div class="form-group input-group">
+			<span class="input-group-addon">Status</span>
+			<select name="status" class="form-control">
+				<c:forEach items="${invoiceStatus}" var="s">
+					<option value="${f:h(s.value)}"
+						<c:if test = "${f:h(status) == f:h(s.value)}" >
+							selected
+						</c:if>>${f:h(s.label)}</option>
+				</c:forEach>
+			</select>
+		</div>	
+	</c:if>	
 
 	<jsp:include page="../common/customer-contact-common.jsp" />
 
