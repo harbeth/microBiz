@@ -26,7 +26,7 @@
 				<tbody>
 					<c:forEach var="i" items="${invoices}">
 						<tr>
-							<td>${f:h(i.invoiceNumber)}</td>
+							<td><a href="/invoice/editInvoice?invoiceKey=${f:h(i.key)}">${f:h(i.invoiceNumber)}</a></td>
 							<td>${f:h(i.customerRef.model.name)}</td>
 							<td>${f:h(i.address)}</td>
 							<td>${f:h(i.sales)}</td>
