@@ -9,9 +9,9 @@
 	<div class="col-lg-4 col-md-8">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<li>Closed 2/12/2015</li>
-				<li>4 Jobs Completed</li>
-				<li>6 Jobs On going</li>
+				<li>${f:h(invoice.statusLable)} ${f:h('  ')} ${f:h(invoice.statusChangeDateStr)}</li>
+				<li>${f:h(invoice.invoiceReportRef.model.completeJobCount)} Jobs Completed</li>
+				<li>${f:h(invoice.invoiceReportRef.model.onGoingJobCount)} Jobs On going</li>
 			</div>
 			<div class="panel-footer">
 				<span class="pull-left">
@@ -27,9 +27,9 @@
 	<div class="col-lg-4 col-md-8">
 		<div class="panel panel-success">
 			<div class="panel-heading">
-				<li>30 Days Term</li>
-				<li>Amount: $4789</li>
-				<li>Received: $0</li>
+				<li>${f:h(invoice.customerRef.model.pymtTermLable)} Days Term</li>
+				<li>Amount: ${f:h(invoice.invoiceReportRef.model.total)}</li>
+				<li>Received:${f:h(invoice.invoiceReportRef.model.pymtReceived)}</li>
 			</div>
 			<div class="panel-footer">
 				<span class="pull-left">
@@ -45,9 +45,9 @@
 	<div class="col-lg-4 col-md-8">
 		<div class="panel panel-danger">
 			<div class="panel-heading">
-				<li>Profit Margin: 10%</li>
-				<li>Labor Cost: $4789</li>
-				<li>Material Cost: $9087</li>
+				<li>Profit Margin: ${f:h(invoice.invoiceReportRef.model.profitMargin)}%</li>
+				<li>Labor Cost: ${f:h(invoice.invoiceReportRef.model.labourCost)}</li>
+				<li>Material Cost: ${f:h(invoice.invoiceReportRef.model.materialCost)}</li>
 			</div>
 			<div class="panel-footer">
 				<span class="pull-left">

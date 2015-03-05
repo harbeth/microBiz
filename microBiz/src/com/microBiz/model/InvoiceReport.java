@@ -28,9 +28,22 @@ public class InvoiceReport extends MiBaseModel {
     @Attribute(unindexed = true)
     private Double otherExpense;
     
-    private Boolean paidOff;
+    // jobCount didnot include canceled job
+    @Attribute(unindexed = true)
+    private Integer jobCount;
+    
+    @Attribute(unindexed = true)
+    private Integer completeJobCount;
+    
+    
 
-
+    public Integer getOnGoingJobCount(){
+        return jobCount-completeJobCount;
+    }
+    
+    public Double getProfitMargin(){
+        return 100*((total-labourCost-materialCost-otherExpense)/total);
+    }
 
     public InvoiceReport(){
         labourHrs = new Double(0);
@@ -40,7 +53,8 @@ public class InvoiceReport extends MiBaseModel {
         pymtReceived = new Double(0);
         salesCommission = new Double(0);
         otherExpense = new Double(0);
- 
+        jobCount = new Integer(0);
+        completeJobCount = new Integer(0);
         
     }
     
@@ -52,15 +66,33 @@ public class InvoiceReport extends MiBaseModel {
         labourCost = labourCost+d;
     }
     
-
-    
     public void addMaterialCost(Double d){
         materialCost = materialCost+d;
+    }
+    
+    public void addPymtReceived(Double d){
+        pymtReceived = pymtReceived+d;
+    }
+    
+    public void addOtherExpense(Double d){
+        otherExpense = otherExpense+d;
     }
 
 
     public Double getLabourHrs() {
         return labourHrs;
+    }
+    
+    public void increaseCompleteJobCount(){
+        completeJobCount = completeJobCount+1;
+    }
+    
+    public void decreaseJobCount(){
+        jobCount = jobCount-1;
+    }
+    
+    public void increaseJobCount(){
+        jobCount = jobCount+1;
     }
 
     public void setLabourHrs(Double labourHrs) {
@@ -115,12 +147,21 @@ public class InvoiceReport extends MiBaseModel {
         this.otherExpense = otherExpense;
     }
 
-    public Boolean getPaidOff() {
-        return paidOff;
+
+    public Integer getJobCount() {
+        return jobCount;
     }
 
-    public void setPaidOff(Boolean paidOff) {
-        this.paidOff = paidOff;
+    public void setJobCount(Integer jobCount) {
+        this.jobCount = jobCount;
+    }
+
+    public Integer getCompleteJobCount() {
+        return completeJobCount;
+    }
+
+    public void setCompleteJobCount(Integer completeJobCount) {
+        this.completeJobCount = completeJobCount;
     }
 
 

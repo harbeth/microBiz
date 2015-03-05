@@ -3,18 +3,22 @@
 <jsp:include page="./manager-payment-edit.jsp" flush="true" />
  -->
 
-<div class="panel panel-primary">
+<div class="panel panel-green">
+	<div class="panel-heading">
+	   Ongoing Invoices
+	</div>
+	<div class="panel-body">
 	<div id="managerInvoiceDetailDIV" hasContent="n">
 	</div>
 	<div class="panel-footer">
 		<div class="table-responsive">
-			<table class="table table-hover table-striped">
+			<table class="table">
 				<thead>
 					<tr>
 						<th>Invoice #</th>
 						<th>Customer</th>
 						<th>Address</th>
-						<th>Preferred Install At</th>
+						<th>Prefer Install Date</th>
 						<th>Sales</th>
 						<th></th>
 					</tr>
@@ -26,7 +30,7 @@
 							<td>${f:h(i.customerRef.model.name)}</td>
 							<td>${f:h(i.address)}</td>
 							<td>${f:h(i.preferIntlDateStr)}</td>
-							<td>${f:h(i.salesRef.model.name)}</td>
+							<td>${f:h(i.sales)}</td>
 							<td><a link="managerInvoiceEdit" invoiceKey="${f:h(i.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>

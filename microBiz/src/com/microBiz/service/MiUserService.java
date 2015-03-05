@@ -59,4 +59,13 @@ public class MiUserService {
         tx.commit();
     }
 
+    public MiUser getUserByName(String installer) {
+        List<MiUser> result = Datastore.query(p).filter(p.name.equal(installer)).asList();
+        if(result.size() == 0){
+            return null;
+        }else{
+            return (MiUser)result.get(0);
+        }
+    }
+
 }

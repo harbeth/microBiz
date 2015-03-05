@@ -22,7 +22,7 @@ public class ManagerUncompleteJobController extends BaseController {
         //requestScope("jobReports", jobReportsToApprove);
         
         // get all invoice list for now, should get not fully paied invoice list
-        requestScope("jobs", jobService.getAll());
+        requestScope("jobs", jobService.getAllUncompleteJobs());
         return forward("manager-uncomplete-job-list.jsp");
     }
 }

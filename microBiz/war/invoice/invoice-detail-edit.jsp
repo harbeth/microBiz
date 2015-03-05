@@ -36,8 +36,8 @@
 		<select name="sales" class="form-control">
 		<option value="">Select ... </option>
 			<c:forEach items="${sales}" var="s">
-				<option value="${f:h(s.key)}"
-					<c:if test = "${f:h(salesRef.model.key) == f:h(s.key)}" >
+				<option value="${f:h(s.name)}"
+					<c:if test = "${f:h(sales) == f:h(s.name)}" >
 						selected
 					</c:if>>${f:h(s.name)}</option>
 			</c:forEach>

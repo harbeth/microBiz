@@ -1,14 +1,17 @@
 package com.microBiz.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.microBiz.MicroBizConst;
 import com.microBiz.meta.InvoiceMeta;
 import com.microBiz.meta.OrderMeta;
 import com.microBiz.model.Invoice;
+import com.microBiz.model.InvoiceReport;
 import com.microBiz.model.Order;
 
 public class InvoiceService {
@@ -23,8 +26,8 @@ public class InvoiceService {
     
 
     
-    public List<Invoice> getInvoicesByCreatedEamil(String email) {
-        return Datastore.query(i).filter(i.createdEmail.equal(email)).asList();
+    public List<Invoice> getInvoicesByCreatorName(String name) {
+        return Datastore.query(i).filter(i.creatorName.equal(name)).asList();
     }
 
     public Order getInvoiceOrder(Key orderKey) {
@@ -40,10 +43,23 @@ public class InvoiceService {
     }
 
     public Invoice save(Invoice i) {
-        Transaction tx = Datastore.beginTransaction();
-        Key key = Datastore.put(tx, i);
+        
+        if(i.getInvoiceReportRef()==null || i.getInvoiceReportRef().getModel()==null){
+            InvoiceReport ir = new InvoiceReport();
+            ir.setTotal(i.getOrderRef().getModel().getTotal());
+            Datastore.put(ir);
+            i.getInvoiceReportRef().setModel(ir);
+        }
+        
+         
+        if(i.getKey()!=null){
+            Invoice oldInvoice = get(i.getKey());
+            if(oldInvoice.getStatus()!=i.getStatus()){ 
+                i.setStatusChangeDate(new Date());
+            }
+        }
+        Key key = Datastore.put(i);
         i.setKey(key);
-        tx.commit();
         return i;
     }
 
@@ -53,7 +69,24 @@ public class InvoiceService {
 
 
 
-    public List<Invoice> getInvoicesForSalesCommission(Key stringToKey) {
-        return Datastore.query(i).asList();
+    public List<Invoice> getInvoicesForSalesCommission(String salesName) {
+        return Datastore.query(i).filter(i.sales.equal(salesName),
+            i.status.equal(MicroBizConst.CODE_STATUS_CLOSED), i.paidOff.equal(true)).asList();
+    }
+    
+    public List<Invoice> getUnPaidOffInvoices() {
+        return Datastore.query(i).filter(i.status.equal(MicroBizConst.CODE_STATUS_CLOSED), 
+            i.paidOff.notEqual(true)).asList();
+    }
+    
+    public List<Invoice> getOpenInvoices() {
+        return Datastore.query(i).filter(i.status.equal(MicroBizConst.CODE_STATUS_OPEN)).asList();
+    }
+
+
+
+    public void saveInvoiceReport(InvoiceReport ir) {
+        Datastore.put(ir);
+        
     }
 }

@@ -25,7 +25,7 @@
 								<td>${f:h(jr.jobRef.model.invoiceRef.model.invoiceNumber)}</td>
 								<td>${f:h(jr.jobRef.model.invoiceRef.model.customerRef.model.name)}</td>
 								<td>${f:h(jr.jobRef.model.invoiceRef.model.address)}</td>
-								<td>${f:h(jr.jobRef.model.installerRef.model.name)}</td>
+								<td>${f:h(jr.jobRef.model.installer)}</td>
 								<td>${f:h(jr.travelHours)}</td>
 								<td>${f:h(jr.workingHours)}</td>
 								<td>${f:h(jr.materialReportStr)}</td>

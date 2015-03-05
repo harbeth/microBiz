@@ -22,7 +22,7 @@ public class ManagerOngoingInvoiceController extends BaseController {
         //requestScope("jobReports", jobReportsToApprove);
         
         // get all invoice list for now, should get not fully paied invoice list
-        requestScope("invoices", invoiceService.getAll());
+        requestScope("invoices", invoiceService.getOpenInvoices());
         return forward("manager-ongoing-invoice-list.jsp");
     }
 }

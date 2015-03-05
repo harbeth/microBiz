@@ -4,6 +4,9 @@
  -->
 
 <div class="panel panel-primary">
+	<div class="panel-heading">
+	   Not Paid Off Invoices
+	</div>
 	<div id="managerPaymentDetailDIV" hasContent="n">
 	</div>
 	<div class="panel-footer">
@@ -14,8 +17,9 @@
 						<th>Invoice #</th>
 						<th>Customer</th>
 						<th>Address</th>
-						<th>Preferred Install At</th>
 						<th>Sales</th>
+						<th>Total</th>
+						<th>Received</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -25,8 +29,9 @@
 							<td>${f:h(i.invoiceNumber)}</td>
 							<td>${f:h(i.customerRef.model.name)}</td>
 							<td>${f:h(i.address)}</td>
-							<td>${f:h(i.preferIntlDateStr)}</td>
-							<td>${f:h(i.salesRef.model.name)}</td>
+							<td>${f:h(i.sales)}</td>
+							<td>${f:h(i.invoiceReportRef.model.total)}</td>
+							<td>${f:h(i.invoiceReportRef.model.pymtReceived)}</td>
 							<td><a link="managerInvoicePaymentNew" invoiceKey="${f:h(i.key)}">Receive Payment</a></td>
 						</tr>
 					</c:forEach>

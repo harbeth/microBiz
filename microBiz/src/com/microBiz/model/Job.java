@@ -39,11 +39,12 @@ public class Job extends MiCreatorBaseModel {
     // many to one
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
 
-    private ModelRef<MiUser> installerRef = new ModelRef<MiUser>(MiUser.class);
+    private String installer;
 
     @Attribute(persistent = false)
     private InverseModelListRef<JobReport, Job> jobReportListRef =
         new InverseModelListRef<JobReport, Job>(JobReport.class, "jobRef", this);
+  
 
     public Job() {
         status = MicroBizConst.CODE_STATUS_OPEN;
@@ -79,8 +80,13 @@ public class Job extends MiCreatorBaseModel {
         this.startingDate = MicroBizUtil.parseStrToDate(startingDateStr);
     }
 
-    public ModelRef<MiUser> getInstallerRef() {
-        return installerRef;
+
+    public String getInstaller() {
+        return installer;
+    }
+
+    public void setInstaller(String installerName) {
+        this.installer = installerName;
     }
 
     public String getArrivalTime() {

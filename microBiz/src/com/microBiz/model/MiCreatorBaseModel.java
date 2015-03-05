@@ -15,8 +15,8 @@ public abstract class MiCreatorBaseModel extends MiBaseModel {
     @Attribute(listener = CreationDate.class)
     protected Date createdAt;
     
-    @Attribute(listener = CreationEmail.class)
-    protected String createdEmail;
+    @Attribute(listener = CreatorName.class)
+    protected String creatorName;
 
  
 
@@ -32,28 +32,15 @@ public abstract class MiCreatorBaseModel extends MiBaseModel {
         this.createdAt = createdAt;
     }
 
-    public String getCreatedEmail() {
-       
-        return createdEmail;
-      
-    }
-    
     public String getCreatorName() {
-        
-        return createdEmail;
-      
+        return creatorName;
     }
 
-    public void setCreatedEmail(String createdEmail) {
-        if(createdEmail!=null){
-            this.createdEmail = createdEmail.toLowerCase();
-        }else{
-            this.createdEmail = createdEmail;
-        }
-        
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
     }
     
+    
 
-    
-    
+
 }

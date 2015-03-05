@@ -31,7 +31,7 @@
 							<td>${f:h(i.customerRef.model.name)}</td>
 							<td>${f:h(i.address)}</td>
 							<td>${f:h(i.preferIntlDateStr)}</td>
-							<td>${f:h(i.salesRef.model.name)}</td>
+							<td>${f:h(i.sales)}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

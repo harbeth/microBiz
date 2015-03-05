@@ -23,8 +23,8 @@
 						<select name="installer" class="form-control">
 							<option value="">Select ...</option>
 							<c:forEach items="${installers}" var="i">
-								<option value="${f:h(i.key)}"
-									<c:if test = "${f:h(installerRef.model.key) == f:h(i.key)}" >
+								<option value="${f:h(i.name)}"
+									<c:if test = "${f:h(installer) == f:h(i.name)}" >
 										selected
 									</c:if>>${f:h(i.name)}</option>
 							</c:forEach>

@@ -55,7 +55,9 @@ public class Invoice extends MiCreatorBaseModel {
     
     private Date statusChangeDate;
 
-    private ModelRef<MiUser> salesRef = new ModelRef<MiUser>(MiUser.class);
+    private String sales;
+    
+    private Boolean paidOff;
 
     // for display
     @Attribute(persistent = false)
@@ -86,10 +88,6 @@ public class Invoice extends MiCreatorBaseModel {
 
     public boolean isHasContact() {
         return contactRef.getModel() != null;
-    }
-
-    public ModelRef<MiUser> getSalesRef() {
-        return salesRef;
     }
 
     public ModelRef<Customer> getCustomerRef() {
@@ -307,7 +305,22 @@ public class Invoice extends MiCreatorBaseModel {
     public void setStatusChangeDate(Date statusChangeDate) {
         this.statusChangeDate = statusChangeDate;
     }
+
+    public String getSales() {
+        return sales;
+    }
+
+    public void setSales(String sales) {
+        this.sales = sales;
+    }
     
-  
+    public Boolean getPaidOff() {
+        return paidOff;
+    }
+
+    public void setPaidOff(Boolean paidOff) {
+        this.paidOff = paidOff;
+    }
+
 
 }

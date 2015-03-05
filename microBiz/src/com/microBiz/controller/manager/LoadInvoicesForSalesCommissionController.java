@@ -25,7 +25,7 @@ public class LoadInvoicesForSalesCommissionController extends BaseController {
     @Override
     public Navigation run() throws Exception {
         
-        List<Invoice> invoices = invoiceService.getInvoicesForSalesCommission(Datastore.stringToKey(asString("salesKey")));
+        List<Invoice> invoices = invoiceService.getInvoicesForSalesCommission(asString("sales"));
         
         requestScope("invoices", invoices);
         return forward("invoices-for-sales-commission.jsp");

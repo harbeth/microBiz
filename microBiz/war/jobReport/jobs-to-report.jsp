@@ -8,19 +8,20 @@
 	});
 </script>
 
-<div id="jobReportEditDIV"></div>
+
 
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
+		<div class="panel panel-primary">
 			<div class="panel-heading">Jobs To Report</div>
 			<div class="panel-body">
+				<div id="jobReportEditDIV"></div>
+			</div>
+			<div class="panel-footer">
 				<ul>
-
-
 					<c:forEach var="j" items="${jobs}">
 						<li>
-							<p class="fa fa-th"> ${f:h(j.invoiceRef.model.invoiceNumber)}</p>
+							Inv#: ${f:h(j.invoiceRef.model.invoiceNumber)}
 							${f:nbsp('     ')} 
 							<p class="fa fa-home">${f:h(j.invoiceRef.model.address)} </p>${f:nbsp('     ')}
 							<p class="fa fa-calendar"> ${f:h(j.startingDateStr)} </p>${f:nbsp('     ')} 

@@ -7,7 +7,10 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.meta.InvoiceExpenseMeta;
+import com.microBiz.model.Invoice;
 import com.microBiz.model.InvoiceExpense;
+import com.microBiz.model.InvoiceReport;
+import com.microBiz.model.Payment;
 
 
 
@@ -27,16 +30,29 @@ public class InvoiceExpenseService {
     }
 
     public void save(InvoiceExpense e) {
-        Transaction tx = Datastore.beginTransaction();
-        Datastore.put(tx, e);
-        tx.commit();
+        Invoice invoice = e.getInvoiceRef().getModel();
+        InvoiceReport ir = invoice.getInvoiceReportRef().getModel();
+        if(e.getKey()==null){//new payment
+            if(!e.getCanceled().equals("on")){
+                ir.addOtherExpense(e.getExpense());
+            }
+        }else{//edit
+            if(e.getCanceled().equals("on")){//cancel payment
+                ir.addOtherExpense(e.getExpense()*(-1)); 
+            }else{
+                InvoiceExpense olde = get(e.getKey());
+                if(olde.getExpense()!=e.getExpense()){//amount changed
+                    ir.addOtherExpense(e.getExpense()-olde.getExpense());
+                }
+            }
+            
+        }
+        Datastore.put(e);
+        Datastore.put(ir);
+        
     }
     
-    public void save(Key parentKey, InvoiceExpense expense) {
-        Transaction tx = Datastore.beginTransaction();
-        Key childKey = Datastore.allocateId(parentKey, InvoiceExpense.class);
-        expense.setKey(childKey);
-        Datastore.put(tx, expense);
-        tx.commit();
-    }
+
+    
+ 
 }

@@ -25,6 +25,7 @@ public class ManagerJobEditController extends BaseController{
          // edit
         Job job = jobService.get(asKey("jobKey"));
         BeanUtil.copy(job, request);
+
         requestScope("jobStatus", jobStatus);
         return forward("manager-job-edit.jsp");
     }

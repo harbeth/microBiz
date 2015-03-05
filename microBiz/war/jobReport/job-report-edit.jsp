@@ -2,19 +2,14 @@
 <!-- /.row -->
 <%@include file="../includes/taglib.jsp"%>
 
-<div class="row">
-	<h3>Job Report</h3>
-</div>
 
 <jsp:include page="./job-info-common.jsp" flush="true"></jsp:include>
+<form name="jobReportForm" typerole="form" method="post"
+	action="${f:url('/jobReport/jobReportEditAction')}">
 
 
-<div class="col-lg-12">
-<div class="well">
-	<form name="jobReportForm" typerole="form" method="post"
-		action="${f:url('/jobReport/jobReportEditAction')}">
-		
+	<input type="hidden" ${f:hidden("key")} />
 
-		<input type="hidden" ${f:hidden("key")} />
+	<jsp:include page="./job-report-common.jsp" flush="true"></jsp:include>
+</form>
 
-<jsp:include page="./job-report-common.jsp" flush="true"></jsp:include>

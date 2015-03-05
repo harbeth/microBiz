@@ -24,19 +24,20 @@ public class Order extends MiBaseModel{
     // need to calculate: from order items
     private Double subTotal;
     
+    public Order(){
+        taxRate = new Double(0);
+        total = new Double(0);
+        discount = new Double(0);
+        subTotal = new Double(0);
+        
+    }
+    
     // only to collect data
     @Attribute(persistent = false)
     // need to calculate: from order items
     private List<OrderItem> orderItemList;
     
-    @Attribute(persistent = false)
-    private InverseModelListRef<OrderItem, Order> itemsRef = new InverseModelListRef<OrderItem, Order>(OrderItem.class, "orderRef", this);
- 
 
-    public InverseModelListRef<OrderItem, Order> getItemsRef() {
-        return itemsRef;
-    }    
-    
     public List<OrderItem> getOrderItemList() {
         return orderItemList;
     }
@@ -50,6 +51,7 @@ public class Order extends MiBaseModel{
 
 
     public Double getDiscount() {
+        
         return discount;
     }
 

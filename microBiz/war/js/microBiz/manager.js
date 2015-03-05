@@ -260,9 +260,9 @@ var salesCommissionFn = {
 			$("#selectSales").change(function(){
 				// update lower DIV
 				//alert("select sales");
-				var salesKey = $(this).val();
+				var sales = $(this).val();
 				$("#invoicesForSalesCommissionDIV").html("Loading...");
-				$("#invoicesForSalesCommissionDIV").load("/manager/loadInvoicesForSalesCommission?salesKey=" + salesKey, function(){
+				$("#invoicesForSalesCommissionDIV").load("/manager/loadInvoicesForSalesCommission?sales=" + sales, function(){
 					
 				});
 			});

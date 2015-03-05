@@ -17,10 +17,10 @@
 				<form>
 					<div class="form-group">
 					
-						<select id="selectSales" name="salesKey" class="form-control">
+						<select id="selectSales" name="sales" class="form-control">
 							<option value=""> Select Sales ... </option>
 							<c:forEach items="${salesList}" var="i">
-								<option value="${f:h(i.key)}">${f:h(i.name)}</option>
+								<option value="${f:h(i.name)}">${f:h(i.name)}</option>
 							</c:forEach>
 						</select>
 					</div>

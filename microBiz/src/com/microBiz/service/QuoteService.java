@@ -22,8 +22,8 @@ public class QuoteService {
         
     }
     
-    public List<Quote> getQuotesByUserEmail(String email) {
-        return Datastore.query(p).filter(p.createdEmail.equal(email)).asList();
+    public List<Quote> getQuotesByUser(String name) {
+        return Datastore.query(p).filter(p.creatorName.equal(name)).asList();
     }
     
     public List<Quote> getCustomerQuote(Key customerKey) {

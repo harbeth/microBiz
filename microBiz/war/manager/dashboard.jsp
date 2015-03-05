@@ -16,11 +16,11 @@
 <div class="col-lg-3 col-md-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				$456789 due
+				$ ${f:h(unPaidAmt)} due
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
-					<a link="managerTabUnpaidInvoice" nowSelected="y">View Details</a>
+					<a link="managerTabUnpaidInvoice" nowSelected="y">${f:h(unPaidOffInvoiceCount)} UnPaidoffInvoices </a>
 				</span>
 				<div class="clearfix"></div>
 			</div>
@@ -29,7 +29,7 @@
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-green">
 			<div class="panel-heading">
-				10 ongoing invoices
+				${f:h(openInvoiceCount)} ongoing invoices
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
@@ -42,7 +42,7 @@
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-yellow">
 			<div class="panel-heading">
-				20 Job Reports to Approve
+				${f:h(newJobReportCount)} Job Reports to Approve
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
@@ -55,7 +55,7 @@
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-red">
 			<div class="panel-heading">
-			10 Uncompleted Jobs
+			${f:h(openJobCount)} Uncompleted Jobs
 			</div>
 			<div class="panel-footer">
 				<span class="pull-right">
