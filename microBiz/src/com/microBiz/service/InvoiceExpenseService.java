@@ -31,7 +31,7 @@ public class InvoiceExpenseService {
         Invoice invoice = e.getInvoiceRef().getModel();
         InvoiceReport ir = invoice.getInvoiceReportRef().getModel();
         if(e.getKey()==null){//new payment
-            if(!e.getCanceled().equals("on")){
+            if(e.getCanceled()==null || !e.getCanceled().equals("on")){
                 ir.addOtherExpense(e.getExpense());
             }
         }else{//edit

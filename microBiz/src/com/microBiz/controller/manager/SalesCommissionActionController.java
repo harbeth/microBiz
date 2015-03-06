@@ -47,7 +47,7 @@ public class SalesCommissionActionController extends BaseController {
                 InvoiceExpense ie = new InvoiceExpense();
                 ie.setExpense(amt);
                 ie.setNote(notes[i]);
-                ie.getInvoiceRef().setKey(invoiceKey);
+                ie.getInvoiceRef().setModel(invoice);
                 ie.setForSalesCommission("on");
                 ieService.save(ie);
                 
