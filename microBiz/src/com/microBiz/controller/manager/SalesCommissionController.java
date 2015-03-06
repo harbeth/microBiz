@@ -3,8 +3,6 @@ package com.microBiz.controller.manager;
 import org.slim3.controller.Navigation;
 
 import com.microBiz.controller.BaseController;
-import com.microBiz.service.InvoiceService;
-import com.microBiz.service.JobService;
 import com.microBiz.service.MiUserService;
 
 // no use any more, remove later

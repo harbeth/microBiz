@@ -1,5 +1,4 @@
 package com.microBiz.model;
-import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 

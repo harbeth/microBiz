@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.CreationDate;
-import org.slim3.datastore.CreationEmail;
 
 import com.microBiz.MicroBizUtil;
 

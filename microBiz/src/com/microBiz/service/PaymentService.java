@@ -5,7 +5,6 @@ import java.util.List;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.meta.PaymentMeta;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.InvoiceReport;

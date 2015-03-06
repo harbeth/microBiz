@@ -7,7 +7,6 @@ import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
 
-import com.microBiz.MicroBizConst;
 import com.microBiz.controller.BaseController;
 import com.microBiz.meta.ProductMeta;
 import com.microBiz.model.PrdRatio;

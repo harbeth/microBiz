@@ -49,20 +49,20 @@ public class JobService {
             if(job.getStatus()== MicroBizConst.CODE_STATUS_COMPLETED){
                 ir.increaseCompleteJobCount();
                 Double labourHrs = new Double(0);
-                Double labourCost = new Double(0);
+                //Double labourCost = new Double(0);
                 Double materialCost = new Double(0);
                 List<JobReport> jrs = job.getJobReportListRef().getModelList();
-                Iterator i = jrs.iterator();
+                Iterator<JobReport> i = jrs.iterator();
                 MiUserService userService = new MiUserService();                
                 MiUser installer = userService.getUserByName(job.getInstaller());
                 while(i.hasNext()){
-                    JobReport jr = (JobReport)i.next();
+                    JobReport jr = i.next();
                     if(jr.getStatus()== MicroBizConst.CODE_STATUS_APPROVED){
                         labourHrs = labourHrs+jr.getTravelHours()+jr.getWorkingHours();
                         List<JobMaterialReport> jmrs = jr.getJobMaterialReportListRef().getModelList();
-                        Iterator ii = jmrs.iterator();
+                        Iterator<JobMaterialReport>  ii = jmrs.iterator();
                         while(ii.hasNext()){
-                            JobMaterialReport jmr = (JobMaterialReport)ii.next();
+                            JobMaterialReport jmr = ii.next();
                             materialCost = materialCost + jmr.getQty()*(jmr.getProductRef().getModel().getRate())
                                     *(jmr.getPrdRatioRef().getModel().getRatio());
                         }

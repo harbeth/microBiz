@@ -1,6 +1,5 @@
 package com.microBiz.controller.manager;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,10 +35,10 @@ public class ManagerJobReportApproveController extends BaseController {
         jr.setStatus(MicroBizConst.CODE_STATUS_APPROVED);
         jobService.saveJobReport(jr);
         List<JobMaterialReport> jmrs = jr.getJobMaterialReportListRef().getModelList();
-        Iterator i = jmrs.iterator();
+        Iterator<JobMaterialReport> i = jmrs.iterator();
        
         while(i.hasNext()){
-            JobMaterialReport jmr = (JobMaterialReport)i.next();
+            JobMaterialReport jmr = i.next();
             Product prd = jmr.getProductRef().getModel();
             Double reportQty = jmr.getQty();
             Double changedQty = null;

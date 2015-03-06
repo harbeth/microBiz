@@ -10,11 +10,9 @@ import org.slim3.datastore.Datastore;
 import org.slim3.util.ResponseLocator;
 
 import com.microBiz.controller.BaseController;
-import com.microBiz.model.Customer;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.Order;
 import com.microBiz.model.OrderItem;
-import com.microBiz.service.CustomerService;
 import com.microBiz.service.InvoiceService;
 import com.microBiz.service.OrderService;
 import com.pdfjet.Align;
@@ -183,11 +181,11 @@ public class InvoiceToPdfController extends BaseController {
     itemsTableData.add(itemsH);
     
     List<OrderItem> items = orderService.gerOrderItems(order.getKey());
-    Iterator i = items.iterator();
+    Iterator<OrderItem> i = items.iterator();
     Double subTotal = new Double(0);
     while (i.hasNext()){
         List<Cell> items1 = new ArrayList<Cell>();
-        OrderItem oi = (OrderItem)i.next();
+        OrderItem oi = i.next();
         Cell cellIR1 = new Cell(f4, oi.getProductRef().getModel().getModel() + " :  "+ oi.getDesc());
         cellIR1.setNoBorders();
         Cell cellIR2 = new Cell(f4, oi.getRate().toString());

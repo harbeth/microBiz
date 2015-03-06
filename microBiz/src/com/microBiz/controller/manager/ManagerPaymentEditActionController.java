@@ -12,7 +12,7 @@ public class ManagerPaymentEditActionController extends PaymentEditActionControl
     public Navigation run() throws Exception {
         savePayment();
         //get invoice not fully paid list
-        requestScope("invoices", invoiceService.getAll());
+        requestScope("invoices", invoiceService.getUnPaidOffInvoices());
         return forward(getReturnJsp());
     }
     

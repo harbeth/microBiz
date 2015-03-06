@@ -1,7 +1,6 @@
 package com.microBiz.controller.quote;
 
 import java.io.StringWriter;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -18,11 +17,8 @@ import org.slim3.datastore.Datastore;
 
 import com.microBiz.controller.BaseController;
 import com.microBiz.controller.VelocityHelper;
-import com.microBiz.model.Invoice;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
-import com.microBiz.service.InvoiceService;
-import com.microBiz.service.OrderService;
 import com.microBiz.service.QuoteService;
 
 

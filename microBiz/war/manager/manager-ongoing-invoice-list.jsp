@@ -21,17 +21,19 @@
 						<th>Prefer Install Date</th>
 						<th>Sales</th>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="i" items="${invoices}">
 						<tr>
-							<td><a href="/invoice/editInvoice?invoiceKey=${f:h(i.key)}">${f:h(i.invoiceNumber)}</a><</td>
+							<td><a href="/invoice/editInvoice?invoiceKey=${f:h(i.key)}">${f:h(i.invoiceNumber)}</a></td>
 							<td>${f:h(i.customerRef.model.name)}</td>
 							<td>${f:h(i.address)}</td>
 							<td>${f:h(i.preferIntlDateStr)}</td>
 							<td>${f:h(i.sales)}</td>
 							<td><a link="managerInvoiceEdit" invoiceKey="${f:h(i.key)}">Edit</a></td>
+							<td><a link="managerInvoiceJobAssign" invoiceKey="${f:h(i.key)}">Assign Job</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

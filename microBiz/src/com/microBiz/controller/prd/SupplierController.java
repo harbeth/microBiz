@@ -6,10 +6,7 @@ import org.slim3.util.BeanUtil;
 
 import com.microBiz.controller.BaseController;
 import com.microBiz.meta.SupplierMeta;
-import com.microBiz.model.MiUser;
-import com.microBiz.model.Product;
 import com.microBiz.model.Supplier;
-import com.microBiz.service.ProductService;
 import com.microBiz.service.SupplierService;
 
 

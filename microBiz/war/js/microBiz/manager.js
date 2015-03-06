@@ -102,6 +102,7 @@ var dashboardFn = {
 var ongoingInvoiceFn = {
 	initOngoingPage: function() {
 		this.onEditInvoiceClick();
+		this.onAssignJobClick();
 	}
 	, registerInvoiceSubmit: function() {
 		// refresh invoice list
@@ -114,7 +115,7 @@ var ongoingInvoiceFn = {
 	        	// clear edit payment DIV
 	        	$("#managerInvoiceDetailDIV").html("");
 	        	// register edit link
-	        	ongoingInvoiceFn.onEditInvoiceClick();
+	        	ongoingInvoiceFn.initOngoingPage();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -130,14 +131,48 @@ var ongoingInvoiceFn = {
 		// show new payment detail
 		$("a[link=managerInvoiceEdit]").click(function() {
 			var ctrl = $("#managerInvoiceDetailDIV");
-			if( ctrl.attr("hasContent") == "n" ) {
+			if( ctrl.attr("hasContent") == "n" || ctrl.attr("hasContent") != "edit") {
 				var invoiceKey = $(this).attr("invoiceKey");
 				ctrl.load("/manager/managerInvoiceEdit?invoiceKey="+invoiceKey, function() {
 					ongoingInvoiceFn.registerInvoiceSubmit();
 				});
-				ctrl.attr("hasContent", "y");
+				ctrl.attr("hasContent", "edit");
 			}
 		});
+	}
+	, onAssignJobClick: function() {
+		$("a[link=managerInvoiceJobAssign]").click(function() {
+			var ctrl = $("#managerInvoiceDetailDIV");
+			if( ctrl.attr("hasContent") == "n" || ctrl.attr("hasContent") != "assign") {
+				var invoiceKey = $(this).attr("invoiceKey");
+				ctrl.load("/manager/managerInvoiceAssignJob?jobKey=-1&invoiceKey="+invoiceKey, function() {
+					ongoingInvoiceFn.registerJobSubmit();
+				});
+				ctrl.attr("hasContent", "assign");
+			}
+		});
+	}
+	, registerJobSubmit: function() {
+		// refresh invoice list
+		var options = { 
+	        target: "#managerTabOngoingInvoiceDIV"
+	        , beforeSubmit: function() {
+	        	return true;
+	        }
+	        , success: function(responseText, statusText, xhr, $form){
+	        	// clear edit payment DIV
+	        	$("#managerInvoiceDetailDIV").html("");
+	        	// register edit link
+	        	ongoingInvoiceFn.initOngoingPage();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=managerJobDetailForm]").submit(function() { 
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
 	}
 }
 
@@ -152,11 +187,11 @@ var unPaidInvoiceFn = {
 	        , beforeSubmit: function() {
 	        	return true;
 	        }
-	        , success: function(responseText, statusText, xhr, $form){
+	        , success: function(){
 	        	// clear edit payment DIV
 	        	$("#managerPaymentDetailDIV").html("");
 	        	// register edit link
-	        	unPaidInvoiceFn.onReceivePaymentClick();
+	        	unPaidInvoiceFn.initUnpaidPage();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -175,7 +210,7 @@ var unPaidInvoiceFn = {
 			if( ctrl.attr("hasContent") == "n" ) {
 				var invoiceKey = $(this).attr("invoiceKey");
 				ctrl.load("/manager/managerPaymentEdit?paymentKey=-1&invoiceKey="+invoiceKey, function() {
-					ongoingInvoiceFn.registerInvoiceSubmit();
+					unPaidInvoiceFn.registerPaymentSubmit();
 				});
 				ctrl.attr("hasContent", "y");
 			}
@@ -198,7 +233,7 @@ var uncompleteJobFn = {
 	        	// clear edit payment DIV
 	        	$("#managerInvoiceDetailDIV").html("");
 	        	// register edit link
-	        	uncompleteJobFn.onEditJobClick();
+	        	uncompleteJobFn.initUncomplatePage();
 	        }
 	    }; 
 	    // bind to the form's submit event 

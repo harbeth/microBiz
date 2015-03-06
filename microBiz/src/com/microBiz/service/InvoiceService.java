@@ -6,7 +6,6 @@ import java.util.List;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.MicroBizConst;
 import com.microBiz.meta.InvoiceMeta;
 import com.microBiz.meta.OrderMeta;

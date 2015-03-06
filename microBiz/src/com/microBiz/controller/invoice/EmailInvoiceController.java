@@ -1,7 +1,6 @@
 package com.microBiz.controller.invoice;
 
 import java.io.StringWriter;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -20,7 +19,6 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.controller.VelocityHelper;
 import com.microBiz.model.Invoice;
 import com.microBiz.service.InvoiceService;
-import com.microBiz.service.OrderService;
 
 
 public class EmailInvoiceController extends BaseController {
