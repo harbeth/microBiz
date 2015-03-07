@@ -14,19 +14,14 @@
 			<div class="panel-heading">Calculate Sales Commission</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
-				<form>
-					<div class="form-group">
-					
-						<select id="selectSales" name="sales" class="form-control">
-							<option value=""> Select Sales ... </option>
-							<c:forEach items="${salesList}" var="i">
-								<option value="${f:h(i.name)}">${f:h(i.name)}</option>
-							</c:forEach>
-						</select>
-					</div>
-		
-				</form>
-				
+				<div class="form-group">
+					<select id="selectSales" name="sales" class="form-control">
+						<option value="-1"> Select Sales ... </option>
+						<c:forEach items="${salesList}" var="i">
+							<option value="${f:h(i.name)}">${f:h(i.name)}</option>
+						</c:forEach>
+					</select>
+				</div>
 				<div id="invoicesForSalesCommissionDIV"></div>
 			</div>
 		</div>

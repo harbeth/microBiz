@@ -50,10 +50,11 @@ public class SalesCommissionActionController extends BaseController {
                 ie.getInvoiceRef().setModel(invoice);
                 ie.setForSalesCommission("on");
                 ieService.save(ie);
-                
             }
         }
-        requestScope("msg", "have successfully saved commissions");
-        return forward("../common/msg.jsp");
+        // error handling later
+        String msg = "Save sales commission successfully";
+        response.getWriter().print(msg);
+        return null;
     }
 }

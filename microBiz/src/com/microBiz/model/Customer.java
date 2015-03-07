@@ -90,7 +90,7 @@ public class Customer extends MiCreatorBaseModel {
     }
 
     public boolean isCommercial() {
-        return MicroBizConst.CODE_CUSTOMER_TYPE_COMMERCIAL == type;
+        return MicroBizConst.CODE_CUSTOMER_TYPE_COMMERCIAL.equals(type);
     }
 
     public Integer getType() {

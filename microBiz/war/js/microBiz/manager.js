@@ -286,20 +286,41 @@ var jobReportEditFn = {
 }
 
 var salesCommissionFn = {
-		init: function() {
-			
-			this.salesSelectChange();
-			
-		}
-		, salesSelectChange: function() {
-			$("#selectSales").change(function(){
-				// update lower DIV
-				//alert("select sales");
-				var sales = $(this).val();
-				$("#invoicesForSalesCommissionDIV").html("Loading...");
-				$("#invoicesForSalesCommissionDIV").load("/manager/loadInvoicesForSalesCommission?sales=" + sales, function(){
-					
-				});
+	init: function() {
+		this.salesSelectChange();
+	}
+	, salesSelectChange: function() {
+		$("#selectSales").change(function(){
+			// update lower DIV
+			//alert("select sales");
+			var sales = $(this).val();
+			$("#invoicesForSalesCommissionDIV").html("Loading...");
+			$("#invoicesForSalesCommissionDIV").load("/manager/loadInvoicesForSalesCommission?sales=" + sales, function(){
+				salesCommissionFn.registerSalesForm();
 			});
-		}
+		});
+	}
+	, registerSalesForm: function() {
+		// after submit, reload tab content
+		var options = { 
+	        beforeSubmit: function() {
+	        	return true;
+	        }
+	        , success: function(responseText){
+	        	//if ( responseText == "success" ) {
+	        		// should trigger value change event
+	        		//alert(responseText);
+	        		$("#selectSales").val("-1");
+	        		$("#invoicesForSalesCommissionDIV").html("");
+	        	//}
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("#salesCommissionSelectForm").submit(function() { 
+	        $(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+	}
 }

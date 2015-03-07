@@ -125,6 +125,7 @@ var quoteEditFn = {
 
 var quoteDetailFn = {
 	init: function() {
+		this.onEmailClick();
 		quoteEditFn.onCloseClick();
 		// more than one submit button doesn't work, use normal button and post
 		//this.onSumitOrderRegister();
@@ -135,6 +136,19 @@ var quoteDetailFn = {
 		this.registerTabClick();
 		// load order page
 		this.onSumitOrderRegister();
+	}
+	, onEmailClick: function() {
+		$("a[link=emailToCustomer]").click(function(){
+			var quoteKey = $(this).attr("quoteKey");
+			$.ajax({
+				type: "GET"
+				, url: "/quote/emailQuote"
+				, data: "quoteKey="+quoteKey
+				, success: function(responseText) {
+					alert(responseText);
+				}
+			});
+		});
 	}
     // just validate order items in detail page
 	, validateOrderForm: function() {

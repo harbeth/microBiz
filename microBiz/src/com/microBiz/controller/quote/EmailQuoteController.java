@@ -53,6 +53,7 @@ public class EmailQuoteController extends BaseController {
         
         String message = writer.toString();
         System.out.println("message is " + message);
+        String statusMsg = "";
         try{
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("admin@heleadsys.appspotmail.com ", "Quotation From Foam Expert"));
@@ -61,12 +62,14 @@ public class EmailQuoteController extends BaseController {
             msg.setSubject("Quotation for Spray Foam project at " + quote.getAddress());
             msg.setContent(message, "text/html" );
             Transport.send(msg);
+            statusMsg = "Send out the email for Quotation successfully.";
 
         } catch (Exception e) {
-            
+            statusMsg = "Cannot send out the email. " + e.getMessage();
         }
         writer.flush();
         writer.close();
+        response.getWriter().print(statusMsg);
         //return "Have successfully send email to " + invoice.getCustomerRef().getModel().getName();
         return null;
     }

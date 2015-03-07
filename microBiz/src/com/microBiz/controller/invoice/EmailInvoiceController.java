@@ -51,6 +51,7 @@ public class EmailInvoiceController extends BaseController {
         
         String message = writer.toString();
         System.out.println("message is " + message);
+        String statusMsg = "";
         try{
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("admin@heleadsys.appspotmail.com ", "Invoice From Foam Expert"));
@@ -59,13 +60,14 @@ public class EmailInvoiceController extends BaseController {
             msg.setSubject("Invoice for Spray Foam project at " + invoice.getAddress());
             msg.setContent(message, "text/html" );
             Transport.send(msg);
+            statusMsg = "Send out the email successfully.";
 
         } catch (Exception e) {
-            
+            statusMsg = "Cannot send out the email. " + e.getMessage();
         }
         writer.flush();
         writer.close();
-        //return "Have successfully send email to " + invoice.getCustomerRef().getModel().getName();
+        response.getWriter().printf(statusMsg);
         return null;
     }
 }

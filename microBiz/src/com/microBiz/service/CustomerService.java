@@ -18,6 +18,7 @@ public class CustomerService {
     }
     
     public List<Customer> searchStartWith(String searchStr) {
+        // case insensitive ??
         return Datastore.query(p).filter(p.name.startsWith(searchStr)).asList();
     }
     

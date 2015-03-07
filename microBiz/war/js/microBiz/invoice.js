@@ -189,6 +189,8 @@ var invoiceEditFn = {
 
 var invoiceDetailFn = {
 	init: function() {
+		// header button
+		this.onEmailClick();
 		// ===  detail tab ===
 		// close button on detail tab
 		this.onEditInvoiceClick();
@@ -202,6 +204,19 @@ var invoiceDetailFn = {
 		this.onInvoicePaymentEditClick();
 		// register event for three tabs
 		this.registerSectionClick();
+	}
+	, onEmailClick: function() {
+		$("a[link=emailToCustomer]").click(function(){
+			var invoiceKey = $(this).attr("invoiceKey");
+			$.ajax({
+				type: "GET"
+				, url: "/invoice/emailInvoice"
+				, data: "invoiceKey="+invoiceKey
+				, success: function(responseText) {
+					alert(responseText);
+				}
+			});
+		});
 	}
 	, onDetailPageClose: function() {
 		$("a[link=invoiceEditClose]").click(function(){
