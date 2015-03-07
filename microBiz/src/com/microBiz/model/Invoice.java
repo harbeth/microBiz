@@ -58,6 +58,8 @@ public class Invoice extends MiCreatorBaseModel {
     private String sales;
     
     private Boolean paidOff;
+    
+    private Boolean salesPaid;
 
     // for display
     @Attribute(persistent = false)
@@ -320,6 +322,14 @@ public class Invoice extends MiCreatorBaseModel {
 
     public void setPaidOff(Boolean paidOff) {
         this.paidOff = paidOff;
+    }
+
+    public Boolean getSalesPaid() {
+        return salesPaid;
+    }
+
+    public void setSalesPaid(Boolean salesPaid) {
+        this.salesPaid = salesPaid;
     }
 
 

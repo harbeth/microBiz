@@ -33,8 +33,12 @@ public class InvoiceExpenseService {
         if(e.getKey()==null){//new payment
             if(e.getCanceled()==null || !e.getCanceled().equals("on")){
                 ir.addOtherExpense(e.getExpense());
+                if(e.getForSalesCommission().equals("on")){
+                    invoice.setSalesPaid(true);
+                    Datastore.put(invoice);
+                }
             }
-        }else{//edit
+        }else{
             if(e.getCanceled().equals("on")){//cancel payment
                 ir.addOtherExpense(e.getExpense()*(-1)); 
             }else{

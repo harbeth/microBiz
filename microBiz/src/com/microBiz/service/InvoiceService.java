@@ -70,7 +70,8 @@ public class InvoiceService {
 
     public List<Invoice> getInvoicesForSalesCommission(String salesName) {
         return Datastore.query(i).filter(i.sales.equal(salesName),
-            i.status.equal(MicroBizConst.CODE_STATUS_CLOSED), i.paidOff.equal(true)).asList();
+            i.status.equal(MicroBizConst.CODE_STATUS_CLOSED), i.paidOff.equal(true),
+            i.salesPaid.notEqual(true)).asList();
     }
     
     public List<Invoice> getUnPaidOffInvoices() {
