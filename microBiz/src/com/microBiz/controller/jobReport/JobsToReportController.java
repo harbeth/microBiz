@@ -21,7 +21,7 @@ public class JobsToReportController extends BaseController {
     @Override
     public Navigation run() throws Exception {
         // only get data for invoice list, not details
-        List<Job> jobs = jobService.getAllUncompleteJobs();
+        List<Job> jobs = jobService.getJobsForJobReport();
         requestScope("jobs", jobs);
         return forward("job-report-wrapper.jsp");
     }

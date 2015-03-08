@@ -2,6 +2,8 @@ package com.microBiz.model;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 
+import com.microBiz.MicroBizUtil;
+
 
 @Model(kind = "invoice_report")
 public class InvoiceReport extends MiBaseModel {
@@ -23,8 +25,6 @@ public class InvoiceReport extends MiBaseModel {
     @Attribute(unindexed = true)
     private Double pymtReceived;
     
-    private Double salesCommission;
-    
     @Attribute(unindexed = true)
     private Double otherExpense;
     
@@ -42,7 +42,7 @@ public class InvoiceReport extends MiBaseModel {
     }
     
     public Double getProfitMargin(){
-        return 100*((total-labourCost-materialCost-otherExpense)/total);
+        return MicroBizUtil.roundTo2Demcial(100*((total-labourCost-materialCost-otherExpense)/total));
     }
 
     public InvoiceReport(){
@@ -51,7 +51,6 @@ public class InvoiceReport extends MiBaseModel {
         materialCost = new Double(0);
         total = new Double(0);
         pymtReceived = new Double(0);
-        salesCommission = new Double(0);
         otherExpense = new Double(0);
         jobCount = new Integer(0);
         completeJobCount = new Integer(0);
@@ -108,7 +107,7 @@ public class InvoiceReport extends MiBaseModel {
     }
 
     public Double getMaterialCost() {
-        return materialCost;
+        return new Double(MicroBizUtil.roundTo2Demcial(materialCost.doubleValue()));
     }
 
     public void setMaterialCost(Double materialCost) {
@@ -131,13 +130,6 @@ public class InvoiceReport extends MiBaseModel {
         this.pymtReceived = pymtReceived;
     }
 
-    public Double getSalesCommission() {
-        return salesCommission;
-    }
-
-    public void setSalesCommission(Double salesCommission) {
-        this.salesCommission = salesCommission;
-    }
 
     public Double getOtherExpense() {
         return otherExpense;

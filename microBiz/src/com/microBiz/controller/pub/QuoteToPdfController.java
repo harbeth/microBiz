@@ -9,6 +9,7 @@ import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 import org.slim3.util.ResponseLocator;
 
+import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Order;
 import com.microBiz.model.OrderItem;
@@ -219,8 +220,8 @@ public class QuoteToPdfController extends BaseController {
     
     Cell cellT31 = new Cell(f4,"HST(#45944326678):");
     cellT31.setNoBorders();
-    Double taxAmt = order.getTaxRate()*subTotal;
-    Cell cellT32 = new Cell(f4,taxAmt.toString());
+    double taxAmt = MicroBizUtil.roundTo2Demcial(order.getTaxRate()*subTotal);
+    Cell cellT32 = new Cell(f4,Double.toString(taxAmt));
     cellT32.setLeftPadding(22);
     cellT32.setNoBorders();
     totalR3.add(cellT31);

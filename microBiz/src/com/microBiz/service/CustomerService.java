@@ -19,12 +19,12 @@ public class CustomerService {
     
     public List<Customer> searchStartWith(String searchStr) {
         // case insensitive ??
-        return Datastore.query(p).filter(p.name.startsWith(searchStr)).asList();
+        return Datastore.query(p).filter(p.searchName.startsWith(searchStr.trim().toLowerCase())).asList();
     }
     
     public List<Customer> getByCustomerName(String name) {
         // case insensitive ??
-        return Datastore.query(p).filter(p.name.equal(name)).asList();
+        return Datastore.query(p).filter(p.searchName.equal(name.trim().toLowerCase())).asList();
     }
     
     public Customer get(Key key) {
@@ -37,17 +37,12 @@ public class CustomerService {
 
     public Key save(Customer f) {
         Transaction tx = Datastore.beginTransaction();
+        f.setSearchName(f.getName().trim().toLowerCase());
         Key key = Datastore.put(tx, f);
         tx.commit();
         return key;
     }
     
-    public void save(Key parentKey, Customer f) {
-        Transaction tx = Datastore.beginTransaction();
-        Key childKey = Datastore.allocateId(parentKey, Customer.class);
-        f.setKey(childKey);
-        Datastore.put(tx, f);
-        tx.commit();
-    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.microBiz.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class Job extends MiCreatorBaseModel {
     // only for display
     @Attribute(persistent = false)
     private String invoiceKey;
+    
+    // only for installer to edit new job report
+    @Attribute(persistent = false)
+    private List<JobReport> newJobReports;
 
     // many to one
     private ModelRef<Invoice> invoiceRef = new ModelRef<Invoice>(Invoice.class);
@@ -131,5 +136,19 @@ public class Job extends MiCreatorBaseModel {
     public void setUsePrdKeys(List<String> usePrdKeys) {
         this.usePrdKeys = usePrdKeys;
     }
+
+    public List<JobReport> getNewJobReports() {
+        return newJobReports;
+    }
+
+    public void addNewJobReports(JobReport newJobReport) {
+        if(newJobReports ==null){
+            newJobReports = new ArrayList<JobReport>();
+        }
+        newJobReports.add(newJobReport);
+    }
+    
+    
+    
 
 }

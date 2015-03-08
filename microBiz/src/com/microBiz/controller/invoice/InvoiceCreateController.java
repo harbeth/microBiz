@@ -43,7 +43,7 @@ public class InvoiceCreateController extends CustomerContactLoadController {
         // show contact DIV flag
         BeanUtil.copy(invoice, request);
         requestScope("txRates", txRates);
-        requestScope("sales", userService.getSales());
+        requestScope("salesNames", userService.getSalesNames());
         requestScope("products", productService.getSellingPrds());
         requestScope("paymentTypes", paymentTypes);
         setCustomerContactData(c, null);

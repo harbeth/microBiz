@@ -1,10 +1,12 @@
 package com.microBiz.controller.common;
 
 import org.slim3.controller.Navigation;
+import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
 
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Job;
+import com.microBiz.service.InvoiceService;
 import com.microBiz.service.JobService;
 import com.microBiz.service.MiUserService;
 import com.microBiz.service.ProductService;
@@ -15,12 +17,14 @@ public abstract class JobEditCommonController extends BaseController {
     protected JobService jobService;
     protected MiUserService userService;
     protected ProductService productService;
+    protected InvoiceService invoiceService;
     
     public JobEditCommonController(){
         super();
         jobService = new JobService();
         userService = new MiUserService();
         productService = new ProductService();
+        invoiceService = new InvoiceService();
     }
     
     // assign job, create new job or edit job
@@ -42,6 +46,7 @@ public abstract class JobEditCommonController extends BaseController {
         requestScope("installers", userService.getInstallers());
         requestScope("prds", productService.getReportingPrds());
         requestScope("jobStatus", jobStatus);
+        requestScope("invoice", invoiceService.get(Datastore.stringToKey(invoiceKey)));
         return forward(getReturnJsp());
     }
     

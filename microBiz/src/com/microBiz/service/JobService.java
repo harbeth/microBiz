@@ -38,15 +38,18 @@ public class JobService {
 
     
     public void save(Job job) {
+        
         Invoice invoice = job.getInvoiceRef().getModel();
-        InvoiceReport ir = invoice.getInvoiceReportRef().getModel();
+        InvoiceReport ir = invoice.getInvoiceReportRef().getModel(); 
         if(job.getKey()==null){//new job
-            if(job.getStatus()== MicroBizConst.CODE_STATUS_OPEN){
+            
+            if(job.getStatus().intValue()== MicroBizConst.CODE_STATUS_OPEN.intValue()){
+                
                 ir.increaseJobCount();
             }
         }else{
 
-            if(job.getStatus()== MicroBizConst.CODE_STATUS_COMPLETED){
+            if(job.getStatus().intValue()== MicroBizConst.CODE_STATUS_COMPLETED.intValue()){
                 ir.increaseCompleteJobCount();
                 Double labourHrs = new Double(0);
                 //Double labourCost = new Double(0);
@@ -57,7 +60,7 @@ public class JobService {
                 MiUser installer = userService.getUserByName(job.getInstaller());
                 while(i.hasNext()){
                     JobReport jr = i.next();
-                    if(jr.getStatus()== MicroBizConst.CODE_STATUS_APPROVED){
+                    if(jr.getStatus().intValue()== MicroBizConst.CODE_STATUS_APPROVED.intValue()){
                         labourHrs = labourHrs+jr.getTravelHours()+jr.getWorkingHours();
                         List<JobMaterialReport> jmrs = jr.getJobMaterialReportListRef().getModelList();
                         Iterator<JobMaterialReport>  ii = jmrs.iterator();
@@ -75,7 +78,7 @@ public class JobService {
             
             }
             
-            if(job.getStatus()== MicroBizConst.CODE_STATUS_CANCELED){
+            if(job.getStatus().intValue()== MicroBizConst.CODE_STATUS_CANCELED.intValue()){
                 ir.decreaseJobCount();
             }
         }
@@ -117,6 +120,24 @@ public class JobService {
 
     public void saveJobMaterialReports(List<JobMaterialReport> jmrList) {
         Datastore.put(jmrList);    
+    }
+    
+    //later, will add installer name in the parameter
+    public List<Job> getJobsForJobReport() {
+        List<Job> jobs = Datastore.query(job).filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN)).asList();
+        Iterator i = jobs.iterator();
+        while(i.hasNext()){
+            Job job = (Job)i.next();
+            List<JobReport> jrL = job.getJobReportListRef().getModelList();
+            Iterator jri = jrL.iterator();
+            while(jri.hasNext()){
+                JobReport jr = (JobReport)jri.next();
+                if(jr.getStatus().intValue() == MicroBizConst.CODE_STATUS_NEW.intValue()){
+                    job.addNewJobReports(jr);
+                }
+            }
+        }
+        return jobs;
     }
 
 

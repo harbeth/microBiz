@@ -1,6 +1,8 @@
 package com.microBiz.model;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
@@ -137,6 +139,21 @@ public class Invoice extends MiCreatorBaseModel {
 
     public ModelRef<InvoiceReport> getInvoiceReportRef() {
         return invoiceReportRef;
+    }
+    
+    public Double getSalesCommission(){
+        List<InvoiceExpense> ie = expenseListRef.getModelList();
+        Double result = new Double(0);
+        Iterator i = ie.iterator();
+        while (i.hasNext()){
+            InvoiceExpense e = (InvoiceExpense)i.next();
+            if(e.getForSalesCommission().equals("on")){
+                result = result + e.getExpense();
+            }
+        }
+        
+        return result;
+        
     }
 
     public String getPreferIntlDateStr() {

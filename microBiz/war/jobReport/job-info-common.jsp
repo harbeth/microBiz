@@ -2,8 +2,8 @@
 <!-- /.row -->
 <%@include file="../includes/taglib.jsp"%>
 
-Inv#: ${f:h(job.invoiceRef.model.invoiceNumber)}
-${f:nbsp('     ')}
-<p class="fa fa-home">${f:h(job.invoiceRef.model.address)}</p>${f:nbsp('     ')}
-<p class="fa fa-calendar">${f:h(job.startingDateStr)}</p>${f:nbsp('     ')}
+Inv#: ${f:h(job.invoiceRef.model.invoiceNumber)} ${f:nbsp('     ')} 
+Installer: ${f:h(job.installer)} ${f:nbsp('     ')} 
+Address: ${f:h(job.invoiceRef.model.address)} ${f:nbsp('     ')}
+Start Date: ${f:h(job.startingDateStr)} ${f:nbsp('     ')}
 

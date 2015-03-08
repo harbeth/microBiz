@@ -6,7 +6,6 @@
 	});
 </script>
 
-<h4>${f:nbsp('     ')} Assign Job </h4> 
 <div class="col-lg-6">
 	<input type="hidden" ${f:hidden("invoiceKey")} />
 	<c:if test="${key != null}">

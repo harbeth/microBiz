@@ -1,15 +1,12 @@
 <%@include file="../includes/taglib.jsp"%>
 
 <div class="panel-body">
+<h4>Complete or Cancel Job <small>Inv#: ${f:h(invoiceRef.model.invoiceNumber)} ${f:nbsp('     ')} Address: ${f:h(invoiceRef.model.address)}
+ ${f:nbsp('     ')} Installer:${f:h(installer)}</small> </h4>
 	<form name="managerJobDetailForm" role="form" method="post" action="${f:url('/manager/managerJobEditAction')}">
 		<div class="col-lg-6">
 			<input type="hidden" ${f:hidden("key")} />
-		
-			<div class="form-group input-group">
-				<span class="input-group-addon">Invoice Number *</span>
-				<input type="text" disabled ${f:text("invoiceRef.model.invoiceNumber")} class="form-control" />
-			</div>
-			
+
 			<div class="form-group input-group">
 				<span class="input-group-addon">Status</span>
 				<select name="status" class="form-control">

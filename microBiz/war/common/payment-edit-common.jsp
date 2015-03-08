@@ -15,7 +15,7 @@ dashboard: receive payment & invoice detail: receive payment
 <c:if test="${key != null}">
 	<input type="hidden" ${f:hidden("key")} />
 </c:if>
-<h4>${f:nbsp('   ')}Receive Payment</h4>
+
 <div class="form-group input-group">
 	<span class="input-group-addon">Payment Method</span>
 	<select name="method" class="form-control">

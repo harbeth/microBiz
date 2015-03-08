@@ -1,5 +1,7 @@
 package com.microBiz.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slim3.datastore.Datastore;
@@ -66,6 +68,18 @@ public class MiUserService {
         }else{
             return (MiUser)result.get(0);
         }
+    }
+
+    public List<String> getSalesNames() {
+        List<String> result = new ArrayList<String>();
+        List<MiUser> sales = Datastore.query(p).filter(p.miRole.in("manager","sales")).asList();
+        Iterator i = sales.iterator();
+        while(i.hasNext()){
+            MiUser u = (MiUser)i.next();
+            result.add(u.getName());
+        }
+        
+        return result;
     }
 
 }

@@ -35,11 +35,11 @@
 		<span class="input-group-addon">Sales</span>
 		<select name="sales" class="form-control">
 		<option value="">Select ... </option>
-			<c:forEach items="${sales}" var="s">
-				<option value="${f:h(s.name)}"
-					<c:if test = "${f:h(sales) == f:h(s.name)}" >
+			<c:forEach items="${salesNames}" var="s">
+				<option value="${f:h(s)}"
+					<c:if test = "${f:h(sales) == f:h(s)}" >
 						selected
-					</c:if>>${f:h(s.name)}</option>
+					</c:if>>${f:h(s)}</option>
 			</c:forEach>
 		</select>
 	</div>

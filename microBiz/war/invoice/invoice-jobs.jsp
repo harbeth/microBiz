@@ -2,7 +2,7 @@
 
 <div class="col-lg-12">
 	<div class="panel panel-info">
-		<h4>${f:nbsp('   ')}  All Jobs</h4>	
+		
 		<div class="panel-body">
 			<ul>
 			<c:forEach var="j" items="${jobs}">

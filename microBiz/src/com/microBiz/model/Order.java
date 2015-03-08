@@ -50,8 +50,12 @@ public class Order extends MiBaseModel{
 
 
     public Double getDiscount() {
-        
-        return discount;
+        if(discount!=null){
+            return discount;
+        }else{
+            return new Double(0);
+        }
+       
     }
 
     public void setDiscount(Double discount) {

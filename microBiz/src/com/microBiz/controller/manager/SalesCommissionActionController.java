@@ -42,7 +42,6 @@ public class SalesCommissionActionController extends BaseController {
                 Invoice invoice = invoiceService.get(invoiceKey);
                 Double amt = Double.valueOf(amts[i]);
                 InvoiceReport ir = invoice.getInvoiceReportRef().getModel();
-                ir.setSalesCommission(amt);
                 invoiceService.saveInvoiceReport(ir);
                 InvoiceExpense ie = new InvoiceExpense();
                 ie.setExpense(amt);

@@ -15,16 +15,23 @@ public class Customer extends MiCreatorBaseModel {
     // residential or commercial
     private Integer type;
 
+    @Attribute(unindexed = true)
     private String name;
+    
+    private String searchName;
 
     private String phone;
 
+    @Attribute(unindexed = true)
     private Integer pymtTerm;
 
+    @Attribute(unindexed = true)
     private String altPhone;
 
+    @Attribute(unindexed = true)
     private String address;
 
+    @Attribute(unindexed = true)
     private String email;
 
 
@@ -193,5 +200,15 @@ public class Customer extends MiCreatorBaseModel {
     public void setPymtTerm(Integer pymtTerm) {
         this.pymtTerm = pymtTerm;
     }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public void setSearchName(String searchName) {
+        this.searchName = searchName;
+    }
+    
+    
 
 }

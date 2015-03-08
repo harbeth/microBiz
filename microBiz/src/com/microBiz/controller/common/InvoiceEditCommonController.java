@@ -30,7 +30,7 @@ public abstract class InvoiceEditCommonController extends CustomerContactLoadCon
         Contact contact = invoice.getContactRef().getModel();
         // show contact DIV flag, move to super class
         setCustomerContactData(customer, contact);
-        requestScope("sales", userService.getSales());
+        requestScope("salesNames", userService.getSalesNames());
         requestScope("paymentTypes", paymentTypes);
         requestScope("invoiceStatus", invoiceStatus);
         return forward(getReturnJsp());

@@ -29,7 +29,7 @@
 							jobKey="${f:h(j.key)}" data-toggle="tab" aria-expanded="false"
 							class="btn btn-default btn-sm" role="button">Job Report</a>
 							<ul>
-								<c:forEach var="jr" items="${j.jobReportListRef.modelList}">
+								<c:forEach var="jr" items="${j.newJobReports}">
 									<li><a link="jobReportEdit" jobReportKey="${f:h(jr.key)}"
 										data-toggle="tab" aria-expanded="false"
 										class="btn btn-default btn-sm" role="button">Edit</a>
