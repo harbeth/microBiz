@@ -10,11 +10,11 @@
 				
 				<div class="form-group input-group">
 					<span class="input-group-addon">Name</span>
-					<input type="text" ${f:text("name")} class="form-control" />
+					<input type="text" mandatory="y" field="Name" ${f:text("name")} class="form-control" />
 				</div>
 				<div class="form-group input-group">
 					<span class="input-group-addon">Type</span> 
-					<input type="text" valueType="price" ${f:text("type")} class="form-control" />
+					<input type="text" mandatory="y" field="Type" valueType="price" ${f:text("type")} class="form-control" />
 				</div>
 				<div class="form-group input-group">
 					<span class="input-group-addon">Phone</span> 

@@ -1,4 +1,5 @@
 <%@include file="../includes/taglib.jsp"%>
+
 <form name="customerDetailInfoForm" type="${param.type}" typerole="form" method="post" action="${param.action}">
 	<div class="col-lg-12">
 		<div class="well">
@@ -10,7 +11,7 @@
 				<div class="form-group input-group">
 					<input type="hidden" editMode="${param.type}" ${f:hidden("oldCustomerType")} />
 					<span class="input-group-addon">Customer Type</span>
-					<select id="customerTypeSelect" name="type" class="form-control">
+					<select id="customerTypeSelect" mandatory="y" field="Customer Type" name="type" class="form-control">
 						<option value="">Select ... </option>
 						<c:forEach items="${cxTypes}" var="cp">
 							<option value="${f:h(cp.value)}"
@@ -24,7 +25,15 @@
 	
 				<div class="form-group input-group">
 					<span class="input-group-addon">Customer Name</span>
-					<input type="text" ${f:text("name")} class="form-control" />
+					<c:choose>
+					<c:when test="${key==null}">
+						<input type="hidden" id="customerOldName" value="" />
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" id="customerOldName" value="${f:h(name)}" />
+					</c:otherwise>
+					</c:choose>
+					<input type="text" mandatory="y" field="Customer Name" ${f:text("name")} class="form-control" />
 				</div>
 				<div class="form-group input-group">
 					<span class="input-group-addon">Phone</span>

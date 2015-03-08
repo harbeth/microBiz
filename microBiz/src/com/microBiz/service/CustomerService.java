@@ -22,6 +22,11 @@ public class CustomerService {
         return Datastore.query(p).filter(p.name.startsWith(searchStr)).asList();
     }
     
+    public List<Customer> getByCustomerName(String name) {
+        // case insensitive ??
+        return Datastore.query(p).filter(p.name.equal(name)).asList();
+    }
+    
     public Customer get(Key key) {
         return Datastore.get(p, key);
     }

@@ -60,7 +60,11 @@ var customerNewFn = {
 		var options = { 
 	        target: "#"+microBizConst.bodyContentId
 	        , beforeSubmit: function() {
-	        	return customerEditFn.validateForm();
+	        	var isOK = customerUpdateFn.validateForm();
+	        	if ( isOK ) {
+	        		isOK = customerEditFn.validateCustomerName();
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// load invoice details page
@@ -89,7 +93,11 @@ var customerUpdateFn = {
 		var options = { 
 	        target: "#customerInfoDIV"
 	        , beforeSubmit: function() {
-	        	return customerUpdateFn.validateForm();
+	        	var isOK = customerUpdateFn.validateForm();
+	        	if ( isOK ) {
+	        		isOK = customerEditFn.validateCustomerName();
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// refresh whole page
@@ -170,6 +178,30 @@ var customerEditFn = {
 		}
 		, validateForm: function() {
 			return microBizFn.validateForm();
+		}
+		//validate for new/edit mode, check unique on submit
+		, validateCustomerName: function() {
+			var isOK = true;
+			// for new, old name is empty
+			var oldName = $("#customerOldName").val();
+			var currentName = $("input[name=name]").val();
+			// if changed
+			if ( oldName == "" || oldName != currentName ) {
+				var param = "name=" + currentName;
+				$.ajax({
+					type: "GET",
+					async: false,
+					url: "/customer/customerNameValidate",
+					data: param,
+					success: function(responseText, statusText) {
+						if ( responseText != "success" ) {
+							isOK = false;
+							alert(responseText);
+						}
+					}
+				});
+			}
+			return isOK;
 		}
 }
 

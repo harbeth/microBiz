@@ -3,6 +3,7 @@ var microBizConst = {
 	// should get it from java constant file
 	, CODE_CUSTOMER_TYPE_RESIDENTIAL: "70"
 	, CODE_CUSTOMER_TYPE_COMMERCIAL: "71"
+	, CODE_PRODUCT_TYPE_RAW_MATERIAL: "51"
 }
 
 // common function
@@ -88,6 +89,13 @@ var microBizFn = {
 				fields.push($(this).attr("field"));
 			}
 		});
+		if ( isOK ) {
+			$("select[mandatory=y]").each(function(){
+				if ( $(this).val() == "-1" ) {
+					fields.push($(this).attr("field"));
+				}
+			});
+		}
 		if ( fields.length > 0 ) {
 			isOK = false;
 			alert(fields.join() + " cannot be empty.")

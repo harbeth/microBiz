@@ -2,13 +2,13 @@ package com.microBiz.controller.invoice;
 
 import java.util.List;
 
+import org.slim3.controller.Controller;
 import org.slim3.controller.Navigation;
 
-import com.microBiz.controller.common.CustomerContactLoadController;
 import com.microBiz.model.Invoice;
 import com.microBiz.service.InvoiceService;
 
-public class InvoiceValidateController extends CustomerContactLoadController {
+public class InvoiceValidateController extends Controller {
 
     protected InvoiceService invoiceService;
     // for customer drop down move to super class

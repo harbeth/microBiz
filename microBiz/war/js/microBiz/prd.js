@@ -31,6 +31,7 @@ var productEditFn = {
 			this.onCloseClick();
 			// submit button event
 			this.onSumitRegister();
+			this.onProductTypeChange();
 		}
 		, onSumitRegister: function() {
 			// refresh body
@@ -85,6 +86,16 @@ var productEditFn = {
     		// before submit the form, delete empty tr
 
     		$("table[name=prdRatioTbl] tbody tr[rowIndex=-1]").remove();
+    	}
+    	, onProductTypeChange: function() {
+    		$("select[name=type]").on("change", function(){
+				var val = $(this).val();
+				if ( val == microBizConst.CODE_PRODUCT_TYPE_RAW_MATERIAL ) {
+					$("#productRatioDIV").show();
+				}else{
+					$("#productRatioDIV").hide();
+				}
+			});
     	}
 }
 

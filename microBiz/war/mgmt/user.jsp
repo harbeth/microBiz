@@ -8,28 +8,28 @@
 </div>
 <!-- /.row -->
 
-<!-- Page conent -->
+<!-- Page content -->
+
 <div class="row">
 
 	<form role="form" method="post" action="${f:url('/mgmt/miUserAction')}">
 		<div class="col-lg-6">
 			<c:if test="${key!=null}">
 				<input type="hidden" ${f:hidden("key")} />
-
 			</c:if>
 
 			<div class="form-group input-group">
 				<span class="input-group-addon">Name</span>
-				<input type="text" ${f:text("name")} class="form-control" />
+				<input type="text" mandatory="y" field="Name" ${f:text("name")} class="form-control" />
 			</div>
 			<div class="form-group input-group">
 				<span class="input-group-addon">Email</span>
-				<input type="text" ${f:text("email")} class="form-control" />
+				<input type="text" mandatory="y" field="Email" ${f:text("email")} class="form-control" />
 			</div>
 			
 			<div class="form-group input-group">
 				<span class="input-group-addon">Role</span>
-				<select name="miRole" class="form-control">
+				<select name="miRole" mandatory="y" field="Role" class="form-control">
 					<option value="">Select ... </option>
 					<c:forEach items="${roles}" var="r">
 						<option value="${f:h(r)}"
@@ -48,7 +48,7 @@
 			
 			<div class="form-group input-group">
 				<span class="input-group-addon">Rate</span>
-				<input type="text" ${f:text("rate")} class="form-control" />
+				<input type="text" valueType="price" ${f:text("rate")} class="form-control" />
 			</div>
 
 			<div class="form-group">

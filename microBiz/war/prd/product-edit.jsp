@@ -1,5 +1,5 @@
 <%@include file="../includes/taglib.jsp"%>
-<!-- Page Heading -->
+
 <script type ="text/javascript">
 
 	var prdRatioData = {
@@ -78,7 +78,7 @@
 	
 				<div class="form-group input-group">
 					<span class="input-group-addon">Product Type</span>
-					<select name="type" class="form-control">
+					<select name="type" mandatory="y" field="Product Type" class="form-control">
 						<option value="-1">Select ... </option>
 						<c:forEach items="${prdTypes}" var="pt">
 							<option value="${f:h(pt.value)}"
@@ -91,7 +91,7 @@
 				
 				<div class="form-group input-group">
 					<span class="input-group-addon">Name/Model</span>
-					<input type="text" ${f:text("model")} class="form-control" />
+					<input type="text" mandatory="y" field="Name/Model" ${f:text("model")} class="form-control" />
 				</div>
 				
 				<div class="form-group input-group">
@@ -101,12 +101,12 @@
 	
 				<div class="form-group input-group">
 					<span class="input-group-addon">Rate</span> 
-					<input type="text" ${f:text("rate")} class="form-control" />
+					<input type="text" mandatory="y" field="Price" valueType="price" ${f:text("rate")} class="form-control" />
 				</div>
 				
 				<div class="form-group input-group">
 					<span class="input-group-addon">Unit</span>
-					<select name="unit" class="form-control">
+					<select name="unit" mandatory="y" field="Unit" class="form-control">
 						<option value="-1">Select ... </option>
 						<c:forEach items="${units}" var="u1">
 							<option value="${f:h(u1.value)}"
@@ -119,13 +119,13 @@
 				</div>
 	
 				<div class="form-group">
-					<label>Active</label> <label class="checkbox-inline"> <input
-						type="checkbox" ${f:checkbox("active")}> yes
+					<label>Active</label>
+						<label class="checkbox-inline">
+						<input type="checkbox" ${f:checkbox("active")}> yes
 					</label>
 				</div>
 			</div>
 			<div class="col-lg-6">
-			
 				<div class="form-group input-group">
 					<span class="input-group-addon">Consume Report Unit</span>
 					<select name="consumeReportUnit" class="form-control">
@@ -145,14 +145,14 @@
 						<select name="supplier" class="form-control">
 							<option value="-1">Select ... </option>
 							<c:forEach items="${suppliers}" var="s">
-								<option value="${f:h(s.key)}"
-					<c:if test = "${f:h(supplierRef.model.key) == f:h(s.key)}" >
-						selected
-					</c:if>>${f:h(s.name)}</option>
+								<option value="${f:h(s.value)}"
+									<c:if test = "${f:h(supplier) == f:h(s.value)}">
+										selected
+									</c:if>>${f:h(s.label)}</option>
 							</c:forEach>
 					</select>
 				</div>
-				<div>
+				<div id="productRatioDIV">
 					<h4>Product Ratio
 					<a link="addRow" data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Add</a></h4>
 					<table name="prdRatioTbl" class="table">

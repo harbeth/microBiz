@@ -35,7 +35,7 @@ var invoiceNewFn = {
 		invoiceEditFn.init();
 		invoiceEditFn.onCloseClick();
 		// submit button event
-		this.onSumitNewRegister();
+		this.onSubmitNewRegister();
 		this.registerAutoInvoiceNumber();
 	}
 	, registerAutoInvoiceNumber: function() {
@@ -100,7 +100,7 @@ var invoiceNewFn = {
 		}
 		return isOK;
 	}
-	, onSumitNewRegister: function() {
+	, onSubmitNewRegister: function() {
 		// refresh body
 		var options = { 
 	        target: "#"+microBizConst.bodyContentId
@@ -159,6 +159,7 @@ var invoiceUpdateFn = {
 		});
 	}
 }
+
 // common function for new and edit page
 var invoiceEditFn = {
 	init: function() {
@@ -274,6 +275,9 @@ var invoiceDetailFn = {
 		// selected
 		$("a[link=invoiceOrder]").attr("nowSelected", "y");
 		$("a[link=invoiceEdit]").attr("nowSelected", "n");
+		// set style
+		$("a[link=invoiceOrder]").parent().addClass("active");
+		$("a[link=invoiceEdit]").parent().removeClass("active");
 	}
 	// ============ manage tab =================
 	// if list page is show
