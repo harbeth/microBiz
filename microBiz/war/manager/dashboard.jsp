@@ -13,65 +13,24 @@
 	<!-- /.col-lg-12 -->
 </div>
 <div class="row">
-<div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				$ ${f:h(unPaidAmt)} due
-			</div>
-			<div class="panel-footer">
-				<span class="pull-right">
-					<a link="managerTabUnpaidInvoice" nowSelected="y">${f:h(unPaidOffInvoiceCount)} UnPaidoffInvoices </a>
-				</span>
-				<div class="clearfix"></div>
-			</div>
-		</div>
+	<div id="unpaidInvoiceSectionDIV" class="col-lg-3 col-md-6">
+		<jsp:include page="./section-unpaid-invoice.jsp" flush="true" />
+	</div>
+	<div id="ongoingInvoiceSectionDIV" class="col-lg-3 col-md-6">
+		<jsp:include page="./section-ongoing-invoice.jsp" flush="true" />
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-green">
-			<div class="panel-heading">
-				${f:h(openInvoiceCount)} ongoing invoices
-			</div>
-			<div class="panel-footer">
-				<span class="pull-right">
-					<a link="managerTabOngoingInvoice" nowSelected="n">View Details</a>
-				</span>
-				<div class="clearfix"></div>
-			</div>
-		</div>
+		<jsp:include page="./section-unapprove-job.jsp" flush="true" />
 	</div>
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-yellow">
-			<div class="panel-heading">
-				${f:h(newJobReportCount)} Job Reports to Approve
-			</div>
-			<div class="panel-footer">
-				<span class="pull-right">
-					<a link="managerTabUnApprovedJobReport" nowSelected="y">View Details</a>
-				</span>
-				<div class="clearfix"></div>
-			</div>
-		</div>
+	<div id="uncompleteJobSectionDIV" class="col-lg-3 col-md-6">
+		<jsp:include page="./section-uncomplete-job.jsp" flush="true" />
 	</div>
-	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-red">
-			<div class="panel-heading">
-			${f:h(openJobCount)} Uncompleted Jobs
-			</div>
-			<div class="panel-footer">
-				<span class="pull-right">
-					<a link="managerTabUnCompleteJob" nowSelected="n">View Details</a>
-				</span>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-	</div>
-
 	<div class="row">
-		<div id="managerTabUnpaidInvoiceDIV" type="tab" hasContent="y" class="col-lg-12" >
+		<div id="managerTabUnpaidInvoiceDIV" invoiceKey="" type="tab" hasContent="y" class="col-lg-12" >
 			<jsp:include page="./manager-unpaid-invoice-list.jsp" flush="true" />
 		</div>
-		<div id="managerTabOngoingInvoiceDIV" type="tab"  hasContent="n" class="col-lg-12" ></div>
+		<div id="managerTabOngoingInvoiceDIV" invoiceKey="" type="tab"  hasContent="n" class="col-lg-12" ></div>
 		<div id="managerTabUnApprovedJobReportDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
-		<div id="managerTabUnCompleteJobDIV" type="tab" hasContent="n" class="col-lg-12" ></div>
+		<div id="managerTabUnCompleteJobDIV" jobKey="" type="tab" hasContent="n" class="col-lg-12" ></div>
 	</div>
 </div>

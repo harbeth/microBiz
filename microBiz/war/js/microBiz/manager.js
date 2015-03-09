@@ -109,6 +109,7 @@ var ongoingInvoiceFn = {
 		var options = { 
 	        target: "#managerTabOngoingInvoiceDIV"
 	        , beforeSubmit: function() {
+	        	$("#managerTabOngoingInvoiceDIV").html("");
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
@@ -116,6 +117,7 @@ var ongoingInvoiceFn = {
 	        	$("#managerInvoiceDetailDIV").html("");
 	        	// register edit link
 	        	ongoingInvoiceFn.initOngoingPage();
+	        	ongoingInvoiceFn.updateOngoingSection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -130,25 +132,14 @@ var ongoingInvoiceFn = {
 	, onEditInvoiceClick: function() {
 		// show new payment detail
 		$("a[link=managerInvoiceEdit]").click(function() {
+			var invoiceKey = $(this).attr("invoiceKey");
 			var ctrl = $("#managerInvoiceDetailDIV");
-			if( ctrl.attr("hasContent") == "n" || ctrl.attr("hasContent") != "edit") {
-				var invoiceKey = $(this).attr("invoiceKey");
+			var invoiceKeyOld = ctrl.attr("invoiceKey");
+			if( ctrl.attr("hasContent") == "n" || ctrl.attr("hasContent") != "edit" || invoiceKey != invoiceKeyOld ) {
 				ctrl.load("/manager/managerInvoiceEdit?invoiceKey="+invoiceKey, function() {
 					ongoingInvoiceFn.registerInvoiceSubmit();
 				});
-				ctrl.attr("hasContent", "edit");
-			}
-		});
-	}
-	, onAssignJobClick: function() {
-		$("a[link=managerInvoiceJobAssign]").click(function() {
-			var ctrl = $("#managerInvoiceDetailDIV");
-			if( ctrl.attr("hasContent") == "n" || ctrl.attr("hasContent") != "assign") {
-				var invoiceKey = $(this).attr("invoiceKey");
-				ctrl.load("/manager/managerInvoiceAssignJob?jobKey=-1&invoiceKey="+invoiceKey, function() {
-					ongoingInvoiceFn.registerJobSubmit();
-				});
-				ctrl.attr("hasContent", "assign");
+				ctrl.attr("hasContent", "edit").attr("invoiceKey", invoiceKey);
 			}
 		});
 	}
@@ -174,6 +165,26 @@ var ongoingInvoiceFn = {
 	        return false; 
 	    }); 
 	}
+	, onAssignJobClick: function() {
+		$("a[link=managerInvoiceJobAssign]").click(function() {
+			var invoiceKey = $(this).attr("invoiceKey");
+			var ctrl = $("#managerInvoiceDetailDIV");
+			var invoiceKeyOld = ctrl.attr("invoiceKey");
+			if( ctrl.attr("hasContent") == "n" || ctrl.attr("hasContent") != "assign" || invoiceKey != invoiceKeyOld ) {
+				ctrl.load("/manager/managerInvoiceAssignJob?jobKey=-1&invoiceKey="+invoiceKey, function() {
+					ongoingInvoiceFn.registerJobSubmit();
+				});
+				ctrl.attr("hasContent", "assign").attr("invoiceKey", invoiceKey);
+			}
+		});
+	}
+	, updateOngoingSection: function() {
+		var ctrl = $("a[link=managerTabOngoingInvoice]");
+		var selected = ctrl.attr("nowSelected");
+		$("#ongoingInvoiceSectionDIV").load("/manager/updateOngoingInvoiceSection", function() {
+			ctrl.attr("nowSelected", selected);
+		});
+	}
 }
 
 var unPaidInvoiceFn = {
@@ -192,6 +203,8 @@ var unPaidInvoiceFn = {
 	        	$("#managerPaymentDetailDIV").html("");
 	        	// register edit link
 	        	unPaidInvoiceFn.initUnpaidPage();
+	        	// update unpaid section
+				unPaidInvoiceFn.updateUnpaidSection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -206,14 +219,23 @@ var unPaidInvoiceFn = {
 	, onReceivePaymentClick: function() {
 		// show new payment detail
 		$("a[link=managerInvoicePaymentNew]").click(function() {
+			var invoiceKey = $(this).attr("invoiceKey");
 			var ctrl = $("#managerPaymentDetailDIV");
-			if( ctrl.attr("hasContent") == "n" ) {
-				var invoiceKey = $(this).attr("invoiceKey");
+			var invoiceKeyOld = ctrl.attr("invoiceKey");
+			if( ctrl.attr("hasContent") == "n" || invoiceKey != invoiceKeyOld ) {
 				ctrl.load("/manager/managerPaymentEdit?paymentKey=-1&invoiceKey="+invoiceKey, function() {
 					unPaidInvoiceFn.registerPaymentSubmit();
 				});
-				ctrl.attr("hasContent", "y");
+				ctrl.attr("hasContent", "y").attr("invoiceKey", invoiceKey);
 			}
+		});
+	}
+	, updateUnpaidSection: function() {
+		//<a link="managerTabUnpaidInvoice" nowSelected="y"
+		var ctrl = $("a[link=managerTabUnpaidInvoice");
+		var selected = ctrl.attr("nowSelected");
+		$("#unpaidInvoiceSectionDIV").load("/manager/updateUnpaidSection", function() {
+			ctrl.attr("nowSelected", selected);
 		});
 	}
 }
@@ -234,6 +256,7 @@ var uncompleteJobFn = {
 	        	$("#managerInvoiceDetailDIV").html("");
 	        	// register edit link
 	        	uncompleteJobFn.initUncomplatePage();
+	        	uncompleteJobFn.updateUncompleteJobSection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -248,14 +271,22 @@ var uncompleteJobFn = {
 	, onEditJobClick: function() {
 		// show new payment detail
 		$("a[link=managerJobEdit]").click(function() {
+			var jobKey = $(this).attr("jobKey");
 			var ctrl = $("#managerJobDetailDIV");
-			if( ctrl.attr("hasContent") == "n" ) {
-				var jobKey = $(this).attr("jobKey");
+			var jobKeyOld = ctrl.attr("jobKey");
+			if( ctrl.attr("hasContent") == "n" || jobKey != jobKeyOld) {
 				ctrl.load("/manager/managerJobEdit?jobKey="+jobKey, function() {
 					uncompleteJobFn.registerJobSubmit();
 				});
-				ctrl.attr("hasContent", "y");
+				ctrl.attr("hasContent", "y").attr("jobKey", jobKey);
 			}
+		});
+	}
+	, updateUncompleteJobSection: function() {
+		var ctrl = $("a[link=managerTabUnCompleteJob");
+		var selected = ctrl.attr("nowSelected");
+		$("#managerTabUnCompleteJobDIV").load("/manager/updateUncomplateJobSection", function() {
+			ctrl.attr("nowSelected", selected);
 		});
 	}
 }

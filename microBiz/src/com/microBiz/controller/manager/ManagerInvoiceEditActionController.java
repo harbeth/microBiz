@@ -26,7 +26,7 @@ public class ManagerInvoiceEditActionController extends BaseController {
         BeanUtil.copy(request, invoice); 
         invoice = invoiceService.save(invoice);
         // get all invoice first
-        requestScope("invoices", invoiceService.getAll());
+        requestScope("invoices", invoiceService.getOpenInvoices());
         return forward("manager-ongoing-invoice-list.jsp");
     }
 }
