@@ -28,7 +28,7 @@ public class ManagerJobEditActionController extends BaseController{
         BeanUtil.copy(request, job);
         jobService.save(job);
         
-        requestScope("jobs", jobService.getAll()); 
+        requestScope("jobs", jobService.getAllUncompleteJobs()); 
         // whole page refresh
         return forward("manager-uncomplete-job-list.jsp");
     }

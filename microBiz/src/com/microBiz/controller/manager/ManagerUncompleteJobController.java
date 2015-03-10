@@ -21,7 +21,7 @@ public class ManagerUncompleteJobController extends BaseController {
         //List<JobReport> jobReportsToApprove = jobService.getNewJobReports();
         //requestScope("jobReports", jobReportsToApprove);
         
-        // get all invoice list for now, should get not fully paied invoice list
+        // get all invoice list for now, should get not fully paid invoice list
         requestScope("jobs", jobService.getAllUncompleteJobs());
         return forward("manager-uncomplete-job-list.jsp");
     }

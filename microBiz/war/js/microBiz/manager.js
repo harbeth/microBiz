@@ -6,7 +6,10 @@ var dashboardFn = {
 	}
 	// for four sections: unpaid, ungoing, 
 	, registerSectionClick: function() {
-		$("a[link^=managerTab]").click(function(){
+		this.registerSectionClickWithCtrl($("a[link^=managerTab]"));
+	}
+	, registerSectionClickWithCtrl: function(ctrl) {
+		ctrl.click(function(){
 			// check if not list or not selected
 			if ( !dashboardFn.isSectionSelected($(this)) ) {
 				dashboardFn.setSelected($(this));
@@ -54,7 +57,7 @@ var dashboardFn = {
 			// load content first
 			ctrl.load("/manager/managerUncompleteJob", function(){
 				// after edit tab loaded
-				uncompleteJobFn.initUncomplatePage();
+				uncompleteJobFn.initUncompletePage();
 			})
 			.attr("hasContent", "y");
 		}else{
@@ -155,6 +158,7 @@ var ongoingInvoiceFn = {
 	        	$("#managerInvoiceDetailDIV").html("");
 	        	// register edit link
 	        	ongoingInvoiceFn.initOngoingPage();
+	        	uncompleteJobFn.updateUncompleteJobSection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -179,10 +183,10 @@ var ongoingInvoiceFn = {
 		});
 	}
 	, updateOngoingSection: function() {
-		var ctrl = $("a[link=managerTabOngoingInvoice]");
-		var selected = ctrl.attr("nowSelected");
+		var selected = $("a[link=managerTabOngoingInvoice]").attr("nowSelected");
 		$("#ongoingInvoiceSectionDIV").load("/manager/updateOngoingInvoiceSection", function() {
-			ctrl.attr("nowSelected", selected);
+			$("a[link=managerTabOngoingInvoice]").attr("nowSelected", selected);
+			dashboardFn.registerSectionClickWithCtrl($("a[link=managerTabOngoingInvoice]"));
 		});
 	}
 }
@@ -236,12 +240,13 @@ var unPaidInvoiceFn = {
 		var selected = ctrl.attr("nowSelected");
 		$("#unpaidInvoiceSectionDIV").load("/manager/updateUnpaidSection", function() {
 			ctrl.attr("nowSelected", selected);
+			dashboardFn.registerSectionClickWithCtrl(ctrl);
 		});
 	}
 }
 
 var uncompleteJobFn = {
-	initUncomplatePage: function() {
+	initUncompletePage: function() {
 		this.onEditJobClick();
 	}
 	, registerJobSubmit: function() {
@@ -249,13 +254,13 @@ var uncompleteJobFn = {
 		var options = { 
 	        target: "#managerTabUnCompleteJobDIV"
 	        , beforeSubmit: function() {
+	        	$("#managerTabUnCompleteJobDIV").html("");
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	// clear edit payment DIV
-	        	$("#managerInvoiceDetailDIV").html("");
+	        	$("#managerJobDetailDIV").html("");
 	        	// register edit link
-	        	uncompleteJobFn.initUncomplatePage();
+	        	uncompleteJobFn.initUncompletePage();
 	        	uncompleteJobFn.updateUncompleteJobSection();
 	        }
 	    }; 
@@ -283,10 +288,10 @@ var uncompleteJobFn = {
 		});
 	}
 	, updateUncompleteJobSection: function() {
-		var ctrl = $("a[link=managerTabUnCompleteJob");
-		var selected = ctrl.attr("nowSelected");
-		$("#managerTabUnCompleteJobDIV").load("/manager/updateUncomplateJobSection", function() {
-			ctrl.attr("nowSelected", selected);
+		var selected = $("a[link=managerTabUnCompleteJob]").attr("nowSelected");
+		$("#uncompleteJobSectionDIV").load("/manager/updateUncompleteJobSection", function() {
+			$("a[link=managerTabUnCompleteJob]").attr("nowSelected", selected);
+			dashboardFn.registerSectionClickWithCtrl($("a[link=managerTabUnCompleteJob]"));
 		});
 	}
 }
@@ -301,9 +306,7 @@ var jobReportEditFn = {
 		// refresh body
 		var options = { 
 	        target: "#"+microBizConst.bodyContentId
-
 	        , success: function(responseText, statusText, xhr, $form){
-	        	
 	        }
 	    }; 
 	    // bind to the form's submit event 
