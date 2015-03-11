@@ -132,7 +132,7 @@ public class InvoiceReport extends MiBaseModel {
 
 
     public Double getOtherExpense() {
-        return otherExpense;
+        return new Double(MicroBizUtil.roundTo2Demcial(otherExpense.doubleValue()));
     }
 
     public void setOtherExpense(Double otherExpense) {

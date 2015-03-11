@@ -26,9 +26,9 @@
 	<div class="col-lg-4 col-md-8">
 		<div class="panel panel-success">
 			<div class="panel-heading">
-				<li>${f:h(invoice.customerRef.model.pymtTermLable)} Days Term</li>
 				<li>Amount: ${f:h(invoice.invoiceReportRef.model.total)}</li>
 				<li>Received:${f:h(invoice.invoiceReportRef.model.pymtReceived)}</li>
+				<li>Profit Margin: ${f:h(invoice.invoiceReportRef.model.profitMargin)}%</li>
 			</div>
 			<div class="panel-footer">
 				<span class="pull-left">
@@ -44,9 +44,9 @@
 	<div class="col-lg-4 col-md-8">
 		<div class="panel panel-danger">
 			<div class="panel-heading">
-				<li>Profit Margin: ${f:h(invoice.invoiceReportRef.model.profitMargin)}%</li>
 				<li>Labor Cost: ${f:h(invoice.invoiceReportRef.model.labourCost)}</li>
 				<li>Material Cost: ${f:h(invoice.invoiceReportRef.model.materialCost)}</li>
+				<li>Other Expense: ${f:h(invoice.invoiceReportRef.model.otherExpense)}</li>
 			</div>
 			<div class="panel-footer">
 				<span class="pull-left">
