@@ -78,10 +78,13 @@ public abstract class JobEditActionCommonController extends BaseController {
    
         
         String[] prds = paramValues("prds");
-        List<String> prdKeys = new ArrayList<String>(prds.length);
-        Collections.addAll(prdKeys, prds);
+        if(prds!=null && prds.length>0){
+            List<String> prdKeys = new ArrayList<String>(prds.length);
+            Collections.addAll(prdKeys, prds);
+            job.setUsePrdKeys(prdKeys);
+        }
         
-        job.setUsePrdKeys(prdKeys);
+        
         
         if(job.getKey()==null && job.getStatus()==MicroBizConst.CODE_STATUS_OPEN){
             informInstallerByEmail(job,invoice);
