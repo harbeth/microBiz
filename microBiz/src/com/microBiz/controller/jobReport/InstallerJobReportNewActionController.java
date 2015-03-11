@@ -21,4 +21,10 @@ public class InstallerJobReportNewActionController extends JobReportNewActionCon
         requestScope("jobs", jobService.getAllUncompleteJobs());
         
     }
+
+    @Override
+    public boolean managerApproved() {
+        
+        return false;
+    }
 }

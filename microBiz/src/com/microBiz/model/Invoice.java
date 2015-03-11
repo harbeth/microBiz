@@ -8,9 +8,12 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
+import org.slim3.datastore.Sort;
 
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
+import com.microBiz.service.MiUserService;
 
 @Model
 public class Invoice extends MiCreatorBaseModel {
@@ -112,7 +115,8 @@ public class Invoice extends MiCreatorBaseModel {
         new InverseModelListRef<Payment, Invoice>(
             Payment.class,
             "invoiceRef",
-            this);
+            this,
+            new Sort("createdAt", SortDirection.DESCENDING));
 
     public InverseModelListRef<Payment, Invoice> getPaymentListRef() {
         return paymentListRef;
@@ -120,7 +124,7 @@ public class Invoice extends MiCreatorBaseModel {
 
     @Attribute(persistent = false)
     private InverseModelListRef<Job, Invoice> jobListRef =
-        new InverseModelListRef<Job, Invoice>(Job.class, "invoiceRef", this);
+        new InverseModelListRef<Job, Invoice>(Job.class, "invoiceRef", this,new Sort("createdAt", SortDirection.DESCENDING));
 
     public InverseModelListRef<Job, Invoice> getJobListRef() {
         return jobListRef;
@@ -131,7 +135,8 @@ public class Invoice extends MiCreatorBaseModel {
         new InverseModelListRef<InvoiceExpense, Invoice>(
             InvoiceExpense.class,
             "invoiceRef",
-            this);
+            this,
+            new Sort("createdAt", SortDirection.DESCENDING));
 
     public InverseModelListRef<InvoiceExpense, Invoice> getExpenseListRef() {
         return expenseListRef;
@@ -139,6 +144,38 @@ public class Invoice extends MiCreatorBaseModel {
 
     public ModelRef<InvoiceReport> getInvoiceReportRef() {
         return invoiceReportRef;
+    }
+    
+    public boolean getCloseCancelable(){
+        if(key==null){
+            return false;
+        }
+        
+        if(invoiceReportRef.getModel().getOnGoingJobCount()== 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+  //as  one installer can only has one open job for a invoice, so if an invoice has the same number of open job as the number of installer
+    //meaning all installer have open job for the invoice, don't show assign job link for the invoice
+    public boolean getShowAssignJobLink(){
+        if(key == null){
+            return true;
+        }
+        if(status.intValue()!=MicroBizConst.CODE_STATUS_OPEN.intValue()){
+            return false;
+        }
+        // later will store all sales, installer in Memecache
+        MiUserService userService = new MiUserService();
+        int installerCount = userService.getInstallers().size();
+        
+        if( installerCount >  invoiceReportRef.getModel().getOnGoingJobCount()){
+            return true;
+        }else{
+            return false;
+        }
     }
     
     public Double getSalesCommission(){

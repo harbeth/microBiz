@@ -10,6 +10,12 @@
 
 
 	<input type="hidden" ${f:hidden("jobReportKey")} />
+	<div class="form-group">
+		<input type="radio" name="action" value="approve" checked>Approve
+		${f:nbsp('  ')} <input type="radio" name="action" value="void">Void
+		${f:nbsp('  ')} <input type="radio" name="action" value="approveWithChange">Change And Approve
+		to Invoice
+	</div>
 
 	<jsp:include page="../jobReport/job-report-common.jsp" flush="true"></jsp:include>
 </form>

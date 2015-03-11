@@ -71,9 +71,19 @@ public class MiUserService {
     }
 
     public List<String> getSalesNames() {
+       
+        return getNames(Datastore.query(p).filter(p.miRole.in("manager","sales")).asList());
+
+    }
+
+    public List<String> getInstallerNames() {
+        return getNames(Datastore.query(p).filter(p.miRole.equal("installer")).asList());
+    }
+    
+    private List<String> getNames(List<MiUser> users) {
         List<String> result = new ArrayList<String>();
-        List<MiUser> sales = Datastore.query(p).filter(p.miRole.in("manager","sales")).asList();
-        Iterator i = sales.iterator();
+
+        Iterator i = users.iterator();
         while(i.hasNext()){
             MiUser u = (MiUser)i.next();
             result.add(u.getName());

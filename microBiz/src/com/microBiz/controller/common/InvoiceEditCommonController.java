@@ -1,5 +1,7 @@
 package com.microBiz.controller.common;
 
+import java.util.List;
+
 import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
 
@@ -7,6 +9,7 @@ import com.microBiz.controller.common.CustomerContactLoadController;
 import com.microBiz.model.Contact;
 import com.microBiz.model.Customer;
 import com.microBiz.model.Invoice;
+import com.microBiz.model.InvoiceReport;
 import com.microBiz.service.InvoiceService;
 import com.microBiz.service.MiUserService;
 
@@ -25,6 +28,11 @@ public abstract class InvoiceEditCommonController extends CustomerContactLoadCon
     public Navigation run() throws Exception {
         // list at the top, details panel hidden first
         Invoice invoice = invoiceService.get(asKey("invoiceKey")); 
+        InvoiceReport ir = invoice.getInvoiceReportRef().getModel(); 
+        
+ 
+        
+        
         BeanUtil.copy(invoice, request);
         Customer customer = invoice.getCustomerRef().getModel();
         Contact contact = invoice.getContactRef().getModel();

@@ -116,3 +116,34 @@ var microBizFn = {
 		return isOK;
 	}
 }
+
+
+var jobReportEditFn = {
+		init: function() {
+			this.onCloseClick();
+			// submit button event
+			this.onSumitRegister();
+		
+		}
+		, onSumitRegister: function() {
+			// refresh body
+			var options = { 
+		        target: "#"+microBizConst.bodyContentId
+		        , beforeSubmit: function() {
+		        	return microBizFn.validateForm();
+		        }
+		        , success: function(responseText, statusText, xhr, $form){
+		        	
+		        }
+		    }; 
+		    // bind to the form's submit event 
+		    $("form[name=jobReportForm]").submit(function() { 
+		    	$(this).ajaxSubmit(options); 
+		        // !!! Important !!! 
+		        // always return false to prevent standard browser submit and page navigation 
+		        return false; 
+		    }); 
+		}
+
+}
+

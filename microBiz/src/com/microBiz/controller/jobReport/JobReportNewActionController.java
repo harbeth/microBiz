@@ -8,6 +8,7 @@ import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.MicroBizConst;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Job;
 import com.microBiz.model.JobMaterialReport;
@@ -31,30 +32,35 @@ public abstract class JobReportNewActionController extends BaseController {
     public Navigation run() throws Exception {
         // only get data for invoice list, not details
         Job job = getJob();
-        JobReport jr = new JobReport();
-        BeanUtil.copy(request,jr);
-        jr.getJobRef().setModel(job);
-        Key jobKey = jobService.saveJobReport(jr);
-        
-        List<String> prdKeys = job.getUsePrdKeys();
-        List<JobMaterialReport> jmrList = new ArrayList<JobMaterialReport>();
-        String[] qtys = paramValues("qty");
-        String[] prdRatioKeys = paramValues("prdRatioKey");
-       
-        for(int i=0; i<prdKeys.size();i++){
-            JobMaterialReport jmr = new JobMaterialReport();
-            Key productKey = Datastore.stringToKey(prdKeys.get(i));
-            if(!prdRatioKeys[i].equals("-1")){
-                Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
-                jmr.getPrdRatioRef().setKey(prdRatioKey);
+        if(job !=null){
+            JobReport jr = new JobReport();
+            BeanUtil.copy(request,jr);
+            if(managerApproved()){
+                jr.setStatus(MicroBizConst.CODE_STATUS_APPROVED);
             }
-            jmr.getProductRef().setKey(productKey);
-            jmr.setQty(Double.valueOf(qtys[i]));
-            jmr.setCount(new Integer(i));
-            jmr.getJobReportRef().setKey(jobKey);
-            jmrList.add(jmr);
+            jr.getJobRef().setModel(job);
+            Key jobKey = jobService.saveJobReport(jr);
+            
+            List<String> prdKeys = job.getUsePrdKeys();
+            List<JobMaterialReport> jmrList = new ArrayList<JobMaterialReport>();
+            String[] qtys = paramValues("qty");
+            String[] prdRatioKeys = paramValues("prdRatioKey");
+           
+            for(int i=0; i<prdKeys.size();i++){
+                JobMaterialReport jmr = new JobMaterialReport();
+                Key productKey = Datastore.stringToKey(prdKeys.get(i));
+                if(!prdRatioKeys[i].equals("-1")){
+                    Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
+                    jmr.getPrdRatioRef().setKey(prdRatioKey);
+                }
+                jmr.getProductRef().setKey(productKey);
+                jmr.setQty(Double.valueOf(qtys[i]));
+                jmr.setCount(new Integer(i));
+                jmr.getJobReportRef().setKey(jobKey);
+                jmrList.add(jmr);
+            }
+            jobService.saveJobMaterialReports(jmrList);
         }
-        jobService.saveJobMaterialReports(jmrList);
         setRequestScope();
         return forward(getForwardJsp());
     }
@@ -62,4 +68,5 @@ public abstract class JobReportNewActionController extends BaseController {
     public abstract Job getJob();
     public abstract String getForwardJsp();
     public abstract void setRequestScope();
+    public abstract boolean managerApproved();
 }

@@ -9,7 +9,11 @@
 
 			<div class="form-group input-group">
 				<span class="input-group-addon">Status</span>
-				<select name="status" class="form-control">
+				<select name="status" class="form-control"
+					<c:if test = "${f:h(notCompleteCancelable)}">
+						disabled
+					</c:if>
+				>
 					<c:forEach items="${jobStatus}" var="j">
 						<option value="${f:h(j.value)}"
 							<c:if test = "${f:h(status) == f:h(j.value)}" >

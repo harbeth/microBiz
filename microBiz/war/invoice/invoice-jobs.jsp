@@ -11,7 +11,10 @@
 					<span class="fa fa-calendar"> ${f:h(j.startingDateStr)} </span>
 					${f:nbsp('     ')} 
 					<strong>${f:h(j.statusLable)}</strong>
-					${f:nbsp('     ')}  <a link="invoiceJobEdit" invoiceKey="${f:h(invoice.key)}" jobKey="${f:h(j.key)}">Edit</a>
+					${f:nbsp('     ')} 
+					<c:if test="${j.editable}">
+					 <a link="invoiceJobEdit" invoiceKey="${f:h(invoice.key)}" jobKey="${f:h(j.key)}">Edit</a>
+					 </c:if>
 					<ul>
 					<c:forEach var="jr" items="${j.jobReportListRef.modelList}">
 						<li>

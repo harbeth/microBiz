@@ -35,8 +35,7 @@ public class JobService {
     public void delete(Key key) {
         Datastore.delete(key);
     }
-
-    
+        
     public void save(Job job) {
         
         Invoice invoice = job.getInvoiceRef().getModel();

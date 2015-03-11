@@ -11,12 +11,23 @@ import com.microBiz.model.JobReport;
 public class ManagerJobReportEditActionController extends JobReportNewActionController {
     
     public  Job getJob(){
-        
+        String action = asString("action");
         JobReport jr = jobService.getJobReport(asKey("jobReportKey"));
-        Job job = jr.getJobRef().getModel();
-        jr.setStatus(MicroBizConst.CODE_STATUS_VOID);
+        if(action.equals("approve")){
+            jr.setStatus(MicroBizConst.CODE_STATUS_APPROVED);
+            
+        }else{
+            jr.setStatus(MicroBizConst.CODE_STATUS_VOID);      
+        }
         jobService.saveJobReport(jr);
-        return job;
+        
+        if(action.equals("approveWithChange")){
+            return jr.getJobRef().getModel();
+        
+        }else{
+           return null;
+        }
+ 
     }
 
     @Override
@@ -31,5 +42,15 @@ public class ManagerJobReportEditActionController extends JobReportNewActionCont
         requestScope("jobReports", jobReportsToApprove);
 
         
+    }
+
+    @Override
+    public boolean managerApproved() {
+        String action = asString("action");
+        if(action.equals("void")){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

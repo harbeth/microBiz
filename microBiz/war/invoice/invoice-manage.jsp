@@ -11,9 +11,11 @@
 				<li>${f:h(invoice.invoiceReportRef.model.onGoingJobCount)} Jobs On going</li>
 			</div>
 			<div class="panel-footer">
-				<span class="pull-left">
-					<a link="invoiceJobEdit" invoiceKey="${f:h(invoice.key)}" jobKey="-1">Assign Job</a>
-				</span>
+				<c:if test = "${f:h(invoice.showAssignJobLink)}">
+					<span class="pull-left">
+						<a link="invoiceJobEdit" invoiceKey="${f:h(invoice.key)}" jobKey="-1">Assign Job</a>
+					</span>
+				</c:if>
 				<span class="pull-right">
 					<a link="invoiceDetailJob" nowSelected="y">View Jobs</a>
 				</span>

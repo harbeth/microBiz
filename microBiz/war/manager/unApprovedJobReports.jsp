@@ -40,10 +40,7 @@
 							<td><a link="managerJobReportEdit"
 								jobReportKey="${f:h(jr.key)}" data-toggle="tab"
 								aria-expanded="false" class="btn btn-default btn-sm"
-								role="button">Edit</a> <a link="managerJobReportApprove"
-								jobReportKey="${f:h(jr.key)}" data-toggle="tab"
-								aria-expanded="false" class="btn btn-default btn-sm"
-								role="button">Approve</a></td>
+								role="button">Verify</a> </td>
 						</tr>
 					</c:forEach>
 				</tbody>

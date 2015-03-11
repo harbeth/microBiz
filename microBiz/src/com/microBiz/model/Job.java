@@ -2,13 +2,16 @@ package com.microBiz.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.InverseModelListRef;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
+import org.slim3.datastore.Sort;
 
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 
@@ -48,7 +51,7 @@ public class Job extends MiCreatorBaseModel {
 
     @Attribute(persistent = false)
     private InverseModelListRef<JobReport, Job> jobReportListRef =
-        new InverseModelListRef<JobReport, Job>(JobReport.class, "jobRef", this);
+        new InverseModelListRef<JobReport, Job>(JobReport.class, "jobRef", this,new Sort("createdAt", SortDirection.DESCENDING));
   
 
     public Job() {
@@ -61,6 +64,44 @@ public class Job extends MiCreatorBaseModel {
 
     public ModelRef<Invoice> getInvoiceRef() {
         return invoiceRef;
+    }
+    
+    public boolean getNotCompleteCancelable(){
+
+        List<JobReport> jrList = jobReportListRef.getModelList();
+       
+        Iterator<JobReport> i = jrList.iterator();
+        while(i.hasNext()){
+            JobReport jr = (JobReport)i.next();
+            if(jr.getStatus().intValue() == MicroBizConst.CODE_STATUS_NEW){
+                return true;
+            }
+        }
+        return false;
+        
+    }
+    //if there is new or approved job report, installer and prd used for the job can not be changed
+    public boolean getInstallerPrdsChangable(){
+        boolean result = true;
+        List<JobReport> jrList = jobReportListRef.getModelList();
+        Iterator<JobReport> i = jrList.iterator();
+        while(i.hasNext() && result){
+            JobReport jr = (JobReport)i.next();
+            if(jr.getStatus().intValue() != MicroBizConst.CODE_STATUS_VOID.intValue()){//new or approved
+                return false;
+            }
+        }
+        return result;
+        
+    }
+    
+    public boolean getEditable(){
+        
+        if(status.intValue() == MicroBizConst.CODE_STATUS_OPEN){
+            return true;          
+        }
+        return false;
+        
     }
 
     // display date string from date

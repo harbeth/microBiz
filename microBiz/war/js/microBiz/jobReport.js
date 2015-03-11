@@ -50,7 +50,9 @@ var jobReportEditFn = {
 			// refresh body
 			var options = { 
 		        target: "#"+microBizConst.bodyContentId
-
+		        , beforeSubmit: function() {
+		        	return microBizFn.validateForm();
+		        }
 		        , success: function(responseText, statusText, xhr, $form){
 		        	
 		        }
@@ -72,4 +74,3 @@ var jobReportEditFn = {
 		
 
 }
-

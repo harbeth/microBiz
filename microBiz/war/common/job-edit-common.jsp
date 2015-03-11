@@ -13,16 +13,24 @@
 	</c:if>
 
 	<div class="form-group input-group">
-		<span class="input-group-addon">Installer</span> 
-		<select name="installer" class="form-control">
-			<option value="">Select ...</option>
-			<c:forEach items="${installers}" var="i">
-				<option value="${f:h(i.name)}"
-					<c:if test = "${f:h(installer) == f:h(i.name)}" >
-						selected
-					</c:if>>${f:h(i.name)}</option>
-			</c:forEach>
-		</select>
+		
+		<c:choose>
+			<c:when test = "${f:h(installerPrdsChangable)}">
+			<span class="input-group-addon">Installer</span> 
+			<select name="installer" class="form-control">
+				<option value="">Select ...</option>
+				<c:forEach items="${installers}" var="i">
+					<option value="${f:h(i)}"
+						<c:if test = "${f:h(installer) == f:h(i)}" >
+							selected
+						</c:if>>${f:h(i)}</option>
+				</c:forEach>
+			</select>
+			</c:when>
+			<c:otherwise>
+			<lable>Installer :${f:h(installer)}</lable>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
 	<div class="form-group input-group">
@@ -35,7 +43,12 @@
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Status</span> 
-		<select name="status" class="form-control">
+		<select name="status" class="form-control"
+			<c:if test = "${f:h(notCompleteCancelable)}">
+				disabled
+			</c:if>
+		
+		>
 			<c:forEach items="${jobStatus}" var="js">
 				<option value="${f:h(js.value)}"
 					<c:if test = "${f:h(status) == f:h(js.value)}" >
@@ -48,14 +61,34 @@
 </div>
 <div class="col-lg-6">
 	<div class="form-group">
-		<label>Check the Products For the Job:</label>
-		<c:forEach items="${prds}" var="p">
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" name="prds" value="${f:h(p.key)}"> ${f:h(p.model)}
-				</label>
-			</div>
-		</c:forEach>
+	<c:choose>
+		<c:when test = "${f:h(installerPrdsChangable)}">
+			<label>Check the Products For the Job:</label>
+			
+			<c:forEach items="${checkedPrds}" var="pp">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="prds" value="${f:h(pp.key)}" checked> ${f:h(pp.model)}
+					</label>
+				</div>
+			</c:forEach>
+			<c:forEach items="${prds}" var="p">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="prds" value="${f:h(p.key)}"> ${f:h(p.model)}
+					</label>
+				</div>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<lable>Products For the Job:<br></lable>
+				<c:forEach items="${checkedPrds}" var="pp">
+					<lable> ${f:h(pp.model)}<br> </lable>
+				</c:forEach>
+				
+			
+		</c:otherwise>
+	</c:choose>
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Notes</span>
