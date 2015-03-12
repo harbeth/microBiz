@@ -18,7 +18,7 @@ public class InstallerJobReportNewActionController extends JobReportNewActionCon
 
     @Override
     public void setRequestScope() {
-        requestScope("jobs", jobService.getAllUncompleteJobs());
+        requestScope("jobs", jobService.getJobsForJobReport());
         
     }
 

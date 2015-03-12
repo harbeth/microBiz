@@ -72,7 +72,6 @@ var dashboardFn = {
 			// load content first
 			ctrl.load("/manager/unApprovedJobReports", function(){
 				dashboardFn.onJobReportEditClick();
-				dashboardFn.onJobReportApproveClick();
 			})
 			.attr("hasContent", "y");
 		}else{
@@ -86,16 +85,8 @@ var dashboardFn = {
 			var jobReportKey = $(this).attr("jobReportKey");
 			// also need invoice key to get details
 			$("#dashboardWorkingAreaDIV").load("/manager/managerJobReportEdit?jobReportKey=" + jobReportKey, function() {
-				jobReportEditFn.init(); 
-			});
-		});
-	}
-	, onJobReportApproveClick: function() {
-		// prd number link to sh invoice details on AJAX call in the body panel
-		$("a[link=managerJobReportApprove]").click(function(){
-			var jobReportKey = $(this).attr("jobReportKey");
-			// also need invoice key to get details
-			$("#dashboardWorkingAreaDIV").load("/manager/managerJobReportApprove?jobReportKey=" + jobReportKey, function() {
+				verifyJobReportFn.initVerifyJobReportPage(); 
+				verifyJobReportFn.updateUnApprovedJobReportSection();
 			});
 		});
 	}
@@ -296,28 +287,38 @@ var uncompleteJobFn = {
 	}
 }
 
-
-var jobReportEditFn = {
-	init: function() {
-		// submit button event
+var verifyJobReportFn = {
+	initVerifyJobReportPage: function() {
 		this.onSumitRegister();
 	}
 	, onSumitRegister: function() {
 		// refresh body
 		var options = { 
-	        target: "#"+microBizConst.bodyContentId
+	        target: "#managerTabUnApprovedJobReportDIV"
+	        , beforeSubmit: function() {
+	        	return microBizFn.validateForm();
+	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        }
 	    }; 
-	    // bind to the form's submit event 
-	    $("form[name=jobReportForm]").submit(function() { 
-	    	$(this).ajaxSubmit(options); 
-	        // !!! Important !!! 
-	        // always return false to prevent standard browser submit and page navigation 
-	        return false; 
-	    }); 
+		 $("form[name=jobReportForm]").submit(function() { 
+		    	$(this).ajaxSubmit(options); 
+		        // !!! Important !!! 
+		        // always return false to prevent standard browser submit and page navigation 
+		        return false; 
+		 }); 
+	  }
+	, updateUnApprovedJobReportSection: function() {
+		var selected = $("a[link=managerTabUnApprovedJobReport]").attr("nowSelected");
+		$("#unapprovedJobReportSectionDIV").load("/manager/updateUnApprovedJobReportSection", function() {
+			$("a[link=managerTabUnApprovedJobReport]").attr("nowSelected", selected);
+			dashboardFn.registerSectionClickWithCtrl($("a[link=managerTabUnApprovedJobReport]"));
+		});
 	}
+
 }
+
+
 
 var salesCommissionFn = {
 	init: function() {

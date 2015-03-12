@@ -1,5 +1,7 @@
 <%@include file="../includes/taglib.jsp"%>
 <div class="col-lg-12">
+
+	
 	<div class="well">
 		<form name ="invoiceDetailInfoEditForm" typerole="form" type="post" action="/invoice/invoiceEditAction">
 			<jsp:include page="./invoice-detail-edit.jsp" flush="true"></jsp:include>
@@ -9,4 +11,5 @@
 			</div>
 		</form>
 	</div>
+
 </div>

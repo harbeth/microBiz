@@ -11,7 +11,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-primary">
-			<div class="panel-heading">Calculate Sales Commission</div>
+			<div class="panel-heading">Pay Sales Commission</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<div class="form-group">

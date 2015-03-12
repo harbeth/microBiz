@@ -1,11 +1,16 @@
 package com.microBiz.controller.manager;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.microBiz.MicroBizConst;
 import com.microBiz.controller.jobReport.JobReportNewActionController;
+import com.microBiz.model.InventoryChange;
 import com.microBiz.model.Job;
+import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
+import com.microBiz.model.PrdRatio;
+import com.microBiz.model.Product;
 
 
 public class ManagerJobReportEditActionController extends JobReportNewActionController {
@@ -29,6 +34,7 @@ public class ManagerJobReportEditActionController extends JobReportNewActionCont
         }
  
     }
+    
 
     @Override
     public String getForwardJsp() {

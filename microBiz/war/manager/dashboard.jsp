@@ -19,7 +19,7 @@
 	<div id="ongoingInvoiceSectionDIV" class="col-lg-3 col-md-6">
 		<jsp:include page="./section-ongoing-invoice.jsp" flush="true" />
 	</div>
-	<div class="col-lg-3 col-md-6">
+	<div id="onapprovedJobReportSectionDIV" class="col-lg-3 col-md-6">
 		<jsp:include page="./section-unapprove-job.jsp" flush="true" />
 	</div>
 	<div id="uncompleteJobSectionDIV" class="col-lg-3 col-md-6">

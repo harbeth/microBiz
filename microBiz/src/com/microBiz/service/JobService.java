@@ -8,14 +8,18 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.MicroBizConst;
+import com.microBiz.MicroBizUtil;
 import com.microBiz.meta.JobMeta;
 import com.microBiz.meta.JobReportMeta;
+import com.microBiz.model.InventoryChange;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.InvoiceReport;
 import com.microBiz.model.Job;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
 import com.microBiz.model.MiUser;
+import com.microBiz.model.PrdRatio;
+import com.microBiz.model.Product;
 
 
 
@@ -111,12 +115,45 @@ public class JobService {
 
     public Key saveJobReport(JobReport jobReport){
         Key result = null;
-        Transaction tx = Datastore.beginTransaction();
-        result = Datastore.put(tx, jobReport);
-        tx.commit();
+        result = Datastore.put(jobReport);
+        if(jobReport.getStatus().intValue() == MicroBizConst.CODE_STATUS_APPROVED.intValue()){
+            updateInventoryForApprovedJobReort(jobReport);
+        }
         return result;
     }
 
+    private void updateInventoryForApprovedJobReort(JobReport jr){
+        List<JobMaterialReport> jmrs = jr.getJobMaterialReportListRef().getModelList();
+        Iterator<JobMaterialReport> i = jmrs.iterator();
+        ProductService productService = new ProductService();
+        while(i.hasNext()){
+            JobMaterialReport jmr = i.next();
+            Product prd = jmr.getProductRef().getModel();
+            Double reportQty = jmr.getQty();
+            Double changedQty = null;
+            if(jmr.getPrdRatioRef()!=null && jmr.getPrdRatioRef().getModel()!=null){
+                PrdRatio pr = jmr.getPrdRatioRef().getModel();
+                changedQty = reportQty*pr.getRatio()*(-1);
+            }else{
+                if(prd.getPrdRatioList()!=null && prd.getPrdRatioList().size()==1){//only one PrdRatio
+                    changedQty = reportQty*prd.getPrdRatioList().get(0).getRatio()*(-1);
+                }else{
+                    changedQty = reportQty*(-1);
+                }
+            }
+            InventoryChange ic = new InventoryChange();
+            
+            ic.setChangeQty(MicroBizUtil.roundTo2Demcial(changedQty));
+            
+            ic.setOriginalQty(prd.getCurrentQty());
+            Double newQty = prd.getCurrentQty() + changedQty;
+            newQty = MicroBizUtil.roundTo2Demcial(newQty);
+            ic.setNewQty(newQty);
+            ic.setNotes("descrease by invoice " + jr.getJobRef().getModel().getInvoiceRef().getModel().getInvoiceNumber());
+            prd.setCurrentQty(newQty);
+            productService.save(prd, ic);
+        }
+    }
     public void saveJobMaterialReports(List<JobMaterialReport> jmrList) {
         Datastore.put(jmrList);    
     }

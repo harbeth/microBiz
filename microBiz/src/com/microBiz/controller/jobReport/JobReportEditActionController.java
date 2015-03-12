@@ -55,7 +55,7 @@ public class JobReportEditActionController extends BaseController {
         }
         jobService.saveJobMaterialReports(jmrList);
 
-        requestScope("jobs", jobService.getAllUncompleteJobs());
+        requestScope("jobs", jobService.getJobsForJobReport());
         return forward("jobs-to-report.jsp");
     }
 }

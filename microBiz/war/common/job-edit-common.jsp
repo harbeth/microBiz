@@ -17,7 +17,7 @@
 		<c:choose>
 			<c:when test = "${f:h(installerPrdsChangable)}">
 			<span class="input-group-addon">Installer</span> 
-			<select name="installer" class="form-control">
+			<select name="installer" class="form-control"  mandatory="y" field="installer">
 				<option value="">Select ...</option>
 				<c:forEach items="${installers}" var="i">
 					<option value="${f:h(i)}"
@@ -35,7 +35,7 @@
 
 	<div class="form-group input-group">
 		<span class="input-group-addon">Starting Date</span> 
-		<input type="text" ${f:text("startingDateStr")} class="form-control" id="startingDateStr" />
+		<input type="text" ${f:text("startingDateStr")} mandatory="y" field="starting date" class="form-control" id="startingDateStr" />
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Arrival Time</span> 
