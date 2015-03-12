@@ -89,13 +89,12 @@ var microBizFn = {
 				fields.push($(this).attr("field"));
 			}
 		});
-		if ( isOK ) {
-			$("select[mandatory=y]").each(function(){
-				if ( $(this).val() == "-1" ) {
-					fields.push($(this).attr("field"));
-				}
-			});
-		}
+		
+		$("select[mandatory=y]").each(function(){
+			if ( $(this).val() == "-1" ) {
+				fields.push($(this).attr("field"));
+			}
+		});
 		if ( fields.length > 0 ) {
 			isOK = false;
 			alert(fields.join() + " cannot be empty.")

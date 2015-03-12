@@ -310,6 +310,7 @@ var customerDetailFn = {
 	        target: "#customerDetailContactDIV"
 	        , beforeSubmit: function(){
 	        	// set invoiceKey value
+	        	return microBizFn.validateForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// register event again

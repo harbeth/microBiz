@@ -10,9 +10,9 @@
 	
 				<div class="form-group input-group">
 					<input type="hidden" editMode="${param.type}" ${f:hidden("oldCustomerType")} />
-					<span class="input-group-addon">Customer Type</span>
+					<span class="input-group-addon">Customer Type *</span>
 					<select id="customerTypeSelect" mandatory="y" field="Customer Type" name="type" class="form-control">
-						<option value="">Select ... </option>
+						<option value="-1">Select ... </option>
 						<c:forEach items="${cxTypes}" var="cp">
 							<option value="${f:h(cp.value)}"
 								<c:if test = "${f:h(type) == f:h(cp.value)}" >
@@ -24,7 +24,7 @@
 				</div>
 	
 				<div class="form-group input-group">
-					<span class="input-group-addon">Customer Name</span>
+					<span class="input-group-addon">Customer Name *</span>
 					<c:choose>
 					<c:when test="${key==null}">
 						<input type="hidden" id="customerOldName" value="" />
