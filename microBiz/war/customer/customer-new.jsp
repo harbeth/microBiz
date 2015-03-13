@@ -12,7 +12,7 @@
 		<div class="panel-body">
 			<c:import url = "./customer-edit-common.jsp">
 				<c:param name = "type" value ="new"/>
-				
+				<c:param name = "action" value ="${f:url('/customer/customerCreateAction')}"/>
 			</c:import>
 		</div>
 	</div>

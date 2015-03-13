@@ -5,6 +5,7 @@ import java.util.List;
 import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
 
+import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.InventoryChange;
 import com.microBiz.model.Product;
@@ -30,7 +31,7 @@ public class InventoryAddActionController extends BaseController{
         BeanUtil.copy(request,ic); 
         ic.setOriginalQty(p.getCurrentQty());
         ic.setNotes("add inventory");
-        Double newQty = p.getCurrentQty() + ic.getChangeQty();
+        Double newQty = MicroBizUtil.roundTo2Demcial(p.getCurrentQty() + ic.getChangeQty());
         p.setCurrentQty(newQty);
         ic.setNewQty(newQty);
 
