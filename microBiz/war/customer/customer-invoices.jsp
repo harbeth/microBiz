@@ -8,6 +8,9 @@
 					<tr>
 						<th>Invoice #</th>
 						<th>Address</th>
+						<th>Create Date</th>
+						<th>Sales</th>
+						<th>Status</th>
 						<th>Edit</th>
 					</tr>
 				</thead>
@@ -16,6 +19,9 @@
 						<tr>
 							<td>${f:h(i.invoiceNumber)}</td>
 							<td>${f:h(i.address)}</td>
+							<td>${f:h(i.createdAtStr)}</td>
+							<td>${f:h(i.sales)}</td>
+							<td>${f:h(i.statusLable)}</td>
 							<td><a href="/invoice/editInvoice?invoiceKey=${f:h(i.key)}">Edit</a></td>
 						</tr>
 					</c:forEach>

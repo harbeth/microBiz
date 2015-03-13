@@ -123,7 +123,6 @@ public abstract class BaseController extends Controller {
         
         List<Integer> unitKeyList = new ArrayList<Integer>();
         unitKeyList.add(MicroBizConst.CODE_UNIT_KG);
-        unitKeyList.add(MicroBizConst.CODE_UNIT_POUND);
         unitKeyList.add(MicroBizConst.CODE_UNIT_STROKE);
         unitKeyList.add(MicroBizConst.CODE_UNIT_SQFT);
         units = getDropDownList(unitKeyList);
@@ -162,19 +161,20 @@ public abstract class BaseController extends Controller {
         List<Integer> quoteStatusList = new ArrayList<Integer>();
         quoteStatusList.add(MicroBizConst.CODE_STATUS_OPEN);
         quoteStatusList.add(MicroBizConst.CODE_STATUS_WON);
+        quoteStatusList.add(MicroBizConst.CODE_STATUS_CANCELED);
         quoteStatusList.add(MicroBizConst.CODE_STATUS_FAILED);
         quoteStatus = getDropDownList(quoteStatusList);
         
         List<Integer> jobStatusList = new ArrayList<Integer>();
         jobStatusList.add(MicroBizConst.CODE_STATUS_OPEN);
-        jobStatusList.add(MicroBizConst.CODE_STATUS_CANCELED);
         jobStatusList.add(MicroBizConst.CODE_STATUS_COMPLETED);
+        jobStatusList.add(MicroBizConst.CODE_STATUS_CANCELED);
         jobStatus = getDropDownList(jobStatusList);
         
         List<Integer> invoiceStatusList = new ArrayList<Integer>();
         invoiceStatusList.add(MicroBizConst.CODE_STATUS_OPEN);
-        invoiceStatusList.add(MicroBizConst.CODE_STATUS_CANCELED);
         invoiceStatusList.add(MicroBizConst.CODE_STATUS_CLOSED);
+        invoiceStatusList.add(MicroBizConst.CODE_STATUS_CANCELED);
         invoiceStatus = getDropDownList(invoiceStatusList);
         
         List<Integer> paymentTermsList = new ArrayList<Integer>();

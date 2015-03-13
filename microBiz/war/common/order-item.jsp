@@ -330,8 +330,17 @@ how to deal with Key enter event
 		</tbody>
 		<tfoot>
 			<tr>
-				<td>
+				<td colspan="3" ></td>
+				<td class="text-right">Sub Total:</td>
+				<td class="text-right"><span calType="subTotal">$${f:h(subTotal)}</span></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="3" ></td>
+				<td class="text-right" >
 					Tax Rate:
+				</td>
+				<td class="text-right">
 					<select name="taxRate" calType="taxRate">
 					<option value="-1">Select</option>
 						<c:forEach items="${txRates}" var="tr">
@@ -339,15 +348,24 @@ how to deal with Key enter event
 						</c:forEach>
 					</select>
 				</td>
-				<td class="text-center">Sub Total:<span calType="subTotal">$${f:h(subTotal)}</span></td>
-				<td colspan="2">Discount:<input calType="discount" name="discount" value="${f:h(discount)}"/></td>
-				<td colspan="2" class="text-center">Total:
-				<input type="hidden" name="total" value="${f:h(total)}"/>
+				<td></td>
+			</tr>
+
+			<tr>
+				<td colspan="3" ></td>
+				<td class="text-right">Discount:</td>
+				<td class="text-right"><input calType="discount" name="discount" value="${f:h(discount)}"/></td>
+				<td></td>
+			</tr>
+				<td colspan="3" ></td>
+				<td class="text-right" >Total:</td>
+				<td class="text-right"><input type="hidden" name="total" value="${f:h(total)}"/>
 				<span calType="total">$${f:h(total)}</span>
 				<c:if test="${key != null}">
 						<input type="hidden" ${f:hidden("key")} />
 					</c:if>
 				</td>
+				<td></td>
 			</tr>
 		</tfoot>
 	</table>

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.slim3.controller.Navigation;
+import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizConst;
@@ -55,7 +56,7 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             Key orderKey = orderService.updateOrderAsNew(order);
             invoice.getOrderRef().setKey(orderKey);
             invoiceService.save(invoice);
-            
+             
         }else if ( saveOption.equals("save") ) {
             //save as current version, keep same version number
             Key orderKey = orderService.updateOrder(order);

@@ -7,7 +7,8 @@
 				<thead>
 					<tr>
 						<th>Address</th>
-						<th>Created At</th>
+						<th>Created Date</th>
+						<th>Creator</th>
 						<th>Status</th>
 						<th></th>
 					</tr>
@@ -17,6 +18,7 @@
 						<tr>
 							<td>${f:h(q.address)}</td>
 							<td>${f:h(q.createDateStr)}</td>
+							<td>${f:h(q.creatorName)}</td>
 							<td>${f:h(q.statusLable)}</td>
 							<td><a href="/quote/editQuote?quoteKey=${f:h(q.key)}">Edit</a></td>
 						</tr>
