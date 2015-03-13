@@ -341,12 +341,13 @@ var salesCommissionFn = {
 	        beforeSubmit: function() {
 	        	return true;
 	        }
-	        , success: function(responseText){
+	        , success: function(responseText, statusText, xhr, $form){
 	        	//if ( responseText == "success" ) {
 	        		// should trigger value change event
 	        		//alert(responseText);
-	        		$("#selectSales").val("-1");
-	        		$("#invoicesForSalesCommissionDIV").html("");
+	        	$("#"+microBizConst.bodyContentId).load("/manager/salesCommissionAction", function(){
+	        		
+	        	});
 	        	//}
 	        }
 	    }; 

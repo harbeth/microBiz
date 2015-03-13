@@ -1,13 +1,18 @@
 package com.microBiz.controller.manager;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
+import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.InvoiceExpense;
-import com.microBiz.model.InvoiceReport;
+import com.microBiz.model.SalesCommissionRecord;
 import com.microBiz.service.InvoiceExpenseService;
 import com.microBiz.service.InvoiceService;
 
@@ -31,6 +36,10 @@ public class SalesCommissionActionController extends BaseController {
         String[] invoiceKeys = paramValues("invoiceKey");
         String[] amts = paramValues("amt");
         String[] notes = paramValues("note");
+        List<SalesCommissionRecord> result = new ArrayList();
+        String salesName = null;
+        
+        
         
         for (int i=0; i < invoiceKeys.length; i++){
             System.out.println("index is " + i);
@@ -40,20 +49,29 @@ public class SalesCommissionActionController extends BaseController {
             if(!amts[i].equals("0")){
                 Key invoiceKey = Datastore.stringToKey(invoiceKeys[i]);
                 Invoice invoice = invoiceService.get(invoiceKey);
+                if(salesName==null){
+                    salesName = invoice.getSales();
+                }
                 Double amt = Double.valueOf(amts[i]);
-                InvoiceReport ir = invoice.getInvoiceReportRef().getModel();
-                invoiceService.saveInvoiceReport(ir);
                 InvoiceExpense ie = new InvoiceExpense();
                 ie.setExpense(amt);
                 ie.setNote(notes[i]);
                 ie.getInvoiceRef().setModel(invoice);
                 ie.setForSalesCommission("on");
                 ieService.save(ie);
+                SalesCommissionRecord s = new SalesCommissionRecord();
+                s.setAddress(invoice.getAddress());
+                s.setInvoiceNumber(invoice.getInvoiceNumber());
+                s.setClosedDate(invoice.getStatusChangeDateStr());
+                s.setSignedDate(invoice.getSignDateStr());
+                s.setNote(notes[i]);
+                s.setAmount(amt.toString());
+                result.add(s);
             }
         }
-        // error handling later
-        String msg = "Save sales commission successfully";
-        response.getWriter().print(msg);
-        return null;
+        requestScope("salesName", salesName);
+        requestScope("salesCommissionRecords", result);
+        requestScope("createdDate", MicroBizUtil.parseDateToStr(new Date()));
+        return forward("sales-commission-record.jsp");
     }
 }
