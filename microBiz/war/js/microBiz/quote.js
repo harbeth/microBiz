@@ -1,3 +1,7 @@
+var quoteModuleData = {
+	saveOption: ''
+}
+
 var quoteFn = {
 	init: function() {
 		// register event for edit invoice link
@@ -162,11 +166,24 @@ var quoteDetailFn = {
 	        target: "#quoteDetailVersionDIV"
 	        , beforeSubmit: function() {
 	        	// just validate order item
+	        	quoteModuleData.saveOption = $("input[name=saveOption]:checked").val();
 	        	return quoteDetailFn.validateOrderForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	// refresh the current tab, register change event
-	        	quoteDetailFn.registerQuoteOrderChange();
+	        	// if converToInvoice
+	        	if ( quoteModuleData.saveOption == "convertToInvoice" ) {
+	        		if ( responseText.indexOf("error") > -1 ) {
+	        			alert(responseText);
+	        			// refresh the current tab, register change event
+			        	quoteDetailFn.registerQuoteOrderChange();
+	        		}else{
+	        			// if OK, then is invoiceKey
+	        			window.location.href = "/invoice/editInvoice?invoiceKey="+responseText;
+	        		}
+	        	}else{
+	        		// refresh the current tab, register change event
+		        	quoteDetailFn.registerQuoteOrderChange();
+	        	}
 	        }
 	    }; 
 	    // bind to the form's submit event 

@@ -112,6 +112,8 @@ var ongoingInvoiceFn = {
 	        	// register edit link
 	        	ongoingInvoiceFn.initOngoingPage();
 	        	ongoingInvoiceFn.updateOngoingSection();
+	        	// after close invoice, update unpaid section
+	        	unPaidInvoiceFn.updateUnpaidSection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -342,13 +344,7 @@ var salesCommissionFn = {
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	//if ( responseText == "success" ) {
-	        		// should trigger value change event
-	        		//alert(responseText);
-	        	$("#"+microBizConst.bodyContentId).load("/manager/salesCommissionAction", function(){
-	        		
-	        	});
-	        	//}
+	        	$("#invoicesForSalesCommissionDIV").html("");
 	        }
 	    }; 
 	    // bind to the form's submit event 

@@ -6,7 +6,7 @@
 	</div>
 	<div class="panel-footer">
 		<span class="pull-right">
-			<a link="managerTabUnApprovedJobReport" nowSelected="y">View Details</a>
+			<a link="managerTabUnApprovedJobReport" nowSelected="n">View Details</a>
 		</span>
 		<div class="clearfix"></div>
 	</div>

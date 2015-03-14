@@ -41,6 +41,8 @@ public class QuoteOrderActionController extends OrderLoadActionController {
         //String actionName = asString("actionName");
         String saveOption = asString("saveOption");
         System.out.println("saveOption: " + saveOption);
+        String invoiceKeyStr = null;
+        boolean toInvoice = false;
         if ( saveOption.equals("convertToInvoice") ) {
             // for final, change status and create new invoice
             quote.setStatus(MicroBizConst.CODE_STATUS_WON);
@@ -56,6 +58,8 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             Key orderKey = orderService.updateOrderAsNew(order);
             invoice.getOrderRef().setKey(orderKey);
             invoiceService.save(invoice);
+            invoiceKeyStr = Datastore.keyToString(invoice.getKey());
+            toInvoice = true;
             //return redirect("/invoice/invoiceDetails?invoiceKey=" + Datastore.keyToString(invoice.getKey()));
         }else if ( saveOption.equals("save") ) {
             //save as current version, keep same version number
@@ -78,22 +82,28 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             qo.getQuoteRef().setModel(quote);
             
             quoteService.saveQuoteOrder(qo);
-
         }
-        // get order list
-        Quote quoteNew = quoteService.get(quote.getKey());
-        //based on quote key, get data for edit page
-        // get quote version list, the first is selected one, get quote item list
-        // ?? some times
-        List<QuoteOrder> quoteOrderList = quoteNew.getQuoteOrderRef().getModelList();
-        System.out.println("get quote order list: " + quoteOrderList);
-        // quote order key could be empty
-        requestScope("quoteOrders", quoteOrderList);
         
-        // get first quote version  quoteOrderList.size() should > 0
-        setOrderFromList(quoteOrderList);
-        
-        // only refresh the current tab
-        return forward("quote-order-list.jsp");
+        if ( toInvoice ) {
+            response.getWriter().write(invoiceKeyStr);
+            // error handling, return "error:Cannot convert quotation to invoice: "
+            return null;
+        }else{
+            // get order list
+            Quote quoteNew = quoteService.get(quote.getKey());
+            //based on quote key, get data for edit page
+            // get quote version list, the first is selected one, get quote item list
+            // ?? some times
+            List<QuoteOrder> quoteOrderList = quoteNew.getQuoteOrderRef().getModelList();
+            System.out.println("get quote order list: " + quoteOrderList);
+            // quote order key could be empty
+            requestScope("quoteOrders", quoteOrderList);
+            
+            // get first quote version  quoteOrderList.size() should > 0
+            setOrderFromList(quoteOrderList);
+            
+            // only refresh the current tab
+            return forward("quote-order-list.jsp");
+        }
     }
 }
