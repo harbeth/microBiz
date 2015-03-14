@@ -32,9 +32,9 @@
 	</div>
 	
 	<div class="form-group input-group">
-		<span class="input-group-addon">Sales</span>
-		<select name="sales" class="form-control">
-		<option value="">Select ... </option>
+		<span class="input-group-addon">Sales *</span>
+		<select name="sales" mandatory="y" field="Sales" class="form-control">
+		<option value="-1">Select ... </option>
 			<c:forEach items="${salesNames}" var="s">
 				<option value="${f:h(s)}"
 					<c:if test = "${f:h(sales) == f:h(s)}" >
