@@ -70,6 +70,7 @@ public class InvoiceReport extends MiBaseModel {
     }
     
     public void addPymtReceived(Double d){
+        if ( pymtReceived == null ) pymtReceived = 0d;
         pymtReceived = pymtReceived+d;
     }
     

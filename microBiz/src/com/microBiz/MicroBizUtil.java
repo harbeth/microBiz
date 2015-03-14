@@ -17,8 +17,12 @@ public class MicroBizUtil {
     private MicroBizUtil() {
     }
     
-    public static String priceFormat(double value) {
-        return PRICE_FORMATTER.format(value);
+    public static String priceFormat(Double value) {
+        String valueStr = "0.00";
+        if ( value != null ) {
+            valueStr = PRICE_FORMATTER.format(value);
+        }
+        return valueStr;
     }
     
     // for price, not save total

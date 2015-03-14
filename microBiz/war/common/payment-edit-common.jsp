@@ -18,9 +18,9 @@ put it here for portable
 </c:if>
 
 <div class="form-group input-group">
-	<span class="input-group-addon">Payment Method</span>
-	<select name="method" class="form-control">
-		<option value="">Select ...</option>
+	<span class="input-group-addon">Payment Method *</span>
+	<select name="method" mandatory="y" field="Payment Method" class="form-control">
+		<option value="-1">Select ...</option>
 		<c:forEach items="${paymentTypes}" var="pt">
 			<option value="${f:h(pt.value)}"
 				<c:if test = "${f:h(method) == f:h(pt.value)}" >
@@ -31,8 +31,8 @@ put it here for portable
 </div>
 
 <div class="form-group input-group">
-	<span class="input-group-addon">Amount</span>
-	<input type="text" valueType="price" ${f:text("amountStr")} class="form-control" />
+	<span class="input-group-addon">Amount *</span>
+	<input type="text" mandatory="y" field="Amount" valueType="price" name="amount" value="${f:h(amountStr)}" class="form-control" />
 </div>
 
 <div class="form-group input-group">

@@ -65,7 +65,6 @@ public class InvoiceExpense extends MiCreatorBaseModel {
         return MicroBizUtil.priceFormat(expense);
     }
 
-
     public String getNote() {
         return note;
     }

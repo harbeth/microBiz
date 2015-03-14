@@ -193,7 +193,7 @@ var unPaidInvoiceFn = {
 		var options = { 
 	        target: "#managerTabUnpaidInvoiceDIV"
 	        , beforeSubmit: function() {
-	        	return true;
+	        	return microBizFn.validateForm();
 	        }
 	        , success: function(){
 	        	// clear edit payment DIV

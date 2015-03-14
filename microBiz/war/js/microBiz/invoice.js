@@ -472,6 +472,7 @@ var invoiceDetailFn = {
 	        target: "#invoiceDetailPaymentDIV"
 	        , beforeSubmit: function(){
 	        	// set invoiceKey value
+	        	return microBizFn.validateForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// load job list
@@ -520,6 +521,7 @@ var invoiceDetailFn = {
 	        target: "#invoiceDetailExpenseDIV"
 	        , beforeSubmit: function(){
 	        	// set invoiceKey value
+	        	return microBizFn.validateForm();
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// register event again

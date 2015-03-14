@@ -84,6 +84,13 @@ var microBizFn = {
 		var isOK = true;
 		// mandatory field
 		var fields = [];
+		
+		$("input[mandatory=y][valueType=price]").each(function(){
+			if ( $(this).val() == "0.00" ) {
+				fields.push($(this).attr("field"));
+			}
+		});
+		
 		$("input[mandatory=y]").each(function(){
 			if ( $(this).val() == "" ) {
 				fields.push($(this).attr("field"));
