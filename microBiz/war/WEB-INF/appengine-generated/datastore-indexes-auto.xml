@@ -1,6 +1,12 @@
-<!-- Indices written at Fri, 13 Mar 2015 18:27:02 EDT -->
+<!-- Indices written at Fri, 13 Mar 2015 22:48:19 EDT -->
 
 <datastore-indexes>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="QuoteOrder" ancestor="false" source="auto">
+        <property name="quoteRef" direction="asc"/>
+        <property name="createdAt" direction="desc"/>
+    </datastore-index>
 
     <!-- Used 2 times in query history -->
     <datastore-index kind="job" ancestor="false" source="auto">
@@ -8,22 +14,24 @@
         <property name="createdAt" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 3 times in query history -->
+    <!-- Used 20 times in query history -->
+    <datastore-index kind="Invoice" ancestor="false" source="auto">
+        <property name="status" direction="asc"/>
+        <property name="paidOff" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 2 times in query history -->
     <datastore-index kind="invoice_expense" ancestor="false" source="auto">
         <property name="invoiceRef" direction="asc"/>
         <property name="createdAt" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="job_report" ancestor="false" source="auto">
-        <property name="jobRef" direction="asc"/>
-        <property name="createdAt" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="job_material_report" ancestor="false" source="auto">
-        <property name="jobReportRef" direction="asc"/>
-        <property name="count" direction="asc"/>
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="Invoice" ancestor="false" source="auto">
+        <property name="paidOff" direction="asc"/>
+        <property name="sales" direction="asc"/>
+        <property name="status" direction="asc"/>
+        <property name="salesPaid" direction="asc"/>
     </datastore-index>
 
 </datastore-indexes>
