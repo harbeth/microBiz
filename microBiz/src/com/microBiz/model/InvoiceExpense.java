@@ -13,6 +13,9 @@ public class InvoiceExpense extends MiCreatorBaseModel {
 
     @Attribute(unindexed = true)
     private Double expense;
+    
+    @Attribute(persistent = false)
+    private String expenseStr;
 
     @Attribute(persistent = false)
     private String reportDateStr;
@@ -49,8 +52,6 @@ public class InvoiceExpense extends MiCreatorBaseModel {
         this.invoiceKey = invoiceKey;
     }
 
- 
-
     public void setReportDateStr(String reportDateStr) {
         this.reportDateStr = reportDateStr;
     }
@@ -58,6 +59,10 @@ public class InvoiceExpense extends MiCreatorBaseModel {
     //display date string from date
     public String getReportDateStr() {
         return MicroBizUtil.parseDateToStr(createdAt);
+    }
+    
+    public String getExpenseStr() {
+        return MicroBizUtil.priceFormat(expense);
     }
 
 

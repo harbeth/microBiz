@@ -14,7 +14,7 @@
 		
 		<div class="form-group input-group">
 			<span class="input-group-addon">Expense Amount</span> 
-			<input type="text" valueType="price" ${f:text("expense")} class="form-control" />
+			<input type="text" valueType="price" ${f:text("expenseStr")} class="form-control" />
 		</div>
 
 	

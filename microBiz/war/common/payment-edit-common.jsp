@@ -2,12 +2,13 @@
 
 <%-- 
 dashboard: receive payment & invoice detail: receive payment
+put it here for portable
 --%>
 
 <script>
 	$(function() {
-		$("input[valueType=price]").numeric();
-	  $( "#enterDateStr" ).datepicker();
+		microBizFn.initPriceInput();
+	  	$( "#enterDateStr" ).datepicker();
 	});
 </script>
 
@@ -31,7 +32,7 @@ dashboard: receive payment & invoice detail: receive payment
 
 <div class="form-group input-group">
 	<span class="input-group-addon">Amount</span>
-	<input type="text" valueType="price" ${f:text("amount")} class="form-control" />
+	<input type="text" valueType="price" ${f:text("amountStr")} class="form-control" />
 </div>
 
 <div class="form-group input-group">

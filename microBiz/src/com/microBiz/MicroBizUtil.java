@@ -1,5 +1,6 @@
 package com.microBiz;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +11,14 @@ import java.util.TimeZone;
 public class MicroBizUtil {
     
     private static Calendar calendar = Calendar.getInstance();
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("MM/dd/yyyy"); 
+    private static final DecimalFormat PRICE_FORMATTER = new DecimalFormat("#.00"); 
+    
     private MicroBizUtil() {
+    }
+    
+    public static String priceFormat(double value) {
+        return PRICE_FORMATTER.format(value);
     }
     
     // for price, not save total
@@ -51,9 +59,8 @@ public class MicroBizUtil {
     }
     public static String parseDateToStr(Date d) {
         if(d!=null){
-            SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-            dt.setTimeZone(TimeZone.getTimeZone("America/Toronto"));
-            return dt.format(d);
+            DATE_FORMATTER.setTimeZone(TimeZone.getTimeZone("America/Toronto"));
+            return DATE_FORMATTER.format(d);
         }else{
             return "";
         }
@@ -62,11 +69,10 @@ public class MicroBizUtil {
     
     public  static Date parseStrToDate(String s) {
         if(s!=null){
-            SimpleDateFormat dt = new SimpleDateFormat("MM/dd/yyyy"); 
-            dt.setTimeZone(TimeZone.getTimeZone("America/Toronto"));
+            DATE_FORMATTER.setTimeZone(TimeZone.getTimeZone("America/Toronto"));
             Date result = null;
             try{
-                result = dt.parse(s);
+                result = DATE_FORMATTER.parse(s);
             }catch(Exception e){
                 
             }
@@ -74,9 +80,5 @@ public class MicroBizUtil {
         }else{
             return null;
         }
-
     }
-    
-  
- 
 }

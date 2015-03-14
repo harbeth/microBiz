@@ -14,6 +14,9 @@ public class Payment extends MiCreatorBaseModel {
 
     @Attribute(unindexed = true)
     private Double amount;
+    
+    @Attribute(persistent = false)
+    private String amoutStr;
 
     private Integer method;
     
@@ -40,6 +43,7 @@ public class Payment extends MiCreatorBaseModel {
     public Key getKey() {
         return key;
     }
+    
     public void setKey(Key key) {
         this.key = key;
     }
@@ -47,33 +51,38 @@ public class Payment extends MiCreatorBaseModel {
     public Double getAmount() {
         return amount;
     }
+    
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+    
     public Integer getMethod() {
         return method;
     }
+    
     public String getMethodLable() {
         return getLable(method);
     }
+    
     public void setMethod(Integer method) {
         this.method = method;
     }
+    
     public String getNote() {
         return note;
     }
+    
     public void setNote(String note) {
         this.note = note;
     }
- 
-
+    
     public String getEnterDateStr() {
         return MicroBizUtil.parseDateToStr(createdAt);
-
     }
     
-    
- 
+    public String getAmountStr() {
+        return MicroBizUtil.priceFormat(amount);
+    }
 
     public String getCanceled() {
         return canceled;

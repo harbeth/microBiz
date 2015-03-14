@@ -317,10 +317,7 @@ var verifyJobReportFn = {
 			dashboardFn.registerSectionClickWithCtrl($("a[link=managerTabUnApprovedJobReport]"));
 		});
 	}
-
 }
-
-
 
 var salesCommissionFn = {
 	init: function() {
