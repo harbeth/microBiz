@@ -22,7 +22,7 @@
 						<td>${f:h(i.orderRef.model.total)}</td>
 						<td>${f:h(i.address)}</td>
 						<td>${f:h(i.statusChangeDateStr)}</td>
-						<td><input type="text" name="amt" value="0" /></td>
+						<td><input type="text" valueType="price" name="amt"/></td>
 						<td><input type="text" name="note" value=""/></td>
 						<input type="hidden" name="invoiceKey" value="${f:h(i.key)}"/>
 					</tr>

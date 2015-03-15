@@ -36,7 +36,7 @@ public class SalesCommissionActionController extends BaseController {
         String[] invoiceKeys = paramValues("invoiceKey");
         String[] amts = paramValues("amt");
         String[] notes = paramValues("note");
-        List<SalesCommissionRecord> result = new ArrayList();
+        List<SalesCommissionRecord> result = new ArrayList<SalesCommissionRecord>();
         String salesName = null;
         
         
@@ -46,7 +46,7 @@ public class SalesCommissionActionController extends BaseController {
             System.out.println("key is " + invoiceKeys[i]);
             System.out.println("amount is " + amts[i]);
             System.out.println("note is " + notes[i]);
-            if(!amts[i].equals("0")){
+            if(amts[i].length() > 0 && !amts[i].equals("0")){
                 Key invoiceKey = Datastore.stringToKey(invoiceKeys[i]);
                 Invoice invoice = invoiceService.get(invoiceKey);
                 if(salesName==null){

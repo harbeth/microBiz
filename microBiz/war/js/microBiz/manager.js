@@ -330,18 +330,22 @@ var salesCommissionFn = {
 			var sales = $(this).val();
 			$("#invoicesForSalesCommissionDIV").html("Loading...");
 			$("#invoicesForSalesCommissionDIV").load("/manager/loadInvoicesForSalesCommission?sales=" + sales, function(){
-				salesCommissionFn.registerSalesForm();
+				salesCommissionFn.saleCommissionPageInit();
 			});
 		});
+	}
+	, saleCommissionPageInit: function() {
+		this.registerSalesForm();
+		microBizFn.initPriceInput();
 	}
 	, registerSalesForm: function() {
 		// after submit, reload tab content
 		var options = { 
-	        beforeSubmit: function() {
+			target: "#invoicesForSalesCommissionDIV"	
+	        , beforeSubmit: function() {
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
-	        	$("#invoicesForSalesCommissionDIV").html("");
 	        }
 	    }; 
 	    // bind to the form's submit event 
