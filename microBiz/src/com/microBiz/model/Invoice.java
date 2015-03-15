@@ -158,7 +158,7 @@ public class Invoice extends MiCreatorBaseModel {
         }
     }
     
-  //as  one installer can only has one open job for a invoice, so if an invoice has the same number of open job as the number of installer
+    //as  one installer can only has one open job for a invoice, so if an invoice has the same number of open job as the number of installer
     //meaning all installer have open job for the invoice, don't show assign job link for the invoice
     public boolean getShowAssignJobLink(){
         if(key == null){
@@ -181,9 +181,9 @@ public class Invoice extends MiCreatorBaseModel {
     public Double getSalesCommission(){
         List<InvoiceExpense> ie = expenseListRef.getModelList();
         Double result = new Double(0);
-        Iterator i = ie.iterator();
+        Iterator<InvoiceExpense> i = ie.iterator();
         while (i.hasNext()){
-            InvoiceExpense e = (InvoiceExpense)i.next();
+            InvoiceExpense e = i.next();
             if(e.getForSalesCommission().equals("on")){
                 result = result + e.getExpense();
             }
@@ -195,7 +195,6 @@ public class Invoice extends MiCreatorBaseModel {
 
     public String getPreferIntlDateStr() {
         return MicroBizUtil.parseDateToStr(preferIntlDate);
-
     }
 
     public void setPreferIntlDateStr(String preferIntlDateStr) {

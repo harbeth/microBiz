@@ -198,6 +198,9 @@ var invoiceDetailFn = {
 		this.onOrderClick();
 		this.onDetailPageClose();
 		this.registerOrderForm();
+		this.initManageTab();
+	}
+	, initManageTab: function() {
 		// ===== manage tab ====
 		// register event for edit job/payment/expense link
 		this.onInvoiceJobEditClick();
@@ -478,6 +481,7 @@ var invoiceDetailFn = {
 	        	// load job list
 	        	// register event again
 	        	invoiceDetailFn.onInvoicePaymentEditClick();
+	        	invoiceDetailFn.updateManageSummarySection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -526,6 +530,7 @@ var invoiceDetailFn = {
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// register event again
 	        	invoiceDetailFn.onInvoiceExpenseEditClick();
+	        	invoiceDetailFn.updateManageSummarySection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -543,5 +548,10 @@ var invoiceDetailFn = {
 		
 		this.registerExpenseDetailForm();
 		this.onInvoiceExpenseEditClose();
+	}
+	, updateManageSummarySection: function() {
+		$("#invoiceSummaryDIV").load("/manager/updateManageSummarySection", function() {
+			invoiceDetailFn.initMangerTab();
+		});
 	}
 }

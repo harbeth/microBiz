@@ -65,20 +65,16 @@ public abstract class JobEditCommonController extends BaseController {
             installerNames.add(job.getInstaller());
             
             // checked the already selected products
-            List<Product> checkedPrds = new ArrayList();
-            Iterator ip = prdList.iterator();
+            List<Product> checkedPrds = new ArrayList<Product>();
+            Iterator<Product> ip = prdList.iterator();
             while(ip.hasNext()){
-                Product p = (Product)ip.next();
+                Product p = ip.next();
                 if(job.getUsePrdKeys().contains(Datastore.keyToString(p.getKey()))){
                     checkedPrds.add(p);
                     ip.remove();
                 }
             }
-            
             requestScope("checkedPrds",checkedPrds );
-            
-            
-            
         }
         job.setInvoiceKey(invoiceKey);
         BeanUtil.copy(job, request);
