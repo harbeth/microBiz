@@ -46,9 +46,14 @@ var quoteNewFn = {
 	        target: "#"+microBizConst.bodyContentId
 	        , beforeSubmit: function() {
 	        	//keep product -1
-	        	return quoteNewFn.validate();
+	        	var isOK = quoteNewFn.validate();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// after edit page loaded
 	        	// put it in the page for short cut from customer
 	        	// quoteDetailFn.init();
@@ -87,9 +92,14 @@ var quoteUpdateFn = {
 	        target: "#quoteInfoDIV"
 	        , beforeSubmit: function() {
 	        	// validate detail info
-	        	return quoteEditFn.validateForm();
+	        	var isOK = quoteEditFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// keep on the order tab
 	        	$("#quoteDetailInfoDIV").hide();
 	        	$("#quoteDetailVersionDIV").show();
@@ -167,9 +177,14 @@ var quoteDetailFn = {
 	        , beforeSubmit: function() {
 	        	// just validate order item
 	        	quoteModuleData.saveOption = $("input[name=saveOption]:checked").val();
-	        	return quoteDetailFn.validateOrderForm();
+	        	var isOK = quoteDetailFn.validateOrderForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// if converToInvoice
 	        	if ( quoteModuleData.saveOption == "convertToInvoice" ) {
 	        		if ( responseText.indexOf("error") > -1 ) {

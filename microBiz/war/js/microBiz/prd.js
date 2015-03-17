@@ -38,12 +38,15 @@ var productEditFn = {
 			var options = { 
 		        target: "#"+microBizConst.bodyContentId
 		        , beforeSubmit: function() {
-
+		        	var isOK = productEditFn.validateForm();
 		        	productEditFn.removeEmptyTr();
-		        	return productEditFn.validateForm();
+		        	if ( isOK ) {
+		        		microBizFn.setSubmitBtnStatus(false);
+		        	}
+		        	return isOK;
 		        }
 		        , success: function(responseText, statusText, xhr, $form){
-		        	
+		        	microBizFn.setSubmitBtnStatus(true);
 		        }
 		    }; 
 		    // bind to the form's submit event 
@@ -129,11 +132,14 @@ var inventoryFn = {
 			var options = { 
 		        target: "#"+microBizConst.bodyContentId
 		        , beforeSubmit: function() {
-
-		        	return inventoryFn.validateForm();
+		        	var isOK = inventoryFn.validateForm();
+		        	if ( isOK ) {
+		        		microBizFn.setSubmitBtnStatus(false);
+		        	}
+		        	return isOK;
 		        }
 		        , success: function(responseText, statusText, xhr, $form){
-		        	
+		        	microBizFn.setSubmitBtnStatus(true);
 		        }
 		    }; 
 		    // bind to the form's submit event 
@@ -146,7 +152,6 @@ var inventoryFn = {
 		}
 		, validateForm: function() {
 			return microBizFn.validateForm();
-
 		}
 	}
 

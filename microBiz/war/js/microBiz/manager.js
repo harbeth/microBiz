@@ -103,10 +103,12 @@ var ongoingInvoiceFn = {
 		var options = { 
 	        target: "#managerTabOngoingInvoiceDIV"
 	        , beforeSubmit: function() {
+	        	microBizFn.setSubmitBtnStatus(false);
 	        	$("#managerTabOngoingInvoiceDIV").html("");
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// clear edit payment DIV
 	        	$("#managerInvoiceDetailDIV").html("");
 	        	// register edit link
@@ -144,9 +146,11 @@ var ongoingInvoiceFn = {
 		var options = { 
 	        target: "#managerTabOngoingInvoiceDIV"
 	        , beforeSubmit: function() {
+	        	microBizFn.setSubmitBtnStatus(false);
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// clear edit payment DIV
 	        	$("#managerInvoiceDetailDIV").html("");
 	        	// register edit link
@@ -193,9 +197,14 @@ var unPaidInvoiceFn = {
 		var options = { 
 	        target: "#managerTabUnpaidInvoiceDIV"
 	        , beforeSubmit: function() {
-	        	return microBizFn.validateForm();
+	        	var isOK = microBizFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return isOK;
 	        }
-	        , success: function(){
+	        , success: function() {
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// clear edit payment DIV
 	        	$("#managerPaymentDetailDIV").html("");
 	        	// register edit link
@@ -247,10 +256,12 @@ var uncompleteJobFn = {
 		var options = { 
 	        target: "#managerTabUnCompleteJobDIV"
 	        , beforeSubmit: function() {
+	        	microBizFn.setSubmitBtnStatus(false);
 	        	$("#managerTabUnCompleteJobDIV").html("");
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	$("#managerJobDetailDIV").html("");
 	        	// register edit link
 	        	uncompleteJobFn.initUncompletePage();
@@ -298,9 +309,14 @@ var verifyJobReportFn = {
 		var options = { 
 	        target: "#managerTabUnApprovedJobReportDIV"
 	        , beforeSubmit: function() {
-	        	return microBizFn.validateForm();
+	        	var isOK = microBizFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        }
 	    }; 
 		 $("form[name=jobReportForm]").submit(function() { 
@@ -343,9 +359,11 @@ var salesCommissionFn = {
 		var options = { 
 			target: "#invoicesForSalesCommissionDIV"	
 	        , beforeSubmit: function() {
+	        	microBizFn.setSubmitBtnStatus(false);
 	        	return true;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        }
 	    }; 
 	    // bind to the form's submit event 

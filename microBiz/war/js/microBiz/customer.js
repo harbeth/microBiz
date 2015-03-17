@@ -40,9 +40,14 @@ var customerNewFn = {
 		var options = { 
 	        target: "#"+microBizConst.bodyContentId
 	        , beforeSubmit: function() {
-	        	return customerEditFn.validateForm();
+	        	var isOK = customerEditFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// load invoice details page
 	        	customerDetailFn.init();
 	        }
@@ -64,10 +69,14 @@ var customerNewFn = {
 	        	if ( isOK ) {
 	        		isOK = customerEditFn.validateCustomerName();
 	        	}
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
 	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// load invoice details page
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	customerDetailFn.init();
 	        }
 	    }; 
@@ -96,6 +105,9 @@ var customerUpdateFn = {
 	        	var isOK = customerUpdateFn.validateForm();
 	        	if ( isOK ) {
 	        		isOK = customerEditFn.validateCustomerName();
+	        	}
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
 	        	}
 	        	return isOK;
 	        }
@@ -309,10 +321,15 @@ var customerDetailFn = {
 		var options = { 
 	        target: "#customerDetailContactDIV"
 	        , beforeSubmit: function(){
+	        	var isOK = microBizFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
 	        	// set invoiceKey value
-	        	return microBizFn.validateForm();
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// register event again
 	        	customerDetailFn.onCustomerContactEditClick();
 	        }
@@ -386,8 +403,10 @@ var customerDetailFn = {
 	        target: "#invoiceDetailPaymentDIV"
 	        , beforeSubmit: function(){
 	        	// set invoiceKey value
+	        	microBizFn.setSubmitBtnStatus(false);
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// load job list
 	        	// register event again
 	        	invoiceDetailFn.onInvoicePaymentEditClick();

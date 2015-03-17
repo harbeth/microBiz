@@ -51,10 +51,14 @@ var jobReportEditFn = {
 			var options = { 
 		        target: "#"+microBizConst.bodyContentId
 		        , beforeSubmit: function() {
-		        	return microBizFn.validateForm();
+		        	var isOK = microBizFn.validateForm();
+		        	if ( !isOK ) {
+		        		microBizFn.setSubmitBtnStatus(false);
+		        	}
+		        	return isOK;
 		        }
 		        , success: function(responseText, statusText, xhr, $form){
-		        	
+		        	microBizFn.setSubmitBtnStatus(true);
 		        }
 		    }; 
 		    // bind to the form's submit event 
@@ -71,6 +75,4 @@ var jobReportEditFn = {
 				window.location.href = "/quote";
 			});
 		}
-		
-
 }

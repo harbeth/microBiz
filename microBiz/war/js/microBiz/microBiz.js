@@ -121,6 +121,16 @@ var microBizFn = {
 			*/
 		return isOK;
 	}
+	, setSubmitBtnStatus: function(statusValue) {
+		var submitBtn = $("button[type=submit]");
+		if ( statusValue ) {
+			// set enabled
+			submitBtn.removeAttr("disabled");
+		}else{
+			// set enabled
+			submitBtn.attr("disabled", "disabled");
+		}
+	}
 }
 
 

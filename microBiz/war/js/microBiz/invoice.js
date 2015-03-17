@@ -105,9 +105,14 @@ var invoiceNewFn = {
 		var options = { 
 	        target: "#"+microBizConst.bodyContentId
 	        , beforeSubmit: function() {
-	        	return invoiceNewFn.validateForm();
+	        	var isOK = invoiceNewFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// load invoice details page
 	        	// put it in the page for short cut from customer
 	        	//invoiceDetailFn.init();
@@ -136,9 +141,14 @@ var invoiceUpdateFn = {
 		var options = { 
 	        target: "#invoiceInfoDIV"
 	        , beforeSubmit: function() {
-	        	return invoiceEditFn.validateForm();
+	        	var isOK = invoiceEditFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
+	        	return ;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// show order tab
 	        	invoiceDetailFn.showOrderPage();
 	        }
@@ -233,7 +243,11 @@ var invoiceDetailFn = {
 	        target: "#invoiceDetailOrderDIV"
 	        , beforeSubmit: function() {
 	        	// set invoiceKey value
-	        	$("#invoiceDetailOrderDIV").html("Saving...");
+	        	var isOK = orderItemFn.validate();
+	        	if ( isOK ) {
+	        		$("#invoiceDetailOrderDIV").html("Saving...");
+	        	}
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	// register event again
@@ -380,8 +394,10 @@ var invoiceDetailFn = {
 	        target: "#invoiceDetailJobDIV"
 	        , beforeSubmit: function(){
 	        	// set invoiceKey value
+	        	microBizFn.setSubmitBtnStatus(false);
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// register event again
 	        	invoiceDetailFn.onInvoiceJobEditClick();
 	        }
@@ -474,10 +490,15 @@ var invoiceDetailFn = {
 		var options = { 
 	        target: "#invoiceDetailPaymentDIV"
 	        , beforeSubmit: function(){
+	        	var isOK = microBizFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
 	        	// set invoiceKey value
-	        	return microBizFn.validateForm();
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// load job list
 	        	// register event again
 	        	invoiceDetailFn.onInvoicePaymentEditClick();
@@ -524,10 +545,15 @@ var invoiceDetailFn = {
 		var options = { 
 	        target: "#invoiceDetailExpenseDIV"
 	        , beforeSubmit: function(){
+	        	var isOK = microBizFn.validateForm();
+	        	if ( isOK ) {
+	        		microBizFn.setSubmitBtnStatus(false);
+	        	}
 	        	// set invoiceKey value
-	        	return microBizFn.validateForm();
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
 	        	// register event again
 	        	invoiceDetailFn.onInvoiceExpenseEditClick();
 	        	invoiceDetailFn.updateManageSummarySection();
