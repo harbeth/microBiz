@@ -25,8 +25,8 @@ public class InvoiceService {
     
 
     
-    public List<Invoice> getInvoicesByCreatorName(String name) {
-        return Datastore.query(i).filter(i.creatorName.equal(name)).asList();
+    public List<Invoice> getInvoicesBySales(String name) {
+        return Datastore.query(i).filter(i.sales.equal(name)).asList();
     }
 
     public Order getInvoiceOrder(Key orderKey) {

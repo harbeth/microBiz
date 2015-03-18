@@ -17,7 +17,11 @@
 
 <div class="form-group input-group">
 	<span class="input-group-addon">Customer</span> 
-	<input class="form-control input-sm" mandatory="y" field="Customer" name="customerSearch" type="text" value="${customerName}" />
+	<input class="form-control input-sm" mandatory="y" field="Customer" name="customerSearch" type="text" value="${customerName}" 	
+		<c:if test = "${f:h(closeCanceled)}">
+			disabled
+		</c:if>	
+	/>
 	<input type="hidden" name="customerKey" value="${customerKey}" />
 </div>
 

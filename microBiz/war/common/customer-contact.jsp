@@ -4,7 +4,12 @@
 <div class="col-lg-12">
 	<div class="form-group input-group">
 		<span class="input-group-addon">Contact</span> 
-		<select id="customerContactSelect" name="contactKey" class="form-control">
+		<select id="customerContactSelect" name="contactKey" class="form-control"
+			<c:if test = "${f:h(closeCanced)}">
+				disabled
+			</c:if>
+		
+		>
 			<option value="-1">Select</option>
 			<c:forEach items="${contacts}" var="c">
 				<option value="${f:h(c.key)}"

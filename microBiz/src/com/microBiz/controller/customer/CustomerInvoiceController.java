@@ -1,6 +1,9 @@
 package com.microBiz.controller.customer;
 
+import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slim3.controller.Navigation;
 import org.slim3.util.BeanUtil;
@@ -27,9 +30,23 @@ public class CustomerInvoiceController extends BaseController {
         BeanUtil.copy(customer, request);
         //List<Quote> quotes = invoiceService.getCustomerInvoice(customer.getKey());
         // get data for invoice tab
+       
+        HttpSession session = request.getSession();
+        String myRole = (String)session.getAttribute("myrole");
+        String userName = (String)session.getAttribute("userName");
         List<Invoice> invoices = customer.getInvoiceListRef().getModelList();
-        requestScope("invoices", invoices);
         
+        if(myRole.equals("sales")){
+            Iterator<Invoice> i = invoices.iterator();
+            while(i.hasNext()){
+                Invoice inv = (Invoice)i.next();
+                if(inv.getSales()== null || !inv.getSales().equals(userName)){
+                    i.remove();
+                }
+            }
+            
+        }
+        requestScope("invoices", invoices);
         //requestScope("cxTypes", cxTypes);
         
         return forward("customer-invoices.jsp");

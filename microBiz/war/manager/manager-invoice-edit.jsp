@@ -7,7 +7,11 @@
 			<input type="hidden" ${f:hidden("key")} />
 			<div class="form-group input-group">
 				<span class="input-group-addon">Status</span>
-				<select name="status" class="form-control">
+				<select name="status" class="form-control"
+					<c:if test = "${f:h(notCloseCancelable)}">
+						disabled
+					</c:if>						
+				>
 					<c:forEach items="${invoiceStatus}" var="s">
 						<option value="${f:h(s.value)}"
 							<c:if test = "${f:h(status) == f:h(s.value)}" >

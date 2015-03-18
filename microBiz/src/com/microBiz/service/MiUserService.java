@@ -8,6 +8,7 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.microBiz.PropertyHelper;
 import com.microBiz.meta.MiUserMeta;
 import com.microBiz.model.MiUser;
 import com.microBiz.model.Product;
@@ -47,19 +48,18 @@ public class MiUserService {
     }
 
     public void save(MiUser f) {
-        Transaction tx = Datastore.beginTransaction();
         f.setEmail(f.getEmail().toLowerCase());
-        Datastore.put(tx, f);
-        tx.commit();
+        Datastore.put(f);
+        if(f.getMiRole().equals("sales")){
+            PropertyHelper.getInstance().setSales(getSalesNames());
+        }
+        if(f.getMiRole().equals("installer")){
+            PropertyHelper.getInstance().setInstallers(getInstallerNames());
+        }
+
     }
     
-    public void save(Key parentKey, MiUser f) {
-        Transaction tx = Datastore.beginTransaction();
-        Key childKey = Datastore.allocateId(parentKey, Product.class);
-        f.setKey(childKey);
-        Datastore.put(tx, f);
-        tx.commit();
-    }
+
 
     public MiUser getUserByName(String installer) {
         List<MiUser> result = Datastore.query(p).filter(p.name.equal(installer)).asList();

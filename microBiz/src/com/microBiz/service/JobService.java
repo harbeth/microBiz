@@ -6,7 +6,6 @@ import java.util.List;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.meta.JobMeta;
@@ -161,6 +160,15 @@ public class JobService {
     //later, will add installer name in the parameter
     public List<Job> getJobsForJobReport() {
         List<Job> jobs = Datastore.query(job).filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN)).asList();
+        return populateJobReport(jobs);
+    }
+
+    public List<Job> getJobsForJobReport(String installerName) {
+        List<Job> jobs = Datastore.query(job).filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN), job.creatorName.equal(installerName)).asList();
+        return populateJobReport(jobs);
+    }
+    
+    private List<Job> populateJobReport(List<Job> jobs){
         Iterator i = jobs.iterator();
         while(i.hasNext()){
             Job job = (Job)i.next();
@@ -175,6 +183,5 @@ public class JobService {
         }
         return jobs;
     }
-
 
 }

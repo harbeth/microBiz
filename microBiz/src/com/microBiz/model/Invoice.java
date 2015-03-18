@@ -13,6 +13,7 @@ import org.slim3.datastore.Sort;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
+import com.microBiz.PropertyHelper;
 import com.microBiz.service.MiUserService;
 
 @Model
@@ -146,15 +147,24 @@ public class Invoice extends MiCreatorBaseModel {
         return invoiceReportRef;
     }
     
-    public boolean getCloseCancelable(){
-        if(key==null){
+    public boolean getCloseCanceled(){
+        if(status.intValue()==MicroBizConst.CODE_STATUS_OPEN.intValue()){
             return false;
+        }else{
+            return true;
+        }
+        
+    }
+    
+    public boolean getNotCloseCancelable(){
+        if(key==null){
+            return true;
         }
         
         if(invoiceReportRef.getModel().getOnGoingJobCount()== 0){
-            return true;
-        }else{
             return false;
+        }else{
+            return true;
         }
     }
     
@@ -164,12 +174,11 @@ public class Invoice extends MiCreatorBaseModel {
         if(key == null){
             return true;
         }
-        if(status.intValue()!=MicroBizConst.CODE_STATUS_OPEN.intValue()){
+        if(status.intValue()==MicroBizConst.CODE_STATUS_CANCELED.intValue()){
             return false;
         }
-        // later will store all sales, installer in Memecache
-        MiUserService userService = new MiUserService();
-        int installerCount = userService.getInstallers().size();
+        
+        int installerCount = PropertyHelper.getInstance().getInstallers().size();
         
         if( installerCount >  invoiceReportRef.getModel().getOnGoingJobCount()){
             return true;

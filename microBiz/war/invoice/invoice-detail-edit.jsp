@@ -33,7 +33,21 @@
 	
 	<div class="form-group input-group">
 		<span class="input-group-addon">Sales *</span>
-		<select name="sales" mandatory="y" field="Sales" class="form-control">
+		<select name="sales" mandatory="y" field="Sales" class="form-control"
+			<c:if test = "${f:h(closeCanceled)}">
+				disabled
+			</c:if>
+			
+			<%
+				String myRole = (String)request.getSession().getAttribute("myrole");
+				if (myRole.equals("sales")) {
+			%>
+			disabled
+			<%
+				}
+			%>
+		
+		>
 		<option value="-1">Select ... </option>
 			<c:forEach items="${salesNames}" var="s">
 				<option value="${f:h(s)}"
@@ -49,19 +63,24 @@
 		<input type="text" ${f:text("poNumber")} class="form-control" />
 	</div>
 	
-	<c:if test="${key != null}">
-		<div class="form-group input-group">
-			<span class="input-group-addon">Status</span>
-			<select name="status" class="form-control">
-				<c:forEach items="${invoiceStatus}" var="s">
-					<option value="${f:h(s.value)}"
-						<c:if test = "${f:h(status) == f:h(s.value)}" >
-							selected
-						</c:if>>${f:h(s.label)}</option>
-				</c:forEach>
-			</select>
-		</div>	
-	</c:if>	
+
+	<div class="form-group input-group">
+		<span class="input-group-addon">Status</span>
+		<select name="status" class="form-control"
+			<c:if test = "${f:h(closeCanceled)}">
+				disabled
+			</c:if>
+		
+		>
+			<c:forEach items="${invoiceStatus}" var="s">
+				<option value="${f:h(s.value)}"
+					<c:if test = "${f:h(status) == f:h(s.value)}" >
+						selected
+					</c:if>>${f:h(s.label)}</option>
+			</c:forEach>
+		</select>
+	</div>	
+
 
 	<jsp:include page="../common/customer-contact-common.jsp" />
 

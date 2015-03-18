@@ -32,7 +32,9 @@
 							<td>${f:h(i.address)}</td>
 							<td>${f:h(i.preferIntlDateStr)}</td>
 							<td>${f:h(i.sales)}</td>
-							<td><a link="managerInvoiceEdit" invoiceKey="${f:h(i.key)}">Edit</a></td>
+							<td>
+								<a link="managerInvoiceEdit" invoiceKey="${f:h(i.key)}">Edit</td>
+							</td>
 							<td>
 							<c:if test = "${f:h(i.showAssignJobLink)}">
 								<a link="managerInvoiceJobAssign" invoiceKey="${f:h(i.key)}">Assign Job</a>

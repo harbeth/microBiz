@@ -576,7 +576,7 @@ var invoiceDetailFn = {
 		this.onInvoiceExpenseEditClose();
 	}
 	, updateManageSummarySection: function() {
-		$("#invoiceSummaryDIV").load("/manager/updateManageSummarySection", function() {
+		$("#invoiceSummaryDIV").load("/invoice/updateManageSummarySection", function() {
 			invoiceDetailFn.initMangerTab();
 		});
 	}

@@ -1,28 +1,29 @@
 <%@ page
-	import="com.google.appengine.api.memcache.MemcacheServiceFactory,
-com.google.appengine.api.memcache.MemcacheService,
-com.google.appengine.api.memcache.ErrorHandlers,
-java.util.logging.Level"%>
+	import="com.google.appengine.api.users.UserService, com.google.appengine.api.users.UserServiceFactory"%>
 
 
 <%
-	/*
-    String myrole = (String) request.getSession().getAttribute("myrole");
+	
+    String accesssibleModules = (String) request.getSession().getAttribute("accesssibleModules");
+    String userName = (String) request.getSession().getAttribute("userName");
 
-	MemcacheService syncCache = MemcacheServiceFactory
-			.getMemcacheService();
-	syncCache.setErrorHandler(ErrorHandlers
-			.getConsistentLogAndContinue(Level.INFO));
-	String accesssibleModules = (String) syncCache.get(myrole); // read from cache
-	*/
+	UserService userService = UserServiceFactory.getUserService();
+	String logOutUrl = userService.createLogoutURL("/");
+	/*
 	String accesssibleModules = "manager, invoice, jobReport,quote, customer, mgmt, prd,manager ";
+	*/
 %>
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation"
 	style="margin-bottom: 0">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="index.html">Foam Expert System</a>
+		
 	</div>
+	
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="<%=logOutUrl %>">Log Out <%=userName %></a></li>     
+      </ul>
 	<!-- /.navbar-header -->
 
 	<div class="navbar-default sidebar" role="navigation">
