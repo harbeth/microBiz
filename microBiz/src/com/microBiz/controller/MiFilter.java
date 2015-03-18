@@ -87,13 +87,17 @@ public class MiFilter implements Filter {
             }
          
             chain.doFilter(req, res);
-        } else {// user hasn't loggin via google
-            if (!req.getRequestURI().contains("login")) {
-                req.getRequestDispatcher("/login.jsp").forward(req, res);
-
-                return;
-            } else {// let actual login page pass
+        } else {
+            if(req.getRequestURI().contains("pub")){// public accessible url
                 chain.doFilter(req, res);
+            }else{
+                if (!req.getRequestURI().contains("login")) {
+                    req.getRequestDispatcher("/login.jsp").forward(req, res);
+    
+                    return;
+                } else {// let actual login page pass
+                    chain.doFilter(req, res);
+                }
             }
         }
         /*

@@ -44,8 +44,7 @@ public class InvoiceToPdfController extends BaseController {
     @Override
     public Navigation run() throws Exception {
         PDF pdf = new PDF(
-            new BufferedOutputStream(
-                ResponseLocator.get().getOutputStream()));
+            new BufferedOutputStream(response.getOutputStream()));
         System.out.println("key is" + asString("invoiceKey"));
         Invoice invoice = invoiceService.get(Datastore.stringToKey(asString("invoiceKey"))); 
         Order order = invoice.getOrderRef().getModel();
@@ -106,6 +105,7 @@ public class InvoiceToPdfController extends BaseController {
     table.setData(tableData, Table.DATA_HAS_2_HEADER_ROWS);
     table.setLocation(410f, 90f);
     table.wrapAroundCellText();
+    table.autoAdjustColumnWidths();
     table.drawOn(page);
     // REPLACED:
     // table.setCellMargin(2f);
@@ -269,7 +269,7 @@ public class InvoiceToPdfController extends BaseController {
 
     totalTable.wrapAroundCellText();
     totalTable.drawOn(page);
-    
+    response.setContentType("application/pdf");
     pdf.close();
     return null;
     }

@@ -249,7 +249,7 @@ public class QuoteToPdfController extends BaseController {
 
     totalTable.wrapAroundCellText();
     totalTable.drawOn(page);
-    
+    response.setContentType("application/pdf");
     pdf.close();
     return null;
     }

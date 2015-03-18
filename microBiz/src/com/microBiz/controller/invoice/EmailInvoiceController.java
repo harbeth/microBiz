@@ -40,7 +40,7 @@ public class EmailInvoiceController extends BaseController {
         context.put("name", invoice.getCustomerRef().getModel().getName());
         context.put("invoice_number", invoice.getInvoiceNumber());
         context.put("amount", invoice.getOrderRef().getModel().getTotal().toString());
-        String link = "<a href=http://localhost:8888/pub/invoiceToPdf?invoiceKey="
+        String link = "<a href=http://" +request.getServerName()+ "/pub/invoiceToPdf?invoiceKey="
         +Datastore.keyToString(invoice.getKey())+">here</a>";
         context.put("link", link);
         VelocityEngine ve = VelocityHelper.getVelocityEngine();
@@ -54,7 +54,7 @@ public class EmailInvoiceController extends BaseController {
         String statusMsg = "";
         try{
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("admin@heleadsys.appspotmail.com ", "Invoice From Foam Expert"));
+            msg.setFrom(new InternetAddress("admin@elevated-patrol-88315.appspotmail.com ", "Invoice From Foam Expert"));
             msg.addRecipient(Message.RecipientType.TO,
                              new InternetAddress(invoice.getCustomerRef().getModel().getEmail(), "test"));
             msg.setSubject("Invoice for Spray Foam project at " + invoice.getAddress());

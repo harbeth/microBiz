@@ -1,14 +1,14 @@
-<!-- Indices written at Wed, 18 Mar 2015 10:59:23 EDT -->
+<!-- Indices written at Wed, 18 Mar 2015 16:36:56 EDT -->
 
 <datastore-indexes>
 
-    <!-- Used 2 times in query history -->
+    <!-- Used 1 time in query history -->
     <datastore-index kind="job" ancestor="false" source="auto">
         <property name="invoiceRef" direction="asc"/>
         <property name="createdAt" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 2 times in query history -->
+    <!-- Used 1 time in query history -->
     <datastore-index kind="invoice_expense" ancestor="false" source="auto">
         <property name="invoiceRef" direction="asc"/>
         <property name="createdAt" direction="desc"/>
@@ -24,12 +24,6 @@
     <datastore-index kind="job_material_report" ancestor="false" source="auto">
         <property name="jobReportRef" direction="asc"/>
         <property name="count" direction="asc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="QuoteOrder" ancestor="false" source="auto">
-        <property name="quoteRef" direction="asc"/>
-        <property name="createdAt" direction="desc"/>
     </datastore-index>
 
 </datastore-indexes>
