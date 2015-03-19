@@ -155,7 +155,7 @@ public class InvoiceToPdfController extends BaseController {
     poTable.setColumnWidth(0, 110f);
     poTable.setColumnWidth(1, 300f);
     poTable.setColumnWidth(2, 100f);
-    poTable.wrapAroundCellText();
+    //poTable.wrapAroundCellText();
     poTable.drawOn(page);
     
     

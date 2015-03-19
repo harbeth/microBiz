@@ -1,5 +1,9 @@
 <%@include file="../includes/taglib.jsp"%>
-
+<script>
+	$(function() {
+		$("input[valueType=price]").numeric();
+	});
+</script>
 <div class="col-lg-6">
 	<c:if test="${key != null}">
 		<input type="hidden" ${f:hidden("key")} />
@@ -88,7 +92,7 @@
 <div class="col-lg-6">
 	<div class="form-group input-group">
 		<span class="input-group-addon">Estimated working hours</span>
-		<input type="text" ${f:text("estimatedWorkingHours")} class="form-control" />
+		<input type="text" ${f:text("estimatedWorkingHours")} class="form-control" valueType="price" field="Estimated Working Hours" />
 	</div>
 
 	<div class="form-group input-group">
@@ -103,7 +107,7 @@
 
 	<div class="form-group input-group">
 		<span class="input-group-addon">Deposit</span>
-		<input type="text" ${f:text("deposit")} class="form-control" />
+		<input type="text" ${f:text("deposit")} class="form-control" valueType="price" field="Deposit" />
 	</div>
 	
 	<div class="form-group input-group">

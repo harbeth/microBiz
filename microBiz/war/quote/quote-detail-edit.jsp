@@ -10,8 +10,8 @@
 </div>
 <div class="col-lg-6">
 	<div class="form-group input-group">
-		<span class="input-group-addon">Address</span>
-		<input type="text" ${f:text("address")} class="form-control" />
+		<span class="input-group-addon">Address *</span>
+		<input type="text" ${f:text("address")} class="form-control" mandatory="y" field="Address" />
 	</div>
 
 	<div class="form-group input-group">
