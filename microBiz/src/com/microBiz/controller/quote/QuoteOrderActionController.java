@@ -50,6 +50,8 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             Invoice invoice = new Invoice();
             invoice.setAddress(quote.getAddress());
             invoice.setSignDate(new Date());
+            String userName = (String)request.getSession().getAttribute("userName");
+            invoice.setSales(userName);
             invoice.getCustomerRef().setModel(quote.getCustomerRef().getModel());
             invoice.setInvoiceNumber(MicroBizUtil.generateInvoiceNumber());
             if(quote.getContactRef()!=null){
