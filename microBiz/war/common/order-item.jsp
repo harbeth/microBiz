@@ -93,6 +93,9 @@ how to deal with Key enter event
     		// update rowCount after the page is loaded, existing order items
     		var rowCount = $("table[name=orderItemTbl] tbody tr[rowIndex != -1]").length;
     		orderItemModuleData.setRowCount(rowCount);
+    		
+    		// init price, indluding rowIndex=-1
+    		microBizFn.initPriceInput();
     	}
     	, registerSelectChangeEvent: function() {
     		var selCtrl = $("select[name=items][rowIndex=-1]");
@@ -224,6 +227,10 @@ how to deal with Key enter event
     			alert("Product cannnot be empty.");
     		}
     		if ( isOK ) {
+    			// check validate
+    			isOK = microBizFn.validateForm();
+    		}
+    		if ( isOK ) {
     			// cannot have enabled empty rate / qty input
     			$("table[name=orderItemTbl] tbody tr[rowIndex != -1]")
     			    .find("input[calType=rate]:enabled, input[calType=qty]:enabled").each(function(){
@@ -298,8 +305,8 @@ how to deal with Key enter event
 					</select>
 				</td>
 				<td><input class="form-control input-sm" calType="desc" name="descs" value="${f:h(oi.desc)}" /></td>
-				<td><input rowIndex="${status.index}" calType="rate" class="form-control input-sm text-right" name="rates" value="${f:h(oi.rate)}" /></td>
-				<td><input rowIndex="${status.index}" calType="qty" class="form-control input-sm text-right" name="qtys" value="${f:h(oi.qty)}" /></td>
+				<td><input rowIndex="${status.index}" valueType="price" calType="rate" class="form-control input-sm text-right" name="rates" value="${f:h(oi.rate)}" /></td>
+				<td><input rowIndex="${status.index}" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" calType="qty" class="form-control input-sm text-right" name="qtys" value="${f:h(oi.qty)}" /></td>
 				<td><input rowIndex="${status.index}" calType="rowTotal" disabled class="form-control input-sm text-right" name="total" value="${f:h(oi.total)}" /></td>
 				<td class="text-center">
 					<button rowIndex="${status.index}" btnAction="remove" class="btn-remove btn btn-sm btn-danger">
@@ -318,8 +325,8 @@ how to deal with Key enter event
 					</select>
 				</td>
 				<td><input rowIndex="-1" calType="desc" disabled class="form-control input-sm" name="descs" value="" /></td>
-				<td><input rowIndex="-1" calType="rate" disabled class="form-control input-sm text-right" name="rates" value="" /></td>
-				<td><input rowIndex="-1" calType="qty" disabled class="form-control input-sm text-right" name="qtys" value="" /></td>
+				<td><input rowIndex="-1" calType="rate" valueType="price" disabled class="form-control input-sm text-right" name="rates" value="" /></td>
+				<td><input rowIndex="-1" calType="qty" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" disabled class="form-control input-sm text-right" name="qtys" value="" /></td>
 				<td><input rowIndex="-1" calType="rowTotal" disabled class="form-control input-sm text-right" name="total" value="" /></td>
 				<td class="text-center">
 					<button style="display: none;" rowIndex="-1" btnAction="remove" class="btn-remove btn btn-sm btn-danger">
@@ -341,7 +348,7 @@ how to deal with Key enter event
 					Tax Rate:
 				</td>
 				<td class="text-right">
-					<select name="taxRate" calType="taxRate">
+					<select name="taxRate" mandatory="y" field="Tax Rate" calType="taxRate">
 					<option value="-1">Select</option>
 						<c:forEach items="${txRates}" var="tr">
 							<option value="${f:h(tr)}" <c:if test="${f:h(tr) eq taxRateStr}">selected="selected"</c:if> >${f:h(tr)}</option>
