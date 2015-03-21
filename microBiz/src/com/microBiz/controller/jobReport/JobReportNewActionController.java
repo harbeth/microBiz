@@ -16,15 +16,13 @@ import com.microBiz.model.JobReport;
 import com.microBiz.service.JobService;
 
 
-public abstract class JobReportNewActionController extends BaseController {
+public abstract class JobReportNewActionController extends RoleBasedSetJobsCommonController {
 
-    protected JobService jobService;
-    //private ProductService productService;
+ 
     
     public JobReportNewActionController(){
         super();
-        jobService = new JobService();
-        //productService  = new ProductService();
+   
     }
     
     //save job report, jobmaterialreport, 

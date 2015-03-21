@@ -19,7 +19,7 @@
 					<c:forEach var="jr" items="${j.jobReportListRef.modelList}">
 						<li>
 							<strong>${f:h(jr.statusLable)}</strong> ${f:nbsp('   ')}
-							by  ${f:nbsp(' ')} ${f:h(jr.creatorName)}  ${f:nbsp('   ')} 
+							reported by  ${f:nbsp(' ')} ${f:h(jr.creatorName)}  ${f:nbsp('   ')} 
 							on  ${f:nbsp(' ')} ${f:h(jr.reportDateStr)} ${f:nbsp('   ')} Wk Hrs:
 							${f:h(jr.workingHours)} ${f:nbsp('   ')} Trv Hrs:
 							${f:h(jr.travelHours)} ${f:nbsp('   ')} Notes: ${f:h(jr.note)} <br>

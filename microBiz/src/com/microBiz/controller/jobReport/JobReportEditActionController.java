@@ -14,7 +14,7 @@ import com.microBiz.model.JobReport;
 import com.microBiz.service.JobService;
 
 
-public class JobReportEditActionController extends BaseController {
+public class JobReportEditActionController extends RoleBasedSetJobsCommonController {
 
     private JobService jobService;
     //private ProductService productService;
@@ -55,7 +55,7 @@ public class JobReportEditActionController extends BaseController {
         }
         jobService.saveJobMaterialReports(jmrList);
 
-        requestScope("jobs", jobService.getJobsForJobReport());
+        setJobsForReportByRole();
         return forward("jobs-to-report.jsp");
     }
 }

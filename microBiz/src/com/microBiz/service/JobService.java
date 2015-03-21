@@ -164,7 +164,7 @@ public class JobService {
     }
 
     public List<Job> getJobsForJobReport(String installerName) {
-        List<Job> jobs = Datastore.query(job).filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN), job.creatorName.equal(installerName)).asList();
+        List<Job> jobs = Datastore.query(job).filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN), job.installer.equal(installerName)).asList();
         return populateJobReport(jobs);
     }
     
@@ -183,5 +183,7 @@ public class JobService {
         }
         return jobs;
     }
+    
+
 
 }

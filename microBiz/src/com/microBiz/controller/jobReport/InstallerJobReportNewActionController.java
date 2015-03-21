@@ -17,8 +17,8 @@ public class InstallerJobReportNewActionController extends JobReportNewActionCon
     }
 
     @Override
-    public void setRequestScope() {
-        requestScope("jobs", jobService.getJobsForJobReport());
+    public void setRequestScope(){
+        setJobsForReportByRole();
         
     }
 
