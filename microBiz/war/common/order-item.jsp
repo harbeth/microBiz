@@ -134,6 +134,9 @@ how to deal with Key enter event
 	    			// for total, need to get all inputs
 	    			orderItemFn.onCalTextBlur();
 				});
+    			// init price input
+    			var priceInputCtrl = trCtrl.find("input[valueType=price]");
+    			microBizFn.initPriceInputWithCtrl(priceInputCtrl);
 				// append to table    			
     			$("table[name=orderItemTbl] tbody").append(clonedTr);
     			// after change the source rowIndex, register event for cloned one
@@ -153,7 +156,6 @@ how to deal with Key enter event
     		ctrl.on("click", function() {
     			// remove the current tr
     			var rowIndex = $(this).attr("rowIndex");
-    			alert("in remove event: " + rowIndex);
     			// remove tr
     			$("table[name=orderItemTbl] tbody tr[rowIndex="+rowIndex+"]").remove();
     			// update subTotal and total

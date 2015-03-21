@@ -74,7 +74,10 @@ var microBizFn = {
 		});
 	}
 	, initPriceInput: function() {
-		$('input[valueType=price]').priceFormat({
+		this.initPriceInputWithCtrl($('input[valueType=price]'));
+	}
+	, initPriceInputWithCtrl: function(ctrl) {
+		ctrl.priceFormat({
 		    prefix: ''
 		    , thousandsSeparator: ''
 		    , centsLimit: 2
