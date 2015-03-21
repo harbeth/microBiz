@@ -22,6 +22,6 @@ public class UpdateManageSummarySectionController extends BaseController {
         Invoice invoice = invoiceService.get(asKey("invoiceKey"));
         // for manage tab
         requestScope("invoice", invoice);
-        return forward("invoice-manager-summmary.jsp");
+        return forward("invoice-manage-summary.jsp");
     }
 }

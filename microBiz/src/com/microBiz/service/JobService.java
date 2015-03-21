@@ -169,13 +169,13 @@ public class JobService {
     }
     
     private List<Job> populateJobReport(List<Job> jobs){
-        Iterator i = jobs.iterator();
+        Iterator<Job> i = jobs.iterator();
         while(i.hasNext()){
-            Job job = (Job)i.next();
+            Job job = i.next();
             List<JobReport> jrL = job.getJobReportListRef().getModelList();
-            Iterator jri = jrL.iterator();
+            Iterator<JobReport> jri = jrL.iterator();
             while(jri.hasNext()){
-                JobReport jr = (JobReport)jri.next();
+                JobReport jr = jri.next();
                 if(jr.getStatus().intValue() == MicroBizConst.CODE_STATUS_NEW.intValue()){
                     job.addNewJobReports(jr);
                 }

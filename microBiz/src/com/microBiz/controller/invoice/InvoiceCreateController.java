@@ -9,18 +9,17 @@ import com.microBiz.PropertyHelper;
 import com.microBiz.controller.common.CustomerContactLoadController;
 import com.microBiz.model.Customer;
 import com.microBiz.model.Invoice;
-import com.microBiz.service.MiUserService;
 import com.microBiz.service.ProductService;
 
 public class InvoiceCreateController extends CustomerContactLoadController {
 
     // for customer drop down, put it super class
-    private MiUserService userService;
+    //private MiUserService userService;
     protected ProductService productService;
 
     public InvoiceCreateController(){
         super();
-        userService = new MiUserService();
+        //userService = new MiUserService();
         productService = new ProductService();
     }
     

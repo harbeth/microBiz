@@ -400,6 +400,7 @@ var invoiceDetailFn = {
 	        	microBizFn.setSubmitBtnStatus(true);
 	        	// register event again
 	        	invoiceDetailFn.onInvoiceJobEditClick();
+	        	invoiceDetailFn.updateManageSummarySection();
 	        }
 	    }; 
 	    // bind to the form's submit event 
@@ -576,8 +577,10 @@ var invoiceDetailFn = {
 		this.onInvoiceExpenseEditClose();
 	}
 	, updateManageSummarySection: function() {
-		$("#invoiceSummaryDIV").load("/invoice/updateManageSummarySection", function() {
-			invoiceDetailFn.initMangerTab();
+		// get invoice key from outer div
+		var invoiceKey = $('#invoiceDetailsInvoiceKeyHidden').val();
+		$("#invoiceSummaryDIV").load("/invoice/updateManageSummarySection?invoiceKey="+invoiceKey, function() {
+			invoiceDetailFn.initManageTab();
 		});
 	}
 }

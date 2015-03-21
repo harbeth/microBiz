@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import org.slim3.memcache.Memcache;
-import org.slim3.util.CoolBridge;
-
 import com.google.appengine.api.memcache.ErrorHandlers;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
@@ -55,7 +52,7 @@ public class PropertyHelper {
         
         MiUserService userService = new MiUserService();
         
-        List installers = (List)syncCache.get("installers");
+        List<String> installers = (List<String>)syncCache.get("installers");
         //List installers = (List)Memcache.get("installers");
         if(installers == null){
            
@@ -63,7 +60,7 @@ public class PropertyHelper {
             //Memcache.put("installers",userService.getInstallerNames());
         }
         
-        List sales = (List)syncCache.get("sales");
+        List<String> sales = (List<String>)syncCache.get("sales");
         //List sales = (List)Memcache.get("sales");
         if(installers == null){
             syncCache.put("sales",userService.getSalesNames());
@@ -101,28 +98,24 @@ public class PropertyHelper {
      
     }
     
-    public List getInstallers(){
-        return (List)syncCache.get("installers");
+    public List<String> getInstallers(){
+        return (List<String>)syncCache.get("installers");
         //return (List)Memcache.get("installers");
- 
     }
     
-    public void setInstallers(List installers){
+    public void setInstallers(List<String> installers){
         syncCache.put("installers", installers);
        //Memcache.put("installers", installers);
     }
     
-    public void setSales(List sales){
+    public void setSales(List<String> sales){
         syncCache.put("sales", sales);
         //Memcache.put("sales", sales);
     }
     
-    public List getSales(){
-        return (List)syncCache.get("sales");
+    public List<String> getSales(){
+        return (List<String>)syncCache.get("sales");
         //return (List)Memcache.get("sales");
- 
     }
-    
-
 }
 

@@ -7,7 +7,6 @@ import org.slim3.datastore.Datastore;
 import org.slim3.util.BeanUtil;
 
 import com.google.appengine.api.datastore.Key;
-import com.microBiz.controller.BaseController;
 import com.microBiz.meta.JobReportMeta;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;

@@ -14,7 +14,6 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.PropertyHelper;
-import com.microBiz.service.MiUserService;
 
 @Model
 public class Invoice extends MiCreatorBaseModel {

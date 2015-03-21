@@ -7,11 +7,9 @@ import java.util.List;
 import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.Transaction;
 import com.microBiz.PropertyHelper;
 import com.microBiz.meta.MiUserMeta;
 import com.microBiz.model.MiUser;
-import com.microBiz.model.Product;
 
 
 public class MiUserService {
@@ -82,10 +80,9 @@ public class MiUserService {
     
     private List<String> getNames(List<MiUser> users) {
         List<String> result = new ArrayList<String>();
-
-        Iterator i = users.iterator();
+        Iterator<MiUser> i = users.iterator();
         while(i.hasNext()){
-            MiUser u = (MiUser)i.next();
+            MiUser u = i.next();
             result.add(u.getName());
         }
         

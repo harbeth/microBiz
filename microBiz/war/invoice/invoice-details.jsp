@@ -12,17 +12,18 @@
            Invoice Details
          </div>
 		<div class="panel-body">
-		   <p>
-		   Inv#: ${f:h(invoice.invoiceNumber)} ${f:nbsp('     ')} 
+			<input id="invoiceDetailsInvoiceKeyHidden" type="hidden" value="${f:h(invoice.key)}" />
+		    <p>
+		    Inv#: ${f:h(invoice.invoiceNumber)} ${f:nbsp('     ')} 
 			<strong> ${f:h(invoice.statusLable)} </strong>  ${f:nbsp('     ')}  
 			<span class="fa fa-home">  </span> ${f:h(invoice.address)} ${f:nbsp('     ')}  
 			<span class="fa fa-user">  </span>${f:h(invoice.customerRef.model.name)}
 			<c:if test="${f:h(invoice.hasContact)}">
-			<font class="text-muted"> Contact:</font> ${f:h(invoice.contactRef.model.name)}
+				<font class="text-muted"> Contact:</font> ${f:h(invoice.contactRef.model.name)}
 			</c:if>
 			<span class="pull-right">
-			<a href="/pub/invoiceToPdf?invoiceKey=${f:h(invoice.key)}" target="_blank" class="btn btn-default" role="button">Download</a>
-			<a link="emailToCustomer" invoiceKey="${f:h(invoice.key)}" class="btn btn-default" role="button">Email to Customer</a>
+				<a href="/pub/invoiceToPdf?invoiceKey=${f:h(invoice.key)}" target="_blank" class="btn btn-default" role="button">Download</a>
+				<a link="emailToCustomer" invoiceKey="${f:h(invoice.key)}" class="btn btn-default" role="button">Email to Customer</a>
 			</span>
 			</p>
 			<ul class="nav nav-tabs">

@@ -263,6 +263,9 @@ how to deal with Key enter event
     $(document).ready(function() {
     	orderItemFn.init();
 	});
+    
+    // input integer
+    // onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"
 </script>
 
 
@@ -306,7 +309,7 @@ how to deal with Key enter event
 				</td>
 				<td><input class="form-control input-sm" calType="desc" name="descs" value="${f:h(oi.desc)}" /></td>
 				<td><input rowIndex="${status.index}" valueType="price" calType="rate" class="form-control input-sm text-right" name="rates" value="${f:h(oi.rate)}" /></td>
-				<td><input rowIndex="${status.index}" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" calType="qty" class="form-control input-sm text-right" name="qtys" value="${f:h(oi.qty)}" /></td>
+				<td><input rowIndex="${status.index}" valueType="price" calType="qty" class="form-control input-sm text-right" name="qtys" value="${f:h(oi.qty)}" /></td>
 				<td><input rowIndex="${status.index}" calType="rowTotal" disabled class="form-control input-sm text-right" name="total" value="${f:h(oi.total)}" /></td>
 				<td class="text-center">
 					<button rowIndex="${status.index}" btnAction="remove" class="btn-remove btn btn-sm btn-danger">
@@ -326,7 +329,7 @@ how to deal with Key enter event
 				</td>
 				<td><input rowIndex="-1" calType="desc" disabled class="form-control input-sm" name="descs" value="" /></td>
 				<td><input rowIndex="-1" calType="rate" valueType="price" disabled class="form-control input-sm text-right" name="rates" value="" /></td>
-				<td><input rowIndex="-1" calType="qty" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" disabled class="form-control input-sm text-right" name="qtys" value="" /></td>
+				<td><input rowIndex="-1" calType="qty" valueType="price" disabled class="form-control input-sm text-right" name="qtys" value="" /></td>
 				<td><input rowIndex="-1" calType="rowTotal" disabled class="form-control input-sm text-right" name="total" value="" /></td>
 				<td class="text-center">
 					<button style="display: none;" rowIndex="-1" btnAction="remove" class="btn-remove btn btn-sm btn-danger">

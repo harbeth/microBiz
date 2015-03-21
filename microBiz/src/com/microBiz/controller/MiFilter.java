@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slim3.controller.BytesHolder;
-
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.microBiz.PropertyHelper;
@@ -29,7 +27,6 @@ public class MiFilter implements Filter {
     public void init(FilterConfig fConfig) throws ServletException {
         gaeUserService = UserServiceFactory.getUserService();
         miUserService = new MiUserService();
-      
     }
 
     public void doFilter(ServletRequest request, ServletResponse response,

@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.slim3.controller.Navigation;
-
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Job;
 import com.microBiz.service.JobService;
@@ -32,6 +30,5 @@ public abstract class RoleBasedSetJobsCommonController extends BaseController {
             jobs = jobService.getJobsForJobReport();
         }
         requestScope("jobs", jobs);
-       
     }
 }
