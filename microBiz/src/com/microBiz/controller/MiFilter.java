@@ -88,6 +88,8 @@ public class MiFilter implements Filter {
          
             chain.doFilter(req, res);
         } else {
+            //not logged in user, destroy all session data
+            session.invalidate();
             if(req.getRequestURI().contains("pub")){// public accessible url
                 chain.doFilter(req, res);
             }else{

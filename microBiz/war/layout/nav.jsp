@@ -21,8 +21,10 @@
 		
 	</div>
 	
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="<%=logOutUrl %>">Log Out <%=userName %></a></li>     
+      <ul class="nav navbar-top-links navbar-right">
+      	
+        <li>Welcome &nbsp; <%=userName %>  </li>
+        <li><a href="<%=logOutUrl %>">Log Out</a></li>     
       </ul>
 	<!-- /.navbar-header -->
 
