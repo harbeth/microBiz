@@ -3,6 +3,8 @@ import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 import org.slim3.datastore.ModelRef;
 
+import com.microBiz.MicroBizUtil;
+
 
 @Model
 public class OrderItem extends MiBaseModel {
@@ -35,6 +37,10 @@ public class OrderItem extends MiBaseModel {
 
     public Double getRate() {
         return rate;
+    }
+    
+    public String getRateStr() {
+        return MicroBizUtil.priceFormat(rate);
     }
 
     public void setRate(Double rate) {
