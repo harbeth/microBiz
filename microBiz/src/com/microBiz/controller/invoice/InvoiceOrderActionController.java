@@ -1,6 +1,7 @@
 package com.microBiz.controller.invoice;
 
 import org.slim3.controller.Navigation;
+import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.controller.common.OrderLoadActionController;
@@ -20,16 +21,15 @@ public class InvoiceOrderActionController extends OrderLoadActionController {
     
     @Override
     public Navigation run() throws Exception {
-        Invoice invoice = invoiceService.get(asKey("invoiceKey"));
-       
         // get order key, discount, taxRate, total from UI
         Order order = getOrderData();
+        Invoice invoice = invoiceService.get(Datastore.stringToKey(order.getInvoiceKey()));
         Key newOrderKey = orderService.updateOrder(order);
         invoice.getOrderRef().setKey(newOrderKey);
         invoice = invoiceService.save(invoice);
         setOrderData(order);
         // for the key
         requestScope("invoice", invoice);
-        return forward("/invoice/invoice-order.jsp");
+        return forward("invoice-order.jsp");
     }
 }

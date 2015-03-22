@@ -23,6 +23,9 @@ public class Order extends MiBaseModel{
     // need to calculate: from order items
     private Double subTotal;
     
+    @Attribute(persistent = false)
+    private String invoiceKey;
+    
     public Order(){
         taxRate = new Double(0);
         total = new Double(0);
@@ -41,13 +44,9 @@ public class Order extends MiBaseModel{
         return orderItemList;
     }
 
-
-
     public void setOrderItemList(List<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
     }
-
-
 
     public Double getDiscount() {
         if(discount!=null){
@@ -55,7 +54,6 @@ public class Order extends MiBaseModel{
         }else{
             return new Double(0);
         }
-       
     }
 
     public void setDiscount(Double discount) {
@@ -89,6 +87,13 @@ public class Order extends MiBaseModel{
     public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
     }
-    
+
+    public String getInvoiceKey() {
+        return invoiceKey;
+    }
+
+    public void setInvoiceKey(String invoiceKey) {
+        this.invoiceKey = invoiceKey;
+    }
  
 }

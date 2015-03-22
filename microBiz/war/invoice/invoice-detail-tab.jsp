@@ -12,7 +12,7 @@
     </li>
 </ul>
 
-<div id="invoiceOrderDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row">
+<div id="invoiceOrderDetailDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row">
 	<jsp:include page="./invoice-order.jsp" flush="true"></jsp:include>
 </div>
 
