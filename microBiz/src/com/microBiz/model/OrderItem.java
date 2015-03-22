@@ -30,6 +30,10 @@ public class OrderItem extends MiBaseModel {
     public Double getQty() {
         return qty;
     }
+    
+    public String getQtyStr() {
+        return MicroBizUtil.priceFormat(qty);
+    }
 
     public void setQty(Double qty) {
         this.qty = qty;

@@ -145,7 +145,7 @@ var invoiceUpdateFn = {
 	        	if ( isOK ) {
 	        		microBizFn.setSubmitBtnStatus(false);
 	        	}
-	        	return ;
+	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
 	        	microBizFn.setSubmitBtnStatus(true);
@@ -240,16 +240,18 @@ var invoiceDetailFn = {
 	, registerOrderForm: function() {
 		// after submit, reload tab content
 		var options = { 
-	        target: "#invoiceDetailOrderDIV"
+	        target: "#invoiceOrderDetailDIV"
 	        , beforeSubmit: function() {
 	        	// set invoiceKey value
 	        	var isOK = orderItemFn.validate();
 	        	if ( isOK ) {
-	        		$("#invoiceDetailOrderDIV").html("Saving...");
+	        		microBizFn.setSubmitBtnStatus(false);
 	        	}
 	        	return isOK;
 	        }
 	        , success: function(responseText, statusText, xhr, $form){
+	        	microBizFn.setSubmitBtnStatus(true);
+	        	alert("Save successfully.");
 	        	// register event again
 	        	invoiceDetailFn.registerOrderForm();
 	        }
@@ -265,7 +267,7 @@ var invoiceDetailFn = {
 	, onEditInvoiceClick: function() {
 		$("a[link=invoiceEdit]").click(function(){
 			// hide order DIV first
-			$("#invoiceOrderDIV").hide();
+			$("#invoiceOrderDetailDIV").hide();
 			$("a[link=invoiceOrder]").attr("nowSelected", "n");
 			$(this).attr("nowSelected", "y");
 			// load content of the edit DIV, always edit latest
@@ -288,7 +290,7 @@ var invoiceDetailFn = {
 	, showOrderPage: function() {
 		// clear edit DIV
 		$("#invoiceEditDetailDIV").html("");
-		$("#invoiceOrderDIV").show();
+		$("#invoiceOrderDetailDIV").show();
 		// selected
 		$("a[link=invoiceOrder]").attr("nowSelected", "y");
 		$("a[link=invoiceEdit]").attr("nowSelected", "n");

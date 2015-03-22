@@ -311,7 +311,7 @@ how to deal with Key enter event
 				</td>
 				<td><input class="form-control input-sm" calType="desc" name="descs" value="${f:h(oi.desc)}" /></td>
 				<td><input rowIndex="${status.index}" valueType="price" calType="rate" class="form-control input-sm text-right" name="rates" value="${f:h(oi.rateStr)}" /></td>
-				<td><input rowIndex="${status.index}" valueType="price" calType="qty" class="form-control input-sm text-right" name="qtys" value="${f:h(oi.qty)}" /></td>
+				<td><input rowIndex="${status.index}" valueType="price" calType="qty" class="form-control input-sm text-right" name="qtys" value="${f:h(oi.qtyStr)}" /></td>
 				<td><input rowIndex="${status.index}" calType="rowTotal" disabled class="form-control input-sm text-right" name="total" value="${f:h(oi.total)}" /></td>
 				<td class="text-center">
 					<button rowIndex="${status.index}" btnAction="remove" class="btn-remove btn btn-sm btn-danger">
