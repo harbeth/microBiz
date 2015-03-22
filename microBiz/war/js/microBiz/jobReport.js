@@ -55,7 +55,7 @@ var jobReportEditFn = {
 		        	if ( isOK ) {
 		        		microBizFn.setSubmitBtnStatus(false);
 		        	}
-		        	return;
+		        	return isOK;
 		        }
 		        , success: function(responseText, statusText, xhr, $form){
 		        	microBizFn.setSubmitBtnStatus(true);

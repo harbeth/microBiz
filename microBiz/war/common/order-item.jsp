@@ -365,7 +365,7 @@ how to deal with Key enter event
 			<tr>
 				<td colspan="3" ></td>
 				<td class="text-right">Discount:</td>
-				<td class="text-right"><input calType="discount" name="discount" value="${f:h(discount)}"/></td>
+				<td class="text-right"><input calType="discount" valueType="price" name="discount" value="${f:h(discountStr)}"/></td>
 				<td></td>
 			</tr>
 				<td colspan="3" ></td>

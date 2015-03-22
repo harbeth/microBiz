@@ -4,6 +4,8 @@ import java.util.List;
 import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 
+import com.microBiz.MicroBizUtil;
+
 
 @Model
 public class Order extends MiBaseModel{
@@ -54,6 +56,10 @@ public class Order extends MiBaseModel{
         }else{
             return new Double(0);
         }
+    }
+    
+    public String getDiscountStr() {
+        return MicroBizUtil.priceFormat(discount);
     }
 
     public void setDiscount(Double discount) {
