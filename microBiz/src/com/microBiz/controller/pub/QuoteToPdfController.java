@@ -210,13 +210,15 @@ public class QuoteToPdfController extends BaseController {
     totalR1.add(cellT11);
     totalR1.add(cellT12);
     
-    Cell cellT21 = new Cell(f4,"Discount:");
-    cellT21.setNoBorders();
-    Cell cellT22 = new Cell(f4,order.getDiscount().toString());
-    cellT22.setNoBorders();
-    cellT22.setLeftPadding(22);
-    totalR2.add(cellT21);
-    totalR2.add(cellT22);
+    if(order.getDiscount()!=null && order.getDiscount()>0){
+        Cell cellT21 = new Cell(f4,"Discount:");
+        cellT21.setNoBorders();
+        Cell cellT22 = new Cell(f4,order.getDiscount().toString());
+        cellT22.setNoBorders();
+        cellT22.setLeftPadding(22);
+        totalR2.add(cellT21);
+        totalR2.add(cellT22);
+    }
     
     Cell cellT31 = new Cell(f4,"HST(#45944326678):");
     cellT31.setNoBorders();

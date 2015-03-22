@@ -354,7 +354,6 @@ how to deal with Key enter event
 				</td>
 				<td class="text-right">
 					<select name="taxRate" mandatory="y" field="Tax Rate" calType="taxRate">
-					<option value="-1">Select</option>
 						<c:forEach items="${txRates}" var="tr">
 							<option value="${f:h(tr)}" <c:if test="${f:h(tr) eq taxRateStr}">selected="selected"</c:if> >${f:h(tr)}</option>
 						</c:forEach>

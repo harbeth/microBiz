@@ -52,10 +52,10 @@ var jobReportEditFn = {
 		        target: "#"+microBizConst.bodyContentId
 		        , beforeSubmit: function() {
 		        	var isOK = microBizFn.validateForm();
-		        	if ( !isOK ) {
+		        	if ( isOK ) {
 		        		microBizFn.setSubmitBtnStatus(false);
 		        	}
-		        	return isOK;
+		        	return;
 		        }
 		        , success: function(responseText, statusText, xhr, $form){
 		        	microBizFn.setSubmitBtnStatus(true);
