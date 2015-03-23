@@ -1,10 +1,10 @@
-Invoice Number: $invoice_number
-Address: $address
-Start Date: $start_date
-Manager Note: $note
+Invoice Number: $invoice_number <br>
+Address: $address <br>
+Start Date: $start_date <br>
+Manager Note: $note <br>
 
-Product To Use: 
+Product To Use: <br>
 $prd_to_use
 
-Job Details:
-$details
+Job Details: <br>
+$details <br>

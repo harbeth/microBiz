@@ -241,7 +241,7 @@ public class InvoiceToPdfController extends BaseController {
     }
    
     
-    Cell cellT31 = new Cell(f4,"HST(#45944326678):");
+    Cell cellT31 = new Cell(f4,"HST(#810034512RT0001):");
     cellT31.setNoBorders();
     double taxAmt = MicroBizUtil.roundTo2Demcial(order.getTaxRate()*subTotal);
     Cell cellT32 = new Cell(f4,Double.toString(taxAmt));
@@ -271,7 +271,22 @@ public class InvoiceToPdfController extends BaseController {
     totalTable.setTextAlignInColumn(0,  Align.RIGHT);
 
     totalTable.wrapAroundCellText();
-    totalTable.drawOn(page);
+    Point p1 = totalTable.drawOn(page);
+    
+    if(invoice.getNoteToCx()!= null && !invoice.getNoteToCx().equals("")){
+        TextLine textCx1 = new TextLine(f4,
+                "Note:");
+        textCx1.setLocation(50f, p1.getY()+30f);
+        textCx1.drawOn(page);
+        
+        TextLine textCx2 = new TextLine(fs,invoice.getNoteToCx());
+        textCx2.setLocation(50f,  p1.getY()+45f);
+        textCx2.drawOn(page);
+    }
+    
+    
+    
+    
     response.setContentType("application/pdf");
     pdf.close();
     return null;

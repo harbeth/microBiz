@@ -54,7 +54,7 @@ public class EmailInvoiceController extends BaseController {
         String statusMsg = "";
         try{
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("admin@elevated-patrol-88315.appspotmail.com ", "Invoice From Foam Expert"));
+            msg.setFrom(new InternetAddress("admin@elevated-patrol-88315.appspotmail.com ", "Billing From Foam Expert"));
             msg.addRecipient(Message.RecipientType.TO,
                              new InternetAddress(invoice.getCustomerRef().getModel().getEmail(), "test"));
             msg.setSubject("Invoice for Spray Foam project at " + invoice.getAddress());

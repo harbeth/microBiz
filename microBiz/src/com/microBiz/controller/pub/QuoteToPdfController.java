@@ -220,7 +220,7 @@ public class QuoteToPdfController extends BaseController {
         totalR2.add(cellT22);
     }
     
-    Cell cellT31 = new Cell(f4,"HST(#45944326678):");
+    Cell cellT31 = new Cell(f4,"HST(#810034512RT0001):");
     cellT31.setNoBorders();
     double taxAmt = MicroBizUtil.roundTo2Demcial(order.getTaxRate()*subTotal);
     Cell cellT32 = new Cell(f4,Double.toString(taxAmt));

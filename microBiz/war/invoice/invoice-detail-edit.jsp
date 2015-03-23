@@ -139,4 +139,9 @@
 		<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
 	</div>
 	
+		<div class="form-group input-group">
+		<span class="input-group-addon">Notes to Customer:</span>
+		<textarea name="noteToCx" class="form-control" rows="2">${f:h(noteToCx)}</textarea>
+	</div>
+	
 </div>

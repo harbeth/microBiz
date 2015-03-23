@@ -1,7 +1,7 @@
-Dear $name :
+Customer Name: $name <br>
 
-Address: $address
+Address: $address <br>
 
-Amount: $amount
+Amount: $amount <br>
 
-To get the quote, please click $link
+To get the quote, please click $link <br>

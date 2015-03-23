@@ -10,7 +10,8 @@
 		<font class="text-muted">Sales Commission:</font>$ ${f:h(invoice.salesCommission)} <br>
 		</c:if>
 		
-		<font class="text-muted">Note:</font> ${f:h(quote.note)}
+		<font class="text-muted">Note:</font> ${f:h(invoice.note)} <br>
+		<font class="text-muted">Note To Customer:</font> ${f:h(invoice.noteToCx)}
 		</p>
 	</div>
 	<div class="col-lg-6">

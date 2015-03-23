@@ -45,7 +45,7 @@ public class JobService {
         InvoiceReport ir = invoice.getInvoiceReportRef().getModel(); 
         if(job.getKey()==null){//new job
             
-            if(job.getStatus().intValue()== MicroBizConst.CODE_STATUS_OPEN.intValue()){
+            if(job.getStatus().intValue()!= MicroBizConst.CODE_STATUS_CANCELED.intValue()){
                 
                 ir.increaseJobCount();
             }
@@ -53,32 +53,7 @@ public class JobService {
 
             if(job.getStatus().intValue()== MicroBizConst.CODE_STATUS_COMPLETED.intValue()){
                 ir.increaseCompleteJobCount();
-                Double labourHrs = new Double(0);
-                //Double labourCost = new Double(0);
-                Double materialCost = new Double(0);
-                List<JobReport> jrs = job.getJobReportListRef().getModelList();
-                Iterator<JobReport> i = jrs.iterator();
-                MiUserService userService = new MiUserService();                
-                MiUser installer = userService.getUserByName(job.getInstaller());
-                while(i.hasNext()){
-                    JobReport jr = i.next();
-                    if(jr.getStatus().intValue()== MicroBizConst.CODE_STATUS_APPROVED.intValue()){
-                        labourHrs = labourHrs+jr.getTravelHours()+jr.getWorkingHours();
-                        List<JobMaterialReport> jmrs = jr.getJobMaterialReportListRef().getModelList();
-                        Iterator<JobMaterialReport>  ii = jmrs.iterator();
-                        while(ii.hasNext()){
-                            JobMaterialReport jmr = ii.next();
-                            materialCost = materialCost + jmr.getQty()*(jmr.getProductRef().getModel().getRate())
-                                    *(jmr.getPrdRatioRef().getModel().getRatio());
-                        }
-                    }
-                }
-                ir.addLabourHrs(labourHrs);
-                ir.addMaterialCost(materialCost);
-                ir.addLabourCost(labourHrs*installer.getRate());
-            
-            
-            }
+           }
             
             if(job.getStatus().intValue()== MicroBizConst.CODE_STATUS_CANCELED.intValue()){
                 ir.decreaseJobCount();
@@ -117,8 +92,37 @@ public class JobService {
         result = Datastore.put(jobReport);
         if(jobReport.getStatus().intValue() == MicroBizConst.CODE_STATUS_APPROVED.intValue()){
             updateInventoryForApprovedJobReort(jobReport);
+            updateInvoiceReport(jobReport);
         }
         return result;
+    }
+    
+    private void updateInvoiceReport(JobReport jr){
+        
+        Job job = jr.getJobRef().getModel();
+        Invoice invoice = job.getInvoiceRef().getModel();
+        InvoiceReport ir = invoice.getInvoiceReportRef().getModel(); 
+
+        Double labourHrs = new Double(0);
+        Double materialCost = new Double(0);
+
+        MiUserService userService = new MiUserService();                
+        MiUser installer = userService.getUserByName(job.getInstaller());
+  
+        labourHrs = labourHrs+jr.getTravelHours()+jr.getWorkingHours();
+        List<JobMaterialReport> jmrs = jr.getJobMaterialReportListRef().getModelList();
+        Iterator<JobMaterialReport>  ii = jmrs.iterator();
+        while(ii.hasNext()){
+            JobMaterialReport jmr = ii.next();
+            materialCost = materialCost + jmr.getQty()*(jmr.getProductRef().getModel().getRate())
+                    *(jmr.getPrdRatioRef().getModel().getRatio());
+        }
+         
+     
+        ir.addLabourHrs(labourHrs);
+        ir.addMaterialCost(materialCost);
+        ir.addLabourCost(labourHrs*installer.getRate());
+        Datastore.put(ir);
     }
 
     private void updateInventoryForApprovedJobReort(JobReport jr){

@@ -51,10 +51,13 @@ public class Invoice extends MiCreatorBaseModel {
     private String preferArrivalTime;
 
     @Attribute(unindexed = true)
-    private Integer estimatedWorkingHours;
+    private Double estimatedWorkingHours;
 
     @Attribute(unindexed = true)
     private String note;
+    
+    @Attribute(unindexed = true)
+    private String noteToCx;
 
     private Integer status;
     
@@ -297,11 +300,11 @@ public class Invoice extends MiCreatorBaseModel {
         this.preferArrivalTime = preferArrivalTime;
     }
 
-    public Integer getEstimatedWorkingHours() {
+    public Double getEstimatedWorkingHours() {
         return estimatedWorkingHours;
     }
 
-    public void setEstimatedWorkingHours(Integer estimatedWorkingHours) {
+    public void setEstimatedWorkingHours(Double estimatedWorkingHours) {
         this.estimatedWorkingHours = estimatedWorkingHours;
     }
 
@@ -392,6 +395,16 @@ public class Invoice extends MiCreatorBaseModel {
     public void setSalesPaid(Boolean salesPaid) {
         this.salesPaid = salesPaid;
     }
+
+    public String getNoteToCx() {
+        return noteToCx;
+    }
+
+    public void setNoteToCx(String noteToCx) {
+        this.noteToCx = noteToCx;
+    }
+    
+    
 
 
 }

@@ -63,7 +63,7 @@ public abstract class JobEditActionCommonController extends BaseController {
     }
     
     protected Invoice saveJob() {
-        Job job = new Job();
+        Job job;
         if ( asKey(metaJob.key) != null ) {
             job = jobService.get(asKey(metaJob.key));
         }else{
@@ -86,7 +86,7 @@ public abstract class JobEditActionCommonController extends BaseController {
         
         
         
-        if(job.getKey()==null && job.getStatus()==MicroBizConst.CODE_STATUS_OPEN){
+        if(job.getKey()==null && job.getStatus().intValue()==MicroBizConst.CODE_STATUS_OPEN.intValue()){
             informInstallerByEmail(job,invoice);
         }
         jobService.save(job);
@@ -134,7 +134,7 @@ public abstract class JobEditActionCommonController extends BaseController {
         MiUser installer = userService.getUserByName(job.getInstaller());
         try{
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("admin@heleadsys.appspotmail.com ", "New Job Alert"));
+            msg.setFrom(new InternetAddress("admin@elevated-patrol-88315.appspotmail.com ", "New Job Alert"));
             msg.addRecipient(Message.RecipientType.TO,
                              new InternetAddress(installer.getEmail(), "test"));
             msg.setSubject("New Job on: " + job.getStartingDateStr());
