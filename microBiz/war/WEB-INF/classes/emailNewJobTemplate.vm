@@ -3,8 +3,8 @@ Address: $address <br>
 Start Date: $start_date <br>
 Manager Note: $note <br>
 
-Product To Use: <br>
+Product To Use: 
 $prd_to_use
-
-Job Details: <br>
+<br>
+Job Details: 
 $details <br>

@@ -23,21 +23,14 @@ public class PropertyHelper {
         Properties prop = (Properties) getMemcache().get("prop");
         //Properties prop = (Properties) Memcache.get("prop");
         if (prop == null) {
-            prop = new Properties();
-            try {
-                // microBiz.properties
-                InputStream in = getClass().getResourceAsStream("/microBiz.properties");
-                prop.load(in);
-                getMemcache().put("prop",prop);
-                //Memcache.put("prop",prop);
-            }catch(Exception e) {
-                System.out.println("cannot find file: " + e.getMessage());
-            }
+            prop = loadConstantsPro();
+            getMemcache().put("prop",prop);
         }
         Properties roleAccessible = (Properties) getMemcache().get("roleAccessible");
         //Properties roleAccessible = (Properties) Memcache.get("roleAccessible");
         
         if (roleAccessible == null) {
+            roleAccessible = loadRoleAccessible();
             getMemcache().put("roleAccessible",roleAccessible);
             //Memcache.put("roleAccessible",roleAccessible);
         }
@@ -54,7 +47,7 @@ public class PropertyHelper {
         
         List<String> sales = (List<String>)getMemcache().get("sales");
         //List sales = (List)Memcache.get("sales");
-        if(installers == null){
+        if(sales == null){
             getMemcache().put("sales",userService.getSalesNames());
             //Memcache.put("sales",userService.getSalesNames());
         }
@@ -71,6 +64,10 @@ public class PropertyHelper {
     public String getLable(Integer constant){
         if(constant!=null){
             Properties prop = (Properties)getMemcache().get("prop");
+            if (prop == null) {
+                prop = loadConstantsPro();
+                getMemcache().put("prop",prop);
+            }
             //Properties prop = (Properties)Memcache.get("prop");
             return (String)prop.get(constant.toString()); 
         }else{
@@ -95,8 +92,16 @@ public class PropertyHelper {
     }
     
     public List<String> getInstallers(){
-        return (List<String>)getMemcache().get("installers");
-        //return (List)Memcache.get("installers");
+        List<String> installers = (List<String>)getMemcache().get("installers");
+        
+        if(installers == null){
+            MiUserService userService = new MiUserService();
+            installers = userService.getInstallerNames();
+            getMemcache().put("installers",installers);
+            //Memcache.put("installers",userService.getInstallerNames());
+        }
+        return installers;
+        
     }
     
     public void setInstallers(List<String> installers){
@@ -110,7 +115,15 @@ public class PropertyHelper {
     }
     
     public List<String> getSales(){
-        return (List<String>)getMemcache().get("sales");
+        List<String> sales = (List<String>)getMemcache().get("sales");
+        //List sales = (List)Memcache.get("sales");
+        if(sales == null){
+            MiUserService userService = new MiUserService();
+            sales = userService.getSalesNames();
+            getMemcache().put("sales",sales);
+            //Memcache.put("sales",userService.getSalesNames());
+        }
+        return sales;
         //return (List)Memcache.get("sales");
     }
     
@@ -126,10 +139,28 @@ public class PropertyHelper {
             
     }
     
+    private Properties loadConstantsPro(){
+        
+        Properties prop = new Properties();
+        prop = new Properties();
+        try {
+            // microBiz.properties
+            InputStream in = getClass().getResourceAsStream("/microBiz.properties");
+            prop.load(in);
+           
+        }catch(Exception e) {
+            System.out.println("cannot find file: " + e.getMessage());
+        }
+        return prop;
+            
+    }
+    
     private MemcacheService getMemcache(){
         MemcacheService syncCache = MemcacheServiceFactory.getMemcacheService();
         syncCache.setErrorHandler(ErrorHandlers.getConsistentLogAndContinue(Level.INFO));
         return syncCache;
     }
+    
+    
 }
 
