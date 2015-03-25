@@ -43,8 +43,8 @@ public class EmailQuoteController extends BaseController {
         context.put("name", quote.getCustomerRef().getModel().getName());
         context.put("address", quote.getAddress());
         context.put("amount", qo.getOrderRef().getModel().getTotal().toString());
-        String link = "<a href=http://" +request.getServerName()+ "/pub/quoteToPdf?quoteKey="
-        +Datastore.keyToString(quote.getKey())+">here</a>";
+        String link = "<a href=http://" +request.getServerName()+ "/pub/quoteToPdf?quoteOrderKey="
+        +Datastore.keyToString(qo.getKey())+">here</a>";
         context.put("link", link);
         VelocityEngine ve = VelocityHelper.getVelocityEngine();
         // Finds template in WEB-INF/classes
@@ -57,7 +57,7 @@ public class EmailQuoteController extends BaseController {
         String statusMsg = "";
         try{
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("admin@heleadsys.appspotmail.com ", "Quotation From Foam Expert"));
+            msg.setFrom(new InternetAddress("admin@elevated-patrol-88315.appspotmail.com ", "Quotation From Foam Expert"));
             msg.addRecipient(Message.RecipientType.TO,
                              new InternetAddress(quote.getCustomerRef().getModel().getEmail(), "test"));
             msg.setSubject("Quotation for Spray Foam project at " + quote.getAddress());

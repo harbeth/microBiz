@@ -170,7 +170,7 @@ var quoteDetailFn = {
 		$("a[link=downloadQuote]").click(function(){
 			//var quoteKey = $(this).attr("quoteKey");
 			var quoteOrderKey =  $("#quoteOrder").val();
-			alert("quoteorderkey is " + quoteOrderKey);
+			
 			var win = window.open("/pub/quoteToPdf?quoteOrderKey="+quoteOrderKey, '_blank');
 			  win.focus();
 			

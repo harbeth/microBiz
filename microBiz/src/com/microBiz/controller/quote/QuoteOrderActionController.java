@@ -54,6 +54,7 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             invoice.setSales(userName);
             invoice.getCustomerRef().setModel(quote.getCustomerRef().getModel());
             invoice.setInvoiceNumber(MicroBizUtil.generateInvoiceNumber());
+            invoice.setNote("convert from quote " + quoteOrder.getName());
             if(quote.getContactRef()!=null){
                 invoice.getContactRef().setModel(quote.getContactRef().getModel());
             }
