@@ -33,8 +33,9 @@ public class EmailQuoteController extends BaseController {
     
     @Override
     public Navigation run() throws Exception {
-        Quote quote = quoteService.get(Datastore.stringToKey(asString("quoteKey")));
-        QuoteOrder qo = quote.getQuoteOrderRef().getModelList().get(0);
+        //Quote quote = quoteService.get(Datastore.stringToKey(asString("quoteKey")));
+        QuoteOrder qo = quoteService.getQuoteOrder(Datastore.stringToKey(asString("quoteOrderKey")));
+        Quote quote = qo.getQuoteRef().getModel();
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
         
@@ -42,7 +43,7 @@ public class EmailQuoteController extends BaseController {
         context.put("name", quote.getCustomerRef().getModel().getName());
         context.put("address", quote.getAddress());
         context.put("amount", qo.getOrderRef().getModel().getTotal().toString());
-        String link = "<a href=http://localhost:8888/pub/quoteToPdf?quoteKey="
+        String link = "<a href=http://" +request.getServerName()+ "/pub/quoteToPdf?quoteKey="
         +Datastore.keyToString(quote.getKey())+">here</a>";
         context.put("link", link);
         VelocityEngine ve = VelocityHelper.getVelocityEngine();

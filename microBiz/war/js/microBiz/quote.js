@@ -140,6 +140,7 @@ var quoteEditFn = {
 var quoteDetailFn = {
 	init: function() {
 		this.onEmailClick();
+		this.onDownloadClick();
 		quoteEditFn.onCloseClick();
 		// more than one submit button doesn't work, use normal button and post
 		//this.onSumitOrderRegister();
@@ -153,15 +154,26 @@ var quoteDetailFn = {
 	}
 	, onEmailClick: function() {
 		$("a[link=emailToCustomer]").click(function(){
-			var quoteKey = $(this).attr("quoteKey");
+			//var quoteKey = $(this).attr("quoteKey");
+			var quoteOrderKey =  $("#quoteOrder").val();
 			$.ajax({
 				type: "GET"
 				, url: "/quote/emailQuote"
-				, data: "quoteKey="+quoteKey
+				, data: "quoteOrderKey="+quoteOrderKey
 				, success: function(responseText) {
 					alert(responseText);
 				}
 			});
+		});
+	}
+	, onDownloadClick: function() {
+		$("a[link=downloadQuote]").click(function(){
+			//var quoteKey = $(this).attr("quoteKey");
+			var quoteOrderKey =  $("#quoteOrder").val();
+			alert("quoteorderkey is " + quoteOrderKey);
+			var win = window.open("/pub/quoteToPdf?quoteOrderKey="+quoteOrderKey, '_blank');
+			  win.focus();
+			
 		});
 	}
     // just validate order items in detail page

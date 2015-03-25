@@ -47,9 +47,9 @@ public class QuoteToPdfController extends BaseController {
         PDF pdf = new PDF(
             new BufferedOutputStream(
                 ResponseLocator.get().getOutputStream()));
+        QuoteOrder quoteOrder = quoteService.getQuoteOrder(Datastore.stringToKey(asString("quoteOrderKey")));
+        Quote quote = quoteOrder.getQuoteRef().getModel();
         
-        Quote quote = quoteService.get(Datastore.stringToKey(asString("quoteKey"))); 
-        QuoteOrder quoteOrder = quote.getQuoteOrderRef().getModelList().get(0);
         Order order = quoteOrder.getOrderRef().getModel();
         
         Font fs = new Font(pdf, CoreFont.HELVETICA);
