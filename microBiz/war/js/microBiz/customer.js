@@ -45,7 +45,7 @@ var customerFn = {
 			var nameStr = $("input[name=searchCustomerByName]").val();
 			var param = "?pageNo="+pageNo;
 			
-			if(addrStr){
+			if(nameStr){
 				param += "&searchCustomerByName="+nameStr;
 			}
 			
