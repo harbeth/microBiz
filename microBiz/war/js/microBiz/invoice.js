@@ -3,6 +3,9 @@ var invoiceFn = {
 		// register event for edit invoice link
 		this.onInvoiceDetailClick();
 		this.onInvoiceNewClick();
+		this.onInvoiceSearchSubmit();
+		this.onClearSearchClick();
+		this.onPaginateClick();
 	}
 	, onInvoiceDetailClick: function() {
 		// invoice number link to sh invoice details on AJAX call in the body panel
@@ -15,16 +18,65 @@ var invoiceFn = {
 			});
 		});
 	}
+	, onClearSearchClick: function() {
+		
+		$("a[link=clearInvoiceSearch]").click(function(){
+		
+			$("input[name=searchInvByInvNo]").val('');
+			$("input[name=searchInvByAddr]").val('');
+			$("select[name=searchStatus]").val(0);
+			// also need invoice key to get details
+			$("#invoiceListDIV").load("/invoice/invoiceSearch", function() {
+				invoiceFn.init(); 
+			});
+		});
+	}
+	, onPaginateClick: function() {
+		
+		$("a[link=paginating]").click(function(){
+			var pageNo = $(this).attr("pageNo");
+			var invNoStr = $("input[name=searchInvByInvNo]").val();
+			var addrStr = $("input[name=searchInvByAddr]").val();
+			var status = $("select[name=searchStatus]").val();
+			var param = "?pageNo="+pageNo+"&searchStatus="+status;
+			if(invNoStr){
+				param += "&searchInvByInvNo="+invNoStr;
+			}else{
+				if(addrStr){
+					param += "&searchInvByAddr="+addrStr;
+				}
+			}
+			
+			// also need invoice key to get details
+			$("#invoiceListDIV").load("/invoice/invoiceSearch"+param, function() {
+				invoiceFn.init(); 
+			});
+		});
+	}
 	, onInvoiceNewClick: function() {
 		// new invoice button in the invoice list page
 		$("a[link=invoiceNew]").click(function(){
 			// after get invoice key, get details page
 			$("#"+microBizConst.bodyContentId).load("/invoice/invoiceCreate", function() {
-				// job page is shown by default
-				// put it in the page for short cut from customer
-				//invoiceNewFn.init(); 
+				
 			});
 		});
+	}
+	, onInvoiceSearchSubmit: function() {
+		
+		var options = { 
+	        target: "#invoiceListDIV"
+	        , success: function(responseText, statusText, xhr, $form){
+	        	invoiceFn.init(); 
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=invoiceSearchForm]").submit(function() {
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
 	}
 }
 

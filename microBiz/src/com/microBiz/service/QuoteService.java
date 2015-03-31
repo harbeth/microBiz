@@ -18,12 +18,39 @@ public class QuoteService {
  
     
     public List<Quote> getAll() {
-         return Datastore.query(p).asList();
+         return Datastore.query(p).sort(p.createdAt.desc).asList();
         
     }
     
     public List<Quote> getQuotesByUser(String name) {
-        return Datastore.query(p).filter(p.creatorName.equal(name)).asList();
+        return Datastore.query(p).filter(p.creatorName.equal(name)).sort(p.createdAt.desc).asList();
+    }
+    
+    public List<Quote> searchQuoteAddrStartWith(String searchAddrStr) {
+        return Datastore.query(p).filter(p.address.startsWith(searchAddrStr)).asList();
+    }
+    
+    public List<Quote> searchQuoteByUserAddrStarts(String name,
+        String searchAddrStr) {
+        return Datastore.query(p).filter(p.creatorName.equal(name),p.address.startsWith(searchAddrStr)).asList();
+    }
+    
+    public List<Quote> searchQuoteByStatusAddrStartWith(String searchAddrStr,
+        Integer status) {
+        return Datastore.query(p).filter(p.status.equal(status),p.address.startsWith(searchAddrStr)).asList();
+}
+
+    public List<Quote> searchQuoteByUserStatusAddrStarts(String name,
+            String searchAddrStr, Integer status) {
+        return Datastore.query(p).filter(p.creatorName.equal(name),p.status.equal(status)).filterInMemory(p.address.startsWith(searchAddrStr)).asList();
+    }
+    
+    public List<Quote> getQuotesByStatus( Integer status) {
+        return Datastore.query(p).filter(p.status.equal(status)).sort(p.createdAt.desc).asList();
+    }
+    
+    public List<Quote> getQuotesByUserStatus(String name, Integer status) {
+        return Datastore.query(p).filter(p.creatorName.equal(name),p.status.equal(status)).asList();
     }
     
     public List<Quote> getCustomerQuote(Key customerKey) {
@@ -57,4 +84,10 @@ public class QuoteService {
     public QuoteOrder getQuoteOrder(Key key) {
         return Datastore.get(quoteOrderMeta, key);
     }
+
+
+
+
+
+
 }

@@ -3,6 +3,9 @@ var customerFn = {
 		// register event for edit invoice link
 		this.onCustomerDetailClick();
 		this.onCustomerNewClick();
+		this.onCustomerSearchSubmit();
+		this.onClearSearchClick();
+		this.onPaginateClick();
 	}
 	, onCustomerDetailClick: function() {
 		// invoice number link to sh invoice details on AJAX call in the body panel
@@ -23,6 +26,51 @@ var customerFn = {
 				customerNewFn.init(); 
 			});
 		});
+	}
+	, onClearSearchClick: function() {
+		
+		$("a[link=clearCustomerSearch]").click(function(){
+	
+			$("input[name=searchCustomerByName]").val('');
+			// also need invoice key to get details
+			$("#customerListDIV").load("/customer/customerSearch", function() {
+				customerFn.init(); 
+			});
+		});
+	}
+	, onPaginateClick: function() {
+		
+		$("a[link=paginating]").click(function(){
+			var pageNo = $(this).attr("pageNo");
+			var nameStr = $("input[name=searchCustomerByName]").val();
+			var param = "?pageNo="+pageNo;
+			
+			if(addrStr){
+				param += "&searchCustomerByName="+nameStr;
+			}
+			
+			
+			// also need invoice key to get details
+			$("#customerListDIV").load("/customer/customerSearch"+param, function() {
+				customerFn.init(); 
+			});
+		});
+	}
+	, onCustomerSearchSubmit: function() {
+		
+		var options = { 
+	        target: "#customerListDIV"
+	        , success: function(responseText, statusText, xhr, $form){
+	        	quoteFn.init(); 
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=customerSearchForm]").submit(function() {
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
 	}
 }
 

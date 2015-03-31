@@ -8,25 +8,21 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.model.Customer;
 import com.microBiz.service.CustomerService;
 
-public class CustomerController extends BaseController{
+public class CustomerController extends CustomerSearchBaseController{
 
-    private CustomerService customerService;
-    
+ 
     public CustomerController(){
         super();
-        customerService = new CustomerService();
+  
+    }
+
+    @Override
+    public List<Customer> getCustomers() {
+        return customerService.getAll();
     }
     @Override
-    public Navigation run() throws Exception {
-        
-        // only get data for invoice list, not details
-        List<Customer> customerList = customerService.getAll();
-        requestScope("customers", customerList);
-
-        requestScope("cxTypes", cxTypes);
-        requestScope("ratings", cxRatings);
-        
-        return forward("customer.jsp");
+    public String getReturnedJsp() {
+        return "customer.jsp";
     }
     
     

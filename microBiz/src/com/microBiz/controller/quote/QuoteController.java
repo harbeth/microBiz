@@ -11,18 +11,14 @@ import com.microBiz.model.Quote;
 import com.microBiz.service.QuoteService;
 
 
-public class QuoteController extends BaseController {
+public class QuoteController extends QuoteSearchBaseController {
 
-    private QuoteService quoteService;
-    
     public QuoteController(){
         super();
-        quoteService = new QuoteService();
+        
     }
-    
     @Override
-    public Navigation run() throws Exception {
-        // only get data for invoice list, not details
+    public List<Quote> getQuotes() {
         List<Quote> quoteList = null;
         HttpSession session = request.getSession();
         String myRole = (String)session.getAttribute("myrole");
@@ -31,7 +27,11 @@ public class QuoteController extends BaseController {
         }else{
             quoteList = quoteService.getAll();
         }
-        requestScope("quotes", quoteList);
-        return forward("quote.jsp");
+        return quoteList;
+    }
+
+    @Override
+    public String getReturnedJsp() {
+        return "quote.jsp";
     }
 }

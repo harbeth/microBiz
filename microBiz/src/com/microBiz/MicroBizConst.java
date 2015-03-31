@@ -5,6 +5,8 @@ public interface MicroBizConst {
     String CUSTOMER_TYPE_RESIDENTIAL = "residential";
     String CUSTOMER_TYPE_COMMERCIAL = "commercial";
     
+    public int ENTRIES_PER_PAGE = 10;
+    
     //constants for microBiz.properties
     public Integer CODE_ROLE_ADMIN = new Integer(1) ;
     public Integer CODE_ROLE_INSTALLER = new Integer(2);

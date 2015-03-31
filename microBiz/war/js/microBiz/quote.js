@@ -7,6 +7,9 @@ var quoteFn = {
 		// register event for edit invoice link
 		this.onQuoteDetailClick();
 		this.onQuoteNewClick();
+		this.onQuoteSearchSubmit();
+		this.onClearSearchClick();
+		this.onPaginateClick();
 	}
 	, onQuoteDetailClick: function() {
 		// invoice number link to sh invoice details on AJAX call in the body panel
@@ -30,6 +33,53 @@ var quoteFn = {
 				// quoteNewFn.init(); 
 			});
 		});
+	}
+	, onClearSearchClick: function() {
+		
+		$("a[link=clearQuoteSearch]").click(function(){
+	
+			$("input[name=searchQuoteByAddr]").val('');
+			$("select[name=searchStatus]").val(0);
+			// also need invoice key to get details
+			$("#quoteListDIV").load("/quote/quoteSearch", function() {
+				quoteFn.init(); 
+			});
+		});
+	}
+	, onPaginateClick: function() {
+		
+		$("a[link=paginating]").click(function(){
+			var pageNo = $(this).attr("pageNo");
+			var addrStr = $("input[name=searchQuoteByAddr]").val();
+			var status = $("select[name=searchStatus]").val();
+			var param = "?pageNo="+pageNo+"&searchStatus="+status;
+			
+			if(addrStr){
+				param += "&searchQuoteByAddr="+addrStr;
+			}
+			
+			
+			// also need invoice key to get details
+			$("#quoteListDIV").load("/quote/quoteSearch"+param, function() {
+				quoteFn.init(); 
+			});
+		});
+	}
+	, onQuoteSearchSubmit: function() {
+		
+		var options = { 
+	        target: "#quoteListDIV"
+	        , success: function(responseText, statusText, xhr, $form){
+	        	quoteFn.init(); 
+	        }
+	    }; 
+	    // bind to the form's submit event 
+	    $("form[name=quoteSearchForm]").submit(function() {
+	    	$(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
 	}
 }
 

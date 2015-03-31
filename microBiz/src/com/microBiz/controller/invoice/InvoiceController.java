@@ -11,18 +11,15 @@ import com.microBiz.model.Invoice;
 import com.microBiz.service.InvoiceService;
 
 
-public class InvoiceController extends BaseController {
-
-    private InvoiceService invoiceService;
-    
+public class InvoiceController extends InvoiceSearchBaseController {
+   
     public InvoiceController(){
         super();
-        invoiceService = new InvoiceService();
+  
     }
-    
+ 
     @Override
-    public Navigation run() throws Exception {
-        // only get data for invoice list, not details
+    public List<Invoice> getInvoices() {
         List<Invoice> invoiceList;
         HttpSession session = request.getSession();
         String myRole = (String)session.getAttribute("myrole");
@@ -31,7 +28,11 @@ public class InvoiceController extends BaseController {
         }else{
             invoiceList = invoiceService.getAll();
         }
-        requestScope("invoices", invoiceList);
-        return forward("invoice.jsp");
+        return invoiceList;
+    }
+
+    @Override
+    public String getReturnedJsp() {
+        return "invoice.jsp";
     }
 }

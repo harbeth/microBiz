@@ -27,7 +27,6 @@ public class Invoice extends MiCreatorBaseModel {
 
     private Date signDate;
 
-    // sales,(only available to admin, if user is a sales, the this is user)
     private String address;
 
     @Attribute(unindexed = true)

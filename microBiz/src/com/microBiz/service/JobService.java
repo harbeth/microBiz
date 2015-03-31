@@ -28,7 +28,7 @@ public class JobService {
     private JobReportMeta jobReport = new JobReportMeta();
     
     public List<Job> getAll() {
-        return Datastore.query(job).asList();
+        return Datastore.query(job).sort(job.startingDate.desc).asList();
     }
     
     public Job get(Key key) {
@@ -68,7 +68,9 @@ public class JobService {
     }
 
     public List<Job> getAllUncompleteJobs() {
-        return Datastore.query(job).filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN)).asList();
+        return Datastore.query(job)
+                .filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN))
+                .sort(job.startingDate.desc).asList();
     
     }
     
@@ -168,7 +170,10 @@ public class JobService {
     }
 
     public List<Job> getJobsForJobReport(String installerName) {
-        List<Job> jobs = Datastore.query(job).filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN), job.installer.equal(installerName)).asList();
+        List<Job> jobs = Datastore.query(job)
+                .filter(job.status.equal(MicroBizConst.CODE_STATUS_OPEN), job.installer.equal(installerName))
+                .sort(job.startingDate.desc)
+                .asList();
         return populateJobReport(jobs);
     }
     
