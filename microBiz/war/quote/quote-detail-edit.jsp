@@ -16,7 +16,7 @@
 
 	<div class="form-group input-group">
 		<span class="input-group-addon">Notes</span>
-		<textarea name="notes" class="form-control" rows="2">${f:h(note)}</textarea>
+		<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Status</span>

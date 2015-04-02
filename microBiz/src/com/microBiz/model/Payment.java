@@ -20,7 +20,7 @@ public class Payment extends MiCreatorBaseModel {
 
     private Integer method;
     
-    
+    @Attribute(unindexed = true)
     private String note;
 
     @Attribute(persistent = false)
@@ -40,14 +40,7 @@ public class Payment extends MiCreatorBaseModel {
         return invoiceRef;
     }
     
-    public Key getKey() {
-        return key;
-    }
     
-    public void setKey(Key key) {
-        this.key = key;
-    }
-   
     public Double getAmount() {
         return amount;
     }

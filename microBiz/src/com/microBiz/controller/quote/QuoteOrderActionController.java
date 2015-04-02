@@ -9,8 +9,10 @@ import org.slim3.datastore.Datastore;
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
+import com.microBiz.PropertyHelper;
 import com.microBiz.controller.common.OrderLoadActionController;
 import com.microBiz.model.Invoice;
+import com.microBiz.model.MiLog;
 import com.microBiz.model.Order;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
@@ -54,7 +56,8 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             invoice.setSales(userName);
             invoice.getCustomerRef().setModel(quote.getCustomerRef().getModel());
             invoice.setInvoiceNumber(MicroBizUtil.generateInvoiceNumber());
-            invoice.setNote("convert from quote " + quoteOrder.getName());
+            invoice.setNote(quote.getNote());
+            invoice.setSignDate(new Date());
             if(quote.getContactRef()!=null){
                 invoice.getContactRef().setModel(quote.getContactRef().getModel());
             }
@@ -62,6 +65,15 @@ public class QuoteOrderActionController extends OrderLoadActionController {
             invoice.getOrderRef().setKey(orderKey);
             invoiceService.save(invoice);
             invoiceKeyStr = Datastore.keyToString(invoice.getKey());
+            
+            MiLog milog1 = new MiLog();
+            milog1.setNote("[sys] quote version  " + quoteOrder.getName() + " was converted to invoice");
+            quoteService.saveLogEvent(milog1,quote.getKey());
+            
+            MiLog milog2 = new MiLog();
+            milog2.setNote("[sys] converted to invoice from quote version " + quoteOrder.getName());
+            invoiceService.saveLogEvent(milog2,invoice.getKey());
+            
             toInvoice = true;
             //return redirect("/invoice/invoiceDetails?invoiceKey=" + Datastore.keyToString(invoice.getKey()));
         }else if ( saveOption.equals("save") ) {

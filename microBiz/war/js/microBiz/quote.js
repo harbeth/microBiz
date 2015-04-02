@@ -201,6 +201,7 @@ var quoteDetailFn = {
 		this.registerTabClick();
 		// load order page
 		this.onSumitOrderRegister();
+		this.registerEventLogForm();
 	}
 	, onEmailClick: function() {
 		$("a[link=emailToCustomer]").click(function(){
@@ -333,5 +334,36 @@ var quoteDetailFn = {
 	// ======= END Job =====================
 	, isTabSelected: function(ctrlLink) {
 		return ctrlLink.parent().hasClass("active");
+	}
+	// need to load for the bean binding
+	, quoteDetailLogEventDisplay: function() {
+		var ctrl = $("#quoteDetailLogEventDIV");
+		var hasContent = ctrl.attr("hasContent");
+		if ( hasContent == 'n' ) {
+			// load content first
+			var quoteKey = ctrl.attr("quoteKey");
+			ctrl.load("/common/logEvent?quoteKey=" + quoteKey, function(){
+				// after edit tab loaded
+				quoteDetailFn.registerEventLogForm();
+			})
+			.attr("hasContent", "y");
+		}
+	}
+
+	, registerEventLogForm: function() {
+		// after submit, reload tab content
+		var options = { 
+	        target: "#quoteDetailLogEventDIV"
+	        , success: function(responseText, statusText, xhr, $form){
+	        	quoteDetailFn.registerEventLogForm();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+		$("form[name=miLogForm]").submit(function() { 
+	        $(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
 	}
 }

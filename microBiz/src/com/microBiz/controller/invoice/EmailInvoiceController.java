@@ -15,9 +15,11 @@ import org.apache.velocity.app.VelocityEngine;
 import org.slim3.controller.Navigation;
 import org.slim3.datastore.Datastore;
 
+import com.microBiz.PropertyHelper;
 import com.microBiz.controller.BaseController;
 import com.microBiz.controller.VelocityHelper;
 import com.microBiz.model.Invoice;
+import com.microBiz.model.MiLog;
 import com.microBiz.service.InvoiceService;
 
 
@@ -61,12 +63,16 @@ public class EmailInvoiceController extends BaseController {
             msg.setContent(message, "text/html" );
             Transport.send(msg);
             statusMsg = "Send out the email successfully.";
+            MiLog milog = new MiLog();
+            milog.setNote("[sys] email invoice to customer "); 
+            invoiceService.saveLogEvent(milog,invoice.getKey());
 
         } catch (Exception e) {
             statusMsg = "Cannot send out the email. " + e.getMessage();
         }
         writer.flush();
         writer.close();
+        
         response.getWriter().printf(statusMsg);
         return null;
     }

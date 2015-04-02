@@ -15,7 +15,7 @@ import com.microBiz.MicroBizConst;
 import com.microBiz.MicroBizUtil;
 import com.microBiz.PropertyHelper;
 
-@Model
+@Model(kind = "inv")
 public class Invoice extends MiCreatorBaseModel {
 
     private static final long serialVersionUID = 1L;

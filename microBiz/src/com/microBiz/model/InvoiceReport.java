@@ -5,7 +5,7 @@ import org.slim3.datastore.Model;
 import com.microBiz.MicroBizUtil;
 
 
-@Model(kind = "invoice_report")
+@Model(kind = "invR")
 public class InvoiceReport extends MiBaseModel {
     
     private static final long serialVersionUID = 1L;

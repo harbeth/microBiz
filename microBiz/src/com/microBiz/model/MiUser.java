@@ -1,5 +1,6 @@
 package com.microBiz.model;
 
+import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 
 @Model
@@ -10,14 +11,17 @@ public class MiUser extends MiBaseModel{
     private String name;
     
     private String email;
-    
+
     private String miRole;
     
+    @Attribute(unindexed = true)
     private String active;
     
+    @Attribute(unindexed = true)
     private String phone;
     
     // sales commission rate, installer hourly rate
+    @Attribute(unindexed = true)
     private Double rate;
 
  

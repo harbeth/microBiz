@@ -32,6 +32,9 @@
     <li class="">
     	<a link="quoteDetailInfo" data-toggle="tab" aria-expanded="false">Edit</a>
     </li>
+    <li class="">
+    	<a link="quoteDetailLogEvent"  data-toggle="tab" aria-expanded="false">Logs</a>
+    </li>
 </ul>
 <!-- Page content : by default job div shown -->
 <div id="quoteDetailVersionDIV" type="tab" quoteKey="${f:h(quote.key)}" class="row">
@@ -40,4 +43,6 @@
 
 <div id="quoteDetailInfoDIV" type="tab" quoteKey="${f:h(quote.key)}" class="row" hasContent="n">
 </div>
+
+<div id="quoteDetailLogEventDIV" type="tab" quoteKey="${f:h(quote.key)}" class="row" hasContent="n"></div>
 

@@ -17,6 +17,7 @@ import org.slim3.datastore.Datastore;
 
 import com.microBiz.controller.BaseController;
 import com.microBiz.controller.VelocityHelper;
+import com.microBiz.model.MiLog;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
 import com.microBiz.service.QuoteService;
@@ -64,6 +65,10 @@ public class EmailQuoteController extends BaseController {
             msg.setContent(message, "text/html" );
             Transport.send(msg);
             statusMsg = "Send out the email for Quotation successfully.";
+            
+            MiLog milog1 = new MiLog();
+            milog1.setNote("[sys] quote version  " + qo.getName() + " was emailed to customer.");
+            quoteService.saveLogEvent(milog1,quote.getKey());
 
         } catch (Exception e) {
             statusMsg = "Cannot send out the email. " + e.getMessage();

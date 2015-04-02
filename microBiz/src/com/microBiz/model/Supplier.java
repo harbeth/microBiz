@@ -1,5 +1,6 @@
 package com.microBiz.model;
 
+import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 
 @Model
@@ -7,6 +8,7 @@ public class Supplier extends MiBaseModel{
 
     private static final long serialVersionUID = 1L;
 
+    @Attribute(unindexed = true)
     private String name;
     
     private String active;

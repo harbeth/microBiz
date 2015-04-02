@@ -7,11 +7,15 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.microBiz.MicroBizConst;
+import com.microBiz.PropertyHelper;
 import com.microBiz.meta.InvoiceMeta;
 import com.microBiz.meta.OrderMeta;
+import com.microBiz.meta.MiLogMeta;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.InvoiceReport;
+import com.microBiz.model.MiLog;
 import com.microBiz.model.Order;
+import com.microBiz.model.OrderItem;
 
 public class InvoiceService {
     
@@ -126,6 +130,10 @@ public class InvoiceService {
             Invoice oldInvoice = get(i.getKey());
             if(oldInvoice.getStatus()!=i.getStatus()){ 
                 i.setStatusChangeDate(new Date());
+                MiLog milog = new MiLog();
+                milog.setNote("[sys] invoice changed from " +
+                PropertyHelper.getInstance().getLable(oldInvoice.getStatus()) + " to " + PropertyHelper.getInstance().getLable(i.getStatus() ) );
+                saveLogEvent(milog,i.getKey());
             }
         }
         Key key = Datastore.put(i);
@@ -153,6 +161,17 @@ public class InvoiceService {
     public void saveInvoiceReport(InvoiceReport ir) {
         Datastore.put(ir);
         
+    }
+
+    public List<MiLog> getMiLogs(Key invoiceKey) {
+        MiLogMeta ml = new MiLogMeta();
+        return Datastore.query(ml, invoiceKey).sort(ml.createdAt.desc).asList();
+    }
+
+    public void saveLogEvent(MiLog milog, Key invoiceKey) {
+        Key logKey = Datastore.allocateId(invoiceKey, MiLog.class);
+        milog.setKey(logKey);
+        Datastore.put(milog);       
     }
 
 

@@ -1,5 +1,6 @@
 package com.microBiz.model;
 
+import org.slim3.datastore.Attribute;
 import org.slim3.datastore.Model;
 
 @Model
@@ -9,6 +10,7 @@ public class MiRoleAccessRight extends MiBaseModel {
 
     private String miRole;
     
+    @Attribute(unindexed = true)
     private String accessibleModule;
     
  

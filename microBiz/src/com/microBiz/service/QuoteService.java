@@ -6,8 +6,10 @@ import org.slim3.datastore.Datastore;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.Transaction;
+import com.microBiz.meta.MiLogMeta;
 import com.microBiz.meta.QuoteMeta;
 import com.microBiz.meta.QuoteOrderMeta;
+import com.microBiz.model.MiLog;
 import com.microBiz.model.Quote;
 import com.microBiz.model.QuoteOrder;
 
@@ -85,7 +87,16 @@ public class QuoteService {
         return Datastore.get(quoteOrderMeta, key);
     }
 
+    public List<MiLog> getMiLogs(Key quoteKey) {
+        MiLogMeta ml = new MiLogMeta();
+        return Datastore.query(ml, quoteKey).sort(ml.createdAt.desc).asList();
+    }
 
+    public void saveLogEvent(MiLog milog, Key quoteKey) {
+        Key logKey = Datastore.allocateId(quoteKey, MiLog.class);
+        milog.setKey(logKey);
+        Datastore.put(milog);       
+    }
 
 
 

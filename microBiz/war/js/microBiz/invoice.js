@@ -258,8 +258,10 @@ var invoiceDetailFn = {
 		// close button on detail tab
 		this.onEditInvoiceClick();
 		this.onOrderClick();
+		this.onInvoiceLogEventClick();
 		this.onDetailPageClose();
 		this.registerOrderForm();
+		this.registerEventLogForm();
 		this.initManageTab();
 	}
 	, initManageTab: function() {
@@ -309,6 +311,7 @@ var invoiceDetailFn = {
 	        }
 	    }; 
 	    // bind to the form's submit event 
+		
 	    $("#invoiceDetailOrderForm").submit(function() { 
 	        $(this).ajaxSubmit(options); 
 	        // !!! Important !!! 
@@ -320,7 +323,9 @@ var invoiceDetailFn = {
 		$("a[link=invoiceEdit]").click(function(){
 			// hide order DIV first
 			$("#invoiceOrderDetailDIV").hide();
+			$("#invoiceLogEventDIV").hide();
 			$("a[link=invoiceOrder]").attr("nowSelected", "n");
+			$("a[link=invoiceLogEvent]").attr("nowSelected", "n");
 			$(this).attr("nowSelected", "y");
 			// load content of the edit DIV, always edit latest
 			var ctrl = $("#invoiceEditDetailDIV");
@@ -334,6 +339,44 @@ var invoiceDetailFn = {
 			ctrl.show();
 		});
 	}
+	
+	, onInvoiceLogEventClick: function() {
+		$("a[link=invoiceLogEvent]").click(function(){
+			// hide order DIV first
+			$("#invoiceOrderDetailDIV").hide();
+			$("#invoiceEditDetailDIV").hide();
+			$("a[link=invoiceOrder]").attr("nowSelected", "n");
+			$("a[link=invoiceEdit]").attr("nowSelected", "n");
+			$(this).attr("nowSelected", "y");
+			
+			var ctrl = $("#invoiceLogEventDIV");
+			var invoiceKey = $(this).attr("invoiceKey");
+			// load content first
+			ctrl.load("/common/logEvent?invoiceKey=" + invoiceKey, function(){
+				// after edit tab loaded
+				
+				$(this).attr("hasContent", "y");
+				invoiceDetailFn.registerEventLogForm();
+			});
+			ctrl.show();
+		});
+	}
+	, registerEventLogForm: function() {
+		// after submit, reload tab content
+		var options = { 
+	        target: "#invoiceLogEventDIV"
+	        , success: function(responseText, statusText, xhr, $form){
+	        	invoiceDetailFn.registerEventLogForm();
+	        }
+	    }; 
+	    // bind to the form's submit event 
+		$("form[name=miLogForm]").submit(function() { 
+	        $(this).ajaxSubmit(options); 
+	        // !!! Important !!! 
+	        // always return false to prevent standard browser submit and page navigation 
+	        return false; 
+	    }); 
+	}
 	, onOrderClick: function() {
 		$("a[link=invoiceOrder]").click(function(){
 			invoiceDetailFn.showOrderPage();
@@ -341,14 +384,16 @@ var invoiceDetailFn = {
 	}
 	, showOrderPage: function() {
 		// clear edit DIV
-		$("#invoiceEditDetailDIV").html("");
+		$("#invoiceEditDetailDIV").hide();
 		$("#invoiceOrderDetailDIV").show();
 		// selected
 		$("a[link=invoiceOrder]").attr("nowSelected", "y");
 		$("a[link=invoiceEdit]").attr("nowSelected", "n");
+		$("a[link=invoiceLogEvent]").attr("nowSelected", "n");
 		// set style
 		$("a[link=invoiceOrder]").parent().addClass("active");
 		$("a[link=invoiceEdit]").parent().removeClass("active");
+		$("a[link=invoiceLogEvent]").parent().removeClass("active");
 	}
 	// ============ manage tab =================
 	// if list page is show

@@ -10,13 +10,15 @@
     <li class="">
     	<a link="invoiceEdit" invoiceKey="${f:h(invoice.key)}" nowSelected="n" data-toggle="tab" aria-expanded="false">Edit</a>
     </li>
+    <li class="">
+    	<a link="invoiceLogEvent" invoiceKey="${f:h(invoice.key)}" nowSelected="n" data-toggle="tab" aria-expanded="false">Logs</a>
+    </li>
 </ul>
 
 <div id="invoiceOrderDetailDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row">
 	<jsp:include page="./invoice-order.jsp" flush="true"></jsp:include>
 </div>
 
-<div id="invoiceEditDetailDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n">
-
-</div>
+<div id="invoiceEditDetailDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n"></div>
+<div id="invoiceLogEventDIV" type="tab" invoiceKey="${f:h(invoice.key)}" class="row" hasContent="n"></div>
 

@@ -6,7 +6,7 @@
 <c:otherwise>
 
 <div class="table-responsive">
-	<table class="table table-hover table-striped">
+	<table class="table  table-striped">
 		<thead>
 			<tr>
 				<th>Invoice #</th>

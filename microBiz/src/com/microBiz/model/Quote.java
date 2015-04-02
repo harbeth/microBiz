@@ -21,6 +21,7 @@ public class Quote extends MiCreatorBaseModel {
     // open failed won
     private Integer status;
     // version count
+    @Attribute(unindexed = true)
     private Integer count;
     
     // for display

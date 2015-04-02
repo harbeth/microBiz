@@ -25,13 +25,11 @@ public class Customer extends MiCreatorBaseModel {
     @Attribute(unindexed = true)
     private Integer pymtTerm;
 
-    @Attribute(unindexed = true)
+
     private String altPhone;
 
-    @Attribute(unindexed = true)
     private String address;
 
-    @Attribute(unindexed = true)
     private String email;
 
 
