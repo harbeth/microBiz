@@ -590,7 +590,7 @@ var invoiceDetailFn = {
 		var options = { 
 	        target: "#invoiceDetailPaymentDIV"
 	        , beforeSubmit: function(){
-	        	var isOK = microBizFn.validateForm();
+	        	var isOK = microBizFn.validateFormWithCtrl($(this));
 	        	if ( isOK ) {
 	        		microBizFn.setSubmitBtnStatus(false);
 	        	}
@@ -645,7 +645,7 @@ var invoiceDetailFn = {
 		var options = { 
 	        target: "#invoiceDetailExpenseDIV"
 	        , beforeSubmit: function(){
-	        	var isOK = microBizFn.validateForm();
+	        	var isOK = microBizFn.validateFormWithCtrl($(this));
 	        	if ( isOK ) {
 	        		microBizFn.setSubmitBtnStatus(false);
 	        	}

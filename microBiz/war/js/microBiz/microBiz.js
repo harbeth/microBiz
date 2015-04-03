@@ -124,6 +124,47 @@ var microBizFn = {
 			*/
 		return isOK;
 	}
+	, validateFormWithCtrl: function(formCtrl) {
+		var isOK = true;
+		// mandatory field
+		var fields = [];
+		
+		formCtrl.find("input[mandatory=y][valueType=price]").each(function(){
+			if ( $(this).val() == "0.00" ) {
+				fields.push($(this).attr("field"));
+			}
+		});
+		
+		formCtrl.find("input[mandatory=y]").each(function(){
+			if ( $(this).val() == "" ) {
+				fields.push($(this).attr("field"));
+			}
+		});
+		
+		formCtrl.find("select[mandatory=y]").each(function(){
+			if ( $(this).val() == "-1" ) {
+				fields.push($(this).attr("field"));
+			}
+		});
+		if ( fields.length > 0 ) {
+			isOK = false;
+			alert(fields.join() + " cannot be empty.")
+		}
+			/*
+			$("input[valueType=price]").each(function(){
+				var priceValue = $(this).val();
+				if ( priceValue != "" ) {
+					var regex = /^(\$|)([1-9]\d{0,2}(\,\d{3})*|([1-9]\d*))(\.\d{2})/;
+			        var passed = priceValue.match(regex);
+			        if (passed == null) {
+			        	isOK = false;
+			            alert($(this).attr("field") + " is price only. For example: 523.36");
+			        }
+				}
+			});
+			*/
+		return isOK;
+	}
 	, setSubmitBtnStatus: function(statusValue) {
 		var submitBtn = $("button[type=submit]");
 		if ( statusValue ) {
