@@ -11,8 +11,7 @@ import java.util.TimeZone;
 public class MicroBizUtil {
     
     private static Calendar calendar = Calendar.getInstance();
-    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("mm/dd/yyyy"); 
-    private static final SimpleDateFormat DATE_FORMATTER_DISPLAY = new SimpleDateFormat("MMM dd, yyyy"); 
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("MM/dd/yyyy"); 
     private static final DecimalFormat PRICE_FORMATTER = new DecimalFormat("#.00"); 
     
     private MicroBizUtil() {
@@ -43,7 +42,7 @@ public class MicroBizUtil {
         return valueStr;
     }
     
-    // return MB-yyyy-mm-dd-hhmmss-mmm
+    // return yyyymmdd-hhmmss-mmm
     public static String generateInvoiceNumber(){
         //UUID.randomUUID().toString()
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -64,8 +63,8 @@ public class MicroBizUtil {
     }
     public static String parseDateToStr(Date d) {
         if(d!=null){
-            DATE_FORMATTER_DISPLAY.setTimeZone(TimeZone.getTimeZone("America/Toronto"));
-            return DATE_FORMATTER_DISPLAY.format(d);
+            DATE_FORMATTER.setTimeZone(TimeZone.getTimeZone("America/Toronto"));
+            return DATE_FORMATTER.format(d);
         }else{
             return "";
         }
