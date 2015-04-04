@@ -117,13 +117,15 @@ public class InvoiceService {
     }
 
     public Invoice save(Invoice i) {
-        
-        if(i.getInvoiceReportRef()==null || i.getInvoiceReportRef().getModel()==null){
-            InvoiceReport ir = new InvoiceReport();
-            ir.setTotal(i.getOrderRef().getModel().getTotal());
-            Datastore.put(ir);
+        InvoiceReport ir = i.getInvoiceReportRef().getModel();
+        if(ir==null ){
+            ir = new InvoiceReport();
             i.getInvoiceReportRef().setModel(ir);
         }
+        ir.setTotal(i.getOrderRef().getModel().getTotal());
+        Datastore.put(ir);
+       
+       
         
          
         if(i.getKey()!=null){
