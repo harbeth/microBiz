@@ -24,7 +24,7 @@ public class CustomerSearchController extends BaseController {
     public Navigation run() throws Exception {
         String customerSearchStr = asString("customerSearch");
         System.out.println(" customerSearchStr : " + customerSearchStr);
-        List<Customer> customerList = customerService.searchStartWith(customerSearchStr);
+        List<Customer> customerList = customerService.searchActiveCustomerStartWith(customerSearchStr);
         StringBuilder b = new StringBuilder("{\"query\": \"Unit\", \"suggestions\": [");
         // first one for new
         b.append("{\"value\": \"-- New Customer --\", \"data\": \"-1\"}");

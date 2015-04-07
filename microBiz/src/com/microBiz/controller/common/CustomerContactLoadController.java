@@ -32,7 +32,7 @@ public abstract class CustomerContactLoadController extends BaseController {
         boolean contactInfoShown = false;
         
         // get all customer
-        List<Customer> customerList = customerService.getAll();
+        List<Customer> customerList = customerService.getActiveCustomers();
         // find out which one selected
         if ( customerList != null && customerList.size() > 0 ) {
             // if has customer

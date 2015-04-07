@@ -28,9 +28,13 @@ public abstract class CustomerSaveActionController extends BaseController{
         // save invoice for edit / new
         Customer customer = getCustomer();
         BeanUtil.copy(request, customer); 
+        if(asString("active")==null){
+            customer.setActive("");
+        }
         // should return key, if not, return to invoice list
         Key key = customerService.save(customer);
         customer.setKey(key);
+
         // keep on same tab, update info DIV
         requestScope("customer", customer);
         return forward(getReturnJsp());

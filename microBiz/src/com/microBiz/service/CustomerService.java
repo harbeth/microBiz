@@ -17,6 +17,15 @@ public class CustomerService {
         return Datastore.query(p).asList();
     }
     
+    public List<Customer> getActiveCustomers() {
+        return Datastore.query(p).filter(p.active.equal("on")).asList();
+    }
+    
+    public List<Customer> searchActiveCustomerStartWith(String searchStr) {
+        // case insensitive ??
+        return Datastore.query(p).filter(p.searchName.startsWith(searchStr.trim().toLowerCase()),p.active.equal("on")).asList();
+    }
+    
     public List<Customer> searchStartWith(String searchStr) {
         // case insensitive ??
         return Datastore.query(p).filter(p.searchName.startsWith(searchStr.trim().toLowerCase())).asList();
