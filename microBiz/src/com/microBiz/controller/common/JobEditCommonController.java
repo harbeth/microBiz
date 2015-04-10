@@ -47,6 +47,7 @@ public abstract class JobEditCommonController extends BaseController {
             Job j = (Job)i.next();
             if(j.getStatus().intValue() == MicroBizConst.CODE_STATUS_OPEN.intValue()){
                 installerNames.remove(j.getInstaller());
+                installerNames.removeAll(j.getHelperNames());
             }
         }
         String jobKey = asString("jobKey");
@@ -64,6 +65,7 @@ public abstract class JobEditCommonController extends BaseController {
             // add back already assigned installer when edit an exiting job
             installerNames.add(job.getInstaller());
             
+            
             // checked the already selected products
             List<Product> checkedPrds = new ArrayList<Product>();
             Iterator<Product> ip = prdList.iterator();
@@ -75,6 +77,7 @@ public abstract class JobEditCommonController extends BaseController {
                 }
             }
             requestScope("checkedPrds",checkedPrds );
+            requestScope("checkedHelpers",job.getHelperNames() );
         }
         job.setInvoiceKey(invoiceKey);
         BeanUtil.copy(job, request);

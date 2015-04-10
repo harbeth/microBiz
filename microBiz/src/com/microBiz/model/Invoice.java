@@ -179,6 +179,7 @@ public class Invoice extends MiCreatorBaseModel {
             return false;
         }
         
+        /*
         int installerCount = PropertyHelper.getInstance().getInstallers().size();
         
         if( installerCount >  invoiceReportRef.getModel().getOnGoingJobCount()){
@@ -186,6 +187,8 @@ public class Invoice extends MiCreatorBaseModel {
         }else{
             return false;
         }
+        */
+        return true;
     }
     
     public Double getSalesCommission(){

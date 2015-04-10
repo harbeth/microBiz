@@ -22,7 +22,7 @@
 					<c:forEach var="j" items="${jobs}">
 						<li>
 							Inv#: ${f:h(j.invoiceRef.model.invoiceNumber)}
-							${f:nbsp('     ')} 
+							${f:nbsp('     ')} Installer: ${f:h(j.installer)} ${f:nbsp('     ')}
 							<p class="fa fa-home">${f:h(j.invoiceRef.model.address)} </p>${f:nbsp('     ')}
 							<p class="fa fa-calendar"> ${f:h(j.startingDateStr)} </p>${f:nbsp('     ')} 
 							<a link="jobReport"

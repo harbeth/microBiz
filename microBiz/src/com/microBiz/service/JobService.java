@@ -110,7 +110,17 @@ public class JobService {
 
         MiUserService userService = new MiUserService();                
         MiUser installer = userService.getUserByName(job.getInstaller());
-  
+        
+        Double rates = installer.getRate();
+        
+        List<String> helperNames = job.getHelperNames();
+        
+        for (String helperName : helperNames) {
+            MiUser helper = userService.getUserByName(helperName);
+            rates = rates + helper.getRate();
+        }
+        
+        
         labourHrs = labourHrs+jr.getTravelHours()+jr.getWorkingHours();
         List<JobMaterialReport> jmrs = jr.getJobMaterialReportListRef().getModelList();
         Iterator<JobMaterialReport>  ii = jmrs.iterator();
@@ -123,7 +133,7 @@ public class JobService {
      
         ir.addLabourHrs(labourHrs);
         ir.addMaterialCost(materialCost);
-        ir.addLabourCost(labourHrs*installer.getRate());
+        ir.addLabourCost(labourHrs*rates);
         Datastore.put(ir);
     }
 

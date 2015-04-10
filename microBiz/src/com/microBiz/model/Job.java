@@ -33,6 +33,9 @@ public class Job extends MiCreatorBaseModel {
 
     @Attribute(unindexed = true)
     private List<String> usePrdKeys;
+    
+    @Attribute(unindexed = true)
+    private List<String> helperNames;
 
     // ongoing, complete, canceled
     private Integer status;
@@ -188,8 +191,24 @@ public class Job extends MiCreatorBaseModel {
         }
         newJobReports.add(newJobReport);
     }
+
+    public List<String> getHelperNames() {
+        return helperNames;
+    }
     
-    
-    
+    public String getHelperNamesStr() {
+        String result = "";
+        if (helperNames!=null){
+            for(String name:helperNames){
+                result = result  + name + "  ";
+            }
+        }
+        return result;
+    }
+
+    public void setHelperNames(List<String> helperNames) {
+        this.helperNames = helperNames;
+    }
+
 
 }

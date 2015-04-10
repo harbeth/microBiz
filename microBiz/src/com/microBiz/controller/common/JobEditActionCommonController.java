@@ -2,6 +2,7 @@ package com.microBiz.controller.common;
 
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -83,6 +84,9 @@ public abstract class JobEditActionCommonController extends BaseController {
             Collections.addAll(prdKeys, prds);
             job.setUsePrdKeys(prdKeys);
         }
+        
+        String[] helpers = paramValues("helpers");
+        job.setHelperNames(Arrays.asList(helpers));
         
         
         

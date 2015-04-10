@@ -16,7 +16,7 @@
 		
 		<c:choose>
 			<c:when test = "${f:h(installerPrdsChangable)}">
-			<span class="input-group-addon">Installer</span> 
+			<span class="input-group-addon">Installer *</span> 
 			<select name="installer" class="form-control"  mandatory="y" field="installer">
 				<option value="">Select ...</option>
 				<c:forEach items="${installers}" var="i">
@@ -34,12 +34,16 @@
 	</div>
 
 	<div class="form-group input-group">
-		<span class="input-group-addon">Starting Date</span> 
+		<span class="input-group-addon">Starting Date *</span> 
 		<input type="text" ${f:text("startingDateStr")} mandatory="y" field="starting date" class="form-control" id="startingDateStr" />
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Arrival Time</span> 
 		<input type="text" ${f:text("arrivalTime")} class="form-control" />		
+	</div>
+	<div class="form-group input-group">
+		<span class="input-group-addon">Notes</span>
+		<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
 	</div>
 	<div class="form-group input-group">
 		<span class="input-group-addon">Status</span> 
@@ -79,21 +83,38 @@
 					</label>
 				</div>
 			</c:forEach>
+			<label>Check the Helpers For the Job:</label>
+			
+			<c:forEach items="${checkedHelpers}" var="he">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="helpers" value="${f:h(he)}" checked> ${f:h(he)}
+					</label>
+				</div>
+			</c:forEach>
+			<c:forEach items="${installers}" var="hh">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="helpers" value="${f:h(hh)}"> ${f:h(hh)}
+					</label>
+				</div>
+			</c:forEach>
 		</c:when>
 		<c:otherwise>
 			<lable>Products For the Job:<br></lable>
 				<c:forEach items="${checkedPrds}" var="pp">
 					<lable> ${f:h(pp.model)}<br> </lable>
 				</c:forEach>
+			<lable>Helpers For the Job:<br></lable>
+				<c:forEach items="${checkedHelpers}" var="hh">
+					<lable> ${f:h(hh)}<br> </lable>
+				</c:forEach>
 				
 			
 		</c:otherwise>
 	</c:choose>
 	</div>
-	<div class="form-group input-group">
-		<span class="input-group-addon">Notes</span>
-		<textarea name="note" class="form-control" rows="2">${f:h(note)}</textarea>
-	</div>
+	
 	<div class="form-group">
 		<button type="submit" class="btn btn-default">Submit</button>
 		<c:if test="${param.closeBtnShow == 'y'}">

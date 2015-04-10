@@ -2,7 +2,7 @@
 
 <div class="panel-body">
 <h4>Complete or Cancel Job <small>Inv#: ${f:h(invoiceRef.model.invoiceNumber)} ${f:nbsp('     ')} Address: ${f:h(invoiceRef.model.address)}
- ${f:nbsp('     ')} Installer:${f:h(installer)}</small> </h4>
+ ${f:nbsp('     ')} Installer:${f:h(installer)}${f:nbsp('     ')} Helper:${f:h(helperNamesStr)}</small> </h4>
 	<form name="managerJobDetailForm" role="form" method="post" action="${f:url('/manager/managerJobEditAction')}">
 		<div class="col-lg-6">
 			<input type="hidden" ${f:hidden("key")} />

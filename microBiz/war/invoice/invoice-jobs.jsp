@@ -7,7 +7,8 @@
 			<ul>
 			<c:forEach var="j" items="${jobs}">
 				<li>
-					Installer:  ${f:h(j.installer)} ${f:nbsp('     ')} 
+					Installer:  ${f:h(j.installer)} ${f:nbsp('     ')}
+					Helper:  ${f:h(j.helperNamesStr)} ${f:nbsp('     ')}  
 					<span class="fa fa-calendar"> ${f:h(j.startingDateStr)} </span>
 					${f:nbsp('     ')} 
 					<strong>${f:h(j.statusLable)}</strong>
