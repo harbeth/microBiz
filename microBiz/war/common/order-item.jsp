@@ -182,7 +182,7 @@ how to deal with Key enter event
 				//alert("rowIndex:" + rowIndex + ", rowRate: " + rowRate + ", rowQty: " + rowQty);
 				if ( rowRate != "" && rowQty != "" ) {
 					var rowRateFloat = parseFloat(rowRate);
-					var rowQtyInt = parseInt(rowQty);
+					var rowQtyInt = parseFloat(rowQty);
 					var rowTotalFloat = rowRateFloat * rowQtyInt;
 					rowTotalFloat = orderItemFn.roundToTwoDecimal(rowTotalFloat);
 					subTotalFloat += rowTotalFloat;
