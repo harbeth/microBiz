@@ -18,7 +18,7 @@
 				<thead>
 					<tr>
 						<th>Invoice #</th>
-						<th>Customer</th>
+						<th>Working Date</th>
 						<th>Address</th>
 						<th>Installer</th>
 						<th>Tr.Hr</th>
@@ -31,7 +31,7 @@
 					<c:forEach var="jr" items="${jobReports}">
 						<tr>
 							<td>${f:h(jr.jobRef.model.invoiceRef.model.invoiceNumber)}</td>
-							<td>${f:h(jr.jobRef.model.invoiceRef.model.customerRef.model.name)}</td>
+							<td>${f:h(jr.workingDateStr)}</td>
 							<td>${f:h(jr.jobRef.model.invoiceRef.model.address)}</td>
 							<td>${f:h(jr.jobRef.model.installer)}</td>
 							<td>${f:h(jr.travelHours)}</td>

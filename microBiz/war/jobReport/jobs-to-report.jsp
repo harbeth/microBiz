@@ -33,7 +33,7 @@
 									<li><a link="jobReportEdit" jobReportKey="${f:h(jr.key)}"
 										data-toggle="tab" aria-expanded="false"
 										class="btn btn-default btn-sm" role="button">Edit</a>
-										${f:h(jr.reportDateStr)} ${f:nbsp('   ')} Wk Hrs:
+										${f:h(jr.workingDateStr)} ${f:nbsp('   ')} Wk Hrs:
 										${f:h(jr.workingHours)} ${f:nbsp('   ')} Trv Hrs:
 										${f:h(jr.travelHours)} ${f:nbsp('   ')} Notes: ${f:h(jr.note)} <br>
 										

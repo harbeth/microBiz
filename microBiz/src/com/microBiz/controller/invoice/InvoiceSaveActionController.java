@@ -42,6 +42,10 @@ public abstract class InvoiceSaveActionController extends OrderLoadActionControl
         // save invoice for edit / new
         Invoice invoice = getInvoice();
         BeanUtil.copy(request, invoice); 
+        if(invoice.getSales()==null ){           
+            String userName = (String)request.getSession().getAttribute("userName");
+            invoice.setSales(userName);
+        }
         
         if(asString("autoInvoiceNumber")!=null){
             invoice.setInvoiceNumber(MicroBizUtil.generateInvoiceNumber());

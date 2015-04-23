@@ -86,7 +86,9 @@ public abstract class JobEditActionCommonController extends BaseController {
         }
         
         String[] helpers = paramValues("helpers");
-        job.setHelperNames(Arrays.asList(helpers));
+        if(helpers!=null && helpers.length>0){
+            job.setHelperNames(Arrays.asList(helpers));
+        }
         
         
         

@@ -2,7 +2,7 @@
 
 <div class="panel panel-red">
 	<div class="panel-heading">
-	${f:h(openJobCount)} Uncompleted Jobs
+	${f:h(openJobCount)} Open Jobs
 	</div>
 	<div class="panel-footer">
 		<span class="pull-right">

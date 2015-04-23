@@ -122,7 +122,9 @@ public class InvoiceService {
             ir = new InvoiceReport();
             i.getInvoiceReportRef().setModel(ir);
         }
-        ir.setTotal(i.getOrderRef().getModel().getTotal());
+        Double total = i.getOrderRef().getModel().getTotal();
+        ir.setTotal(total);
+        ir.setAmtBeforeTax(total/(1+i.getOrderRef().getModel().getTaxRate()));
         Datastore.put(ir);
        
        

@@ -127,7 +127,7 @@ public class JobService {
         while(ii.hasNext()){
             JobMaterialReport jmr = ii.next();
             materialCost = materialCost + jmr.getQty()*(jmr.getProductRef().getModel().getRate())
-                    *(jmr.getPrdRatioRef().getModel().getRatio());
+                    *(jmr.getRatioRate());
         }
          
      
@@ -145,17 +145,8 @@ public class JobService {
             JobMaterialReport jmr = i.next();
             Product prd = jmr.getProductRef().getModel();
             Double reportQty = jmr.getQty();
-            Double changedQty = null;
-            if(jmr.getPrdRatioRef()!=null && jmr.getPrdRatioRef().getModel()!=null){
-                PrdRatio pr = jmr.getPrdRatioRef().getModel();
-                changedQty = reportQty*pr.getRatio()*(-1);
-            }else{
-                if(prd.getPrdRatioList()!=null && prd.getPrdRatioList().size()==1){//only one PrdRatio
-                    changedQty = reportQty*prd.getPrdRatioList().get(0).getRatio()*(-1);
-                }else{
-                    changedQty = reportQty*(-1);
-                }
-            }
+            Double changedQty = reportQty*jmr.getRatioRate()*(-1);
+            
             InventoryChange ic = new InventoryChange();
             
             ic.setChangeQty(MicroBizUtil.roundTo2Demcial(changedQty));

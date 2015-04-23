@@ -17,6 +17,7 @@ public interface MicroBizConst {
     public Integer CODE_UNIT_POUND = new Integer(31);
     public Integer CODE_UNIT_STROKE = new Integer(32);
     public Integer CODE_UNIT_SQFT = new Integer(33);
+    public Integer CODE_UNIT_BAG = new Integer(34);
     
     public Integer CODE_CUSTOMER_RATING_NORMAL =new Integer(40);
     public Integer CODE_CUSTOMER_RATING_VIP = new Integer(41);

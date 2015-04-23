@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.Key;
 import com.microBiz.meta.JobReportMeta;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
+import com.microBiz.model.PrdRatio;
 import com.microBiz.service.JobService;
 
 
@@ -29,11 +30,12 @@ public class JobReportEditActionController extends RoleBasedSetJobsCommonControl
     //save job report, jobmaterialreport, joblaborreport
     @Override
     public Navigation run() throws Exception {
-        // only get data for invoice list, not details
+       
         JobReport jr = jobService.getJobReport(asKey(jrMeta.key));
 
         
         BeanUtil.copy(request,jr);
+        jr.setWorkingDate();
 
         jobService.saveJobReport(jr);
 
@@ -44,10 +46,11 @@ public class JobReportEditActionController extends RoleBasedSetJobsCommonControl
         for(int i=0; i<jmrList.size();i++){
             JobMaterialReport jmr = jmrList.get(i);
             if(!prdRatioKeys[i].equals("-1")){
-                Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
- 
-                jmr.getPrdRatioRef().setKey(prdRatioKey);
+                PrdRatio prdRatio = productService.getPrdRatio(Datastore.stringToKey(prdRatioKeys[i]));
+                jmr.setRatioDesc(prdRatio.getDesc());
+                jmr.setRatioRate(prdRatio.getRatio());
             }
+  
             jmr.setQty(Double.valueOf(qtys[i]));
            
             

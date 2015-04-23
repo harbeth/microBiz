@@ -1,4 +1,5 @@
 package com.microBiz.model;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +22,11 @@ public class JobReport extends MiCreatorBaseModel {
     // void, manager modify a job report entered by installer, the original job report become void, a void job report can not be edited
     // verified, only verified job report is used to caculate cost
     private Integer status;
+    
+    private Date workingDate;
+    
+    @Attribute(persistent = false)
+    private String workingDateStr;
 
     @Attribute(unindexed = true)
     private String note;
@@ -56,12 +62,15 @@ public class JobReport extends MiCreatorBaseModel {
             result.append(p.getModel())
             .append(": ").append(jmr.getQty())
             .append("  ").append(p.getConsumeReportUnitLable());
-            if(jmr.getPrdRatioRef()!=null && jmr.getPrdRatioRef().getKey()!=null){
-                result.append("  by  ").append(jmr.getPrdRatioRef().getModel().getDesc());
+            if(jmr.getRatioDesc()!=null){
+                result.append("  by  ").append(jmr.getRatioDesc());
             }
-            result.append("   ::::   ");
+            result.append("  ----  ");
 
             
+        }
+        if(result.lastIndexOf("  ----  ")>0 &&result.length()>result.lastIndexOf("  ----  ")){
+            result.delete(result.lastIndexOf("  ----  "), result.length());
         }
         return result.toString();
     
@@ -93,10 +102,6 @@ public class JobReport extends MiCreatorBaseModel {
     }
 
 
-    public String getReportDateStr() {
-        return MicroBizUtil.parseDateToStr(createdAt);
-    }
-
 
     public String getNote() {
         return note;
@@ -121,6 +126,25 @@ public class JobReport extends MiCreatorBaseModel {
         this.status = status;
     }
 
+    public Date getWorkingDate() {
+        return workingDate;
+    }
+
+    public void setWorkingDate(Date workingDate) {
+        this.workingDate = workingDate;
+    }
+
+    public String getWorkingDateStr() {
+        return MicroBizUtil.parseDateToStr(workingDate);
+    }
+
+    public void setWorkingDateStr(String workingDateStr) {
+        this.workingDateStr = workingDateStr;
+    }
+    // set date from dateStr
+    public void setWorkingDate() {
+        this.workingDate = MicroBizUtil.parseStrToDate(workingDateStr);
+    }
 
 
 }

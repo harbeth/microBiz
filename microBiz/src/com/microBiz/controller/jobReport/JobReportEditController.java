@@ -11,6 +11,7 @@ import com.microBiz.controller.BaseController;
 import com.microBiz.model.Job;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
+import com.microBiz.model.PrdRatio;
 import com.microBiz.model.Product;
 import com.microBiz.service.JobService;
 import com.microBiz.service.ProductService;
@@ -43,14 +44,16 @@ public abstract class JobReportEditController extends BaseController {
         
         for (int a = 0; a< jmrList.size(); a++){
             JobMaterialReport jmr = jmrList.get(a);
+            Product prd = productService.get(jmr.getProductRef().getKey());
             qty[a]=jmr.getQty().toString();
-            if(jmr.getPrdRatioRef().getModel()!=null && jmr.getPrdRatioRef().getModel().getKey()!=null){
-                prdRatioKey[a] = Datastore.keyToString(jmr.getPrdRatioRef().getModel().getKey());
+            if(jmr.getRatioDesc()!=null && prd.getShowRatio()){
+                PrdRatio prdR = productService.getPrdRatioByPrdAndDesc(prd.getKey(), jmr.getRatioDesc());
+                prdRatioKey[a] = Datastore.keyToString(prdR.getKey());
             }else{
                 prdRatioKey[a] = "-1";
             }
             //System.out.println("prdR key is " + prdRatioKey[a]);
-            prds.add(productService.get(jmr.getProductRef().getKey()));
+            prds.add(prd);
         }
         requestScope("qty", qty);
         requestScope("prdRatioKey", prdRatioKey);

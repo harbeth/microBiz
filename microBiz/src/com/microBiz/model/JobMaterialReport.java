@@ -12,12 +12,16 @@ public class JobMaterialReport extends MiBaseModel {
     @Attribute(unindexed = true)
     private Double qty;
     
+    @Attribute(unindexed = true)
+    private Double ratioRate;
+    
+    @Attribute(unindexed = true)
+    private String ratioDesc;
+    
     //make sure JobMaterialReport for a job is as the same order if Job: usedPrdKey[]
     private Integer count;
  
     private ModelRef<Product> productRef = new ModelRef<Product>(Product.class);
-    
-    private ModelRef<PrdRatio> prdRatioRef = new ModelRef<PrdRatio>(PrdRatio.class);
     
     private ModelRef<JobReport> jobReportRef = new ModelRef<JobReport>(JobReport.class);
   
@@ -27,14 +31,6 @@ public class JobMaterialReport extends MiBaseModel {
     public ModelRef<JobReport> getJobReportRef() {
         return jobReportRef;
     }
-
-
-
-
-    public ModelRef<PrdRatio> getPrdRatioRef() {
-        return prdRatioRef;
-    }
-
 
 
     public Double getQty() {
@@ -63,6 +59,28 @@ public class JobMaterialReport extends MiBaseModel {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+
+    public Double getRatioRate() {
+        return ratioRate;
+    }
+
+
+    public void setRatioRate(Double ratioRate) {
+        this.ratioRate = ratioRate;
+    }
+
+
+    public String getRatioDesc() {
+        return ratioDesc;
+    }
+
+
+    public void setRatioDesc(String ratioDesc) {
+        this.ratioDesc = ratioDesc;
+    }
+    
+    
 
 
 }

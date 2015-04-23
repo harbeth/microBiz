@@ -2,7 +2,7 @@
 
 <div class="panel panel-green">
 	<div class="panel-heading">
-		${f:h(openInvoiceCount)} ongoing invoices
+		${f:h(openInvoiceCount)} Open Invoices
 	</div>
 	<div class="panel-footer">
 		<span class="pull-right">

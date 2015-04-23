@@ -12,14 +12,18 @@ import com.microBiz.MicroBizConst;
 import com.microBiz.model.Job;
 import com.microBiz.model.JobMaterialReport;
 import com.microBiz.model.JobReport;
+import com.microBiz.model.PrdRatio;
+import com.microBiz.model.Product;
+import com.microBiz.service.ProductService;
 
 
 public abstract class JobReportNewActionController extends RoleBasedSetJobsCommonController {
-
+    
  
     
     public JobReportNewActionController(){
         super();
+        
    
     }
     
@@ -31,6 +35,7 @@ public abstract class JobReportNewActionController extends RoleBasedSetJobsCommo
         if(job !=null){
             JobReport jr = new JobReport();
             BeanUtil.copy(request,jr);
+            jr.setWorkingDate();
             if(managerApproved()){
                 jr.setStatus(MicroBizConst.CODE_STATUS_APPROVED);
             }
@@ -46,8 +51,20 @@ public abstract class JobReportNewActionController extends RoleBasedSetJobsCommo
                 JobMaterialReport jmr = new JobMaterialReport();
                 Key productKey = Datastore.stringToKey(prdKeys.get(i));
                 if(!prdRatioKeys[i].equals("-1")){
-                    Key prdRatioKey = Datastore.stringToKey(prdRatioKeys[i]);
-                    jmr.getPrdRatioRef().setKey(prdRatioKey);
+                    PrdRatio prdRatio = productService.getPrdRatio(Datastore.stringToKey(prdRatioKeys[i]));
+                    jmr.setRatioDesc(prdRatio.getDesc());
+                    jmr.setRatioRate(prdRatio.getRatio());
+                }else{// none or just one prdRatio
+                    Product p = productService.get(productKey);
+                    List<PrdRatio> prL = p.getPrdRatioList();
+                    if(prL!=null && prL.size()>0){
+                        
+                        jmr.setRatioRate(prL.get(0).getRatio());
+                    }else{
+                        
+                        jmr.setRatioRate(new Double(1));
+                    }
+                    
                 }
                 jmr.getProductRef().setKey(productKey);
                 jmr.setQty(Double.valueOf(qtys[i]));

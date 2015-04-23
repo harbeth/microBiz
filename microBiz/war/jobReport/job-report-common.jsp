@@ -4,7 +4,17 @@
 		$("input[valueType=price]").numeric();
 	});
 </script>
+
+<script>
+	$(function() {
+		$("#workingDateStr").datepicker();
+	});
+</script>
 <div class="col-lg-6">
+	<div class="form-group input-group">
+		<span class="input-group-addon">Working Date *</span> 
+		<input type="text" ${f:text("workingDateStr")} mandatory="y" field="working date" class="form-control" id="workingDateStr" />
+	</div>
 	<c:forEach items="${prds}" var="p" varStatus="loop">
 		<div class="form-group input-group">
 			<span class="input-group-addon">${f:h(p.model)} ${f:nbsp('  ')}

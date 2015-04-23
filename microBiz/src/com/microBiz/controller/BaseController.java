@@ -125,6 +125,7 @@ public abstract class BaseController extends Controller {
         unitKeyList.add(MicroBizConst.CODE_UNIT_KG);
         unitKeyList.add(MicroBizConst.CODE_UNIT_STROKE);
         unitKeyList.add(MicroBizConst.CODE_UNIT_SQFT);
+        unitKeyList.add(MicroBizConst.CODE_UNIT_BAG);
         units = getDropDownList(unitKeyList);
         
         List<Integer> cxRatingList = new ArrayList<Integer>();

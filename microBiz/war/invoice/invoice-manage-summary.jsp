@@ -5,7 +5,7 @@
 		<div class="panel-heading">
 			<li>${f:h(invoice.statusLable)} ${f:h('  ')} On ${f:h('  ')} ${f:h(invoice.statusChangeDateStr)} </li>
 			<li>${f:h(invoice.invoiceReportRef.model.completeJobCount)} Jobs Completed</li>
-			<li>${f:h(invoice.invoiceReportRef.model.onGoingJobCount)} Jobs On going</li>
+			<li>${f:h(invoice.invoiceReportRef.model.onGoingJobCount)} Jobs Open</li>
 		</div>
 		<div class="panel-footer">
 			<c:if test = "${f:h(invoice.showAssignJobLink)}">

@@ -23,6 +23,9 @@ public class InvoiceReport extends MiBaseModel {
     private Double total;
     
     @Attribute(unindexed = true)
+    private Double amtBeforeTax;
+    
+    @Attribute(unindexed = true)
     private Double pymtReceived;
     
     @Attribute(unindexed = true)
@@ -42,7 +45,11 @@ public class InvoiceReport extends MiBaseModel {
     }
     
     public Double getProfitMargin(){
-        return MicroBizUtil.roundTo2Demcial(100*((total-labourCost-materialCost-otherExpense)/total));
+        if(amtBeforeTax==null){
+            return MicroBizUtil.roundTo2Demcial(100*((total-labourCost-materialCost-otherExpense)/total));
+        }else{
+            return MicroBizUtil.roundTo2Demcial(100*((amtBeforeTax-labourCost-materialCost-otherExpense)/amtBeforeTax));
+        }
     }
 
     public InvoiceReport(){
@@ -157,5 +164,14 @@ public class InvoiceReport extends MiBaseModel {
         this.completeJobCount = completeJobCount;
     }
 
+    public Double getAmtBeforeTax() {
+        return amtBeforeTax;
+    }
+
+    public void setAmtBeforeTax(Double amtBeforeTax) {
+        this.amtBeforeTax = amtBeforeTax;
+    }
+
+    
 
 }

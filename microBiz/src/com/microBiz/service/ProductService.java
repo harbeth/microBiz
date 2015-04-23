@@ -99,5 +99,10 @@ public class ProductService {
     public PrdRatio getPrdRatio(Key prdRatioKey) {
         return Datastore.get(pr, prdRatioKey);
     }
+    
+    public PrdRatio getPrdRatioByPrdAndDesc(Key prdKey, String desc) {
+        List<PrdRatio> r = Datastore.query(pr,prdKey).filterInMemory(pr.desc.equal(desc)).asList();
+        return r.get(0);
+    }
 
 }

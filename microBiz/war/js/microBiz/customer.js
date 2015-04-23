@@ -61,7 +61,7 @@ var customerFn = {
 		var options = { 
 	        target: "#customerListDIV"
 	        , success: function(responseText, statusText, xhr, $form){
-	        	quoteFn.init(); 
+	        	customerFn.init(); 
 	        }
 	    }; 
 	    // bind to the form's submit event 
