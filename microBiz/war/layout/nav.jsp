@@ -68,6 +68,19 @@
 					}
 				%>
 				<%
+					if (accesssibleModules.contains("report")) {
+				%>
+				<li><a href="#"><i class="fa fa-wrench fa-fw"></i>Reports<span
+						class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="/report/invoiceProfit">Invoices Profit</a></li>
+				
+					</ul> <!-- /.nav-second-level --></li>
+				
+				<%
+					}
+				%>
+				<%
 					if (accesssibleModules.contains("jobReport")) {
 				%>
 				<li><a href="/jobReport/jobsToReport"><i class="fa fa-table fa-fw"></i>job Report</a></li>

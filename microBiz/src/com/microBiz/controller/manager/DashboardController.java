@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slim3.controller.Navigation;
 
+import com.microBiz.MicroBizUtil;
 import com.microBiz.controller.BaseController;
 import com.microBiz.model.Invoice;
 import com.microBiz.model.InvoiceReport;
@@ -28,8 +29,9 @@ public class DashboardController extends BaseController {
        
         int newJobReportCount = jobService.getNewJobReports().size();
         int openJobCount = jobService.getAllUncompleteJobs().size();
-        int openInvoiceCount = invoiceService.getOpenInvoices().size();
         List<Invoice> unPaidOffInvoices = invoiceService.getUnPaidOffInvoices();
+        List<Invoice> openInvoices = invoiceService.getOpenInvoices();
+        int openInvoiceCount = openInvoices.size();
         
         int unPaidOffInvoiceCount = unPaidOffInvoices.size();
         double unPaidAmt = 0;
@@ -39,6 +41,13 @@ public class DashboardController extends BaseController {
             InvoiceReport ir = inv.getInvoiceReportRef().getModel();
             unPaidAmt = unPaidAmt + ir.getTotal()-ir.getPymtReceived();
         }
+        double openInvoiceAmt = 0;
+        Iterator<Invoice> ii = openInvoices.iterator();
+        while (ii.hasNext()){
+            Invoice inv = (Invoice)ii.next();
+            InvoiceReport ir = inv.getInvoiceReportRef().getModel();
+            openInvoiceAmt = openInvoiceAmt + ir.getTotal();
+        }
         //requestScope("jobReports", jobReportsToAprove);
         
         // get all invoice list for now, should get not fully paied invoice list
@@ -46,7 +55,8 @@ public class DashboardController extends BaseController {
         requestScope("openJobCount",openJobCount);
         requestScope("openInvoiceCount",openInvoiceCount);
         requestScope("unPaidOffInvoiceCount",unPaidOffInvoiceCount);
-        requestScope("unPaidAmt",unPaidAmt);
+        requestScope("unPaidAmt",MicroBizUtil.roundTo2Demcial(unPaidAmt));
+        requestScope("openInvoiceAmt",MicroBizUtil.roundTo2Demcial(openInvoiceAmt));
         
         
         requestScope("invoices", invoiceService.getUnPaidOffInvoices());

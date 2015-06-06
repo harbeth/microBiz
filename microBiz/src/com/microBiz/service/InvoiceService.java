@@ -31,6 +31,14 @@ public class InvoiceService {
         return Datastore.query(i).filter(i.status.equal(MicroBizConst.CODE_STATUS_OPEN)).sort(i.signDate.desc).asList();
     }
     
+    public List<Invoice> getClosedInvoices() {
+        return Datastore.query(i).filter(i.status.equal(MicroBizConst.CODE_STATUS_CLOSED)).sort(i.signDate.desc).asList();
+    }
+    
+    public List<Invoice> getClosedInvoicesBySignDateRange(Date from, Date to) {
+        return Datastore.query(i).filter(i.status.equal(MicroBizConst.CODE_STATUS_CLOSED), i.signDate.greaterThan(from), i.signDate.lessThan(to)).sort(i.signDate.desc).asList();
+    }
+    
     public List<Invoice> getInvoicesBySales(String name) {
         return Datastore.query(i).filter(i.sales.equal(name)).sort(i.signDate.desc).asList();
     }

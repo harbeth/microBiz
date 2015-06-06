@@ -78,11 +78,13 @@ public class MicroBizUtil {
             try{
                 result = DATE_FORMATTER.parse(s);
             }catch(Exception e){
-                
+                return null;
             }
             return result;
         }else{
             return null;
         }
     }
+    
+ 
 }

@@ -405,8 +405,23 @@ public class Invoice extends MiCreatorBaseModel {
     public void setNoteToCx(String noteToCx) {
         this.noteToCx = noteToCx;
     }
-    
-    
+
+    public String getInstallSummaryStr() {
+        List<Job> ie = jobListRef.getModelList();
+        String  result ="";
+        Iterator<Job> i = ie.iterator();
+        while (i.hasNext()){
+            Job j = i.next();
+            if(j.getStatus().intValue() == MicroBizConst.CODE_STATUS_COMPLETED){
+                result = result + j.getInstaller() + "   ";
+            }
+        }
+        
+        return result;
+       
+    }
+
+ 
 
 
 }

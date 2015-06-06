@@ -14,7 +14,7 @@
 		
 		<div class="form-group input-group">
 			<span class="input-group-addon">Expense Amount *</span> 
-			<input type="text" valueType="price" mandatory="y" field="Expense Amount" name="expense" value="${f:h(expenseStr)}" class="form-control" />
+			<input type="text" mandatory="y" field="Expense Amount" name="expense" value="${f:h(expenseStr)}" class="form-control" />
 		</div>
 
 	

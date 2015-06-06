@@ -204,6 +204,7 @@ public abstract class BaseController extends Controller {
         modules.add("prd");
         modules.add("jobReport");
         modules.add("manager");
+        modules.add("report");
         
         txRates.add("0.13");
         txRates.add("0");
