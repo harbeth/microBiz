@@ -46,7 +46,7 @@
 
 			 			<div class="col-sm-4">
 							<button type="submit" class="btn btn-default btn-sm">Submit</button>
-							<a link="clearInvoiceSearch" data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">Get Invoices From Past 365 Days</a>
+							<a link="clearInvoiceSearch" data-toggle="tab" aria-expanded="false" class="btn btn-default btn-sm" role="button">For Last 365 Days</a>
 						</div>
 			        
 					</div>

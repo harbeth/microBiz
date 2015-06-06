@@ -58,7 +58,10 @@ public class InvoiceProfitController extends BaseController {
             
             
         }
-        double margin = (revenue-materialCost-laborCost-otherCost)/revenue;
+        double margin = 0;
+        if(revenue>0){
+            margin = (revenue-materialCost-laborCost-otherCost)/revenue;
+        }
         requestScope("invoices", closedInvoices);
         requestScope("signDateFrom", signDateFromStr);
         requestScope("signDateTo", signDateToStr);
